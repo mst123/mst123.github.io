@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typescript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="TypeScript 在 1.5 版本之前，有内部模块和外部模块的概念，从 1.5版本开始，内部模块改称作命名空间（我们下个小节会讲），外部模块改称为模块。如果你对模块的知识一无所知，建议你先重点学习一下CommonJS 模块系统和 ES6模块系统，TypeScript 中的模块系统是遵循 ES6标准的，所以你需要重点学习 ES6标准中的模块知识，这里推荐大家几个链接，大家可以在这里去学习一下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="26 使用模块封装代码">
+<meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="TypeScript 在 1.5 版本之前，有内部模块和外部模块的概念，从 1.5版本开始，内部模块改称作命名空间（我们下个小节会讲），外部模块改称为模块。如果你对模块的知识一无所知，建议你先重点学习一下CommonJS 模块系统和 ES6模块系统，TypeScript 中的模块系统是遵循 ES6标准的，所以你需要重点学习 ES6标准中的模块知识，这里推荐大家几个链接，大家可以在这里去学习一下：">
+<meta property="og:image" content="http://img.mukewang.com/5d22b95e0001a6ac16000547.jpg">
+<meta property="article:published_time" content="2020-05-22T03:37:02.152Z">
+<meta property="article:modified_time" content="2020-05-22T05:45:15.940Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.mukewang.com/5d22b95e0001a6ac16000547.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2020/05/22/typescript/26 使用模块封装代码/"/>
+
+
+
+
+
+  <title>26 使用模块封装代码 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">26 使用模块封装代码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>TypeScript 在 1.5 版本之前，有<strong>内部模块</strong>和<strong>外部模块</strong>的概念，从 1.5<br>版本开始，<strong>内部模块</strong>改称作<strong>命名空间</strong>（我们下个小节会讲），<strong>外部模块</strong>改称为<strong>模块</strong>。如果你对模块的知识一无所知，建议你先重点学习一下<br><code>CommonJS</code> 模块系统和 ES6模块系统，TypeScript 中的模块系统是遵循 ES6<br>标准的，所以你需要重点学习 ES6<br>标准中的模块知识，这里推荐大家几个链接，大家可以在这里去学习一下：</p>
+<ul>
+<li><a href="http://www.mamicode.com/info-detail-1935796.html" target="_blank" rel="noopener">CommonJS/AMD/CMD/ES6规范</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/module" target="_blank" rel="noopener">ECMAScript6入门 - Module<br>的语法</a></li>
+</ul>
+<p>TypeScript 和 ES6 保持一致，包含顶级 import 或 export<br>的文件都被当成一个模块，则里面定义的内容仅模块内可见，而不是全局可见。TypeScript<br>的模块除了遵循 ES6<br>标准的模块语法外，还有一些特定语法，用于类型系统兼容多个模块格式，下面我们来开始学习<br>TypeScript 模块。</p>
+<h3 id="4-1-1-export"><a href="#4-1-1-export" class="headerlink" title="4.1.1. export"></a>4.1.1. export</h3><p>TypeScript 中，仍然使用 export<br>来导出声明，而且能够导出的不仅有变量、函数、类，还包括 TypeScript<br>特有的类型别名和接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; funcInterface.ts</span><br><span class="line">export interface Func &#123;</span><br><span class="line">  (arg: number): string;</span><br><span class="line">&#125;</span><br><span class="line">export class C &#123;</span><br><span class="line">  constructor() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">class B &#123;&#125;</span><br><span class="line">export &#123; B &#125;;</span><br><span class="line">export &#123; B as ClassB &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，你可以使用 export<br>直接导出一个声明，也可以先声明一个类或者其它内容，然后使用 export<br>{}的形式导出，也可以使用 as 来为导出的接口换个名字再导出一次。</p>
+<p>你也可以像 ES6 模块那样重新导出一个模块，也就是 export<br>一个引入内容，也可以重新导出部分内容，也可以重命名重新导出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">export * from &quot;.&#x2F;moduleB&quot;;</span><br><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">export &#123; name &#125; from &quot;.&#x2F;moduleB&quot;;</span><br><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">export &#123; name as nameProp &#125; from &quot;.&#x2F;moduleB&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-import"><a href="#4-1-2-import" class="headerlink" title="4.1.2. import"></a>4.1.2. import</h3><p>接下来我们来看导出的模块怎么引入，依然是使用 import：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">import &#123; name &#125; from &quot;.&#x2F;moduleB&quot;;</span><br><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">import * as info from &quot;.&#x2F;moduleB&quot;;</span><br><span class="line">&#x2F;&#x2F;main.ts</span><br><span class="line">import &#123; name as nameProp &#125; from &quot;.&#x2F;moduleB&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>同样，可以使用 import 直接接模块名或文件路径，进行具有副作用的导入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;.&#x2F;set-title.ts&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-3-export-default"><a href="#4-1-3-export-default" class="headerlink" title="4.1.3. export default"></a>4.1.3. export default</h3><p>同样在 TypeScript 中使用 export default 默认导出，这个和 ES6 一样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; moduleB.ts</span><br><span class="line">export default &quot;lison&quot;;</span><br><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">import name from &quot;.&#x2F;moduleB.ts&quot;;</span><br><span class="line">console.log(name); &#x2F;&#x2F; &#39;lison&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-4-export-和-import-require-export–和-import–require"><a href="#4-1-4-export-和-import-require-export–和-import–require" class="headerlink" title="4.1.4. export = 和 import = require()  { #export–和-import–require}"></a>4.1.4. export = 和 import = require()  { #export–和-import–require}</h3><p>TypeScript可以将代码编译为CommonJS、AMD或其它模块系统代码，同时会生成对应的声明文件。我们知道CommonJS和AMD两种模块系统语法是不兼容的，所以TypeScript为了兼容这两种语法，使得我们编译后的声明文件同时支持这两种模块系统，增加了<code>export =</code>和<code>import xx = require()</code>两个语句。</p>
+<p>当我们想要导出一个模块时，可以使用<code>export =</code>来导出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; moduleC.ts</span><br><span class="line">class C &#123;&#125;</span><br><span class="line">export &#x3D; C;</span><br></pre></td></tr></table></figure>
+
+<p>然后使用这个形式导出的模块，必须使用<code>import xx = require()</code>来引入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; main.ts</span><br><span class="line">import ClassC &#x3D; require(&quot;.&#x2F;moduleC&quot;);</span><br><span class="line">const c &#x3D; new ClassC();</span><br></pre></td></tr></table></figure>
+
+<p>如果你的模块不需要同时支持这两种模块系统，可以不使用<code>export =</code>来导出内容。</p>
+<h3 id="4-1-5-相对和非相对模块导入"><a href="#4-1-5-相对和非相对模块导入" class="headerlink" title="4.1.5. 相对和非相对模块导入"></a>4.1.5. 相对和非相对模块导入</h3><p>根据引入模块的路径是相对还是非相对，模块的导入会以不同的方式解析：</p>
+<ul>
+<li>相对导入是以<code>./</code>或<code>…/</code>开头的，<code>./</code>表示当前目录，而<code>…/</code>表示当前目录的上一级目录。以下面的文件目录为例：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line"> ╠═ module</span><br><span class="line"> ║    ╠═ moduleA.ts</span><br><span class="line"> ║    ╚═ moduleB.ts</span><br><span class="line"> ╚═ core</span><br><span class="line">      ╚═ index.ts</span><br></pre></td></tr></table></figure>
+
+<p>以上面的文件目录为例，我们如果在 index.ts 中引入两个模块，和在 moduleA<br>模块中引入 moduleB 是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; moduleA.ts</span><br><span class="line">import moduleB from &quot;.&#x2F;moduleB.ts&quot;; &#x2F;&#x2F; 这里在moduleA.ts文件里引入同级的moduleB.ts文件，所以使用.&#x2F;表示moduleA.ts文件当前所在路径</span><br><span class="line">&#x2F;&#x2F; index.ts</span><br><span class="line">import moduleA from &quot;..&#x2F;module&#x2F;moduleA.ts&quot;;</span><br><span class="line">import moduleB from &quot;..&#x2F;module&#x2F;moduleB&quot;; &#x2F;&#x2F; 这里省略了.ts后缀也可以</span><br></pre></td></tr></table></figure>
+
+<p>当我们引用模块文件的时候省略了 .ts<br>后缀也是可以的，这就涉及到一个模块解析策略。我们以上面例子中这个moduleB<br>为例，编译器在解析模块引用的时候，如果遇到省略后缀的情况，会依次查找以该名称为文件名的.ts、.tsx、.d.ts文件；如果没找到，会在当前文件夹下的<br>package.json 文件里查找 types<br>字段指定的模块路径，然后通过这个路径去查找模块；如果没找到package.json文件或者types字段，则会将<br>moduleB 当做文件夹去查找，如果它确实是文件夹，将会在这个文件夹下依次查找<br>index.ts、index.tsx、index.d.ts。 如果还没找到，会在上面例子中 module<br>文件夹的上级文件夹继续查找，查找规则和前面这些顺序一致。</p>
+<p>除了这两种符号开头的路径，都被当做非相对路径。非相对模块的导入可以相对于<br>baseUrl，也可以通过路径映射，还可以解析为外部模块。关于模块解析的更多配置，我们会在后面章节介绍，这里我们主要学习语法。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本小节我们学习了 TypeScript<br>的模块系统，使用模块我们可以将一些逻辑封装在模块中，方便在多个文件中引入使用，这样可以帮我们更方便地整理、复用代码。在这个小节中我们学习了<br>TypeScript 中遵循 ES6 的模块语句，其中导出语句为 <code>export</code>，引入语句为<br><code>import</code>，如果要默认导出，则使用 <code>export default</code>。我们还学习了<br>TypeScript 中特别增加的兼容 CommonJS 和 AMD<br>模块系统的导出和导入语句：<code>export =</code>和<code>import xx = require()</code>。最后我们简单学习了相对模块和非相对模块的引入，同时还介绍了模块引用的解析策略。</p>
+<p>下个小节我们将学习命名空间，命名空间在TypeScirpt1.5版本之前称为“内部模块”，它可以将属于一类的代码进行汇总封装，效果类似于我们这节课学习的模块，下个小节我们来进行学习。<br> <img src="http://img.mukewang.com/5d22b95e0001a6ac16000547.jpg" alt="图片描述"></p>
+<p><a href="/read/35/article/362"></a></p>
+<p>**</p>
+<p>25 入手装饰器，给凡人添加超能力</p>
+<p><a href="/read/35/article/364"></a></p>
+<p>使用命名空间封装代码</p>
+<p>**</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/22/typescript/25%20%E5%85%A5%E6%89%8B%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%8C%E7%BB%99%E5%87%A1%E4%BA%BA%E6%B7%BB%E5%8A%A0%E8%B6%85%E8%83%BD%E5%8A%9B/" rel="next" title="25 入手装饰器，给凡人添加超能力">
+                <i class="fa fa-chevron-left"></i> 25 入手装饰器，给凡人添加超能力
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/22/typescript/27%20%E4%BD%BF%E7%94%A8%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" rel="prev" title="27 使用命名空间封装代码">
+                27 使用命名空间封装代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-export"><span class="nav-number">1.</span> <span class="nav-text">4.1.1. export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-import"><span class="nav-number">2.</span> <span class="nav-text">4.1.2. import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-3-export-default"><span class="nav-number">3.</span> <span class="nav-text">4.1.3. export default</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-4-export-和-import-require-export–和-import–require"><span class="nav-number">4.</span> <span class="nav-text">4.1.4. export &#x3D; 和 import &#x3D; require()  { #export–和-import–require}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-5-相对和非相对模块导入"><span class="nav-number">5.</span> <span class="nav-text">4.1.5. 相对和非相对模块导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

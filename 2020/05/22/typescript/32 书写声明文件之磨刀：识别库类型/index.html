@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typescript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前面我们提到几次.d.ts后缀的文件，这节课我们来完整学习下与声明文件相关的内容。 我们之前讲模块的时候讲到过两种常见模块标准，即 CommonJS 和RequireJS。不同的模块在实现方式上是不一样的。我们要为已有的第三方 JS库编写声明文件，以便在 TS中更好地使用类型系统，所以首先需要知道我们使用的 JS库被编译成了什么类型。我们来分别看下几种类型的特征： 5.2.1. 全局库在一开始，没">
+<meta property="og:type" content="article">
+<meta property="og:title" content="32 书写声明文件之磨刀：识别库类型">
+<meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/32%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A3%A8%E5%88%80%EF%BC%9A%E8%AF%86%E5%88%AB%E5%BA%93%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="前面我们提到几次.d.ts后缀的文件，这节课我们来完整学习下与声明文件相关的内容。 我们之前讲模块的时候讲到过两种常见模块标准，即 CommonJS 和RequireJS。不同的模块在实现方式上是不一样的。我们要为已有的第三方 JS库编写声明文件，以便在 TS中更好地使用类型系统，所以首先需要知道我们使用的 JS库被编译成了什么类型。我们来分别看下几种类型的特征： 5.2.1. 全局库在一开始，没">
+<meta property="og:image" content="http://img.mukewang.com/5d22b9d90001708216000578.jpg">
+<meta property="article:published_time" content="2020-05-22T03:37:02.161Z">
+<meta property="article:modified_time" content="2020-05-22T05:45:40.476Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.mukewang.com/5d22b9d90001708216000578.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2020/05/22/typescript/32 书写声明文件之磨刀：识别库类型/"/>
+
+
+
+
+
+  <title>32 书写声明文件之磨刀：识别库类型 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/32%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A3%A8%E5%88%80%EF%BC%9A%E8%AF%86%E5%88%AB%E5%BA%93%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">32 书写声明文件之磨刀：识别库类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前面我们提到几次<code>.d.ts</code>后缀的文件，这节课我们来完整学习下与声明文件相关的内容。</p>
+<p>我们之前讲模块的时候讲到过两种常见模块标准，即 CommonJS 和<br>RequireJS。不同的模块在实现方式上是不一样的。我们要为已有的第三方 JS<br>库编写声明文件，以便在 TS<br>中更好地使用类型系统，所以首先需要知道我们使用的 JS<br>库被编译成了什么类型。我们来分别看下几种类型的特征：</p>
+<h3 id="5-2-1-全局库"><a href="#5-2-1-全局库" class="headerlink" title="5.2.1. 全局库"></a>5.2.1. 全局库</h3><p>在一开始，没有 webpack 这些编译工具的时候，我们都是在 html 文件里使用<br>script 标签引入 js<br>文件，然后就可以在引入的后面使用引入的库了。比如我们使用<br>jQuery，只需要在<code>&lt;body&gt;</code>标签里通过<code>&lt;script src=“http://xxx.com/jQuery.min.js”&gt;&lt;/script&gt;</code>引入<br>jQuery 库，然后就可以在<code>&lt;script&gt;&lt;/script&gt;</code>标签内使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(function() &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这种不需要我们引入什么变量，只需要将库引入即可使用的库，就叫做<strong>全局库</strong>。后面讲到<br>UMD 模块的时候要注意，UMD<br>模块既可以作为模块使用，又可以作为全局库使用的模块，所以在判断一个库的时候，如果它可以像例子中那样全局使用，首先要确定它是不是<br>UMD 模块；如果不是，那它可能就是一个单纯的全局库。</p>
+<p>另外，你还可以通过看库的源码，来判断它是什么类型，一个全局库，通常会包含下面内容中的一个或多个：</p>
+<ul>
+<li>顶级的 var 语句或 function 声明；</li>
+<li>一个或多个赋值给 window.someName 的赋值语句；</li>
+<li>判断 document 或 window 是否存在的判断逻辑。</li>
+</ul>
+<p>因为顶级的 var 或 function<br>是直接在全局环境声明变量或函数，不使用立即执行函数包裹会影响到全局，所以有这种一般会是全局库；当出现给<br>window 设置某个属性名 someName<br>，然后给这个属性赋值的语句时，是在给全局对象 window<br>赋值。引入这个库后直接通过 window.someName<br>即可在全局任何地方访问到这个属性值；如果出现 if 语句或三元操作符这种判断<br>document 或 window<br>是否存在的语句，也有可能是要给这两个全局对象添加内容，所以也有可能是全局库。</p>
+<p>但是由于把一个全局库转变成 UMD 库较为容易，所以现在全局库较少。</p>
+<p>我们来着手为下面这个简单的示例全局库编写一个全局库声明文件，先来看这个全局库的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; handle-title.js</span><br><span class="line">function setTitle(title) &#123;</span><br><span class="line">  document &amp;&amp; (document.title &#x3D; title);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getTitle() &#123;</span><br><span class="line">  return (document &amp;&amp; document.title) || &quot;&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let documentTitle &#x3D; getTitle();</span><br></pre></td></tr></table></figure>
+
+<p>这个 handle-title.js 库非常简单，声明了一个 setTitle<br>函数，接收一个参数，在函数内首先通过&amp;&amp;符判断 document 是否不为<br>undefined，如果不为 undefined，才会执行后面的逻辑，将 title 赋值给<br>document.title，从而实现修改显示在浏览器标签的文字；一个 getTitle<br>函数，用于获取此时的 title 值，如果没有 document<br>对象，则返回空字符串；一个全局变量<br>documentTitle，用来在初始化时记录当前的 title。</p>
+<p>我们要为这个 handle-title.js<br>全局库编写一个声明文件<em>handle-title.d.ts</em>，官方为每一种库类型都提供了响应的声明文件模板，全局库的模板是<em>global.d.ts</em>，我们首先来看一下这个模板中的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果这个库有一个全局暴露的函数，他可能可以传入不同类型的参数，返回不同的值，所以可以为它定义函数重载</span><br><span class="line">declare function myLib(a: string): string;</span><br><span class="line">declare function myLib(a: number): number;</span><br><span class="line">&#x2F;&#x2F; 如果你想让这个库名作为一种类型，可以定义一个接口</span><br><span class="line">declare interface myLib &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  length: number;</span><br><span class="line">  extras?: string[];</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 如果这个库有一些需要在全局暴露的属性，可以定义这个命名空间，将值、接口和类型别名等定义在这里</span><br><span class="line">&#x2F;&#x2F; 这样，在下面命名空间中没有列出的内容，通过myLib.xxx访问时在编译阶段会报错，但是运行时是可以访问的，只要这个JS库里定义了。</span><br><span class="line">declare namespace myLib &#123;</span><br><span class="line">  let timeout: number; &#x2F;&#x2F; 通过myLib.timeout访问，也可以修改: myLib.timeout &#x3D; 123</span><br><span class="line">  const version: string; &#x2F;&#x2F; 可通过myLib.version访问，但不能修改，因为是const声明的</span><br><span class="line">  class Cat &#123;</span><br><span class="line">    constructor(n: number);</span><br><span class="line">    readonly age: number;</span><br><span class="line">    purr(): void;</span><br><span class="line">  &#125;</span><br><span class="line">  interface CatSettings &#123;</span><br><span class="line">    weight: number;</span><br><span class="line">    name: string;</span><br><span class="line">    tailLength?: number;</span><br><span class="line">  &#125;</span><br><span class="line">  type VetID &#x3D; string | number;</span><br><span class="line">  function checkCat(c: Cat, s?: VetID);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<em>handle-title.js</em>文件我们可以直接在 index.html<br>文件里引入，如果不定义声明文件，我们直接在 index.ts 里使用，会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(getTitle()); &#x2F;&#x2F; error 找不到名称“getTitle”</span><br><span class="line">console.log(documentTitle); &#x2F;&#x2F; error 找不到名称“documentTitle”</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们为 handle-title.js 库编写一个声明文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; handle-title.d.ts</span><br><span class="line">declare function setTitle(title: string | number): void;</span><br><span class="line"></span><br><span class="line">declare function getTitle(): string;</span><br><span class="line"></span><br><span class="line">declare let documentTitle: string;</span><br></pre></td></tr></table></figure>
+
+<p>我们在 tsconfig.json 里，通过设置 include<br>来让编译器自动引入<code>&quot;./src/&quot;</code>文件夹下的所有声明文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;include&quot;: [</span><br><span class="line">    &quot;.&#x2F;src&#x2F;**&#x2F;*.ts&quot;,</span><br><span class="line">    &quot;.&#x2F;src&#x2F;**&#x2F;*.d.ts&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>这样我们定义在<code>src/types</code>文件夹下的所有声明文件就会起作用了，这下再看<br>index.ts 文件里使用 getTitle 和 documentTitle 就没有问题了。</p>
+<h3 id="5-2-2-模块化库"><a href="#5-2-2-模块化库" class="headerlink" title="5.2.2. 模块化库"></a>5.2.2. 模块化库</h3><p>模块化库即依赖模块解析器的库。之前讲模块的时候讲到过 CommonJS 和 ES6<br>模块，接下来我们看下如何判断一个库是模块化库。在模块库代码中，你一般会看到下面的情况之一：</p>
+<ul>
+<li>无条件地调用 require 或 define 方法；</li>
+<li>像 import * as a from ‘b’或者 export c 这样的声明；</li>
+<li>赋值给 exports.someName 或 module.exports。</li>
+</ul>
+<p>因为模块化库依赖模块解析器环境，在使用这种库的时候，就已经引入模块解析器的<br>require 或 define<br>等方法了，所以模块化库会直接调用这些方法来加载代码；库中包括 import *<br>as a from ‘b’和 export c<br>这种模块中才有的引入和导出语句的话，基本就是模块库了；如果有赋值语句赋值给<br>exports.someName 或 module.exports，这种就是 CommonJS 模块的导出语句了。</p>
+<p>你极少会在模块化库中看到<em>对<br>window</em>或<em>global</em>的赋值，当然这不是绝对的，比如有的库需要操作 window<br>的一些属性，这就难免了。</p>
+<p>针对模块，官方有三个模板声明文件，分别是 module.d.ts、module-class.d.ts<br>和 module-function.d.ts：</p>
+<ul>
+<li>如果这个模块引入后，可以直接当做函数调用，那可以参考<br>module-function.d.ts 文件；</li>
+<li>如果模块引入后，可以直接当做类使用 new 关键字创建实例，可以参考<br>module-class.d.ts 文件；</li>
+<li>如果模块不能被调用也不能当做类，参考 module.d.ts。</li>
+</ul>
+<p>关于这几种模板，以及其它类型库声明文件的书写，我们会在后面实战课中通过几个实际的例子来进一步学习。</p>
+<h3 id="5-2-3-UMD-库"><a href="#5-2-3-UMD-库" class="headerlink" title="5.2.3. UMD 库"></a>5.2.3. UMD 库</h3><p>UMD<br>库将全局库和模块库的功能进行了结合，它会先判断环境中有没有模块加载器的一些特定方法。如果有，说明是模块加载器环境，UMD<br>库就会使用模块的方式导出；如果没有检测到这些方法，则会将内容添加到全局环境。一般你会在<br>UMD 库中看到这种逻辑判断：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(function(root, factory) &#123;</span><br><span class="line">  if (typeof define &#x3D;&#x3D;&#x3D; &quot;function&quot; &amp;&amp; define.amd) &#123;</span><br><span class="line">    define([&quot;libName&quot;], factory);</span><br><span class="line">  &#125; else if (typeof module &#x3D;&#x3D;&#x3D; &quot;object&quot; &amp;&amp; module.exports) &#123;</span><br><span class="line">    module.exports &#x3D; factory(require(&quot;libName&quot;));</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    root.returnExports &#x3D; factory(root.libName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(this, function(b) &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>现在很多库都是 UMD 库，比如 jQuery、moment 等，你既可以在 html<br>文件中直接通过&lt;script&gt;标签引入它，也可以通过模块的形式引入。</p>
+<h3 id="本节小结"><a href="#本节小结" class="headerlink" title="本节小结"></a>本节小结</h3><p>本小节我们学习了如何识别库的类型，我们讲了三类库的识别：全局库、模块化库和UMD库，这三类都是较为常见的，基本上所有的库都是这三类中的一种。每种类型的库都有它们的特点：</p>
+<ul>
+<li>全局库：顶级的var或function声明语句，给window添加属性，判断document或window是否存在的判断逻辑；</li>
+<li>模块化库：无条件地调用require或define方法，使用import或export导入和导出内容，赋值给exports或module.exports；</li>
+<li>UMD库，判断<code>typeof define === “function” &amp;&amp; define.amd</code>的逻辑，判断<code>typeof module === “object” &amp;&amp; module.exports</code>的逻辑。</li>
+</ul>
+<p>判断库的类型，可以首先看文档，看支持怎么使用，然后是看代码。使用这些方法，你足以判断出一个库的类型。</p>
+<p>下个小节我们就要正式开始学习为第三方库写声明文件了。<br> <img src="http://img.mukewang.com/5d22b9d90001708216000578.jpg" alt="图片描述"></p>
+<p><a href="/read/35/article/368"></a></p>
+<p>**</p>
+<p>逐条来看tsconfig.json配置</p>
+<p><a href="/read/35/article/370"></a></p>
+<p>书写声明文件之砍柴：为不同类型库书写声明文件</p>
+<p>**</p>
+<p>精选留言 1</p>
+<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
+<ul>
+<li><a href="//www.imooc.com/u/7585930/articles" target="_blank" rel="noopener"></a><br><a href="//www.imooc.com/u/7585930/articles" target="_blank" rel="noopener"></a><br>慕数据7345090<br>老师，怎么引入handle-title.js呢，怎么引入本地文件？webpack怎么设置呢<br>** 0<br>回复<br>举报<br>2019-07-24</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/22/typescript/31%20%E9%80%90%E6%9D%A1%E6%9D%A5%E7%9C%8Btsconfig.json%E9%85%8D%E7%BD%AE/" rel="next" title="31 逐条来看tsconfig.json配置">
+                <i class="fa fa-chevron-left"></i> 31 逐条来看tsconfig.json配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/22/typescript/33%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A0%8D%E6%9F%B4%EF%BC%9A%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E5%BA%93%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" rel="prev" title="33 书写声明文件之砍柴：为不同类型库书写声明文件">
+                33 书写声明文件之砍柴：为不同类型库书写声明文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-全局库"><span class="nav-number">1.</span> <span class="nav-text">5.2.1. 全局库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-模块化库"><span class="nav-number">2.</span> <span class="nav-text">5.2.2. 模块化库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-UMD-库"><span class="nav-number">3.</span> <span class="nav-text">5.2.3. UMD 库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节小结"><span class="nav-number">4.</span> <span class="nav-text">本节小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

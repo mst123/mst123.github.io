@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typescript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如果你看过了本专栏的大纲，那你应该会有一种，哇，官方文档里列出的知识基本都讲了，这个专栏太细了的感觉。这一个小节我会教给大家如何去自学TypeScript。虽然你在学习本专栏的时候，Lison会手把手的带着你学习TypeScript的语法和实战。但我还是想给你讲讲如何自学TypeScript，在授你以鱼之前也会授你以渔的，这样TypeScript即使更新了，你也能毫无压力地迎接它的新特性。好，接下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2 TypeScript应该怎么学">
+<meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/02%20TypeScript%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E5%AD%A6/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="如果你看过了本专栏的大纲，那你应该会有一种，哇，官方文档里列出的知识基本都讲了，这个专栏太细了的感觉。这一个小节我会教给大家如何去自学TypeScript。虽然你在学习本专栏的时候，Lison会手把手的带着你学习TypeScript的语法和实战。但我还是想给你讲讲如何自学TypeScript，在授你以鱼之前也会授你以渔的，这样TypeScript即使更新了，你也能毫无压力地迎接它的新特性。好，接下">
+<meta property="og:image" content="http://img.mukewang.com/5cef917b0001ff3711000264.png">
+<meta property="og:image" content="http://img.mukewang.com/5cef919900015a9b07380216.png">
+<meta property="og:image" content="http://img.mukewang.com/5cef91b6000153e812200460.png">
+<meta property="og:image" content="http://img.mukewang.com/5cef91d500010e6b12200694.png">
+<meta property="og:image" content="http://img.mukewang.com/5cef91fc0001666517420182.png">
+<meta property="og:image" content="http://img.mukewang.com/5cef92110001b6b004980736.png">
+<meta property="og:image" content="http://img.mukewang.com/5cef922700019ad114580334.png">
+<meta property="article:published_time" content="2020-05-22T03:37:02.113Z">
+<meta property="article:modified_time" content="2020-05-22T05:43:44.167Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.mukewang.com/5cef917b0001ff3711000264.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2020/05/22/typescript/02 TypeScript应该怎么学/"/>
+
+
+
+
+
+  <title>2 TypeScript应该怎么学 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/02%20TypeScript%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2 TypeScript应该怎么学</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如果你看过了本专栏的大纲，那你应该会有一种，哇，官方文档里列出的知识基本都讲了，这个专栏太细了的感觉。这一个小节我会教给大家如何去自学TypeScript。虽然你在学习本专栏的时候，Lison会手把手的带着你学习TypeScript的语法和实战。但我还是想给你讲讲如何自学TypeScript，在授你以鱼之前也会授你以渔的，这样TypeScript即使更新了，你也能毫无压力地迎接它的新特性。好，接下来让我们开始吧。</p>
+<h3 id="1-2-1-学会看文档"><a href="#1-2-1-学会看文档" class="headerlink" title="1.2.1 学会看文档"></a>1.2.1 学会看文档</h3><p><a href="http://www.typescriptlang.org/docs/home.html" target="_blank" rel="noopener">英文官方文档</a>始终是及时更新的。但即便是官方的文档，有一些更新在更新日志里写了，而新手指南里却没有及时同步更新，所以有时看指南也会遇到困惑，就是文档里写的和你实际验证的效果不一样。遇到这种问题，首先确定你使用的TypeScript版本，然后去更新日志里根据不同版本找对这部分知识的更新记录。如果找到了，看下这是在哪个版本做的升级；如果你不放心，可以把TypeScript版本降到这个版本之前的一个版本，再验证一下。</p>
+<p>TypeScript<br>是有一个<a href="https://www.tslang.cn/docs/home.html" target="_blank" rel="noopener">中文文档</a>的，但是这个文档只是对英文文档的翻译。官方文档中的小疏漏，这个文档也没有做校验，而且更新是有点滞后的。在写本专栏的时候，TypeScript最新发布的版本为3.4，但是中文文档还是在3.1。所以想了解TypeScript的最新动态，还是要看英文官方文档的。不过我们还是要感谢提供中文文档的译者，这对于英文不是很好的开发者帮助还是很大的。</p>
+<h3 id="1-2-2-学会看报错"><a href="#1-2-2-学会看报错" class="headerlink" title="1.2.2 学会看报错"></a>1.2.2 学会看报错</h3><p>我们在前面的例子中展示了 TypeScript<br>在编写代码的时候如何对错误进行提示。后面我们讲到项目搭建的时候，会使用<br>TSLint 对代码风格进行规范校验，根据 TSLint<br>配置不同，提示效果也不同。如果我们配置当书写的代码不符合规范，使用 error<br>级别来提示时，会和 TypeScript<br>编译报错一样，在问题代码下面用红色波浪线标出，鼠标放上去会有错误提示。所有如果我们使用了TSLint，遇到报错的时候，首先要区分是<br>TSLint 报错还是 TS 报错，来看下如何区分：\</p>
+<p><img src="http://img.mukewang.com/5cef917b0001ff3711000264.png" alt="图片描述">上面这个报错可以从红色方框中看到，标识了<br><code>tslint</code>，说明它是TSLint的报错。后面括号里标的是导致这条报错的规则名，规则可以在<br><code>tslint.json</code> 文件里配置。关于<br>TSLint的使用，我们会在搭建开发环境一节讲解。示例中这条报错是因为<br><code>no-console</code> 这个规则，也就是要求代码中不能有 <code>console</code><br>语句，但是我们在开发时使用 console<br>来进行调试是很常见的，所以你可以通过配置 TSLint<br>关闭这条规则，这样就不会报错了。但我们应该遵守规范，当我们决定引入<br>TSLint<br>的时候，就说明这个项目对代码质量有更高的要求，我们不应该在书写代码遇到TSLint报错就修改规则，而是应该根据规则去修改代码。\</p>
+<p><img src="http://img.mukewang.com/5cef919900015a9b07380216.png" alt="图片描述">上面这个报错可以从红色方框中看到，标识了<br><code>ts</code>，说明它是 TypeScript<br>编译器报的错误。在我们书写代码的时候，通过强类型系统，编译器可以在这个阶段就检测到我们的一些错误。后面括号里跟着的<br><code>2322</code><br>是错误代码，所有的错误代码你可以在文档的<a href="https://www.tslang.cn/docs/handbook/error.html" target="_blank" rel="noopener">错误信息列表</a>中查看。不过你一般并不需要去看文档，因为这里都会给你标出这个错误码对应的错误提示，而且这个错误信息根据你的编辑器语言可以提示中文错误信息。很明显这个错误是因为我们给<br>name 指定了类型为 string字符串 类型，而赋给它的值是123数值类型。</p>
+<p>上面两种是在编写代码的时候就会遇到的错误提示。还有一种就是和 JavaScript<br>一样的，在运行时的报错，这种错误需要在浏览器控制台查看。如果你调试的是<br>node 服务端项目，那你要在终端查看。来看这个例子：</p>
+<p>当我在代码中打印一个没有定义的变量时，在书写代码的时候会做提示，且当程序运行起来时，在浏览器控制台也可以看到报错。你可以打开浏览器的开发者工具(Windows系统按F12，Mac系统按control+option+i)，在<br>Console 栏看到错误提示：\</p>
+<p><img src="http://img.mukewang.com/5cef91b6000153e812200460.png" alt="图片描述">红色语句即错误信息。下面红色<code>at</code>后面有个文件路径<code>main.ts</code>，蓝色框中圈出的也是个文件路径，表示这个错误出现在哪个文件。这里是出现在<code>main.ts</code>中，问号后面的<code>cd49:12</code>表示错误代码在12行，点击这个路径即可跳到一个该文件的浏览窗口：\</p>
+<p><img src="http://img.mukewang.com/5cef91d500010e6b12200694.png" alt="图片描述">在这里我们就能直接看到我们的错误代码被红色波浪线标记了，这样你修改起错误来就很明确知道是哪里出错了。</p>
+<h3 id="1-2-3-学会看声明文件"><a href="#1-2-3-学会看声明文件" class="headerlink" title="1.2.3 学会看声明文件"></a>1.2.3 学会看声明文件</h3><p>声明文件我们会在后面讲。我们知道原来没有 TypeScript 的时候，有很多的 JS<br>插件和 JS 库，如果使用 TypeScript 进行开发再使用这些 JS<br>编写的插件和库，就得不到类型提示等特性的支持了，所以 TypeScript 支持为<br>JS 库添加声明文件，以此来提供声明信息。我们使用 TypeScript<br>编写的库和插件编译后也是 JS<br>文件，所以在编译的时候可以选择生成声明文件，这样再发布，使用者就依然能得到<br>TypeScript 特性支持。一些 JS 库的作者已经使用 TypeScript<br>进行了重写，有些则是提供了声明文件，一些作者没有提供声明文件的，大部分库都有社区的人为他们补充了声明文件，如果使用了自身没有提供声明文件的库时，可以使用<code>npm install @types/{模块名}</code>来安装，或者运用我们后面讲到的知识自行为他们补充。</p>
+<p>看这些库的声明文件能够帮你提高对 TypeScript<br>的了解程度。因为可能你在实际开发中所接触的场景不是很复杂，运用到的<br>TypeScript<br>语法点也不是很全面，所以就会导致经常用的你很熟悉，不经常用的慢慢就忘掉了，甚至有的自始至终你都没有使用过。很多知识你只看理论知识，或者看简单的例子，是没法真正理解并深刻记忆的，只有在实际场景中去使用一下，才能加深理解。所以我们可以从这些库的声明文件入手，还有就是从<br>TypeScript 内置的 lib 声明文件入手。</p>
+<p>安装好 TypeScript 后，我们可以在 node_modules 文件夹下找到 typescript<br>文件夹，里面有个 lib 文件夹，lib 文件夹根目录下有很多以 <code>lib.</code> 开头的<br><code>.d.ts</code> 文件。这些文件，就是我们在开发时如果需要用到相关内容，需要在<br><code>tsconfig.json</code><br>文件里配置引入的库的声明文件，这个配置我们后面会讲到。先简单举个例子，比如我们要使用<br>DOM 操作相关的语法，比如我们获取了一个 button<br>按钮的节点，那么我们就可以指定它的类型为<br>HTMLButtonElement，那么我们再访问这个节点的属性的时候，编辑器就会给你列出<br>button<br>节点拥有的所有属性方法了；如果我们要用到这个类型接口，那我们就需要引入<br><code>lib.dom.d.ts</code> 也就是dom这个<br>lib。这里如果你对一些提到的概念不明白，你可以先忽略，因为后面都会讲到。这里我要告诉你的就是，你应该学着看这些声明文件，看看它们对于一些内容的声明是如何定义的，能够帮你见识到各种语法的运用。</p>
+<h3 id="1-2-4-学会搜问题和提问"><a href="#1-2-4-学会搜问题和提问" class="headerlink" title="1.2.4 学会搜问题和提问"></a>1.2.4 学会搜问题和提问</h3><p>实际开发中，有时候你难免会遇到一些文档里没有提到的各种各样的奇怪问题。解决问题的途径有很多，请教有经验的人是最简单的啦，但前提是你身边有个随叫随到的大神，可这样的人一般很少有，所以还是看看我推荐给你的解决问题的途径吧：</p>
+<h4 id="途径1：百度-or-Google-途径1：百度-or-google-style-”font-size-26px-”"><a href="#途径1：百度-or-Google-途径1：百度-or-google-style-”font-size-26px-”" class="headerlink" title="途径1：百度 or Google  { #途径1：百度-or-google style=”font-size: 26px;”}"></a>途径1：百度 or Google  { #途径1：百度-or-google style=”font-size: 26px;”}</h4><p>一般来说大众的问题都能在百度找到，但是开发问题 Google<br>能够帮你找到一些高质量的国外答疑帖，所以这两个搜索引擎你都可以试试，这个途径是你遇到问题之后的首选。</p>
+<h4 id="途径2：看issue-途径2：看issue-style-”font-size-26px-”"><a href="#途径2：看issue-途径2：看issue-style-”font-size-26px-”" class="headerlink" title="途径2：看issue  { #途径2：看issue style=”font-size: 26px;”}"></a>途径2：看issue  { #途径2：看issue style=”font-size: 26px;”}</h4><p>TypeScript<br>的问答确实要比很多框架或者基础知识的少很多。如果搜索引擎找不到，你可以到<br>github 上 TypeScript<br>的官方仓库，在<a href="https://github.com/Microsoft/TypeScript/issues" target="_blank" rel="noopener">issues</a>里可以通过问题关键字搜索，看看有没有人反馈过这个问题。这里要注意，搜索的是关键字，而不是把你的报错信息完整输进去，这样基本很难搜到。你应该挑选出错误信息中比较具有代表性的单词进行搜索，因为这和搜索引擎不一样，issues<br>提供的搜索还不是很强大。</p>
+<h4 id="途径3：去提问-途径3：去提问-style-”font-size-26px-”"><a href="#途径3：去提问-途径3：去提问-style-”font-size-26px-”" class="headerlink" title="途径3：去提问  { #途径3：去提问 style=”font-size: 26px;”}"></a>途径3：去提问  { #途径3：去提问 style=”font-size: 26px;”}</h4><p>如果上面两个途径都没找到，你只能自行提问了，这也是一个造福后人的方法。比较受欢迎的提问网站：国内你可以试试<br>segmentFault，国外可以试试<strong>stackOverflow</strong>，还有就是 TypeScript的issues<br>了。但要注意如果在 stackOverflow 和 issues 中提问，最好最好用英文。</p>
+<h3 id="1-2-5-看优秀项目源码"><a href="#1-2-5-看优秀项目源码" class="headerlink" title="1.2.5 看优秀项目源码"></a>1.2.5 看优秀项目源码</h3><p>这个学习方法是比较高阶的了，看一些优秀的开源项目源码可以为你提供思路。你还可以借鉴到同一个逻辑不同人的实现方式。源码去哪里找呢，当然首选是<br>Github 了，进入 Github<br>后，你可以在顶部的搜索栏搜索你想要找的项目关键字，比如你想找个Todo应用的项目源码，那就搜”todo”。然后在语言栏选择<br>TypeScript，这样就会筛选出使用 TypeScript 编写的项目：\</p>
+<p><img src="http://img.mukewang.com/5cef91fc0001666517420182.png" alt="图片描述">)<img src="http://img.mukewang.com/5cef92110001b6b004980736.png" alt="图片描述"><br> 最后选择 star 较多的项目，说明这个项目受到了更多人的认可：\</p>
+<p><img src="http://img.mukewang.com/5cef922700019ad114580334.png" alt="图片描述">好了，以上就是自学<br>TypeScript 的一些方法途径。当然了，我们的 TypeScript<br>知识还是会由我带着大家一起学习哒，所以只要跟紧了别掉队，不怕你学不会。</p>
+<p><a href="/read/35/article/338"></a></p>
+<p>**</p>
+<p>01 导读：Hello~TypeScript</p>
+<p><a href="/read/35/article/340"></a></p>
+<p>03 VSCode揭秘和搭建开发环境</p>
+<p>**</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/22/typescript/01%20%E5%AF%BC%E8%AF%BB%EF%BC%9AHello_TypeScript/" rel="next" title="1 导读">
+                <i class="fa fa-chevron-left"></i> 1 导读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/22/typescript/04%20%E5%85%AB%E4%B8%AAJS%E4%B8%AD%E4%BD%A0%E8%A7%81%E8%BF%87%E7%9A%84%E7%B1%BB%E5%9E%8B/" rel="prev" title="4 八个JS中你见过的类型">
+                4 八个JS中你见过的类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-学会看文档"><span class="nav-number">1.</span> <span class="nav-text">1.2.1 学会看文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-学会看报错"><span class="nav-number">2.</span> <span class="nav-text">1.2.2 学会看报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-学会看声明文件"><span class="nav-number">3.</span> <span class="nav-text">1.2.3 学会看声明文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-学会搜问题和提问"><span class="nav-number">4.</span> <span class="nav-text">1.2.4 学会搜问题和提问</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#途径1：百度-or-Google-途径1：百度-or-google-style-”font-size-26px-”"><span class="nav-number">4.1.</span> <span class="nav-text">途径1：百度 or Google  { #途径1：百度-or-google style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#途径2：看issue-途径2：看issue-style-”font-size-26px-”"><span class="nav-number">4.2.</span> <span class="nav-text">途径2：看issue  { #途径2：看issue style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#途径3：去提问-途径3：去提问-style-”font-size-26px-”"><span class="nav-number">4.3.</span> <span class="nav-text">途径3：去提问  { #途径3：去提问 style&#x3D;”font-size: 26px;”}</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-5-看优秀项目源码"><span class="nav-number">5.</span> <span class="nav-text">1.2.5 看优秀项目源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

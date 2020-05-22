@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typescript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这小节你学习起来会很轻松，这是你正式接触 TypeScript语法的第一节课，是最最基础的语法单元。这节课我们将学习在 JavaScript中现有的八个数据类型，当然这并不是 JavaScript中的所有数据类型，而是现在版本的 TypeScript支持的基本类型，在学习基础类型之前，我们先来看下如何为一个变量指定类型： 为一个变量指定类型的语法是使用”变量: 类型”的形式，如下： 1let nu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4 八个JS中你见过的类型">
+<meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/04%20%E5%85%AB%E4%B8%AAJS%E4%B8%AD%E4%BD%A0%E8%A7%81%E8%BF%87%E7%9A%84%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="这小节你学习起来会很轻松，这是你正式接触 TypeScript语法的第一节课，是最最基础的语法单元。这节课我们将学习在 JavaScript中现有的八个数据类型，当然这并不是 JavaScript中的所有数据类型，而是现在版本的 TypeScript支持的基本类型，在学习基础类型之前，我们先来看下如何为一个变量指定类型： 为一个变量指定类型的语法是使用”变量: 类型”的形式，如下： 1let nu">
+<meta property="og:image" content="http://img.mukewang.com/5cf4bf49000143cc16000998.jpg">
+<meta property="article:published_time" content="2020-05-22T03:37:02.116Z">
+<meta property="article:modified_time" content="2020-05-22T05:43:52.077Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.mukewang.com/5cf4bf49000143cc16000998.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2020/05/22/typescript/04 八个JS中你见过的类型/"/>
+
+
+
+
+
+  <title>4 八个JS中你见过的类型 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/04%20%E5%85%AB%E4%B8%AAJS%E4%B8%AD%E4%BD%A0%E8%A7%81%E8%BF%87%E7%9A%84%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">4 八个JS中你见过的类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这小节你学习起来会很轻松，这是你正式接触 TypeScript<br>语法的第一节课，是最最基础的语法单元。这节课我们将学习在 JavaScript<br>中现有的八个数据类型，当然这并不是 JavaScript<br>中的所有数据类型，而是现在版本的 TypeScript<br>支持的基本类型，在学习基础类型之前，我们先来看下如何为一个变量指定类型：</p>
+<p>为一个变量指定类型的语法是使用”变量: 类型”的形式，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let num: number &#x3D; 123</span><br></pre></td></tr></table></figure>
+
+<p>如果你没有为这个变量指定类型，编译器会自动根据你赋给这个变量的值来推断这个变量的类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let num &#x3D; 123</span><br><span class="line">num &#x3D; &#39;abc&#39; &#x2F;&#x2F; error 不能将类型“&quot;123&quot;”分配给类型“number”</span><br></pre></td></tr></table></figure>
+
+<p>当我们给<code>num</code>赋值为123但没有指定类型时，编译器推断出了<code>num</code>的类型为<code>number</code>数值类型，所以当给<code>num</code>再赋值为字符串”abc”时，就会报错。</p>
+<p>这里还有一点要注意，就是<strong>number</strong>和<strong>Number</strong>的区别：TS中指定类型的时候要用<code>number</code>，这个是TypeScript的类型关键字。而<code>Number</code>为JavaScript的原生构造函数，用它来创建数值类型的值，它俩是不一样的。包括你后面见到的<strong>string</strong>、<strong>boolean</strong>等都是TypeScript的类型关键字，不是JavaScript语法，这点要区分开。接下来我们来看本节课的重点：<strong>八个JS中你见过的类型</strong>。</p>
+<h3 id="2-1-1-布尔类型"><a href="#2-1-1-布尔类型" class="headerlink" title="2.1.1 布尔类型"></a>2.1.1 布尔类型</h3><p>类型为布尔类型的变量的值只能是 true 或 false，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let bool: boolean &#x3D; false;</span><br><span class="line">bool &#x3D; true;</span><br><span class="line">bool &#x3D; 123; &#x2F;&#x2F; error 不能将类型&quot;123&quot;分配给类型&quot;boolean&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当然了，赋给 bool 的值也可以是一个计算之后结果是布尔值的表达式，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let bool: boolean &#x3D; !!0</span><br><span class="line">console.log(bool) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-数值类型"><a href="#2-1-2-数值类型" class="headerlink" title="2.1.2 数值类型"></a>2.1.2 数值类型</h3><p>TypeScript 和 JavaScript<br>一样，所有数字都是浮点数，所以只有一个<code>number</code>类型，而没有<code>int</code>或者<code>float</code>类型。而且<br>TypeScript 还支持 ES6 中新增的二进制和八进制数字字面量，所以 TypeScript<br>中共支持二、八、十和十六四种进制的数值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let num: number;</span><br><span class="line">num &#x3D; 123;</span><br><span class="line">num &#x3D; &quot;123&quot;; &#x2F;&#x2F; error 不能将类型&quot;123&quot;分配给类型&quot;number&quot;</span><br><span class="line">num &#x3D; 0b1111011; &#x2F;&#x2F;  二进制的123</span><br><span class="line">num &#x3D; 0o173; &#x2F;&#x2F; 八进制的123</span><br><span class="line">num &#x3D; 0x7b; &#x2F;&#x2F; 十六进制的123</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-字符串"><a href="#2-1-3-字符串" class="headerlink" title="2.1.3 字符串"></a>2.1.3 字符串</h3><p>字符串类型中你可以使用单引号和双引号包裹内容，但是可能你使用的 tslint<br>规则会对引号进行检测，使用单引号还是双引号可以在 tslint<br>规则里配置。你还可以使用 ES6<br>语法——模板字符串，拼接变量和字符串更为方便。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let str: string &#x3D; &quot;Lison&quot;;</span><br><span class="line">str &#x3D; &quot;Li&quot;;</span><br><span class="line">const first &#x3D; &quot;Lison&quot;;</span><br><span class="line">const last &#x3D; &quot;Li&quot;;</span><br><span class="line">str &#x3D; &#96;$&#123;first&#125; $&#123;last&#125;&#96;;</span><br><span class="line">console.log(str) &#x2F;&#x2F; 打印结果为:Lison Li</span><br></pre></td></tr></table></figure>
+
+<p>另外还有个和字符串相关的类型：<strong><em>字符串字面量类型</em></strong>。即把一个字符串字面量作为一种类型，比如上面的字符串”Lison”，当你把一个变量指定为这个字符串类型的时候，就不能再赋值为其他字符串值了，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let str: &#39;Lison&#39;</span><br><span class="line">str &#x3D; &#39;haha&#39; &#x2F;&#x2F; error 不能将类型“&quot;haha&quot;”分配给类型“&quot;Lison&quot;”</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-4-数组"><a href="#2-1-4-数组" class="headerlink" title="2.1.4 数组"></a>2.1.4 数组</h3><p>在 TypeScript 中有两种定义数组的方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let list1: number[] &#x3D; [1, 2, 3];</span><br><span class="line">let list2: Array&lt;number&gt; &#x3D; [1, 2, 3];</span><br></pre></td></tr></table></figure>
+
+<p>第一种形式通过<code>number[]</code>的形式来指定这个类型元素均为number类型的数组类型，这种写法是推荐的写法，当然你也可以使用第二种写法。注意，这两种写法中的<code>number</code>指定的是数组元素的类型，你也可以在这里将数组的元素指定为任意类型。如果你要指定一个数组里的元素既可以是数值也可以是字符串，那么你可以使用这种方式：<code>number|string[]</code>，这种方式我们在后面学习联合类型的时候会讲到。</p>
+<p>当你使用第二种形式定义时，tslint<br>可能会警告让你使用第一种形式定义，如果你就是想用第二种形式，可以通过在<br>tslint.json 的 rules 中加入<code>&quot;array-type&quot;: [false]</code>关闭 tslint<br>对这条的检测。</p>
+<p>后面我们讲接口的时候，还会讲到数组的一个特殊类型：ReadonlyArray，即只读数组。</p>
+<h3 id="2-1-5-null-和-undefined"><a href="#2-1-5-null-和-undefined" class="headerlink" title="2.1.5 null 和 undefined"></a>2.1.5 null 和 undefined</h3><p>null 和 undefined<br>有一些共同特点，所以我们放在一起讲。说它们有共同特点，是因为在<br>JavaScript 中，undefined 和 null 是两个基本数据类型。在 TypeScript<br>中，这两者都有各自的类型即 undefined 和<br>null，也就是说它们既是实际的值，也是类型，来看实际例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let u: undefined &#x3D; undefined;&#x2F;&#x2F; 这里可能会报一个tslint的错误：Unnecessary initialization to &#39;undefined&#39;，就是不能给一个值赋undefined，但我们知道这是可以的，所以如果你的代码规范想让这种代码合理化，可以配置tslint，将&quot;no-unnecessary-initializer&quot;设为false即可</span><br><span class="line">let n: null &#x3D; null;</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下 undefined 和 null 可以赋值给任意类型的值，也就是说你可以把<br>undefined 赋值给 void 类型，也可以赋值给 number 类型。当你在<br>tsconfig.json<br>的”compilerOptions”里设置了<code>&quot;strictNullChecks&quot;: true</code>时，那必须严格对待。undefined<br>和 null 将只能赋值给它们自身和 void 类型，void类型我们后面会学习。</p>
+<h3 id="2-1-6-object"><a href="#2-1-6-object" class="headerlink" title="2.1.6 object"></a>2.1.6 object</h3><p>object 在 JS 中是引用类型，它和 JS 中的其他基本类型不一样，像<br>number、string、boolean、undefined、null<br>这些都是基本类型，这些类型的变量存的是他们的值，而 object<br>类型的变量存的是引用，看个简单的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let strInit &#x3D; &quot;abc&quot;;</span><br><span class="line">let strClone &#x3D; strInit;</span><br><span class="line">strClone &#x3D; &quot;efg&quot;;</span><br><span class="line">console.log(strInit); &#x2F;&#x2F; &#39;abc&#39;</span><br><span class="line"></span><br><span class="line">let objInit &#x3D; &#123; a: &quot;aa&quot; &#125;;</span><br><span class="line">let objClone &#x3D; objInit;</span><br><span class="line">console.log(objClone) &#x2F;&#x2F; &#123;a:&quot;aa&quot;&#125;</span><br><span class="line">objInit.a &#x3D; &quot;bb&quot;;</span><br><span class="line">console.log(objClone); &#x2F;&#x2F; &#123; a: &#39;bb&#39; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过例子可以看出，我们修改 objInit 时，objClone 也被修改了，是因为<br>objClone 保存的是 objInit 的引用，实际上 objInit 和 objClone<br>是同一个对象。</p>
+<p>当我们希望一个变量或者函数的参数的类型是一个对象的时候，使用这个类型，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj: object</span><br><span class="line">obj &#x3D; &#123; name: &#39;Lison&#39; &#125;</span><br><span class="line">obj &#x3D; 123 &#x2F;&#x2F; error 不能将类型“123”分配给类型“object”</span><br></pre></td></tr></table></figure>
+
+<p>这里有一点要注意了，你可能会想到给 obj 指定类型为 object<br>对象类型，然后给它赋值一个对象，后面通过属性访问操作符访问这个对象的某个属性，实际操作一下你就会发现会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj: object</span><br><span class="line">obj &#x3D; &#123; name: &#39;Lison&#39; &#125;</span><br><span class="line">console.log(obj.name) &#x2F;&#x2F; error 类型“object”上不存在属性“name”</span><br></pre></td></tr></table></figure>
+
+<p>这里报错说类型 object 上没有 name<br>这个属性。如果你想要达到这种需求你应该使用我们后面章节要讲到的接口，那<br>object<br>类型适合什么时候使用呢？我们前面说了，当你希望一个值必须是对象而不是数值等类型时，比如我们定义一个函数，参数必须是对象，这个时候就用到object类型了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function getKeys (obj: object) &#123;</span><br><span class="line">    return Object.keys(obj) &#x2F;&#x2F; 会以列表的形式返回obj中的值</span><br><span class="line">&#125;</span><br><span class="line">getKeys(&#123; a: &#39;a&#39; &#125;) &#x2F;&#x2F; [&#39;a&#39;]</span><br><span class="line">getKeys(123) &#x2F;&#x2F; error 类型“123”的参数不能赋给类型“object”的参数</span><br></pre></td></tr></table></figure>
+
+<p>这里涉及到的函数的相关知识，我们会在后面章节介绍的，你只要在这里明白object类型的使用就可以了。</p>
+<h3 id="2-1-6-symbol"><a href="#2-1-6-symbol" class="headerlink" title="2.1.6 symbol"></a>2.1.6 symbol</h3><p>Symbol 是 ES6<br>加入的新的基础数据类型，因为它的知识比较多，所以我们单独在后面的一节进行讲解。</p>
+<h2 id="本节小结-本节小结-style-”font-size-30px-”"><a href="#本节小结-本节小结-style-”font-size-30px-”" class="headerlink" title="本节小结  { #本节小结 style=”font-size: 30px;”}"></a>本节小结  { #本节小结 style=”font-size: 30px;”}</h2><p>本小节我们学习了八个在JavaScript中我们就见过的数据类型，它们是：布尔类型、数值类型、字符串、数组、null、undefined、object以及ES6中新增的symbol。在TypeScript中它们都有对应的类型关键字，对应关系为：</p>
+<ul>
+<li>布尔类型：boolean</li>
+<li>数值类型：number</li>
+<li>字符串类型：string</li>
+<li>数组：Array&lt;type&gt;或type[]</li>
+<li>对象类型：object</li>
+<li>Symbol类型：symbol</li>
+<li>null和undefined：null 和 undefined，这个比较特殊，它们自身即是类型</li>
+</ul>
+<p>这些类型是基础，我们后面的高级类型很多都是它们的组合或者变形，所以一定要把这些基础先学会。下个小节我们将学习<br>TypeScript 中新增的几种类型，了解更多基本类型。<br> <img src="http://img.mukewang.com/5cf4bf49000143cc16000998.jpg" alt="图片描述"></p>
+<p><a href="/read/35/article/340"></a></p>
+<p>**</p>
+<p>03 VSCode揭秘和搭建开发环境</p>
+<p><a href="/read/35/article/342"></a></p>
+<p>05 TS中补充的六个类型</p>
+<p>**</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/22/typescript/02%20TypeScript%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E5%AD%A6/" rel="next" title="2 TypeScript应该怎么学">
+                <i class="fa fa-chevron-left"></i> 2 TypeScript应该怎么学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/22/typescript/03%20VSCode%E6%8F%AD%E7%A7%98%E5%92%8C%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="prev" title="3 VSCode揭秘和搭建开发环境">
+                3 VSCode揭秘和搭建开发环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-布尔类型"><span class="nav-number">1.</span> <span class="nav-text">2.1.1 布尔类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-数值类型"><span class="nav-number">2.</span> <span class="nav-text">2.1.2 数值类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-字符串"><span class="nav-number">3.</span> <span class="nav-text">2.1.3 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-数组"><span class="nav-number">4.</span> <span class="nav-text">2.1.4 数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-null-和-undefined"><span class="nav-number">5.</span> <span class="nav-text">2.1.5 null 和 undefined</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6-object"><span class="nav-number">6.</span> <span class="nav-text">2.1.6 object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6-symbol"><span class="nav-number">7.</span> <span class="nav-text">2.1.6 symbol</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本节小结-本节小结-style-”font-size-30px-”"><span class="nav-number"></span> <span class="nav-text">本节小结  { #本节小结 style&#x3D;”font-size: 30px;”}</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
