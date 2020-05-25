@@ -87,7 +87,7 @@
 <meta property="og:description" content="3.11.1 基础使用条件类型是 TS2.8引入的，从语法上看它像是三元操作符。它会以一个条件表达式进行类型关系检测，然后在后面两种类型中选择一个，先来看它怎么写： 1T extends U ? X : Y  这个表达式的意思是，如果 T 可以赋值给 U 类型，则是 X 类型，否则是 Y类型。来看个实际例子： 123type Type&lt;T&gt; &#x3D; T extends strin">
 <meta property="og:image" content="http://img.mukewang.com/5d03464c0001d4c316000515.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.148Z">
-<meta property="article:modified_time" content="2020-05-22T05:45:06.957Z">
+<meta property="article:modified_time" content="2020-05-24T02:00:13.777Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -417,14 +417,14 @@
 <p>来看一个条件类型和映射类型结合的例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">type Type&lt;T&gt; &#x3D; &#123; [K in keyof T]: T[K] extends Function ? K : never &#125;[keyof T];</span><br><span class="line">interface Part &#123;</span><br><span class="line">  id: number;</span><br><span class="line">  name: string;</span><br><span class="line">  subparts: Part[];</span><br><span class="line">  updatePart(newName: string): void;</span><br><span class="line">&#125;</span><br><span class="line">type Test &#x3D; Type&lt;Part&gt;; &#x2F;&#x2F; Test的类型为&quot;updatePart&quot;</span><br></pre></td></tr></table></figure>
 
-<p>来看一下，这个例子中，接口 Part 有四个字段，其中 updatePart<br>的值是函数，也就是 Function<br>类型。Type的定义中，涉及到映射类型、条件类型、索引访问类型和索引类型。首先[K<br>in keyof T]用于遍历 T<br>的所有属性名，值使用了条件类型，T[K]是当前属性名的属性值，<code>T[K] extends Function ? K : never</code>表示如果属性值为<br>Function 类型，则值为属性名字面量类型，否则为 never<br>类型。接下来使用<code>keyof T</code>获取 T<br>的属性名，最后通过索引访问类型<code>[keyof T]</code>获取不为 never 的类型。</p>
+<p>来看一下，这个例子中，接口 Part 有四个字段，其中 updatePart的值是函数，也就是 Function类型。Type的定义中，涉及到映射类型、条件类型、索引访问类型和索引类型。首先[K<br>in keyof T]用于遍历 T的所有属性名，值使用了条件类型，T[K]是当前属性名的属性值，<code>T[K] extends Function ? K : never</code>表示如果属性值为<br>Function 类型，则值为属性名字面量类型，否则为 never类型。接下来使用<code>keyof T</code>获取 T的属性名，最后通过索引访问类型<code>[keyof T]</code>获取不为 never 的类型。</p>
 <h3 id="3-11-3-条件类型的类型推断-infer"><a href="#3-11-3-条件类型的类型推断-infer" class="headerlink" title="3.11.3 条件类型的类型推断-infer"></a>3.11.3 条件类型的类型推断-infer</h3><p>条件类型提供一个<code>infer</code>关键字用来推断类型，我们先来看个例子。我们想定义一个条件类型，如果传入的类型是一个数组，则返回它元素的类型；如果是一个普通类型，则直接返回这个类型。来看下不使用<br>infer 的话，怎么写：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type Type&lt;T&gt; &#x3D; T extends any[] ? T[number] : T;</span><br><span class="line">type test &#x3D; Type&lt;string[]&gt;; &#x2F;&#x2F; test的类型为string</span><br><span class="line">type test2 &#x3D; Type&lt;string&gt;; &#x2F;&#x2F; test2的类型为string</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type Type&lt;T&gt; &#x3D; T extends any[] ? T[number] : T;</span><br><span class="line">type test &#x3D; Type&lt;string[]&gt;; &#x2F;&#x2F; test的类型为string</span><br><span class="line">type test1 &#x3D; Type&lt;[string, number]&gt;; &#x2F;&#x2F; test的类型为string|number</span><br><span class="line">type test2 &#x3D; Type&lt;string&gt;; &#x2F;&#x2F; test2的类型为string</span><br><span class="line">let a: test1 &#x3D; 2</span><br><span class="line">a &#x3D; &#39;a&#39;</span><br></pre></td></tr></table></figure>
 
-<p>这个例子中，如果传入 Type<br>的是一个数组类型，那么返回的类型为<code>T[number]</code>，也就是该数组的元素类型，如果不是数组，则直接返回这个类型。这里我们是自己通过索引访问类型<code>T[number]</code>来获取类型的，如果使用<br>infer 关键字则无需自己手动获取，我们来看下怎么使用 infer：</p>
+<p>这个例子中，如果传入 Type的是一个数组类型，那么返回的类型为<code>T[number]</code>，也就是该数组的元素类型，如果不是数组，则直接返回这个类型。这里我们是自己通过索引访问类型<code>T[number]</code>来获取类型的，如果使用infer 关键字则无需自己手动获取，我们来看下怎么使用 infer：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type Type&lt;T&gt; &#x3D; T extends Array&lt;infer U&gt; ? U : T;</span><br><span class="line">type test &#x3D; Type&lt;string[]&gt;; &#x2F;&#x2F; test的类型为string</span><br><span class="line">type test2 &#x3D; Type&lt;string&gt;; &#x2F;&#x2F; test2的类型为string</span><br></pre></td></tr></table></figure>
 
-<p>这里 infer 能够推断出 U<br>的类型，并且供后面使用，你可以理解为这里定义了一个变量 U<br>来接收数组元素的类型。</p>
+<p>这里 infer 能够推断出 U<br>的类型，并且供后面使用，你可以理解为<strong>这里定义了一个变量U来接收数组元素的类型</strong>。</p>
 <h3 id="3-11-4-TS-预定义条件类型"><a href="#3-11-4-TS-预定义条件类型" class="headerlink" title="3.11.4 TS 预定义条件类型"></a>3.11.4 TS 预定义条件类型</h3><p>TS 在 2.8 版本增加了一些预定义的有条件类型，来看一下：</p>
 <ul>
 <li>Exclude&lt;T, U&gt;，从 T 中去掉可以赋值给 U 的类型：</li>
@@ -452,7 +452,7 @@
 <p>InstanceType直接看例子可能不好理解，所以我们先来看下它的实现：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type InstanceType&lt;T extends new (...args: any[]) &#x3D;&gt; any&gt; &#x3D; T extends new (</span><br><span class="line">  ...args: any[]</span><br><span class="line">) &#x3D;&gt; infer R</span><br><span class="line">  ? R</span><br><span class="line">  : any;</span><br></pre></td></tr></table></figure>
 
-<p>InstanceType 条件类型要求泛型变量 T 类型是创建实例为 any<br>类型的构造函数，而它本身则通过判断 T<br>是否是构造函数类型来确定返回的类型。如果是构造函数，使用 infer<br>可以自动推断出 R 的类型，即实例类型；否则返回的是 any 类型。</p>
+<p>InstanceType 条件类型要求泛型变量 T 类型是创建实例为 any类型的构造函数，而它本身则通过判断 T是否是构造函数类型来确定返回的类型。如果是构造函数，使用 infer可以自动推断出 R 的类型，即实例类型；否则返回的是 any 类型。</p>
 <p>看过 InstanceType 的实现后，我们来看怎么使用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  constructor() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">type T1 &#x3D; InstanceType&lt;typeof A&gt;; &#x2F;&#x2F; T1的类型为A</span><br><span class="line">type T2 &#x3D; InstanceType&lt;any&gt;; &#x2F;&#x2F; T2的类型为any</span><br><span class="line">type T3 &#x3D; InstanceType&lt;never&gt;; &#x2F;&#x2F; T3的类型为never</span><br><span class="line">type T4 &#x3D; InstanceType&lt;string&gt;; &#x2F;&#x2F; error</span><br></pre></td></tr></table></figure>
 
@@ -588,7 +588,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +599,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -610,7 +610,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

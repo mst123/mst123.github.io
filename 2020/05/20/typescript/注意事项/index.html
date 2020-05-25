@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="参考资料入门文档官方中文文档 函数类型声明官方说明 函数参数12345let x &#x3D; (a: number) &#x3D;&gt; 0;let y &#x3D; (b: number, s: string) &#x3D;&gt; 0;y &#x3D; x; &#x2F;&#x2F; OK x相当于省略了第二个参数的y √x &#x3D; y; &#x2F;&#x2F; Error x 并">
 <meta property="article:published_time" content="2020-05-20T10:52:22.599Z">
-<meta property="article:modified_time" content="2020-05-21T06:59:37.030Z">
+<meta property="article:modified_time" content="2020-05-24T02:42:13.953Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -419,12 +419,13 @@
 <p>可以把Cat 当成 Animal 子类，换成 TypeScript 中更专业的说法，即：<strong>Animal 兼容 Cat</strong><br>则有以下规则：  </p>
 <ul>
 <li>直接类型声明，只要和接口声明不一致就会报错<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let animal: Animal &#x3D; &#123; &#x2F;&#x2F;多了run</span><br><span class="line">  name: &#39;Tom&#39;, </span><br><span class="line">  run: () &#x3D;&gt; &#123; console.log(&#39;run&#39;) &#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Object literal may only specify known properties, and &#39;run&#39; does not exist in type &#39;Animal&#39;.</span><br><span class="line"></span><br><span class="line">let tom: Cat &#x3D; &#123; &#x2F;&#x2F;少了run</span><br><span class="line">    name: &#39;Tom&#39;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Property &#39;run&#39; is missing in type &#39;&#123; name: string; &#125;&#39; but required in type &#39;Cat&#39;.</span><br></pre></td></tr></table></figure></li>
-<li>通过以下方法，可以实现兼容类型声明<ul>
+<li>通过以下方法，可以实现兼容类型声明(可以多，不可以少)<ul>
 <li>通过变量的方式赋值，而不是以字面量形式（<strong>注意此方法仅支持将子类实例赋值给父类</strong>）  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let tom &#x3D; &#123;</span><br><span class="line">  name: &#39;Tom&#39;,</span><br><span class="line">  run: () &#x3D;&gt; &#123; console.log(&#39;run&#39;) &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let animal: Animal &#x3D; tom;</span><br></pre></td></tr></table></figure></li>
 <li>函数传参，其实相当于上一种方法  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function greet(n: Animal) &#123;</span><br><span class="line">  console.log(&#39;Hello, &#39; + n.name);</span><br><span class="line">&#125;</span><br><span class="line">greet(tom);</span><br></pre></td></tr></table></figure></li>
 <li>类型断言(<strong>仅能通过此方法将父类实例赋值给子类</strong>)  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface Animal &#123;</span><br><span class="line">  name: string;</span><br><span class="line">&#125;</span><br><span class="line">interface Cat &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  run(): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const animal: Animal &#x3D; &#123;</span><br><span class="line">  name: &#39;tom&#39;</span><br><span class="line">&#125;;</span><br><span class="line">let tom: Cat &#x3D; animal &#x2F;&#x2F;会报错，只能采取下方方法</span><br><span class="line">let tom &#x3D; animal as Cat;</span><br></pre></td></tr></table></figure></li>
 <li>泛型？保留  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="交叉类型"><a href="#交叉类型" class="headerlink" title="交叉类型"></a>交叉类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;实际上 string &amp; number 是never类型 因为永远不存在满足条件的类型</span><br><span class="line">let a: string &amp; number &#x3D; (() &#x3D;&gt; &#123; </span><br><span class="line">   throw new Error(&#39;aa&#39;)</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interface a &#123; &#x2F;&#x2F;相当于父类</span><br><span class="line">  name: string</span><br><span class="line">&#125;</span><br><span class="line">interface b &#123; &#x2F;&#x2F;相当于父类</span><br><span class="line">  age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let c: a &amp; b  &#x2F;&#x2F;相当于子类，同时被上述两个父类兼容</span><br><span class="line">c &#x3D; &#123;</span><br><span class="line">  name: &#39;mahuateng&#39;,</span><br><span class="line">  age: 14</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
@@ -551,7 +552,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,7 +563,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -573,7 +574,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -606,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数类型声明"><span class="nav-number">2.</span> <span class="nav-text">函数类型声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数参数"><span class="nav-number">2.1.</span> <span class="nav-text">函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数返回值"><span class="nav-number">2.2.</span> <span class="nav-text">函数返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言"><span class="nav-number">3.</span> <span class="nav-text">类型断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言和类型申明"><span class="nav-number">4.</span> <span class="nav-text">类型断言和类型申明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个兼容性的小总结"><span class="nav-number">4.1.</span> <span class="nav-text">一个兼容性的小总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数类型声明"><span class="nav-number">2.</span> <span class="nav-text">函数类型声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数参数"><span class="nav-number">2.1.</span> <span class="nav-text">函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数返回值"><span class="nav-number">2.2.</span> <span class="nav-text">函数返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言"><span class="nav-number">3.</span> <span class="nav-text">类型断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言和类型申明"><span class="nav-number">4.</span> <span class="nav-text">类型断言和类型申明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个兼容性的小总结"><span class="nav-number">4.1.</span> <span class="nav-text">一个兼容性的小总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉类型"><span class="nav-number">5.</span> <span class="nav-text">交叉类型</span></a></li></ol></div>
             
 
           </div>

@@ -81,13 +81,13 @@
 
 <meta name="description" content="上个小节我们学习了八个JavaScript中常见的数据类型，你也学会了如何给一个变量指定类型。本小节我们将接触几个TypeScript中引入的新类型，这里面可能有你在其他强类型语言中见过的概念，接下来让我们一起来学习。 2.2.1 元组元组可以看做是数组的拓展，它表示已知元素数量和类型的数组。确切地说，是已知数组中每一个位置上的元素的类型，来看例子： 1234let tuple: [string,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6 TS中补充的六个类型">
+<meta property="og:title" content="5 TS中补充的六个类型">
 <meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/05%20TS%E4%B8%AD%E8%A1%A5%E5%85%85%E7%9A%84%E5%85%AD%E4%B8%AA%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="上个小节我们学习了八个JavaScript中常见的数据类型，你也学会了如何给一个变量指定类型。本小节我们将接触几个TypeScript中引入的新类型，这里面可能有你在其他强类型语言中见过的概念，接下来让我们一起来学习。 2.2.1 元组元组可以看做是数组的拓展，它表示已知元素数量和类型的数组。确切地说，是已知数组中每一个位置上的元素的类型，来看例子： 1234let tuple: [string,">
 <meta property="og:image" content="http://img.mukewang.com/5cf4bf5e0001c4e116001100.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.118Z">
-<meta property="article:modified_time" content="2020-05-22T05:43:57.630Z">
+<meta property="article:modified_time" content="2020-05-24T02:41:43.460Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -127,7 +127,7 @@
 
 
 
-  <title>6 TS中补充的六个类型 | 博客</title>
+  <title>5 TS中补充的六个类型 | 博客</title>
   
 
 
@@ -315,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">6 TS中补充的六个类型</h1>
+          <h1 class="post-title" itemprop="name headline">5 TS中补充的六个类型</h1>
         
 
         <div class="post-meta">
@@ -422,11 +422,10 @@
 <p>在 2.6 之后的版本，[string,<br>number]元组类型的声明效果上可以看做等同于下面的声明：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">interface Tuple extends Array&lt;number | string&gt; &#123;</span><br><span class="line">  0: string;</span><br><span class="line">  1: number;</span><br><span class="line">  length: 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上面这个声明中，我们定义接口<code>Tuple</code>，它继承数组类型，并且数组元素的类型是<br><code>number 和 string</code> 构成的联合类型，这样接口<code>Tuple</code><br>就拥有了数组类型所有的特性。并且我们明确指定索引为0的值为<code>string</code>类型，索引为1的值为<code>number</code>类型，同时我们指定<br><code>length</code> 属性的类型字面量为<br>2，这样当我们再指定一个类型为这个接口<code>Tuple</code>的时候，这个值必须是数组，而且如果元素个数超过2个时，它的length就不是2是大于2的数了，就不满足这个接口定义了，所以就会报错；当然，如果元素个数不够2个也会报错，因为索引为0或1的值缺失。接口我们后面会在后面专门的一节来讲，所以暂时不懂也没关系。</p>
+<p>上面这个声明中，我们定义接口<code>Tuple</code>，它继承数组类型，并且数组元素的类型是<br><code>number 和 string</code> 构成的联合类型，这样接口<code>Tuple</code>就拥有了数组类型所有的特性。并且我们明确指定索引为0的值为<code>string</code>类型，索引为1的值为<code>number</code>类型，同时我们指定<code>length</code> 属性的类型字面量为2，这样当我们再指定一个类型为这个接口<code>Tuple</code>的时候，这个值必须是数组，而且如果元素个数超过2个时，它的length就不是2是大于2的数了，就不满足这个接口定义了，所以就会报错；当然，如果元素个数不够2个也会报错，因为索引为0或1的值缺失。接口我们后面会在后面专门的一节来讲，所以暂时不懂也没关系。</p>
 <p>如果你想要和 2.6 及之前版本一样的元组特性，那你可以这样定义接口：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface Tuple extends Array&lt;number | string&gt; &#123;</span><br><span class="line">  0: string;</span><br><span class="line">  1: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也就是去掉接口中定义的<code>length: 2</code>，这样<code>Tuple</code>接口的<code>length</code>就是从<code>Array</code>继承过来的<code>number</code>类型，而不用必须是<code>2</code>了。</p>
+<p>extends 是符合后面描述的意思 感觉相当于 :<br>也就是去掉接口中定义的<code>length: 2</code>，这样<code>Tuple</code>接口的<code>length</code>就是从<code>Array</code>继承过来的<code>number</code>类型，而不用必须是<code>2</code>了。</p>
 <h3 id="2-2-2-枚举"><a href="#2-2-2-枚举" class="headerlink" title="2.2.2 枚举"></a>2.2.2 枚举</h3><p><code>enum</code>类型在 C++这些语言中比较常见，TypeScript 在 ES<br>原有类型基础上加入枚举类型，使我们在 TypeScript<br>中也可以给一组数值赋予名字，这样对开发者来说较为友好。比如我们要定义一组角色，每一个角色用一个数字代表，就可以使用枚举类型来定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">enum Roles &#123;</span><br><span class="line">  SUPER_ADMIN,</span><br><span class="line">  ADMIN,</span><br><span class="line">  USER</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -480,9 +479,13 @@
 <p>而当你指定值为unknown类型的时候，如果没有通过基于控制流的类型断言来缩小范围的话，是不能对它进行任何操作的，关于类型断言，我们后面小节会讲到。总之这里你知道了，unknown类型的值不是可以随便操作的。</p>
 <p>我们这里只是先来了解unknown和any的区别，unknown还有很多复杂的规则，但是涉及到很多后面才学到的知识，所以需要我们学习了高级类型之后才能再讲解。</p>
 <h3 id="2-2-7-拓展阅读"><a href="#2-2-7-拓展阅读" class="headerlink" title="2.2.7 拓展阅读"></a>2.2.7 拓展阅读</h3><p>这要讲的不是TypeScript中新增的基本类型，而是高级类型中的两个比较常用类型：联合类型和交叉类型。我们之所以要提前讲解，是因为它俩比较简单，而且很是常用，所以我们先来学习下。</p>
-<h4 id="1-交叉类型-交叉类型-style-”font-size-26px-”"><a href="#1-交叉类型-交叉类型-style-”font-size-26px-”" class="headerlink" title="(1) 交叉类型  { #交叉类型 style=”font-size: 26px;”}"></a>(1) 交叉类型  { #交叉类型 style=”font-size: 26px;”}</h4><p>交叉类型就是取多个类型的并集，使用 <code>&amp;</code><br>符号定义，被&amp;符链接的多个类型构成一个交叉类型，表示这个类型同时具备这几个连接起来的类型的特点，来看例子：</p>
+<h4 id="1-交叉类型-交叉类型-style-”font-size-26px-”"><a href="#1-交叉类型-交叉类型-style-”font-size-26px-”" class="headerlink" title="(1) 交叉类型  { #交叉类型 style=”font-size: 26px;”}"></a>(1) 交叉类型  { #交叉类型 style=”font-size: 26px;”}</h4><p>交叉类型就是取多个类型的并集，使用 <code>&amp;</code>符号定义，被&amp;符链接的多个类型构成一个交叉类型，表示这个类型同时具备这几个连接起来的类型的特点，来看例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const merge &#x3D; &lt;T, U&gt;(arg1: T, arg2: U): T &amp; U &#x3D;&gt; &#123;</span><br><span class="line">  let res &#x3D; &lt;T &amp; U&gt;&#123;&#125;; &#x2F;&#x2F; 这里指定返回值的类型兼备T和U两个类型变量代表的类型的特点</span><br><span class="line">  res &#x3D; Object.assign(arg1, arg2); &#x2F;&#x2F; 这里使用Object.assign方法，返回一个合并后的对象；</span><br><span class="line">                                   &#x2F;&#x2F; 关于该方法，请在例子下面补充中学习</span><br><span class="line">  return res;</span><br><span class="line">&#125;;</span><br><span class="line">const info1 &#x3D; &#123;</span><br><span class="line">  name: &quot;lison&quot;</span><br><span class="line">&#125;;</span><br><span class="line">const info2 &#x3D; &#123;</span><br><span class="line">  age: 18</span><br><span class="line">&#125;;</span><br><span class="line">const lisonInfo &#x3D; merge(info1, info2);</span><br><span class="line"></span><br><span class="line">console.log(lisonInfo.address); &#x2F;&#x2F; error 类型“&#123; name: string; &#125; &amp; &#123; age: number; &#125;”上不存在属性“address”</span><br></pre></td></tr></table></figure>
-
+<p>交叉类型指的是同时具备，看下面例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;实际上 string &amp; number 是never类型 因为永远不存在满足条件的类型</span><br><span class="line">let a: string&amp;number &#x3D; (() &#x3D;&gt; &#123; </span><br><span class="line">   throw new Error(&#39;aa&#39;)</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>但是对于接口的交叉，请看以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">interface a &#123; &#x2F;&#x2F;相当于父类</span><br><span class="line">  name: string</span><br><span class="line">&#125;</span><br><span class="line">interface b &#123; &#x2F;&#x2F;相当于父类</span><br><span class="line">  age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let c: a &amp; b  &#x2F;&#x2F;相当于子类，同时被上述两个父类兼容</span><br><span class="line">c &#x3D; &#123;</span><br><span class="line">  name: &#39;mahuateng&#39;,</span><br><span class="line">  age: 14</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看起来像是把两个接口合并了</p>
 <blockquote>
 <p>补充阅读：Object.assign方法可以合并多个对象，将多个对象的属性添加到一个对象中并返回，有一点要注意的是，如果属性值是对象或者数组这种保存的是内存引用的引用类型，会保持这个引用，也就是如果在Object.assign返回的的对象中修改某个对象属性值，原来用来合并的对象也会受到影响。</p>
 </blockquote>
@@ -627,7 +630,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -638,7 +641,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -649,7 +652,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
