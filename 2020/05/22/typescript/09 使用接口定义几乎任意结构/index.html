@@ -87,7 +87,7 @@
 <meta property="og:description" content="本小节我们来学习接口，正如题目所说的，你可以使用接口定义几乎任意结构，本小节我们先来学习下接口的基本使用方法。 2.6.1. 基本用法我们需要定义这样一个函数，参数是一个对象，里面包含两个字段：firstName 和lastName，也就是英文的名和姓，然后返回一个拼接后的完整名字。来看下函数的定义： 1234&#x2F;&#x2F; 注：这段代码为纯JavaScript代码，请在JavaScri">
 <meta property="og:image" content="http://img.mukewang.com/5cf4bfd200012bae16000820.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.124Z">
-<meta property="article:modified_time" content="2020-05-24T06:23:45.552Z">
+<meta property="article:modified_time" content="2020-05-27T03:11:31.437Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -449,7 +449,7 @@
 <h3 id="2-6-5-只读属性"><a href="#2-6-5-只读属性" class="headerlink" title="2.6.5.只读属性"></a>2.6.5.只读属性</h3><p>接口也可以设置只读属性，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface Role &#123;</span><br><span class="line">  readonly 0: string;</span><br><span class="line">  readonly 1: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这里我们定义了一个角色字典，有 0 和 1 两种角色id。下面我们定义一个实际的角色  数据，然后来试图修改一下它的值：</p>
+<p>这里我们定义了一个角色字典，有 0 和 1 两种角色id。下面我们定义一个实际的角色  数据，然后来试图修改一下它的值：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const role: Role &#x3D; &#123;</span><br><span class="line">  0: &quot;super_admin&quot;,</span><br><span class="line">  1: &quot;admin&quot;</span><br><span class="line">&#125;;</span><br><span class="line">role[1] &#x3D; &quot;super_admin&quot;; &#x2F;&#x2F; Cannot assign to &#39;0&#39; because it is a read-only property</span><br></pre></td></tr></table></figure>
 
 <p>我们看到 TypeScript告诉我们不能分配给索引0，因为它是只读属性。设置一个值只读，我们是否想到ES6里定义常量的关键字<code>const</code>？使用<code>const</code>定义的常量定义之后不能再修改，这有点只读的意思。那<code>readonly</code>和<code>const</code>在使用时该如何选择呢？这主要看你这个值的用途，<strong>如果是定义一个常量，那用<code>const</code>，如果这个值是作为对象的属性，那请用<code>readonly</code></strong>。我们来看下面的代码：</p>
