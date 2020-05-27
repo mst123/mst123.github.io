@@ -294,6 +294,486 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/35%20%E5%B0%81%E8%A3%85%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/22/typescript/35%20%E5%B0%81%E8%A3%85%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82/" itemprop="url">35 封装接口请求</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          我们在开发中广泛使用的axios调用接口，为了更好地调用，做一些全局的拦截，我们通常会对其进行一下封装，本小节我们就来看下如何使用TypeScript对它进行封装，使其同时能够有很好的类型支持。
+首先我们需要安装axios，如何安装依赖我们在1.3小节学习过了，这里直接安装：
+1npm instal
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/05/22/typescript/35%20%E5%B0%81%E8%A3%85%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/34%20%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/22/typescript/34%20%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE/" itemprop="url">34 搭建基础项目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          这一章是实战章节，我们将会使用 Vue+TypeScript来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用TypeScript进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用TypeScript 结合 Vue全家桶进行开发为前提，进行这个
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/05/22/typescript/34%20%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/33%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A0%8D%E6%9F%B4%EF%BC%9A%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E5%BA%93%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/22/typescript/33%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A0%8D%E6%9F%B4%EF%BC%9A%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E5%BA%93%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" itemprop="url">33 书写声明文件之砍柴：为不同类型库书写声明文件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
+                2020-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          5.3.1 模块插件或 UMD 插件一些模块和插件是支持插件机制的，比如我们常见的jQuery，它的插件有非常多。我们可以为库书写声明文件的同时，为库的插件定义声明文件，可以参考官方模板module-plugin.d.ts。
+5.3.2 全局插件全局插件往往会修改全局中一些对象，在这些对象上添加或修
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/05/22/typescript/33%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A0%8D%E6%9F%B4%EF%BC%9A%E4%B8%BA%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E5%BA%93%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/32%20%E4%B9%A6%E5%86%99%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6%E4%B9%8B%E7%A3%A8%E5%88%80%EF%BC%9A%E8%AF%86%E5%88%AB%E5%BA%93%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1362,488 +1842,6 @@ tsconfig.json 是放在项目根目录，用来配置一些编译选项等。当
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/05/22/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/25%20%E5%85%A5%E6%89%8B%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%8C%E7%BB%99%E5%87%A1%E4%BA%BA%E6%B7%BB%E5%8A%A0%E8%B6%85%E8%83%BD%E5%8A%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/22/typescript/25%20%E5%85%A5%E6%89%8B%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%8C%E7%BB%99%E5%87%A1%E4%BA%BA%E6%B7%BB%E5%8A%A0%E8%B6%85%E8%83%BD%E5%8A%9B/" itemprop="url">25 入手装饰器，给凡人添加超能力</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
-                2020-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index">
-                    <span itemprop="name">typescript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">零基础学透TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          ECMAScript 的装饰器提案到现在还没有定案，所以我们直接看 TS中的装饰器。同样在 TS中，装饰器仍然是一项实验性特性，未来可能有所改变，所以如果你要使用装饰器，需要在tsconfig.json 的编译配置中开启experimentalDecorators，将它设为 true。
-3.12.1
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/22/typescript/25%20%E5%85%A5%E6%89%8B%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%8C%E7%BB%99%E5%87%A1%E4%BA%BA%E6%B7%BB%E5%8A%A0%E8%B6%85%E8%83%BD%E5%8A%9B/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/24%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AE%83%E4%B8%8D%E6%98%AF%E4%B8%89%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%86%99%E6%B3%95%E5%90%97%EF%BC%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/22/typescript/24%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AE%83%E4%B8%8D%E6%98%AF%E4%B8%89%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%86%99%E6%B3%95%E5%90%97%EF%BC%9F/" itemprop="url">24 条件类型，它不是三元操作符的写法吗？</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
-                2020-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index">
-                    <span itemprop="name">typescript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">零基础学透TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          3.11.1 基础使用条件类型是 TS2.8引入的，从语法上看它像是三元操作符。它会以一个条件表达式进行类型关系检测，然后在后面两种类型中选择一个，先来看它怎么写：
-1T extends U ? X : Y
-
-这个表达式的意思是，如果 T 可以赋值给 U 类型，则是 X 类型，否则是 Y类型。来看个
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/22/typescript/24%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AE%83%E4%B8%8D%E6%98%AF%E4%B8%89%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E7%9A%84%E5%86%99%E6%B3%95%E5%90%97%EF%BC%9F/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/05/22/typescript/23%20%E5%89%8D%E9%9D%A2%E8%B7%B3%E8%BF%87%E7%9A%84unkown%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/22/typescript/23%20%E5%89%8D%E9%9D%A2%E8%B7%B3%E8%BF%87%E7%9A%84unkown%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/" itemprop="url">23 前面跳过的unkown类型详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-22T11:37:02+08:00">
-                2020-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index">
-                    <span itemprop="name">typescript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">零基础学透TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          学习完交叉类型、联合类型、类型断言、映射类型、索引后，我们就可以补充一个基础类型中没有讲的知识了，就是TS 在 3.0 版本新增的顶级类型 unknown。它相对于 any 来说是安全的。关于unknown 类型，有如下几点需要注意，我们来逐个讲解和举例学习：
-(1) 任何类型的值都可以赋值给 un
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/22/typescript/23%20%E5%89%8D%E9%9D%A2%E8%B7%B3%E8%BF%87%E7%9A%84unkown%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

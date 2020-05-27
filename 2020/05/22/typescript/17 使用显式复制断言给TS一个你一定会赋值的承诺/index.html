@@ -87,7 +87,7 @@
 <meta property="og:description" content="在讲解本小节的主要内容之前，我们先来补充两个关于null和undefined的知识点： (1) 严格模式下null和undefined赋值给其它类型值 当我们在 tsconfig.json 中将 strictNullChecks 设为 true 后，就不能再将undefined 和 null 赋值给除它们自身和void之外的任意类型值了，但有时我们确实需要给一个其它类型的值设置初始值为空，然后再进">
 <meta property="og:image" content="http://img.mukewang.com/5d0343240001943716000230.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.137Z">
-<meta property="article:modified_time" content="2020-05-22T05:44:42.879Z">
+<meta property="article:modified_time" content="2020-05-26T02:42:05.514Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -400,38 +400,26 @@
       
         <p>在讲解本小节的主要内容之前，我们先来补充两个关于null和undefined的知识点：</p>
 <p><strong>(1) 严格模式下null和undefined赋值给其它类型值</strong></p>
-<p>当我们在 tsconfig.json 中将 strictNullChecks 设为 true 后，就不能再将<br>undefined 和 null 赋值给除它们自身和void<br>之外的任意类型值了，但有时我们确实需要给一个其它类型的值设置初始值为空，然后再进行赋值，这时我们可以自己使用联合类型来实现<br>null 或 undefined 赋值给其它类型：</p>
+<p>当我们在 tsconfig.json 中将 strictNullChecks 设为 true 后，就不能再将undefined 和 null 赋值给除它们自身和void之外的任意类型值了，但有时我们确实需要给一个其它类型的值设置初始值为空，然后再进行赋值，这时我们可以自己使用联合类型来实现null 或 undefined 赋值给其它类型：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let str &#x3D; &quot;lison&quot;;</span><br><span class="line">str &#x3D; null; &#x2F;&#x2F; error 不能将类型“null”分配给类型“string”</span><br><span class="line">let strNull: string | null &#x3D; &quot;lison&quot;; &#x2F;&#x2F; 这里你可以简单理解为，string | null即表示既可以是string类型也可以是null类型</span><br><span class="line">strNull &#x3D; null; &#x2F;&#x2F; right</span><br><span class="line">strNull &#x3D; undefined; &#x2F;&#x2F; error 不能将类型“undefined”分配给类型“string | null”</span><br></pre></td></tr></table></figure>
 
 <p>注意，TS 会将 undefined 和 null 区别对待，这和 JS<br>的本意也是一致的，所以在 TS<br>中，<code>string|undefined</code>、<code>string|null</code>和<code>string|undefined|null</code>是三种不同的类型。</p>
 <p><strong>(2) 可选参数和可选属性</strong></p>
-<p>如果开启了<br>strictNullChecks，可选参数会被自动加上<code>|undefined</code>，来看例子：</p>
+<p>如果开启了strictNullChecks，可选参数会被自动加上<code>|undefined</code>，来看例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const sum &#x3D; (x: number, y?: number) &#x3D;&gt; &#123;</span><br><span class="line">  return x + (y || 0);</span><br><span class="line">&#125;;</span><br><span class="line">sum(1, 2); &#x2F;&#x2F; 3</span><br><span class="line">sum(1); &#x2F;&#x2F; 1</span><br><span class="line">sum(1, undefined); &#x2F;&#x2F; 1</span><br><span class="line">sum(1, null); &#x2F;&#x2F; error Argument of type &#39;null&#39; is not assignable to parameter of type &#39;number | undefined&#39;</span><br></pre></td></tr></table></figure>
 
-<p>可以根据错误信息看出，这里的参数 y 作为可选参数，它的类型就不仅是 number<br>类型了，它可以是 undefined，所以它的类型是联合类型<code>number | undefined</code>。</p>
-<p>TS<br>对可选属性和对可选参数的处理一样，可选属性的类型也会被自动加上<code>|undefined</code>。</p>
+<p>可以根据错误信息看出，这里的参数 y 作为可选参数，它的类型就不仅是 number类型了，它可以是 undefined，所以它的类型是联合类型<code>number | undefined</code>。TS对可选属性和对可选参数的处理一样，可选属性的类型也会被自动加上<code>|undefined</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface PositionInterface &#123;</span><br><span class="line">  x: number;</span><br><span class="line">  b?: number;</span><br><span class="line">&#125;</span><br><span class="line">const position: PositionInterface &#x3D; &#123;</span><br><span class="line">  x: 12</span><br><span class="line">&#125;;</span><br><span class="line">position.b &#x3D; &quot;abc&quot;; &#x2F;&#x2F; error</span><br><span class="line">position.b &#x3D; undefined; &#x2F;&#x2F; right</span><br><span class="line">position.b &#x3D; null; &#x2F;&#x2F; error</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-4-1-显式赋值断言"><a href="#3-4-1-显式赋值断言" class="headerlink" title="3.4.1 显式赋值断言"></a>3.4.1 显式赋值断言</h3><p>接下来我们来看显式赋值断言。当我们开启 strictNullChecks<br>时，有些情况下编译器是无法在我们声明一些变量前知道一个值是否是 null<br>的，所以我们需要使用类型断言手动指明该值不为<br>null。这可能不好理解，接下来我们就来看一个编译器无法推断出一个值是否是null的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function getSplicedStr(num: number | null): string &#123;</span><br><span class="line">  function getRes(prefix: string) &#123; &#x2F;&#x2F; 这里在函数getSplicedStr里定义一个函数getRes，我们最后调用getSplicedStr返回的值实际是getRes运行后的返回值</span><br><span class="line">    return prefix + num.toFixed().toString(); &#x2F;&#x2F; 这里使用参数num，num的类型为number或null，在运行前编译器是无法知道在运行时num参数的实际类型的，所以这里会报错，因为num参数可能为null</span><br><span class="line">  &#125;</span><br><span class="line">  num &#x3D; num || 0.1; &#x2F;&#x2F; 但是这里进行了赋值，如果num为null则会将0.1赋给num，所以实际调用getRes的时候，getRes里的num拿到的始终不为null</span><br><span class="line">  return getRes(&quot;lison&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-1-显式赋值断言"><a href="#3-4-1-显式赋值断言" class="headerlink" title="3.4.1 显式赋值断言"></a>3.4.1 显式赋值断言</h3><p>接下来我们来看显式赋值断言。当我们开启 strictNullChecks(好像开不开都一样)时，有些情况下编译器是无法在我们声明一些变量前知道一个值是否是 null | undefined 的，所以我们需要使用类型断言手动指明该值不为null | undefined。这可能不好理解，接下来我们就来看一个编译器无法推断出一个值是否是null | undefined的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function getSplicedStr(num: number | undefined | null): string &#123;</span><br><span class="line">  function getRes(prefix: string) &#123; &#x2F;&#x2F; 这里在函数getSplicedStr里定义一个函数getRes，我们最后调用getSplicedStr返回的值实际是getRes运行后的返回值</span><br><span class="line">    return prefix + num!.toFixed().toString(); &#x2F;&#x2F; 这里使用参数num，num的类型为number或null，在运行前编译器是无法知道在运行时num参数的实际类型的，所以这里会报错，因为num参数可能为null</span><br><span class="line">  &#125;</span><br><span class="line">  num &#x3D; num || 0.1; &#x2F;&#x2F; 但是这里进行了赋值，如果num为null则会将0.1赋给num，所以实际调用getRes的时候，getRes里的num拿到的始终不为null</span><br><span class="line">  return getRes(&quot;lison&quot;);</span><br><span class="line">&#125;</span><br><span class="line">function getSplicedStr(num?: number): string &#123;</span><br><span class="line">  function getRes(prefix: string) &#123; &#x2F;&#x2F; 这里在函数getSplicedStr里定义一个函数getRes，我们最后调用getSplicedStr返回的值实际是getRes运行后的返回值</span><br><span class="line">    return prefix + num!.toFixed().toString(); &#x2F;&#x2F; 这里使用参数num，num的类型为number或null，在运行前编译器是无法知道在运行时num参数的实际类型的，所以这里会报错，因为num参数可能为null</span><br><span class="line">  &#125;</span><br><span class="line">  num &#x3D; num || 0.1; &#x2F;&#x2F; 但是这里进行了赋值，如果num为null则会将0.1赋给num，所以实际调用getRes的时候，getRes里的num拿到的始终不为null</span><br><span class="line">  return getRes(&quot;lison&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个例子中，因为有嵌套函数，而编译器无法去除嵌套函数的<br>null（除非是立即调用的函数表达式），所以我们需要使用显式赋值断言，写法就是在不为<br>null 的值后面加个<code>!</code>。来看上面的例子该怎么改：</p>
+<p>这个例子中，因为有嵌套函数，而编译器无法去除嵌套函数的null（除非是立即调用的函数表达式），所以我们需要使用显式赋值断言，写法就是在不为null 的值后面加个<code>!</code>。来看上面的例子该怎么改：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function getSplicedStr(num: number | null): string &#123;</span><br><span class="line">  function getLength(prefix: string) &#123;</span><br><span class="line">    return prefix + num!.toFixed().toString();</span><br><span class="line">  &#125;</span><br><span class="line">  num &#x3D; num || 0.1;</span><br><span class="line">  return getLength(&quot;lison&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样编译器就知道了，num 不为 null，即便 getSplicedStr<br>函数在调用的时候传进来的参数是null，在 getLength函数中的 num 也不会是<br>null。</p>
-<h3 id="本节小结"><a href="#本节小结" class="headerlink" title="本节小结"></a>本节小结</h3><p>本小节我们补充学习了两个关于null和undefined的知识点。一个是如何在严格模式，也就是在tsconfig.json中将strictNullChecks设为true的情况下，将null或undefined赋值给除它们自身和void之外的类型的值；另一个知识点是当将strictNullChecks设为true后，编译器对可选参数和可选属性类型定义的处理，效果相当于在我们指定的类型后面加上<code>|undefined</code>。最后我们学习了如何使用<strong>显式赋值断言</strong>，它的作用就是告诉编译器某个值确实不为null，这个我们在实际开发中常会用到，我们在实战章节中用到时会再次学习。</p>
+<p>这样编译器就知道了，num 不为 null，即便 getSplicedStr函数在调用的时候传进来的参数是null，在 getLength函数中的 num 也不会是null。</p>
+<h3 id="本节小结"><a href="#本节小结" class="headerlink" title="本节小结"></a>本节小结</h3><p>本小节我们补充学习了两个关于null和undefined的知识点。一个是如何在严格模式，也就是tsconfig.json中将strictNullChecks设为true的情况下，将null或undefined赋值给除它们自身和void之外的类型的值；另一个知识点是当将strictNullChecks设为true后，编译器对可选参数和可选属性类型定义的处理，效果相当于在我们指定的类型后面加上<code>|undefined</code>。最后我们学习了如何使用<strong>显式赋值断言</strong>，它的作用就是告诉编译器某个值确实不为null，这个我们在实际开发中常会用到，我们在实战章节中用到时会再次学习。</p>
 <p>下个小节我们将学习类型别名和字面量类型。类型别名我们在前面简单接触过，它的语法类似赋值语句，只不过赋的不是具体的值，而是一个类型；字面量类型我们称它为单一的类型，它包含数字字面量类型和字符串字面量类型两种，下个小节我们来进行详细学习。<br> <img src="http://img.mukewang.com/5d0343240001943716000230.jpg" alt="图片描述"></p>
-<p><a href="/read/35/article/353"></a></p>
-<p>**</p>
-<p>16 使用类型保护让TS更聪明</p>
-<p><a href="/read/35/article/355"></a></p>
-<p>18 类型别名和字面量类型—单调的类型</p>
-<p>**</p>
-<p>精选留言 1</p>
-<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
-<ul>
-<li><a href="//www.imooc.com/u/3709449/articles" target="_blank" rel="noopener"></a><br><a href="//www.imooc.com/u/3709449/articles" target="_blank" rel="noopener"></a><br>斯芬克斯01<br>一个是如何在严格模式，也就是在tsconfig.json中将strictNullChecks设为true的情况下，将null或undefined赋值给除它们自身和void之外的类型的<br>(剩下的全部的) 值 是不是更容易理解???或者更通顺?<br>** 0<br>回复<br>举报<br>2019-07-01</li>
-</ul>
 
       
     </div>
@@ -462,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/05/22/typescript/16%20%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%BF%9D%E6%8A%A4%E8%AE%A9TS%E6%9B%B4%E8%81%AA%E6%98%8E/" rel="next" title="16 使用类型保护让TS更聪明">
-                <i class="fa fa-chevron-left"></i> 16 使用类型保护让TS更聪明
+              <a href="/2020/05/22/typescript/11%20%E4%B8%BA%E5%87%BD%E6%95%B0%E5%92%8C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B/" rel="next" title="11 为函数和函数参数定义类型">
+                <i class="fa fa-chevron-left"></i> 11 为函数和函数参数定义类型
               </a>
             
           </div>

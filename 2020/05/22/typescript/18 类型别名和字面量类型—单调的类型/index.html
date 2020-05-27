@@ -87,7 +87,7 @@
 <meta property="og:description" content="本小节我们来学习类型别名和字面量类型。类型别名我们之前在讲泛型的时候接触过，现在来详细学习下。 3.5.1 类型别名类型别名就是给一种类型起个别的名字，之后只要使用这个类型的地方，都可以用这个名字作为类型代替，但是它只是起了一个名字，并不是创建了一个新类型。这种感觉就像JS中对象的赋值，你可以把一个对象赋给一个变量，使用这个对象的地方都可以用这个变量代替，但你并不是创建了一个新对象，而是通过引用来">
 <meta property="og:image" content="http://img.mukewang.com/5d034344000116c816000380.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.139Z">
-<meta property="article:modified_time" content="2020-05-22T05:44:46.034Z">
+<meta property="article:modified_time" content="2020-05-26T03:01:28.418Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -399,54 +399,44 @@
 
       
         <p>本小节我们来学习类型别名和字面量类型。类型别名我们之前在讲泛型的时候接触过，现在来详细学习下。</p>
-<h3 id="3-5-1-类型别名"><a href="#3-5-1-类型别名" class="headerlink" title="3.5.1 类型别名"></a>3.5.1 类型别名</h3><p>类型别名就是给一种类型起个别的名字，之后只要使用这个类型的地方，都可以用这个名字作为类型代替，但是它只是起了一个名字，并不是创建了一个新类型。这种感觉就像<br>JS<br>中对象的赋值，你可以把一个对象赋给一个变量，使用这个对象的地方都可以用这个变量代替，但你并不是创建了一个新对象，而是通过引用来使用这个对象。</p>
+<h3 id="3-5-1-类型别名"><a href="#3-5-1-类型别名" class="headerlink" title="3.5.1 类型别名"></a>3.5.1 类型别名</h3><p>类型别名就是给一种类型起个别的名字，之后只要使用这个类型的地方，都可以用这个名字作为类型代替，但是它只是起了一个名字，并不是创建了一个新类型。这种感觉就像JS中对象的赋值，你可以把一个对象赋给一个变量，使用这个对象的地方都可以用这个变量代替，但你并不是创建了一个新对象，而是通过引用来使用这个对象。</p>
 <p>我们来看下怎么定义类型别名，使用 <code>type</code> 关键字：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type TypeString &#x3D; string;</span><br><span class="line">let str: TypeString;</span><br><span class="line">str &#x3D; 123; &#x2F;&#x2F; error Type &#39;123&#39; is not assignable to type &#39;string&#39;</span><br></pre></td></tr></table></figure>
 
 <p>类型别名也可以使用泛型，来看例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type PositionType&lt;T&gt; &#x3D; &#123; x: T; y: T &#125;;</span><br><span class="line">const position1: PositionType&lt;number&gt; &#x3D; &#123;</span><br><span class="line">  x: 1,</span><br><span class="line">  y: -1</span><br><span class="line">&#125;;</span><br><span class="line">const position2: PositionType&lt;string&gt; &#x3D; &#123;</span><br><span class="line">  x: &quot;right&quot;,</span><br><span class="line">  y: &quot;top&quot;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>使用类型别名时也可以在属性中引用自己：</p>
+<p>使用类型别名时也可以在属性中引用自己(不添加可选属性，貌似无限循环)：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">type Child&lt;T&gt; &#x3D; &#123;</span><br><span class="line">  current: T;</span><br><span class="line">  child?: Child&lt;T&gt;;</span><br><span class="line">&#125;;</span><br><span class="line">let ccc: Child&lt;string&gt; &#x3D; &#123;</span><br><span class="line">  current: &quot;first&quot;,</span><br><span class="line">  child: &#123;</span><br><span class="line">    &#x2F;&#x2F; error</span><br><span class="line">    current: &quot;second&quot;,</span><br><span class="line">    child: &#123;</span><br><span class="line">      current: &quot;third&quot;,</span><br><span class="line">      child: &quot;test&quot; &#x2F;&#x2F; 这个地方不符合type，造成最外层child处报错</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>但是要注意，只可以在对象属性中引用类型别名自己，不能直接使用，比如下面这样是不对的：</p>
+<p>但是要注意，<strong>只可以在对象属性中引用类型别名自己，不能直接使用</strong>，比如下面这样是不对的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type Child &#x3D; Child[]; &#x2F;&#x2F; error 类型别名“Child”循环引用自身</span><br></pre></td></tr></table></figure>
 
-<p>另外要注意，因为类型别名只是为其它类型起了个新名字来引用这个类型，所以当它为接口起别名时，不能使用<br><code>extends</code> 和 <code>implements</code> 。</p>
+<p>另外要注意，因为类型别名只是为其它类型起了个新名字来引用这个类型，所以当它为接口起别名时，不能使用<code>extends</code> 和 <code>implements</code> 。</p>
 <p>接口和类型别名有时可以起到同样作用，比如下面这个例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">type Alias &#x3D; &#123;</span><br><span class="line">  num: number;</span><br><span class="line">&#125;;</span><br><span class="line">interface Interface &#123;</span><br><span class="line">  num: number;</span><br><span class="line">&#125;</span><br><span class="line">let _alias: Alias &#x3D; &#123;</span><br><span class="line">  num: 123</span><br><span class="line">&#125;;</span><br><span class="line">let _interface: Interface &#x3D; &#123;</span><br><span class="line">  num: 321</span><br><span class="line">&#125;;</span><br><span class="line">_alias &#x3D; _interface;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">type Alias &#x3D; &#123;</span><br><span class="line">  num: number;</span><br><span class="line">&#125;;</span><br><span class="line">interface Interface &#123;</span><br><span class="line">  num: number;</span><br><span class="line">&#125;</span><br><span class="line">let _alias: Alias &#x3D; &#123;</span><br><span class="line">  num: 123</span><br><span class="line">&#125;;</span><br><span class="line">let _interface: Interface &#x3D; &#123;</span><br><span class="line">  num: 321</span><br><span class="line">&#125;;</span><br><span class="line">_alias &#x3D; _interface;</span><br><span class="line">class A implements Interface&#123; &#x2F;&#x2F;没问题，且正确限制必须有num：number实例参数</span><br><span class="line">  num: number</span><br><span class="line">  constructor(num: number)&#123;</span><br><span class="line">    this.num &#x3D; num</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B implements Alias&#123; &#x2F;&#x2F;没问题，且正确限制必须有num：number实例参数</span><br><span class="line">  num: number</span><br><span class="line">  constructor(num: number)&#123;</span><br><span class="line">    this.num &#x3D; num</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可以看到用类型别名和接口都可以定义一个只包含 num<br>属性的对象类型，而且类型是兼容的。那么什么时候用类型别名，什么时候用接口呢？可以通过两点来选择：</p>
+<p>可以看到用类型别名和接口都可以定义一个只包含 num属性的对象类型，而且类型是兼容的。那么什么时候用类型别名，什么时候用接口呢？可以通过两点来选择：</p>
 <ul>
 <li>当你定义的类型要用于拓展，即使用 implements 等修饰符时，用接口。</li>
 <li>当无法通过接口，并且需要使用联合类型或元组类型，用类型别名。</li>
 </ul>
 <h3 id="3-5-2-字面量类型"><a href="#3-5-2-字面量类型" class="headerlink" title="3.5.2. 字面量类型"></a>3.5.2. 字面量类型</h3><p>字面量类型其实比较基础，但是它又不适合放到基本类型里讲，因为字符串字面量类型和字符串类型其实并不一样，所以接下来我们来学习两种字面量类型。</p>
-<h4 id="1-字符串字面量类型-字符串字面量类型-style-”font-size-26px-”"><a href="#1-字符串字面量类型-字符串字面量类型-style-”font-size-26px-”" class="headerlink" title="(1) 字符串字面量类型  { #字符串字面量类型 style=”font-size: 26px;”}"></a>(1) 字符串字面量类型  { #字符串字面量类型 style=”font-size: 26px;”}</h4><p>字符串字面量类型其实就是字符串常量，与字符串类型不同的是它是具体的值。</p>
+<h4 id="1-字符串字面量类型"><a href="#1-字符串字面量类型" class="headerlink" title="(1) 字符串字面量类型"></a>(1) 字符串字面量类型</h4><p>字符串字面量类型其实就是字符串常量，与字符串类型不同的是<strong>它是具体的值</strong>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type Name &#x3D; &quot;Lison&quot;;</span><br><span class="line">const name1: Name &#x3D; &quot;test&quot;; &#x2F;&#x2F; error 不能将类型“&quot;test&quot;”分配给类型“&quot;Lison&quot;”</span><br><span class="line">const name2: Name &#x3D; &quot;Lison&quot;;</span><br></pre></td></tr></table></figure>
 
 <p>你还可以使用联合类型来使用多个字符串：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type Direction &#x3D; &quot;north&quot; | &quot;east&quot; | &quot;south&quot; | &quot;west&quot;;</span><br><span class="line">function getDirectionFirstLetter(direction: Direction) &#123;</span><br><span class="line">  return direction.substr(0, 1);</span><br><span class="line">&#125;</span><br><span class="line">getDirectionFirstLetter(&quot;test&quot;); &#x2F;&#x2F; error 类型“&quot;test&quot;”的参数不能赋给类型“Direction”的参数</span><br><span class="line">getDirectionFirstLetter(&quot;east&quot;);</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-数字字面量类型-数字字面量类型-style-”font-size-26px-”"><a href="#2-数字字面量类型-数字字面量类型-style-”font-size-26px-”" class="headerlink" title="(2) 数字字面量类型  { #数字字面量类型 style=”font-size: 26px;”}"></a>(2) 数字字面量类型  { #数字字面量类型 style=”font-size: 26px;”}</h4><p>另一个字面量类型就是数字字面量类型，它和字符串字面量类型差不多，都是指定类型为具体的值。</p>
+<h4 id="2-数字字面量类型"><a href="#2-数字字面量类型" class="headerlink" title="(2) 数字字面量类型"></a>(2) 数字字面量类型</h4><p>另一个字面量类型就是数字字面量类型，它和字符串字面量类型差不多，都是指定类型为具体的值。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type Age &#x3D; 18;</span><br><span class="line">interface Info &#123;</span><br><span class="line">  name: string;</span><br><span class="line">  age: Age;</span><br><span class="line">&#125;</span><br><span class="line">const info: Info &#x3D; &#123;</span><br><span class="line">  name: &quot;Lison&quot;,</span><br><span class="line">  age: 28 &#x2F;&#x2F; error 不能将类型“28”分配给类型“18”</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>这里补充一个比较经典的逻辑错误，来看例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function getValue(index: number) &#123;</span><br><span class="line">  if (index !&#x3D;&#x3D; 0 || index !&#x3D;&#x3D; 1) &#123;</span><br><span class="line">    &#x2F;&#x2F; error This condition will always return &#39;true&#39; since the types &#39;0&#39; and &#39;1&#39; have no overlap</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这个例子中，在判断逻辑处使用了 <code>||</code> 符，当 index !== 0 不成立时，说明<br>index 就是 0，则不应该再判断 index 是否不等于 1；而如果 index !== 0<br>成立，那后面的判断也不会再执行；所以这个地方会报错。</p>
+<p>这个例子中，在判断逻辑处使用了 <code>||</code> 符，当 index !== 0 不成立时，说明index 就是 0，则不应该再判断 index 是否不等于 1；而如果 index !== 0 成立，那后面的判断也不会再执行；所以这个地方会报错。</p>
 <h3 id="本节小结"><a href="#本节小结" class="headerlink" title="本节小结"></a>本节小结</h3><p>本小节我们学习了类型别名和字面量类型，类型别名就是给一个类型起个别名，以后我们可以使用类型别名将较为复杂的类型抽离出来，这样任何需要使用这个类型的地方都可以使用这个别名代替；使用类型别名的好处有时和使用变量一样，我们可以将复杂的逻辑判断语句赋给一个变量，然后再进行判断，只需要判断这个变量的true或false即可；我们使用类型别名也可以起到简化代码的作用。我们还学习了两种字面量类型：数字字面量类型和字符串字面量类型，它们都是使用具体的字面量值来作为一种类型，所以我们叫它单调类型。</p>
 <p>下个小节我们将学习可辨识联合类型，我们可以使用可辨识联合并保证每个case都被处理。<br> <img src="http://img.mukewang.com/5d034344000116c816000380.jpg" alt="图片描述"></p>
-<p><a href="/read/35/article/354"></a></p>
-<p>**</p>
-<p>17 使用显式复制断言给TS一个你一定会赋值的承诺</p>
-<p><a href="/read/35/article/356"></a></p>
-<p>19 使用可辨识联合并保证每个case都被处理</p>
-<p>**</p>
-<p>精选留言 0</p>
-<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
-<p>**</p>
-<p>目前暂无任何讨论</p>
 
       
     </div>
@@ -625,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-1-类型别名"><span class="nav-number">1.</span> <span class="nav-text">3.5.1 类型别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2-字面量类型"><span class="nav-number">2.</span> <span class="nav-text">3.5.2. 字面量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-字符串字面量类型-字符串字面量类型-style-”font-size-26px-”"><span class="nav-number">2.1.</span> <span class="nav-text">(1) 字符串字面量类型  { #字符串字面量类型 style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数字字面量类型-数字字面量类型-style-”font-size-26px-”"><span class="nav-number">2.2.</span> <span class="nav-text">(2) 数字字面量类型  { #数字字面量类型 style&#x3D;”font-size: 26px;”}</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节小结"><span class="nav-number">3.</span> <span class="nav-text">本节小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-1-类型别名"><span class="nav-number">1.</span> <span class="nav-text">3.5.1 类型别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2-字面量类型"><span class="nav-number">2.</span> <span class="nav-text">3.5.2. 字面量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-字符串字面量类型"><span class="nav-number">2.1.</span> <span class="nav-text">(1) 字符串字面量类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-数字字面量类型"><span class="nav-number">2.2.</span> <span class="nav-text">(2) 数字字面量类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本节小结"><span class="nav-number">3.</span> <span class="nav-text">本节小结</span></a></li></ol></div>
             
 
           </div>
