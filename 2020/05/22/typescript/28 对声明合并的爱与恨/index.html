@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="声明合并是指 TypeScript编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在JavaScrip中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let定义变量和使用 const 定义常量时，不允许名字重复。在 TypeScript中，接口、命名空间是可以多次声明的，最后 TypeScript会将多个同名声明合并为一个。我们">
+<meta name="description" content="声明合并是指 TypeScript 编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在 JavaScrip 中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let 定义变量和使用 const 定义常量时，不允许名字重复。在 TypeScript 中，接口、命名空间是可以多次声明的，最后 TypeScript 会将多个同名声明合并">
 <meta property="og:type" content="article">
 <meta property="og:title" content="28 对声明合并的爱与恨">
 <meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="声明合并是指 TypeScript编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在JavaScrip中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let定义变量和使用 const 定义常量时，不允许名字重复。在 TypeScript中，接口、命名空间是可以多次声明的，最后 TypeScript会将多个同名声明合并为一个。我们">
+<meta property="og:description" content="声明合并是指 TypeScript 编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在 JavaScrip 中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let 定义变量和使用 const 定义常量时，不允许名字重复。在 TypeScript 中，接口、命名空间是可以多次声明的，最后 TypeScript 会将多个同名声明合并">
 <meta property="og:image" content="http://img.mukewang.com/5d22b984000115ac16000560.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.155Z">
-<meta property="article:modified_time" content="2020-05-22T05:45:25.113Z">
+<meta property="article:modified_time" content="2020-05-28T10:46:24.883Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -398,7 +398,7 @@
       
 
       
-        <p>声明合并是指 TypeScript<br>编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在<br>JavaScrip<br>中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let<br>定义变量和使用 const 定义常量时，不允许名字重复。在 TypeScript<br>中，接口、命名空间是可以多次声明的，最后 TypeScript<br>会将多个同名声明合并为一个。我们下来看个简单的例子：</p>
+        <p>声明合并是指 TypeScript 编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在 JavaScrip 中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let 定义变量和使用 const 定义常量时，不允许名字重复。在 TypeScript 中，接口、命名空间是可以多次声明的，最后 TypeScript 会将多个同名声明合并为一个。我们下来看个简单的例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">interface Info &#123;</span><br><span class="line">    name: string</span><br><span class="line">&#125;</span><br><span class="line">interface Info &#123;</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line">let info: Info</span><br><span class="line">info &#x3D; &#123; &#x2F;&#x2F; error 类型“&#123; name: string; &#125;”中缺少属性“age”</span><br><span class="line">    name: &#39;lison&#39;</span><br><span class="line">&#125;</span><br><span class="line">info &#x3D; &#123; &#x2F;&#x2F; right</span><br><span class="line">    name: &#39;lison&#39;,</span><br><span class="line">    age: 18</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>可以看到，我们定义了两个同名接口Info，每个接口里都定义了一个必备属性，最后定义info类型为Info时，info的定义要求同时包含name和age属性。这就是声明合并的简单示例，接下来我们详细学习。</p>
@@ -408,17 +408,66 @@
 <li>类型的声明是创建一个类型并赋给一个名字；</li>
 <li>值的声明就是创建一个在JavaScript中可以使用的值。</li>
 </ul>
-<p>下面这个表格会清晰的告诉你，每一种声明类型会创建这三种实体中的哪种，先来说明一下，第一列是指声明的内容，每一行包含4列，表明这一行中，第一列的声明类型创建了后面三列哪种实体，打钩即表示创建了该实体：</p>
-<p>  声明类型             创建了命名空间   创建了类型   创建了值</p>
-<hr>
-<p>  Namespace            √                             √<br>  Class                                 √            √<br>  Enum                                  √            √<br>  Interface                             √<br>  Type Alias类型别名                    √<br>  Function                                           √<br>  Variable                                           √</p>
+<p>下面这个表格会清晰的告诉你，每一种声明类型会创建这三种实体中的哪种，先来说明一下，第一列是指声明的内容，每一行包含4列，表明这一行中，第一列的声明类型创建了后面三列哪种实体，打钩即表示创建了该实体：  </p>
+<table>
+<thead>
+<tr>
+<th align="center">声明类型</th>
+<th align="center">创建了命名空间</th>
+<th align="center">创建了类型</th>
+<th align="center">创建了值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Namespace</td>
+<td align="center">√</td>
+<td align="center"></td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">Class</td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">Enum</td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">Interface</td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Type 别名</td>
+<td align="center"></td>
+<td align="center">√</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">Function</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">Variable</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
 <p>可以看到，只要命名空间创建了命名空间这种实体。Class、Enum两个，Class即是实际的值也作为类使用，Enum编译为JavaScript后也是实际值，而且我们讲过，一定条件下，它的成员可以作为类型使用；Interface和类型别名是纯粹的类型；而Funciton和Variable只是创建了JavaScript中可用的值，不能作为类型使用，注意这里Variable是变量，不是常量，常量是可以作为类型使用的。</p>
 <h3 id="4-3-2-合并接口"><a href="#4-3-2-合并接口" class="headerlink" title="4.3.2. 合并接口"></a>4.3.2. 合并接口</h3><p>我们在本节课一开始的例子中，简单示范了一下接口声明的合并，下面我们来补充一些内容。</p>
 <p>多个同名接口，定义的非函数的成员命名应该是不重复的，如果重复了，类型应该是相同的，否则将会报错。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface Info &#123;</span><br><span class="line">    name: string</span><br><span class="line">&#125;</span><br><span class="line">interface Info &#123;</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line">interface Info &#123;</span><br><span class="line">    age: boolean &#x2F;&#x2F; error 后续属性声明必须属于同一类型。属性“age”的类型必须为“number”，但此处却为类型“boolean”</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>对于函数成员，每个同名函数成员都会被当成这个函数的重载，且合并时后面的接口具有更高的优先级。来看下多个同名函数成员的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface Res &#123;</span><br><span class="line">    getRes(input: string): number</span><br><span class="line">&#125;</span><br><span class="line">interface Res &#123;</span><br><span class="line">    getRes(input: number): string</span><br><span class="line">&#125;</span><br><span class="line">const res: Res &#x3D; &#123;</span><br><span class="line">    getRes: (input: any): any &#x3D;&gt; &#123;</span><br><span class="line">        if (typeof input &#x3D;&#x3D;&#x3D; &#39;string&#39;) return input.length</span><br><span class="line">        else return String(input)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">res.getRes(&#39;123&#39;).length &#x2F;&#x2F; error 类型“number”上不存在属性“length”</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">interface Res &#123;</span><br><span class="line">    getRes(input: string): number</span><br><span class="line">&#125;</span><br><span class="line">interface Res &#123;</span><br><span class="line">    getRes(input: number): string</span><br><span class="line">&#125;</span><br><span class="line">const res: Res &#x3D; &#123;</span><br><span class="line">    getRes: (input: any): any &#x3D;&gt; &#123;</span><br><span class="line">        if (typeof input &#x3D;&#x3D;&#x3D; &#39;string&#39;) return input.length</span><br><span class="line">        else return String(input)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">res.getRes(&#39;123&#39;) &#x2F;&#x2F;3</span><br><span class="line">res.getRes( 123 )   &#x2F;&#x2F; &#39;123&#39;</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-3-3-合并命名空间"><a href="#4-3-3-合并命名空间" class="headerlink" title="4.3.3. 合并命名空间"></a>4.3.3. 合并命名空间</h3><p>同名命名空间最后会将多个命名空间导出的内容进行合并，如下面两个命名空间：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">namespace Validation &#123;</span><br><span class="line">    export const checkNumber &#x3D; () &#x3D;&gt; &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace Validation &#123;</span><br><span class="line">    export const checkString &#x3D; () &#x3D;&gt; &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -429,30 +478,21 @@
 <p>在命名空间里，有时我们并不是把所有内容都对外部可见，对于没有导出的内容，在其它同名命名空间内是无法访问的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">namespace Validation &#123;</span><br><span class="line">    const numberReg &#x3D; &#x2F;^[0-9]+$&#x2F;</span><br><span class="line">    export const stringReg &#x3D; &#x2F;^[A-Za-z]+$&#x2F;</span><br><span class="line">    export const checkString &#x3D; () &#x3D;&gt; &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace Validation &#123;</span><br><span class="line">    export const checkNumber &#x3D; (value: any) &#x3D;&gt; &#123;</span><br><span class="line">        return numberReg.test(value) &#x2F;&#x2F; error 找不到名称“numberReg”</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>上面定义的两个命名空间，numberReg没有使用export导出，所以在第二个同名命名空间内是无法使用的，如果给<br>const numberReg 前面加上 export，就可以在第二个命名空间使用了。</p>
+<p>上面定义的两个命名空间，numberReg没有使用export导出，所以在第二个同名命名空间内是无法使用的，如果给 const numberReg 前面加上 export，就可以在第二个命名空间使用了。</p>
 <h3 id="4-3-4-不同类型合并"><a href="#4-3-4-不同类型合并" class="headerlink" title="4.3.4. 不同类型合并"></a>4.3.4. 不同类型合并</h3><p>命名空间分别和类、函数、枚举都可以合并，下面我们来一一说明：</p>
-<h4 id="1-命名空间和类-命名空间和类-style-”font-size-26px-”"><a href="#1-命名空间和类-命名空间和类-style-”font-size-26px-”" class="headerlink" title="(1) 命名空间和类  { #命名空间和类 style=”font-size: 26px;”}"></a>(1) 命名空间和类  { #命名空间和类 style=”font-size: 26px;”}</h4><p>这里要求同名的类和命名空间在定义的时候，类的定义必须在命名空间前面，最后合并之后的效果，一个包含一些以命名空间导出内容为静态属性的类，来看例子：</p>
+<h4 id="1-命名空间和类"><a href="#1-命名空间和类" class="headerlink" title="(1) 命名空间和类"></a>(1) 命名空间和类</h4><p>这里要求同名的类和命名空间在定义的时候，类的定义必须在命名空间前面，最后合并之后的效果，一个包含一些以命名空间导出内容为静态属性的类，来看例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Validation &#123;</span><br><span class="line">    checkType() &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace Validation &#123;</span><br><span class="line">    export const numberReg &#x3D; &#x2F;^[0-9]+$&#x2F;</span><br><span class="line">    export const stringReg &#x3D; &#x2F;^[A-Za-z]+$&#x2F;</span><br><span class="line">    export const checkString &#x3D; () &#x3D;&gt; &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace Validation &#123;</span><br><span class="line">    export const checkNumber &#x3D; (value: any) &#x3D;&gt; &#123;</span><br><span class="line">        return numberReg.test(value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">console.log(Validation.prototype) &#x2F;&#x2F; &#123; checkType: fun () &#123;&#125; &#125;</span><br><span class="line">console.log(Validation.prototype.constructor) </span><br><span class="line">&#x2F;**</span><br><span class="line">&#123;</span><br><span class="line">    checkNumber: ...</span><br><span class="line">    checkString: ...</span><br><span class="line">    numberReg: ...</span><br><span class="line">    stringReg: ...</span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-命名空间和函数-命名空间和函数-style-”font-size-26px-”"><a href="#2-命名空间和函数-命名空间和函数-style-”font-size-26px-”" class="headerlink" title="(2) 命名空间和函数  { #命名空间和函数 style=”font-size: 26px;”}"></a>(2) 命名空间和函数  { #命名空间和函数 style=”font-size: 26px;”}</h4><p>在JavaScript中，函数也是对象，所以可以给一个函数设置属性，在TypeScript中，就可以通过声明合并实现。但同样要求，函数的定义要在同名命名空间前面，我们再拿之前讲过的计数器的实现来看下，如何利用声明合并实现计数器的定义：</p>
+<h4 id="2-命名空间和函数"><a href="#2-命名空间和函数" class="headerlink" title="(2) 命名空间和函数"></a>(2) 命名空间和函数</h4><p>在JavaScript中，函数也是对象，所以可以给一个函数设置属性，在TypeScript中，就可以通过声明合并实现。但同样要求，函数的定义要在同名命名空间前面，我们再拿之前讲过的计数器的实现来看下，如何利用声明合并实现计数器的定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function countUp () &#123;</span><br><span class="line">    countUp.count++</span><br><span class="line">&#125;</span><br><span class="line">namespace countUp &#123;</span><br><span class="line">    export let count &#x3D; 0</span><br><span class="line">&#125;</span><br><span class="line">countUp()</span><br><span class="line">countUp()</span><br><span class="line">console.log(countUp.count) &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-命名空间和枚举-命名空间和枚举-style-”font-size-26px-”"><a href="#3-命名空间和枚举-命名空间和枚举-style-”font-size-26px-”" class="headerlink" title="(3) 命名空间和枚举  { #命名空间和枚举 style=”font-size: 26px;”}"></a>(3) 命名空间和枚举  { #命名空间和枚举 style=”font-size: 26px;”}</h4><p>可以通过命名空间和枚举的合并，为枚举拓展内容，枚举和同名命名空间的先后顺序是没有要求的，来看例子：</p>
+<h4 id="3-命名空间和枚举"><a href="#3-命名空间和枚举" class="headerlink" title="(3) 命名空间和枚举"></a>(3) 命名空间和枚举</h4><p>可以通过命名空间和枚举的合并，为枚举拓展内容，枚举和同名命名空间的先后顺序是没有要求的，来看例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">enum Colors &#123;</span><br><span class="line">    red,</span><br><span class="line">    green,</span><br><span class="line">    blue</span><br><span class="line">&#125;</span><br><span class="line">namespace Colors &#123;</span><br><span class="line">    export const yellow &#x3D; 3</span><br><span class="line">&#125;</span><br><span class="line">console.log(Colors)</span><br><span class="line">&#x2F;*</span><br><span class="line">&#123;</span><br><span class="line">    0: &quot;red&quot;,</span><br><span class="line">    1: &quot;green&quot;,</span><br><span class="line">    2: &quot;blue&quot;,</span><br><span class="line">    red: 0,</span><br><span class="line">    green: 1,</span><br><span class="line">    blue: 2,</span><br><span class="line">    yellow: 3 </span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
 
 <p>通过打印结果你可以发现，虽然我们使用命名空间增加了枚举的成员，但是最后输出的值只有key到index的映射，没有index到key的映射。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本小节我们学习了编译器对于相同命名的声明的合并策略，这个策略能够帮我们实现一些类型定义的复用，比如多个函数定义可合并为一个函数的重载，还可以利用声明合并实现一些复杂的类型定义。但是有时我们会无意地定义了一个之前定义过的名字，造成声明合并了，再使用这个新定义的时候，发现应用了一些这里未定义的类型校验，所以我们在定义名字的时候要注意这一点。本小节我们讲了接口、命名空间、不同类型是如何合并的，也学习了如何利用声明合并来定义复杂的数据结构。</p>
-<p>下个小节我们来学习混入，在使用一些框架或者插件的时候，你可能听过这个概念，我们可以将公共逻辑抽取出来，然后通过混入实现复用。在TypeScript中，混入还需要考虑类型，所以我们下个小节来看下如何在TypeScript中实现混入。<br> <img src="http://img.mukewang.com/5d22b984000115ac16000560.jpg" alt="图片描述"></p>
-<p><a href="/read/35/article/364"></a></p>
-<p>**</p>
-<p>使用命名空间封装代码</p>
-<p><a href="/read/35/article/366"></a></p>
-<p>混入，兼顾值和类型的合并操作</p>
-<p>**</p>
-<p>精选留言 0</p>
-<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
-<p>**</p>
-<p>目前暂无任何讨论</p>
+<p>下个小节我们来学习混入，在使用一些框架或者插件的时候，你可能听过这个概念，我们可以将公共逻辑抽取出来，然后通过混入实现复用。在TypeScript中，混入还需要考虑类型，所以我们下个小节来看下如何在TypeScript中实现混入。  </p>
+<p> <img src="http://img.mukewang.com/5d22b984000115ac16000560.jpg" alt="图片描述"></p>
 
       
     </div>
@@ -631,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-补充知识"><span class="nav-number">1.</span> <span class="nav-text">4.3.1. 补充知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-合并接口"><span class="nav-number">2.</span> <span class="nav-text">4.3.2. 合并接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-合并命名空间"><span class="nav-number">3.</span> <span class="nav-text">4.3.3. 合并命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-4-不同类型合并"><span class="nav-number">4.</span> <span class="nav-text">4.3.4. 不同类型合并</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-命名空间和类-命名空间和类-style-”font-size-26px-”"><span class="nav-number">4.1.</span> <span class="nav-text">(1) 命名空间和类  { #命名空间和类 style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-命名空间和函数-命名空间和函数-style-”font-size-26px-”"><span class="nav-number">4.2.</span> <span class="nav-text">(2) 命名空间和函数  { #命名空间和函数 style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-命名空间和枚举-命名空间和枚举-style-”font-size-26px-”"><span class="nav-number">4.3.</span> <span class="nav-text">(3) 命名空间和枚举  { #命名空间和枚举 style&#x3D;”font-size: 26px;”}</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1-补充知识"><span class="nav-number">1.</span> <span class="nav-text">4.3.1. 补充知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2-合并接口"><span class="nav-number">2.</span> <span class="nav-text">4.3.2. 合并接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-3-合并命名空间"><span class="nav-number">3.</span> <span class="nav-text">4.3.3. 合并命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-4-不同类型合并"><span class="nav-number">4.</span> <span class="nav-text">4.3.4. 不同类型合并</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-命名空间和类"><span class="nav-number">4.1.</span> <span class="nav-text">(1) 命名空间和类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-命名空间和函数"><span class="nav-number">4.2.</span> <span class="nav-text">(2) 命名空间和函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-命名空间和枚举"><span class="nav-number">4.3.</span> <span class="nav-text">(3) 命名空间和枚举</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
