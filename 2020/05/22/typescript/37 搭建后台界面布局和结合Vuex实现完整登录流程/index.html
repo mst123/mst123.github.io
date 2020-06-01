@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：  接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，AntDesignVue，它是React版本的AntDesign组件库的Vue版本，因为AntDesign是使用TypeScript编写的，类型声明文件较为完善，而Ant DesignVue延用这">
+<meta name="description" content="本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：  接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，Ant Design Vue，它是React版本的Ant Design组件库的Vue版本，因为Ant Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design V">
 <meta property="og:type" content="article">
 <meta property="og:title" content="37 搭建后台界面布局和结合Vuex实现完整登录流程">
 <meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/37%20%E6%90%AD%E5%BB%BA%E5%90%8E%E5%8F%B0%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80%E5%92%8C%E7%BB%93%E5%90%88Vuex%E5%AE%9E%E7%8E%B0%E5%AE%8C%E6%95%B4%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：  接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，AntDesignVue，它是React版本的AntDesign组件库的Vue版本，因为AntDesign是使用TypeScript编写的，类型声明文件较为完善，而Ant DesignVue延用这">
+<meta property="og:description" content="本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：  接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，Ant Design Vue，它是React版本的Ant Design组件库的Vue版本，因为Ant Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design V">
 <meta property="og:image" content="http://img.mukewang.com/5d22b5ab0001232118020932.png">
 <meta property="og:image" content="http://img.mukewang.com/5d22b59f000140fc18020838.png">
 <meta property="article:published_time" content="2020-05-22T03:37:02.169Z">
-<meta property="article:modified_time" content="2020-05-22T05:45:59.814Z">
+<meta property="article:modified_time" content="2020-06-01T01:38:48.978Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -401,7 +401,7 @@
       
         <p>本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：</p>
 <p><img src="http://img.mukewang.com/5d22b5ab0001232118020932.png" alt="图片描述"></p>
-<p>接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，<a href="https://vue.ant.design/docs/vue/introduce-cn/" target="_blank" rel="noopener">Ant<br>Design<br>Vue</a>，它是React版本的Ant<br>Design组件库的Vue版本，因为Ant<br>Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design<br>Vue延用这些声明文件，所以可以更好地在TypeScript环境下使用。首先来安装它：<code>npm install ant-design-vue</code>。</p>
+<p>接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，<a href="https://vue.ant.design/docs/vue/introduce-cn/" target="_blank" rel="noopener">Ant Design Vue</a>，它是React版本的Ant Design组件库的Vue版本，因为Ant Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design Vue延用这些声明文件，所以可以更好地在TypeScript环境下使用。首先来安装它：<code>npm install ant-design-vue</code>。</p>
 <p>接下来我们在入口文件引入组件库及其样式，并且全局注册它：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;main.ts</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">import AntVue from &#39;ant-design-vue&#39;</span><br><span class="line">import &#39;ant-design-vue&#x2F;dist&#x2F;antd.css&#39;;</span><br><span class="line">Vue.use(AntVue)</span><br><span class="line">&#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
 
@@ -466,16 +466,6 @@
 
 <p>现在，点击头像下拉菜单的退出登录后，就会跳到登录页，而且不登录无法跳到Home等页。</p>
 <p>到这里，我们本小节的内容就讲完了。下个小节，我们将结合echarts和其他插件，封装几个组件，来搭建一个好看而且实用的仪表盘首页。</p>
-<p><a href="/read/35/article/373"></a></p>
-<p>**</p>
-<p>实现登录页并用Mock响应请求</p>
-<p><a href="/read/35/article/375"></a></p>
-<p>使用TypeScript开发Vue组件和使用Vue组件</p>
-<p>**</p>
-<p>精选留言 0</p>
-<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
-<p>**</p>
-<p>目前暂无任何讨论</p>
 
       
     </div>
@@ -590,7 +580,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

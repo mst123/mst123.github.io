@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="这一章是实战章节，我们将会使用 Vue+TypeScript来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用TypeScript进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用TypeScript 结合 Vue全家桶进行开发为前提，进行这个实战项目的开发，对于涉及到相同知识点的功能性代码，我们会尽可能不去重复讲解。 6.1.1 安装Vue">
+<meta name="description" content="这一章是实战章节，我们将会使用 Vue+TypeScript 来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用 TypeScript 进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用 TypeScript 结合 Vue 全家桶进行开发为前提，进行这个实战项目的开发，对于涉及到相同知识点的功能性代码，我们会尽可能不去重复讲解。 6.1.1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="34 搭建基础项目">
 <meta property="og:url" content="https://mst123.github.io/2020/05/22/typescript/34%20%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E9%A1%B9%E7%9B%AE/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="这一章是实战章节，我们将会使用 Vue+TypeScript来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用TypeScript进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用TypeScript 结合 Vue全家桶进行开发为前提，进行这个实战项目的开发，对于涉及到相同知识点的功能性代码，我们会尽可能不去重复讲解。 6.1.1 安装Vue">
+<meta property="og:description" content="这一章是实战章节，我们将会使用 Vue+TypeScript 来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用 TypeScript 进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用 TypeScript 结合 Vue 全家桶进行开发为前提，进行这个实战项目的开发，对于涉及到相同知识点的功能性代码，我们会尽可能不去重复讲解。 6.1.1">
 <meta property="og:image" content="http://img.mukewang.com/5d22b0e00001623624100800.png">
 <meta property="og:image" content="http://img.mukewang.com/5d22b0f50001fdb708901436.png">
 <meta property="og:image" content="http://img.mukewang.com/5d22b11500010ced23481092.png">
@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://img.mukewang.com/5d22b1690001699703030747.png">
 <meta property="og:image" content="http://img.mukewang.com/5d22b1820001b49206181712.png">
 <meta property="article:published_time" content="2020-05-22T03:37:02.165Z">
-<meta property="article:modified_time" content="2020-05-22T05:45:50.416Z">
+<meta property="article:modified_time" content="2020-06-01T01:36:35.252Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -404,8 +404,8 @@
       
 
       
-        <p>这一章是实战章节，我们将会使用 Vue+TypeScript<br>来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用<br>TypeScript<br>进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用<br>TypeScript 结合 Vue<br>全家桶进行开发为前提，进行这个实战项目的开发，对于涉及到相同知识点的功能性代码，我们会尽可能不去重复讲解。</p>
-<h3 id="6-1-1-安装Vue-CLI"><a href="#6-1-1-安装Vue-CLI" class="headerlink" title="6.1.1 安装Vue CLI"></a>6.1.1 安装Vue CLI</h3><p>本小节我们先来进行第一步，就是创建我们的初始项目，首先你需要在全局安装<br>Vue 命令行工具 Vue CLI，首先你要确定你安装了<br>NodeJS，如何安装我们已经在1.3小节讲过了，我们直接看如何安装 Vue CLI：</p>
+        <p>这一章是实战章节，我们将会使用 Vue+TypeScript 来开发一个简单管理后台，这个实战项目的目的是演示如何在Vue 项目中使用 TypeScript 进行开发，而不是为了实现一个管理后台。所以我们在开发的时候，以尽可能多的展示如何使用 TypeScript 结合 Vue 全家桶进行开发为前提，进行这个实战项目的开发，对于涉及到相同知识点的功能性代码，我们会尽可能不去重复讲解。</p>
+<h3 id="6-1-1-安装Vue-CLI"><a href="#6-1-1-安装Vue-CLI" class="headerlink" title="6.1.1 安装Vue CLI"></a>6.1.1 安装Vue CLI</h3><p>本小节我们先来进行第一步，就是创建我们的初始项目，首先你需要在全局安装 Vue 命令行工具 Vue CLI，首先你要确定你安装了 NodeJS，如何安装我们已经在1.3小节讲过了，我们直接看如何安装 Vue CLI：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g @vue&#x2F;cli</span><br></pre></td></tr></table></figure>
 
 <blockquote>
@@ -419,24 +419,27 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
 
 <p>几秒钟之后就会自动打开浏览器在浏览器中打开一个本地页面，然后打开创建项目界面：\</p>
-<p><img src="http://img.mukewang.com/5d22b0e00001623624100800.png" alt="图片描述">选择要存放新项目的文件夹后，点击底部的“在此创建新项目”，然后进入配置流程，一共四个流程：“详情”</p>
+<p><img src="http://img.mukewang.com/5d22b0e00001623624100800.png" alt="图片描述">选择要存放新项目的文件夹后，点击底部的“在此创建新项目”，然后进入配置流程，一共四个流程：</p>
 <ul>
-<li>“预设” - “功能” - “配置”，我们来逐个配置。</li>
+<li>“详情”</li>
+<li>“预设” </li>
+<li>“功能” </li>
+<li>“配置”</li>
 </ul>
-<h4 id="1-详情-详情-style-”font-size-26px-”"><a href="#1-详情-详情-style-”font-size-26px-”" class="headerlink" title="(1) 详情  { #详情 style=”font-size: 26px;”}"></a>(1) 详情  { #详情 style=”font-size: 26px;”}</h4><p><img src="http://img.mukewang.com/5d22b0f50001fdb708901436.png" alt="图片描述">填写项目名，这里我们写的是”vue-ts-project”，然后选择包管理器，我这里选的是npm，如果你建了git仓库，你可以在git栏填写git的仓库地址。配置完成后点击“下一步”。</p>
-<h4 id="2-预设-预设-style-”font-size-26px-”"><a href="#2-预设-预设-style-”font-size-26px-”" class="headerlink" title="(2) 预设  { #预设 style=”font-size: 26px;”}"></a>(2) 预设  { #预设 style=”font-size: 26px;”}</h4><p><img src="http://img.mukewang.com/5d22b11500010ced23481092.png" alt="图片描述">每次创建一次项目，你的功能配置都可以保存为预设，方便下次直接使用，这里我们先选择手动，来手动配置项目。然后点击“下一步”。</p>
-<h4 id="3-功能-功能-style-”font-size-26px-”"><a href="#3-功能-功能-style-”font-size-26px-”" class="headerlink" title="(3) 功能  { #功能 style=”font-size: 26px;”}"></a>(3) 功能  { #功能 style=”font-size: 26px;”}</h4><p><img src="http://img.mukewang.com/5d22b12e00017a8d23681798.png" alt="图片描述">这里我们勾选这几项：</p>
+<h4 id="1-详情"><a href="#1-详情" class="headerlink" title="(1) 详情"></a>(1) 详情</h4><p><img src="http://img.mukewang.com/5d22b0f50001fdb708901436.png" alt="图片描述">填写项目名，这里我们写的是”vue-ts-project”，然后选择包管理器，我这里选的是npm，如果你建了git仓库，你可以在git栏填写git的仓库地址。配置完成后点击“下一步”。</p>
+<h4 id="2-预设"><a href="#2-预设" class="headerlink" title="(2) 预设"></a>(2) 预设</h4><p><img src="http://img.mukewang.com/5d22b11500010ced23481092.png" alt="图片描述">每次创建一次项目，你的功能配置都可以保存为预设，方便下次直接使用，这里我们先选择手动，来手动配置项目。然后点击“下一步”。</p>
+<h4 id="3-功能"><a href="#3-功能" class="headerlink" title="(3) 功能"></a>(3) 功能</h4><p><img src="http://img.mukewang.com/5d22b12e00017a8d23681798.png" alt="图片描述">这里我们勾选这几项：</p>
 <ul>
 <li>Babel：使用Babel可以将新特性语法转为低版本浏览器支持的语法；</li>
 <li>TypeScript：这个肯定要勾选了，因为我们要使用TypeScript开发；</li>
 <li>Router：我们要开发单页面SPA应用，所以页面间的跳转需要使用前端路由；</li>
 <li>Vuex：多个页面直接或者组件之间的通信可以使用Vuex来做状态管理；</li>
-<li>CSS<br>Pre-processors：CSS预处理器，如果你使用Less或者Sass等CSS预处理器编写CSS样式，则勾选这项；</li>
+<li>CSS Pre-processors：CSS预处理器，如果你使用Less或者Sass等CSS预处理器编写CSS样式，则勾选这项；</li>
 <li>Linter/Formatter：代码规范或格式检查器，如果你需要使用TSLint对代码规范或格式进行检验，勾选这项；</li>
 <li>使用配置文件：如果需要将一些插件的配置保存在各自的配置文件中，则需要勾选这项。</li>
 </ul>
 <p>配置完成后点击“下一步”。</p>
-<h4 id="4-配置-配置-style-”font-size-26px-”"><a href="#4-配置-配置-style-”font-size-26px-”" class="headerlink" title="(4) 配置  { #配置 style=”font-size: 26px;”}"></a>(4) 配置  { #配置 style=”font-size: 26px;”}</h4><p><img src="http://img.mukewang.com/5d22b14b0001137f23061272.png" alt="图片描述"></p>
+<h4 id="4-配置"><a href="#4-配置" class="headerlink" title="(4) 配置"></a>(4) 配置</h4><p><img src="http://img.mukewang.com/5d22b14b0001137f23061272.png" alt="图片描述"></p>
 <p>这里有吉祥需要配置：</p>
 <ul>
 <li>Use class-style component syntax?</li>
@@ -458,7 +461,7 @@
 <li>Lint on save</li>
 </ul>
 <p>勾选这一项后，会在文件保存后进行代码风格和格式的检验。</p>
-<p>到这里配置就完成了，点击创建项目，Vue<br>CLI会根据我们的配置生成配合文件，同时会帮我们安装好依赖。</p>
+<p>到这里配置就完成了，点击创建项目，Vue CLI会根据我们的配置生成配合文件，同时会帮我们安装好依赖。</p>
 <h3 id="6-1-3-项目结构介绍"><a href="#6-1-3-项目结构介绍" class="headerlink" title="6.1.3 项目结构介绍"></a>6.1.3 项目结构介绍</h3><p><img src="http://img.mukewang.com/5d22b1690001699703030747.png" alt="图片描述"></p>
 <p>下面我们来介绍下每个文件的作用：</p>
 <ul>
@@ -497,16 +500,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const path &#x3D; require(&#39;path&#39;)</span><br><span class="line"></span><br><span class="line">const resolve &#x3D; dir &#x3D;&gt; &#123;</span><br><span class="line">  return path.join(__dirname, dir)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const BASE_URL &#x3D; process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#39;production&#39;</span><br><span class="line">  ? &#39;.&#x2F;&#39;</span><br><span class="line">  : &#39;&#x2F;&#39;</span><br><span class="line">  </span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  publicPath: BASE_URL, &#x2F;&#x2F; 公共文件路径</span><br><span class="line">  lintOnSave: true, &#x2F;&#x2F; 在保存文件的时候对代码进行格式校验</span><br><span class="line">  chainWebpack: config &#x3D;&gt; &#123;</span><br><span class="line">    config.resolve.alias</span><br><span class="line">      .set(&#39;@&#39;, resolve(&#39;src&#39;)) &#x2F;&#x2F; 配置便捷路径，凡是src这一级路径都可以用@代替</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样我们的项目就算基本创建完成，后面我们会通过具体的功能开发，讲解vue全家桶的TypeScript开发用法。现在你可以通过如下命令启动项目：<code>npm run serve</code>启动后打开终端显示的url在浏览器打开项目页面。下个小节我们来封装axios，用它来进行接口调用。</p>
-<p><a href="/read/35/article/370"></a></p>
-<p>**</p>
-<p>书写声明文件之砍柴：为不同类型库书写声明文件</p>
-<p><a href="/read/35/article/372"></a></p>
-<p>封装接口请求</p>
-<p>**</p>
-<p>精选留言 0</p>
-<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
-<p>**</p>
-<p>目前暂无任何讨论</p>
 
       
     </div>
@@ -630,7 +623,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -685,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-安装Vue-CLI"><span class="nav-number">1.</span> <span class="nav-text">6.1.1 安装Vue CLI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-2-使用Vue-CLI创建项目"><span class="nav-number">2.</span> <span class="nav-text">6.1.2 使用Vue CLI创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-详情-详情-style-”font-size-26px-”"><span class="nav-number">2.1.</span> <span class="nav-text">(1) 详情  { #详情 style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-预设-预设-style-”font-size-26px-”"><span class="nav-number">2.2.</span> <span class="nav-text">(2) 预设  { #预设 style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-功能-功能-style-”font-size-26px-”"><span class="nav-number">2.3.</span> <span class="nav-text">(3) 功能  { #功能 style&#x3D;”font-size: 26px;”}</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置-配置-style-”font-size-26px-”"><span class="nav-number">2.4.</span> <span class="nav-text">(4) 配置  { #配置 style&#x3D;”font-size: 26px;”}</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-3-项目结构介绍"><span class="nav-number">3.</span> <span class="nav-text">6.1.3 项目结构介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-4-调整项目结构"><span class="nav-number">4.</span> <span class="nav-text">6.1.4 调整项目结构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-安装Vue-CLI"><span class="nav-number">1.</span> <span class="nav-text">6.1.1 安装Vue CLI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-2-使用Vue-CLI创建项目"><span class="nav-number">2.</span> <span class="nav-text">6.1.2 使用Vue CLI创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-详情"><span class="nav-number">2.1.</span> <span class="nav-text">(1) 详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-预设"><span class="nav-number">2.2.</span> <span class="nav-text">(2) 预设</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-功能"><span class="nav-number">2.3.</span> <span class="nav-text">(3) 功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置"><span class="nav-number">2.4.</span> <span class="nav-text">(4) 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-3-项目结构介绍"><span class="nav-number">3.</span> <span class="nav-text">6.1.3 项目结构介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-4-调整项目结构"><span class="nav-number">4.</span> <span class="nav-text">6.1.4 调整项目结构</span></a></li></ol></div>
             
 
           </div>

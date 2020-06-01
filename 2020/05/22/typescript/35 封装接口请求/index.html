@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="我们在开发中广泛使用的axios调用接口，为了更好地调用，做一些全局的拦截，我们通常会对其进行一下封装，本小节我们就来看下如何使用TypeScript对它进行封装，使其同时能够有很好的类型支持。 首先我们需要安装axios，如何安装依赖我们在1.3小节学习过了，这里直接安装： 1npm install axios  我们在src文件夹下创建utils文件夹，然后在utils文件夹创建*axios.">
 <meta property="article:published_time" content="2020-05-22T03:37:02.166Z">
-<meta property="article:modified_time" content="2020-05-22T05:45:53.440Z">
+<meta property="article:modified_time" content="2020-06-01T01:37:12.602Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -442,12 +442,6 @@
 <p>在编写这些代码的时候，你可以看到，当你书写<code>loginReq()</code>之后，编辑器提示你：<code>Expected 1 arguments, but got 0.</code>，这是因为我们在定义loginReq的时候指定了一个参数，当你传入一个空对象<code>{}</code>的时候，编辑器会提示你：<code>Type &#39;{}&#39; is missing the following properties from type &#39;LoginReqArguInterface&#39;: user_name, password</code>，这是因为我们指定了参数必须包含user_name和password两个字段。这样我们封装好api请求方法后，任何人使用我们的请求方法，都可以得到很好的代码提示。</p>
 <p>调用这个方法后他的返回值是一个Promise，所以我们在返回值上调用then方法，他传入一个回调函数，这个回调函数有一个参数，类型是<code>AxiosResponse</code>，然后你会发现，当我们输入在回调函数中使用console.log()打印东西时，当我们输入<code>res</code>然后输入<code>.</code>之后，编辑器列出了六个可访问的属性：data、status、statusText、headers、config和request，当我们选中<code>data</code>然后输入<code>.</code>后，编辑器列出了三个可访问属性：code、data和msg，这三个是我们自己通过接口<code>ResponseData</code>定义的。</p>
 <p>当然现在你调用这个接口肯定会报404错误，因为我们没有后端服务，下个小节我们会使用<strong>mockjs</strong>来拦截请求，用来在前端模拟响应api请求，然后实现一个登录页，根据api接口返回的结果判断是否登录成功。</p>
-<p><a href="/read/35/article/371"></a></p>
-<p>**</p>
-<p>搭建基础项目</p>
-<p><a href="/read/35/article/373"></a></p>
-<p>实现登录页并用Mock响应请求</p>
-<p>**</p>
 
       
     </div>
@@ -562,7 +556,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

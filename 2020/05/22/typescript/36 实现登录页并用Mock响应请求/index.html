@@ -89,7 +89,7 @@
 <meta property="og:image" content="http://img.mukewang.com/5d22b4820001047e16640912.png">
 <meta property="og:image" content="http://img.mukewang.com/5d22b48c000185de16200306.png">
 <meta property="article:published_time" content="2020-05-22T03:37:02.168Z">
-<meta property="article:modified_time" content="2020-05-22T05:45:56.844Z">
+<meta property="article:modified_time" content="2020-06-01T01:37:56.795Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -438,8 +438,8 @@
 <p><img src="http://img.mukewang.com/5d22b4820001047e16640912.png" alt="图片描述"></p>
 <ul>
 <li>(1) 我们调用接口的名称；</li>
-<li>(2)<br>我们调用接口的完整url，请求方法为post类型，接口响应状态码为404，也就是这个接口不存在；</li>
-<li>(3)<br>我们调用接口的时候传递的参数，这里user_name为”Lison”，password为”123456”。</li>
+<li>(2) 我们调用接口的完整url，请求方法为post类型，接口响应状态码为404，也就是这个接口不存在；</li>
+<li>(3) 我们调用接口的时候传递的参数，这里user_name为”Lison”，password为”123456”。</li>
 </ul>
 <p>因为我们没有起后端服务，所以没有这个接口。为了方便，我们在做前端开发的时候，可以使用mockjs(关于mock更多知识请参阅<a href="https://github.com/nuysoft/Mock/wiki/Getting-Started" target="_blank" rel="noopener">中文官方文档</a>)来拦截请求，然后在完全不需要后端服务的情况下编写处理逻辑，并且模拟响应返回自定义数据。</p>
 <p>首先我们要安装依赖：<code>npm install mockjs</code>，mockjs自身是没有提供声明文件的，所以我们需要另外安装：<code>npm install @types/mockjs -D</code>，安装完之后重新使用<code>npm run serve</code>启动本地开发服务即可。</p>
@@ -482,16 +482,6 @@
 <p>加了这个逻辑之后，你可以试一下，登陆后，你在地址栏输入login页的路径，仍然停留在当前页比如home页；如果你清掉浏览器缓存把存在cookie里的token清掉，然后刷新页面，会跳大login页，就算在地址栏输入home页的地址，还是会跳到login页。</p>
 <p>本小节的内容计算讲完了，我们事先简答的登录表单，用来输入用户名和密码，点击登录后调用接口，然后使用mock对请求进行模拟响应并返回状态。然后在路由守卫对登录状态做判断，从而跳转到合适的页面。</p>
 <p>下个小节我们将使用第三方UI组件库，搭建一个简单的后台界面，并添加基本的部件。</p>
-<p><a href="/read/35/article/372"></a></p>
-<p>**</p>
-<p>封装接口请求</p>
-<p><a href="/read/35/article/374"></a></p>
-<p>搭建后台界面布局和结合Vuex实现完整登录流程</p>
-<p>**</p>
-<p>精选留言 0</p>
-<p>欢迎在这里发表留言，作者筛选后可公开显示</p>
-<p>**</p>
-<p>目前暂无任何讨论</p>
 
       
     </div>
@@ -606,7 +596,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
