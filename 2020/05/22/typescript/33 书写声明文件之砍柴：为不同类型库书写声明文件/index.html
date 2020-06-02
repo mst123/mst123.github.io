@@ -87,7 +87,7 @@
 <meta property="og:description" content="5.3.1 模块插件或 UMD 插件一些模块和插件是支持插件机制的，比如我们常见的jQuery，它的插件有非常多。我们可以为库书写声明文件的同时，为库的插件定义声明文件，可以参考官方模板module-plugin.d.ts。 5.3.2 全局插件全局插件往往会修改全局中一些对象，在这些对象上添加或修改属性方法，比如下面的示例： 1234&#x2F;&#x2F; add-methods-to-str">
 <meta property="og:image" content="http://img.mukewang.com/5d22b9f0000104b316000695.jpg">
 <meta property="article:published_time" content="2020-05-22T03:37:02.163Z">
-<meta property="article:modified_time" content="2020-06-01T01:33:16.541Z">
+<meta property="article:modified_time" content="2020-06-01T06:14:19.350Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
@@ -402,7 +402,7 @@
 <h3 id="5-3-2-全局插件"><a href="#5-3-2-全局插件" class="headerlink" title="5.3.2 全局插件"></a>5.3.2 全局插件</h3><p>全局插件往往会修改全局中一些对象，在这些对象上添加或修改属性方法，比如下面的示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; add-methods-to-string.js</span><br><span class="line">String.prototype.getFirstLetter &#x3D; function() &#123;</span><br><span class="line">  return this[0];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>这段代码在 String 构造函数的原型对象上添加一个 getFirstLetter 方法，这个方法可以返回字符串的第一个字符。我们创建一个字符串，就可以调用这个方法。来讲下这个原理，我们在 String 构造函数原型对象上添加一个方法，这个方法就会被 String创建的实例继承，如果我们使用<code>new String(‘Lison’)</code>的方式创建一个实例 name，那么这个 name 将是一个对象类型的值，它的属性是 0 开始到 n 的数字，属性值对应字符串的第 1 个、第 n 个字符；但是像例子中这样使用<code>const name = &#39;Lison’</code>字面量的形式定义的 name，其实是个字符串类型的值，字符串就不会继承构造函数的方法了，以为它不是对象，但事实是它可以调用<code>getFirstLetter</code>方法。这是因为它在调用方法的时候，会先将这个字符串包装成一个封装对象，在内部即使用 String 构造函数，所以它依然可以调用原型对象上的方法。</p>
+<p>这段代码在 String 构造函数的原型对象上添加一个 getFirstLetter 方法，这个方法可以返回字符串的第一个字符。</p>
 <p>我们在 html 文件里引入这个 js 文件后创建一个字符串，这个字符串就可以调用 getFirstLetter 方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot; src&#x3D;&quot;.&#x2F;add-methods-to-string.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  var str &#x3D; &quot;Lison&quot;;</span><br><span class="line">  console.log(str.getFirstLetter()); &#x2F;&#x2F; &quot;L&quot;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
