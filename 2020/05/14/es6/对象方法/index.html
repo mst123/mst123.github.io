@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://mst123.github.io/2020/05/14/es6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/objectNull.png">
 <meta property="og:image" content="https://mst123.github.io/2020/05/14/es6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/object1.png">
 <meta property="article:published_time" content="2020-05-14T11:46:23.333Z">
-<meta property="article:modified_time" content="2020-09-08T02:25:43.916Z">
+<meta property="article:modified_time" content="2020-09-15T06:41:45.735Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="ES6">
 <meta property="article:tag" content="Object">
@@ -620,7 +620,7 @@
 <li>语法<br>Object.create(proto, [propertiesObject])</li>
 <li>参数  <ul>
 <li>proto : 必须。表示新建对象的原型对象，即该参数会被赋值到目标对象(即新对象，或说是最后返回的对象)的原型上。该参数可以是null， 对象， 函数的prototype属性 （创建空的对象时需传null , 否则会抛出TypeError异常）。</li>
-<li>propertiesObject : 可选。 添加到新创建对象的可枚举属性（即其自身的属性，而不是原型链上的枚举属性）对象的属性描述符以及相应的属性名称。这些属性对应Object.defineProperties()的第二个参数。</li>
+<li>propertiesObject : 可选。 如果没有指定为 undefined，则是要添加到新创建对象的不可枚举（默认）属性（即其自身的属性，而不是原型链上的枚举属性）对象的属性描述符以及相应的属性名称。这些属性对应Object.defineProperties()的第二个参数。</li>
 </ul>
 </li>
 <li>返回值<br>在指定原型对象上添加新属性后的对象<h3 id="框架偏爱"><a href="#框架偏爱" class="headerlink" title="框架偏爱"></a>框架偏爱</h3>很多框架源码作者使用它来初始化一个新的对象，难道是最佳实践？<br>原因有二  </li>
