@@ -87,7 +87,7 @@
 <meta property="og:description" content="micro-task和macro-task就是两种不同的任务队列   macro-task: script(script标签里面的整体代码)  setTimeout setInterval setImmediate I&#x2F;O UI rendering requestAnimationFrame   micro-task: process.nextTick Promise Object.observe">
 <meta property="og:image" content="https://mst123.github.io/2020/09/04/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg">
 <meta property="article:published_time" content="2020-09-04T07:28:20.639Z">
-<meta property="article:modified_time" content="2020-09-04T07:30:29.638Z">
+<meta property="article:modified_time" content="2020-09-21T01:50:46.999Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="eventLoop">
 <meta name="twitter:card" content="summary">
@@ -402,12 +402,12 @@
 <li>micro-task:<ul>
 <li>process.nextTick</li>
 <li>Promise</li>
-<li>Object.observe</li>
+<li>Object.observe(已废弃)</li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver" target="_blank" rel="noopener">MutationObserver</a> (接口提供了监视对DOM树所做更改的能力)  </li>
 </ul>
 </li>
 </ul>
-<p>JS开发人员应该对这些方法都不会太陌生——都是些常见的异步操作。但这些方法在执行时有什么区别呢？通俗来说，macrotasks和microtasks最大的区别在它们会被放置在不同的任务调度队列中。我在网上盗了一张图，如下所示：<br><img src="/2020/09/04/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg" alt="示意图"><br>每一次事件循环中，主进程都会先执行一个macroTask任务，这个任务就来自于所谓的MacroTask Queue队列；当该macroTask执行完后，Event loop会立马<strong>调用microTask队列的任务，直到消费完所有的microtask，再继续下一个事件循环</strong>。</p>
+<p>JS开发人员应该对这些方法都不会太陌生——都是些常见的异步操作。但这些方法在执行时有什么区别呢？通俗来说，macrotasks和microtasks最大的区别在它们会被放置在不同的任务调度队列中。我在网上找了一张图，如下所示：<br><img src="/2020/09/04/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg" alt="示意图"><br>每一次事件循环中，主进程都会先执行一个macroTask任务，这个任务就来自于所谓的MacroTask Queue队列；当该macroTask执行完后，Event loop会立马<strong>调用microTask队列的任务，直到消费完所有的microtask，再继续下一个事件循环</strong>。</p>
 <blockquote>
 <p>管中窥豹，microTask调用优先级较高于macroTask.<br>先看一个demo</p>
 </blockquote>
@@ -543,7 +543,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -554,7 +554,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
