@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="typescript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：  接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，Ant Design Vue，它是React版本的Ant Design组件库的Vue版本，因为Ant Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design V">
+<meta property="og:type" content="article">
+<meta property="og:title" content="37 搭建后台界面布局和结合Vuex实现完整登录流程">
+<meta property="og:url" content="https://mst123.github.io/2020/12/15/typescript/37%20%E6%90%AD%E5%BB%BA%E5%90%8E%E5%8F%B0%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80%E5%92%8C%E7%BB%93%E5%90%88Vuex%E5%AE%9E%E7%8E%B0%E5%AE%8C%E6%95%B4%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：  接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，Ant Design Vue，它是React版本的Ant Design组件库的Vue版本，因为Ant Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design V">
+<meta property="og:image" content="http://img.mukewang.com/5d22b5ab0001232118020932.png">
+<meta property="og:image" content="http://img.mukewang.com/5d22b59f000140fc18020838.png">
+<meta property="article:published_time" content="2020-12-15T09:49:39.782Z">
+<meta property="article:modified_time" content="2020-12-15T09:49:39.783Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="typescript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.mukewang.com/5d22b5ab0001232118020932.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2020/12/15/typescript/37 搭建后台界面布局和结合Vuex实现完整登录流程/"/>
+
+
+
+
+
+  <title>37 搭建后台界面布局和结合Vuex实现完整登录流程 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2020/12/15/typescript/37%20%E6%90%AD%E5%BB%BA%E5%90%8E%E5%8F%B0%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80%E5%92%8C%E7%BB%93%E5%90%88Vuex%E5%AE%9E%E7%8E%B0%E5%AE%8C%E6%95%B4%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">37 搭建后台界面布局和结合Vuex实现完整登录流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-15T17:49:39+08:00">
+                2020-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本小节我们来搭建一个后台基本框架，所有的页面除了登录页，都在这个框架里展示，左侧显示菜单，右侧显示页面，我们先看下要实现的效果：</p>
+<p><img src="http://img.mukewang.com/5d22b5ab0001232118020932.png" alt="图片描述"></p>
+<p>接下来我们继续上个小节的节奏进行。在开始之前我们需要安装一个UI组件库，<a href="https://vue.ant.design/docs/vue/introduce-cn/" target="_blank" rel="noopener">Ant Design Vue</a>，它是React版本的Ant Design组件库的Vue版本，因为Ant Design是使用TypeScript编写的，类型声明文件较为完善，而Ant Design Vue延用这些声明文件，所以可以更好地在TypeScript环境下使用。首先来安装它：<code>npm install ant-design-vue</code>。</p>
+<p>接下来我们在入口文件引入组件库及其样式，并且全局注册它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;main.ts</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">import AntVue from &#39;ant-design-vue&#39;</span><br><span class="line">import &#39;ant-design-vue&#x2F;dist&#x2F;antd.css&#39;;</span><br><span class="line">Vue.use(AntVue)</span><br><span class="line">&#x2F;&#x2F; ...</span><br></pre></td></tr></table></figure>
+
+<p>顺便修改一下<em>src/App.vue</em>的样式，我们在App.vue文件的样式里，增加如下样式，使页面具有高度：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">html,body&#123;</span><br><span class="line">    height: 100%;</span><br><span class="line">    margin: 0;</span><br><span class="line">    padding: 0;</span><br><span class="line">&#125;</span><br><span class="line">#app&#123;</span><br><span class="line">    height: 100%;</span><br><span class="line">    .home&#123;</span><br><span class="line">      text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们在<em>src/components</em>文件夹下创建一个<em>TMain</em>文件夹，之所以叫这个，是因为根据Vue开发规范强烈建议组件名使用大写字母开头，然后使用驼峰形式命名，而且不要使用单个单词，应该统一加个前缀，所以我们这个框架组件叫做TMain，然后在<em>TMain</em>文件夹下创建一个<em>index.vue</em>文件。我们来使用单文件的形式编写组件。我们先只添加基本的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;t-main-wrap&quot;&gt;</span><br><span class="line">        &lt;!-- 布局容器组件 --&gt;</span><br><span class="line">        &lt;a-layout style&#x3D;&quot;height: 100%&quot;&gt;</span><br><span class="line">          &lt;!-- 左侧容器组件 --&gt;</span><br><span class="line">          &lt;a-layout-sider&gt;&lt;&#x2F;a-layout-sider&gt;</span><br><span class="line">          &lt;a-layout&gt;</span><br><span class="line">            &lt;!-- 顶部容器组件 --&gt;</span><br><span class="line">            &lt;a-layout-header style&#x3D;&quot;background: #fff&quot;&gt;&lt;&#x2F;a-layout-header&gt;</span><br><span class="line">            &lt;!-- 内容容器组件 --&gt;</span><br><span class="line">            &lt;a-layout-content&gt;</span><br><span class="line">                &lt;!-- 路由视图渲染组件 --&gt;</span><br><span class="line">                &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">            &lt;&#x2F;a-layout-content&gt;</span><br><span class="line">          &lt;&#x2F;a-layout&gt;</span><br><span class="line">        &lt;&#x2F;a-layout&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">import &#123; Component, Vue &#125; from &#39;vue-property-decorator&#39;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">    name: &#39;TMain&#39;</span><br><span class="line">&#125;)</span><br><span class="line">export default class TMain extends Vue &#123;&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang&#x3D;&quot;less&quot;&gt;</span><br><span class="line">.t-main-wrap&#123;</span><br><span class="line">    height: 100%;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后修改下路由，这里需要用到嵌套路由，所有要在框架里展示的页面，都要作为子路由去配置，父路由的组件就是这里的TMain，我们来看下之前的路由配置如何修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;router&#x2F;routes.ts</span><br><span class="line">import Home from &#39;..&#x2F;views&#x2F;Home.vue&#39;</span><br><span class="line"></span><br><span class="line">export default [</span><br><span class="line">    &#123;</span><br><span class="line">        path: &#39;&#x2F;&#39;,</span><br><span class="line">        component: () &#x3D;&gt; import(&#39;@&#x2F;components&#x2F;TMain&#x2F;index.vue&#39;),</span><br><span class="line">        children: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: &#39;&#x2F;home&#39;,</span><br><span class="line">            name: &#39;home&#39;,</span><br><span class="line">            component: Home,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: &#39;&#x2F;about&#39;,</span><br><span class="line">            name: &#39;about&#39;,</span><br><span class="line">            component: () &#x3D;&gt; import(&#39;..&#x2F;views&#x2F;About.vue&#39;),</span><br><span class="line">        &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        path: &#39;&#x2F;login&#39;,</span><br><span class="line">        name: &#39;login&#39;,</span><br><span class="line">        component: () &#x3D;&gt; import(&#39;..&#x2F;views&#x2F;login&#x2F;index&#39;),</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们要让home页和about页在框架内显示，所以作为TMain组件的子路由，登录页是不希望在框架内显示的，所以和TMain组件所在路由同级。修改路由保存成功后，此时如果你访问<strong>localhost:8080/#/home</strong>(端口需要看你实际端口为多少)，就会发现原来的home页在右侧区域内，但因为我们删掉了样式，所有样式有变化，效果如图：</p>
+<p><img src="http://img.mukewang.com/5d22b59f000140fc18020838.png" alt="图片描述">\</p>
+<p>修改浏览器地址栏的url，改为<strong>localhost:8080/#/about</strong>，就会在右边区域展示about页的内容。</p>
+<p>接下来我们要添加左侧菜单，在左侧容器组件<code>&lt;a-layout-sider&gt;&lt;/a-layout-sider&gt;</code>中添加菜单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br><span class="line">&lt;!--src\components\TMain\index.vue--&gt;</span><br><span class="line">        &lt;a-layout-sider&gt;</span><br><span class="line">            &lt;a-menu</span><br><span class="line">                @click&#x3D;&quot;handleClickMenu&quot;</span><br><span class="line">                theme&#x3D;&quot;dark&quot;</span><br><span class="line">                style&#x3D;&quot;width: 100%&quot;</span><br><span class="line">                mode&#x3D;&quot;inline&quot;&gt;</span><br><span class="line">                &lt;a-menu-item key&#x3D;&quot;&#x2F;home&quot;&gt;首页&lt;&#x2F;a-menu-item&gt;</span><br><span class="line">                &lt;a-menu-item key&#x3D;&quot;&#x2F;about&quot;&gt;介绍页&lt;&#x2F;a-menu-item&gt;</span><br><span class="line">            &lt;&#x2F;a-menu&gt;</span><br><span class="line">        &lt;&#x2F;a-layout-sider&gt;</span><br><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">import &#123; Component, Vue &#125; from &#39;vue-property-decorator&#39;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">    name: &#39;TMain&#39;</span><br><span class="line">&#125;)</span><br><span class="line">export default class TMain extends Vue &#123;</span><br><span class="line">    public handleClickMenu(&#123; item, key, keyPath &#125;) &#123;</span><br><span class="line">        this.$router.push(key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在再在浏览器看下，左侧有了两个菜单项，点击菜单项右边的页面会相应变化。但当我们刷新页面后，左侧菜单并不会高亮相应的菜单项，即使右侧显示的页面是相应的页面。所以这里我们就可以使用一下路由的一些数据，搭配AMenu组件的api。我们知道vue-router可以在组件中通过<code>lt;$route.path</code>即当前页面的路径，和我们在写菜单项的时候，给<code>&lt;a-menu-item&gt;&lt;/a-menu-item&gt;</code>设置的key属性是对应的，所以我们可以给<code>&lt;a-menu&gt;&lt;/a-menu&gt;</code>添加一个<code>selectedKeys</code>属性，它是一个数组，我们这里只需要如下设置即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br><span class="line">        &lt;a-layout-sider&gt;</span><br><span class="line">            &lt;a-menu</span><br><span class="line">                :selected-keys&#x3D;&quot;[this.$route.path]&quot;</span><br><span class="line">                @click&#x3D;&quot;handleClickMenu&quot;</span><br><span class="line">                theme&#x3D;&quot;dark&quot;</span><br><span class="line">                style&#x3D;&quot;width: 100%&quot;</span><br><span class="line">                mode&#x3D;&quot;inline&quot;&gt;</span><br><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在你选中任意一下进行页面跳转，然后刷新浏览器，你会发现菜单会高亮当前打开的页面对应的菜单项。利用路由对象还可以做很多事，比如可以根据路由对象的<code>matched</code>来实现面包屑，显示当前打开页面的层级关系等。</p>
+<p>下面我们增加一个用户头像，用户头像我们这里不用图片了，而是用用户名，这样我们可以演示如何结合TypeScript使用Vuex。点击用户头像显示下拉菜单，显示退出登录。点击退出登录后清掉保存的登录cookie信息。在<code>&lt;a-layout-header&gt;&lt;/a-layout-header&gt;</code>标签中添加一个带下拉菜单的用户头像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br><span class="line">        &lt;a-layout-header style&#x3D;&quot;background: #fff;text-align: right;&quot;&gt;</span><br><span class="line">            &lt;a-dropdown&gt;</span><br><span class="line">                &lt;a-avatar&gt;USER&lt;&#x2F;a-avatar&gt;</span><br><span class="line">                &lt;a-menu slot&#x3D;&quot;overlay&quot;&gt;</span><br><span class="line">                    &lt;a-menu-item key&#x3D;&quot;logout&quot;&gt;退出登录&lt;&#x2F;a-menu-item&gt;</span><br><span class="line">                &lt;&#x2F;a-menu&gt;</span><br><span class="line">            &lt;&#x2F;a-dropdown&gt;</span><br><span class="line">        &lt;&#x2F;a-layout-header&gt;</span><br><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在你会发现顶部右侧有一个原型头像框，中间是我们这里写死的”USER”字符，鼠标放上去会出现下拉菜单。接下来我们补充一下前面的登录逻辑，登录成功之后返回用户ID，然后再通过用户ID去拿用户信息，将用户信息保存在store中，然后从用户信息中将用户名在这里展示。其实在实际开发中，登录接口调用成功登录后，会返回token，然后携带token去请求获取用户信息，我们这里简化逻辑了。</p>
+<p>首先修改下mock中登录接口拦截的逻辑，登录成功后返回用户ID：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;mock&#x2F;index.ts</span><br><span class="line">Mock.mock(&#x2F;\&#x2F;api\&#x2F;user\&#x2F;login&#x2F;, loginRes)</span><br><span class="line"></span><br><span class="line">function loginRes(req: PostResInterface) &#123;</span><br><span class="line">    const &#123; user_name, password &#125; &#x3D; JSON.parse(req.body)</span><br><span class="line">    if (user_name &#x3D;&#x3D;&#x3D; &#39;Lison&#39; &amp;&amp; String(password) &#x3D;&#x3D;&#x3D; &#39;123456&#39;) &#123;</span><br><span class="line">        return success(&#39;登录成功&#39;, &#123; user_id: 101 &#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return error(1001, &#39;用户名或密码错误&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再添加一个返回用户信息接口的mock拦截：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;mock&#x2F;index.ts</span><br><span class="line">Mock.mock(&#x2F;\&#x2F;api\&#x2F;user\&#x2F;get_info&#x2F;, getInfoRes)</span><br><span class="line"></span><br><span class="line">function getInfoRes(req: PostResInterface) &#123;</span><br><span class="line">    return success(&#39;&#39;, &#123;</span><br><span class="line">        user_name: &#39;Lison&#39;,</span><br><span class="line">        avatar: &#39;&#39;,</span><br><span class="line">        email: &#39;xxx@xx.com&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来在<em>src/api/user.ts</em>里封装获取信息接口调用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;api&#x2F;user.ts</span><br><span class="line">interface GetInfoReqArguInterface &#123;</span><br><span class="line">    user_id: string</span><br><span class="line">&#125;</span><br><span class="line">export const getInfoReq &#x3D; (data: GetInfoReqArguInterface): AxiosPromise&lt;ResponseData&gt; &#x3D;&gt; &#123;</span><br><span class="line">    return axios.request(&#123;</span><br><span class="line">        url: &#39;&#x2F;api&#x2F;user&#x2F;get_info&#39;,</span><br><span class="line">        data,</span><br><span class="line">        method: &#39;POST&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们要把原来写在<em>src/views/login/index.tsx</em>的login方法的逻辑写在store的actions里，然后这里通过dispatch调用。首先在<em>src/store/index.ts</em>文件中增加一个登录的actions：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; src&#x2F;store&#x2F;index.ts</span><br><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import Vuex from &#39;vuex&#39;</span><br><span class="line">import &#123; loginReq,getInfoReq &#125; from &#39;@&#x2F;api&#x2F;user&#39;</span><br><span class="line">import Cookies from &#39;js-cookie&#39;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        user_name: &#39;&#39;,</span><br><span class="line">        email: &#39;&#39;</span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        &#x2F;&#x2F; 设置存储在store里的用户信息</span><br><span class="line">        setUserInfoMutations(state, info) &#123;</span><br><span class="line">            const &#123; user_name, email &#125; &#x3D; info</span><br><span class="line">            state.user_name &#x3D; user_name</span><br><span class="line">            state.email &#x3D; email</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    actions: &#123;</span><br><span class="line">        loginActions(&#123; commit, dispatch &#125;, &#123; user_name, password &#125;) &#123;</span><br><span class="line">            return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">                loginReq(&#123; user_name, password &#125;).then((response) &#x3D;&gt; &#123; &#x2F;&#x2F; 首先调登录接口</span><br><span class="line">                    const &#123; data: &#123; code, msg, data &#125; &#125; &#x3D; response</span><br><span class="line">                    if (code &#x3D;&#x3D;&#x3D; 0) &#123;&#x2F;&#x2F; 成功返回后，将token存到cookie中，然后携带token去请求获取信息接口</span><br><span class="line">                        Cookies.set(&#39;token&#39;, &#39;value&#39;)</span><br><span class="line">                        dispatch(&#39;getInfoActions&#39;).then(() &#x3D;&gt; &#123;</span><br><span class="line">                            resolve()</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        console.error(msg)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        getInfoActions(&#123; commit &#125;) &#123;</span><br><span class="line">            return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">                getInfoReq().then((res) &#x3D;&gt; &#123;</span><br><span class="line">                    const &#123; data: &#123; code, data &#125; &#125; &#x3D; res</span><br><span class="line">                    if (code &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">                        commit(&#39;setUserInfoMutations&#39;, data)</span><br><span class="line">                        resolve() &#x2F;&#x2F; 全部操作做完后，调用resolve方法</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>修改成功之后，我们需要在登录成功之后跳到home页，这个逻辑就放在login页，也就是<em>src/views/login/index.tsx</em>文件里去写。首先要在点击登录后，调用store里的这个actions：loginActions方法。这里需要安装一个插件：<code>npm install vuex-class</code>，我们需要用它来方便进行开发。安装好后，启动服务，我们修改<em>src/views/login/index.tsx</em>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, Emit, Prop, Vue, Watch &#125; from &#39;vue-property-decorator&#39;</span><br><span class="line">import &#123; State, Action &#125; from &#39;vuex-class&#39;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">export default class LoginPage extends Vue &#123;</span><br><span class="line">    &#x2F;&#x2F; ... 省略之前讲的部分代码</span><br><span class="line"></span><br><span class="line">    @Action(&#39;loginActions&#39;) public loginAction &#x2F;&#x2F; 这里通过@Action(&#39;loginActions&#39;)装饰器指定loginAction是store里的loginActions方法</span><br><span class="line"></span><br><span class="line">    public login() &#123;</span><br><span class="line">        &#x2F;&#x2F; 然后这里就可以直接调用loginAction方法</span><br><span class="line">        &#x2F;&#x2F; 效果和this.$store.dispatch(&#39;loginActions&#39;, &#123; 参数 &#125;)是一样的</span><br><span class="line">        this.loginAction(&#123;</span><br><span class="line">            user_name: this.password,</span><br><span class="line">            password: this.password</span><br><span class="line">        &#125;).then(() &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; 在store中的loginActions定义中，执行resolve方法的时机就是这里then中传入的这个函数执行的时机</span><br><span class="line">            this.$router.push(&#39;&#x2F;home&#39;) &#x2F;&#x2F; 在这跳转到home页</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected render() &#123;</span><br><span class="line">        &#x2F;&#x2F; ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们登录成功之后，就会将用户信息保存在store中，所以我们可以在用户头像的地方用真实的用户名了。首先在TMain组件中引入这个state：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script lang&#x3D;&quot;ts&quot;&gt;</span><br><span class="line">import &#123; Component, Vue &#125; from &#39;vue-property-decorator&#39;</span><br><span class="line">import &#123; State &#125; from &#39;vuex-class&#39;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">    name: &#39;TMain&#39;</span><br><span class="line">&#125;)</span><br><span class="line">export default class TMain extends Vue &#123;</span><br><span class="line">    @State(&#39;user_name&#39;) public userName &#x2F;&#x2F; 将store.state.user_name赋给userName</span><br><span class="line">&#125;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后你就可以在模板语法中使用了，我们使用userName替换上面写死的字符串”USER”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br><span class="line">        &lt;a-dropdown&gt;</span><br><span class="line">            &lt;a-avatar&gt;&#123;&#123; userName &#125;&#125;&lt;&#x2F;a-avatar&gt;</span><br><span class="line">            &lt;a-menu slot&#x3D;&quot;overlay&quot;&gt;</span><br><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样，你就可以先清掉cookie重新登录，登陆后会进入home页，你会发现头像处已经显示的是我们获取到的用户名”Lison”了。但还有一个问题，存储在store中的数据是存在内存中的，当页面刷新后，内存中的数据就被清掉了，所以我们刷新后，需要重新调用获取用户信息的api请求，因为存在cookie中的token是不会随刷新被清掉的，所以我们实际中获取用户信息等都是携带token，然后后端根据token的信息，返回响应信息。这里我就不写这么复杂的逻辑了，我们在路由守卫里来处理这个逻辑：</p>
+<p>在每次路由跳转的时候，判断store中的user_name是否为空字符串。如果为空字符串，可能是因为刷新页面导致的store中的user_name丢失，所以要重新请求获取用户信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import Router from &#39;vue-router&#39;</span><br><span class="line">import routes from &#39;.&#x2F;routes&#39;</span><br><span class="line">import store from &#39;@&#x2F;store&#39; &#x2F;&#x2F; 引入store实例</span><br><span class="line">import Cookies from &#39;js-cookie&#39;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">const router &#x3D; new Router(&#123;</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const turn &#x3D; (to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">  if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;</span><br><span class="line">    &#x2F;&#x2F; 如果登录了然后访问login页，不做跳转，从哪来回哪去</span><br><span class="line">    next(from)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    &#x2F;&#x2F; 否则顺利跳转</span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">router.beforeEach((to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">  const token &#x3D; Cookies.get(&#39;token&#39;)</span><br><span class="line">  console.log(token)</span><br><span class="line">  if (token) &#123; &#x2F;&#x2F; 如果token不为空字符串或者undefined，说明登录了</span><br><span class="line">    if (!store.state.user_name) &#123; &#x2F;&#x2F; 判断store.state.user_name是否为空，为空则需要获取</span><br><span class="line">      store.dispatch(&#39;getInfoActions&#39;).then(() &#x3D;&gt; &#123;</span><br><span class="line">        turn(to, from, next) &#x2F;&#x2F; 获取之后再跳转页面</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      turn(to, from, next) &#x2F;&#x2F; 如果store.state.user_name不为空，直接跳转</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123; &#x2F;&#x2F; 否则是没登录</span><br><span class="line">    if (to.path &#x3D;&#x3D;&#x3D; &#39;&#x2F;login&#39;) &#123;</span><br><span class="line">        &#x2F;&#x2F; 如果没登录而且乖乖的到登录页去，轻松放行</span><br><span class="line">        next()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 如果没登录还想去登录后的页面，打回登录页</span><br><span class="line">        next(&#39;&#x2F;login&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default router</span><br></pre></td></tr></table></figure>
+
+<p>现在无论你怎么刷新页面，你都可以看到头像显示的是正式的用户名。</p>
+<p>最后我们还有一个功能，就是退出登录。点击“退出登录”后，需要清楚cookie中存的token，然后跳到登录页，并且清空store中存的用户信息。首先我们在<em>src/components/TMain/index.vue</em>组件里，从<em>vuex-class</em>中引入Mutation装饰器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; State, Mutation &#125; from &#39;vuex-class&#39;</span><br><span class="line">import Cookie from &#39;js-cookie&#39; &#x2F;&#x2F; 注意，这个清楚cookie中token的逻辑，最好放到store中用专门的mutation去清除store中用户信息的同时清楚token</span><br></pre></td></tr></table></figure>
+
+<p>然后在组件类TMain中引入store中<code>setUserInfoMutations</code>方法，并且再增加两个方法：</p>
+<p>handleClickAvatarMenu用于给头像下拉菜单绑定点击事件，logout用于做登出操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">export default class TMain extends Vue &#123;</span><br><span class="line">    &#x2F;&#x2F; ... 省略部分代码</span><br><span class="line">    @Mutation(&#39;setUserInfoMutations&#39;) public setUserInfo</span><br><span class="line">    public handleClickAvatarMenu(&#123; item, key, keyPath &#125;) &#123;</span><br><span class="line">        if (key &#x3D;&#x3D;&#x3D; &#39;logout&#39;) &#123;</span><br><span class="line">            this.logout()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public logout() &#123;</span><br><span class="line">        this.setUserInfo(&#123; user_name: &#39;&#39;, email: &#39;&#39; &#125;)</span><br><span class="line">        Cookie.set(&#39;token&#39;, &#39;&#39;)</span><br><span class="line">        this.$router.push(&#39;&#x2F;login&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后记得要在头像下拉菜单绑定这个handleClickAvatarMenu方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br><span class="line">                &lt;a-dropdown&gt;</span><br><span class="line">                    &lt;a-avatar&gt;&#123;&#123; userName &#125;&#125;&lt;&#x2F;a-avatar&gt;</span><br><span class="line">                    &lt;a-menu @click&#x3D;&quot;handleClickAvatarMenu&quot; slot&#x3D;&quot;overlay&quot;&gt;</span><br><span class="line">                        &lt;a-menu-item key&#x3D;&quot;logout&quot;&gt;退出登录&lt;&#x2F;a-menu-item&gt;</span><br><span class="line">                    &lt;&#x2F;a-menu&gt;</span><br><span class="line">                &lt;&#x2F;a-dropdown&gt;</span><br><span class="line">&lt;!-- 省略部分代码 --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在，点击头像下拉菜单的退出登录后，就会跳到登录页，而且不登录无法跳到Home等页。</p>
+<p>到这里，我们本小节的内容就讲完了。下个小节，我们将结合echarts和其他插件，封装几个组件，来搭建一个好看而且实用的仪表盘首页。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/typescript/" rel="tag"># typescript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/15/typescript/36%20%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%A1%B5%E5%B9%B6%E7%94%A8Mock%E5%93%8D%E5%BA%94%E8%AF%B7%E6%B1%82/" rel="next" title="36 实现登录页并用Mock响应请求">
+                <i class="fa fa-chevron-left"></i> 36 实现登录页并用Mock响应请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/15/typescript/38%20%E4%BD%BF%E7%94%A8TypeScript%E5%BC%80%E5%8F%91Vue%E7%BB%84%E4%BB%B6%E5%92%8C%E4%BD%BF%E7%94%A8Vue%E7%BB%84%E4%BB%B6/" rel="prev" title="38 使用TypeScript开发Vue组件和使用Vue组件">
+                38 使用TypeScript开发Vue组件和使用Vue组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
