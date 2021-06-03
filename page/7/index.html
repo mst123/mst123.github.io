@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/29%20%E6%B7%B7%E5%85%A5%EF%BC%8C%E5%85%BC%E9%A1%BE%E5%80%BC%E5%92%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%90%88%E5%B9%B6%E6%93%8D%E4%BD%9C/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/16/typescript/29%20%E6%B7%B7%E5%85%A5%EF%BC%8C%E5%85%BC%E9%A1%BE%E5%80%BC%E5%92%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%90%88%E5%B9%B6%E6%93%8D%E4%BD%9C/" itemprop="url">29 混入，兼顾值和类型的合并操作</a></h1>
+                <a class="post-title-link" href="/2021/05/16/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/" itemprop="url">28 对声明合并的爱与恨</a></h1>
         
 
         <div class="post-meta">
@@ -398,12 +398,11 @@
       
         
           
-          混入即把两个对象或者类的内容，混合起来，从而实现一些功能的复用。如果你使用过 Vue，你应该知道 Vue 的 mixins 这个 api，它可以允许你将一些抽离到对象的属性、方法混入到一些组件。接下来我们先来看看个在 JavaScript 中实现的简单混入：
-12345678910111213141
+          声明合并是指 TypeScript 编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在 JavaScrip 中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let 定义变量和使用 const 定义常量时，不允许名字重复。在 Typ
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/typescript/29%20%E6%B7%B7%E5%85%A5%EF%BC%8C%E5%85%BC%E9%A1%BE%E5%80%BC%E5%92%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%90%88%E5%B9%B6%E6%93%8D%E4%BD%9C/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -454,7 +453,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/27%20%E4%BD%BF%E7%94%A8%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -473,7 +472,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/16/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" itemprop="url">26 使用模块封装代码</a></h1>
+                <a class="post-title-link" href="/2021/05/16/typescript/27%20%E4%BD%BF%E7%94%A8%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" itemprop="url">27 使用命名空间封装代码</a></h1>
         
 
         <div class="post-meta">
@@ -558,11 +557,12 @@
       
         
           
-          TypeScript 在 1.5 版本之前，有内部模块和外部模块的概念，从 1.5 版本开始，内部模块改称作命名空间（我们下个小节会讲），外部模块改称为模块。如果你对模块的知识一无所知，建议你先重点学习一下CommonJS 模块系统和 ES6模块系统，TypeScript 中的模块系统是遵循 ES6
+          命名空间在 1.5 之前的版本中，是叫做“内部模块”。在 1.5 版本之前，ES6 模块还没正式成为标准，所以 TS对于模块的实现，是将模块分为“内部模块”和“外部模块”两种。内部模块使用module来定义，而外部模块使用export来指定哪个内容对外部可见。
+1.5 版本开始，使用“命名空间”代替
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/typescript/27%20%E4%BD%BF%E7%94%A8%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -773,165 +773,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/16/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/" itemprop="url">28 对声明合并的爱与恨</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index">
-                    <span itemprop="name">typescript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">零基础学透TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          声明合并是指 TypeScript 编译器会将名字相同的多个声明合并为一个声明，合并后的声明同时拥有多个声明的特性。我们知道在 JavaScrip 中，使用var关键字定义变量时，定义相同名字的变量，后面的会覆盖前面的值。使用let 定义变量和使用 const 定义常量时，不允许名字重复。在 Typ
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/typescript/28%20%E5%AF%B9%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%E7%9A%84%E7%88%B1%E4%B8%8E%E6%81%A8/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/31%20%E9%80%90%E6%9D%A1%E6%9D%A5%E7%9C%8Btsconfig.json%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1042,6 +883,165 @@ tsconfig.json 是放在项目根目录，用来配置一些编译选项等。当
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/05/16/typescript/31%20%E9%80%90%E6%9D%A1%E6%9D%A5%E7%9C%8Btsconfig.json%E9%85%8D%E7%BD%AE/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/16/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/" itemprop="url">26 使用模块封装代码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          TypeScript 在 1.5 版本之前，有内部模块和外部模块的概念，从 1.5 版本开始，内部模块改称作命名空间（我们下个小节会讲），外部模块改称为模块。如果你对模块的知识一无所知，建议你先重点学习一下CommonJS 模块系统和 ES6模块系统，TypeScript 中的模块系统是遵循 ES6
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/16/typescript/26%20%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85%E4%BB%A3%E7%A0%81/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1413,6 +1413,327 @@ tsconfig.json 是放在项目根目录，用来配置一些编译选项等。当
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/18%20%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D%E5%92%8C%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E2%80%94%E5%8D%95%E8%B0%83%E7%9A%84%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/16/typescript/18%20%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D%E5%92%8C%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E2%80%94%E5%8D%95%E8%B0%83%E7%9A%84%E7%B1%BB%E5%9E%8B/" itemprop="url">18 类型别名和字面量类型—单调的类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          本小节我们来学习类型别名和字面量类型。类型别名我们之前在讲泛型的时候接触过，现在来详细学习下。
+3.5.1 类型别名类型别名就是给一种类型起个别的名字，之后只要使用这个类型的地方，都可以用这个名字作为类型代替，但是它只是起了一个名字，并不是创建了一个新类型。这种感觉就像JS中对象的赋值，你可以把一个
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/16/typescript/18%20%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D%E5%92%8C%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E2%80%94%E5%8D%95%E8%B0%83%E7%9A%84%E7%B1%BB%E5%9E%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/21%20%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%EF%BC%9A%E8%8E%B7%E5%8F%96%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B4%A2%E5%BC%95%E5%80%BC%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/16/typescript/21%20%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%EF%BC%9A%E8%8E%B7%E5%8F%96%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B4%A2%E5%BC%95%E5%80%BC%E7%B1%BB%E5%9E%8B/" itemprop="url">21 索引类型：获取索引类型和索引值类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index">
+                    <span itemprop="name">typescript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
+                    <span itemprop="name">零基础学透TypeScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          我们这里要讲的，可不是前面讲接口的时候讲的索引类型。在学习接口内容的时候，我们讲过可以指定索引的类型。而本小节我们讲的索引类型包含两个内容：索引类型查询和索引访问操作符。
+3.8.1 索引类型查询操作符keyof操作符，连接一个类型，会返回一个由这个类型的所有属性名组成的联合类型。来看例子：
+123
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/16/typescript/21%20%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%EF%BC%9A%E8%8E%B7%E5%8F%96%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B4%A2%E5%BC%95%E5%80%BC%E7%B1%BB%E5%9E%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/19%20%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%BE%A8%E8%AF%86%E8%81%94%E5%90%88%E5%B9%B6%E4%BF%9D%E8%AF%81%E6%AF%8F%E4%B8%AAcase%E9%83%BD%E8%A2%AB%E5%A4%84%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1528,328 +1849,6 @@ tsconfig.json 是放在项目根目录，用来配置一些编译选项等。当
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/05/16/typescript/19%20%E4%BD%BF%E7%94%A8%E5%8F%AF%E8%BE%A8%E8%AF%86%E8%81%94%E5%90%88%E5%B9%B6%E4%BF%9D%E8%AF%81%E6%AF%8F%E4%B8%AAcase%E9%83%BD%E8%A2%AB%E5%A4%84%E7%90%86/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/23%20%E5%89%8D%E9%9D%A2%E8%B7%B3%E8%BF%87%E7%9A%84unkown%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/16/typescript/23%20%E5%89%8D%E9%9D%A2%E8%B7%B3%E8%BF%87%E7%9A%84unkown%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/" itemprop="url">23 前面跳过的unkown类型详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index">
-                    <span itemprop="name">typescript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">零基础学透TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          学习完交叉类型、联合类型、类型断言、映射类型、索引后，我们就可以补充一个基础类型中没有讲的知识了，就是TS 在 3.0 版本新增的顶级类型 unknown。它相对于 any 来说是安全的。关于unknown 类型，有如下几点需要注意，我们来逐个讲解和举例学习：
-(1) 任何类型的值都可以赋值给 un
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/typescript/23%20%E5%89%8D%E9%9D%A2%E8%B7%B3%E8%BF%87%E7%9A%84unkown%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/typescript/22%20%E4%BD%BF%E7%94%A8%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E5%BE%97%E5%88%B0%E6%96%B0%E7%9A%84%E7%B1%BB%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/16/typescript/22%20%E4%BD%BF%E7%94%A8%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E5%BE%97%E5%88%B0%E6%96%B0%E7%9A%84%E7%B1%BB%E5%9E%8B/" itemprop="url">22 使用映射类型得到新的类型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index">
-                    <span itemprop="name">typescript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E9%80%8FTypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">零基础学透TypeScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          3.9.1 基础TS提供了借助旧类型创建一个新类型的方式，也就是映射类型，它可以用相同的形式去转换旧类型中每个属性。来看个例子：
-123interface Info &#123;  age: number;&#125;
-
-我们可以使用这个接口实现一个有且仅有一个 age 属性的对象，但如果我们想再创
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/typescript/22%20%E4%BD%BF%E7%94%A8%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E5%BE%97%E5%88%B0%E6%96%B0%E7%9A%84%E7%B1%BB%E5%9E%8B/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
