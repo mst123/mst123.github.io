@@ -85,13 +85,13 @@
 <meta property="og:url" content="https://mst123.github.io/2021/05/16/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/index.html">
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="micro-task和macro-task就是两种不同的任务队列   macro-task: script(script标签里面的整体代码)  setTimeout setInterval setImmediate MessageChannel（vue nextTick 以前应该是备选方案） I&#x2F;O UI rendering requestAnimationFrame   micro-task:">
-<meta property="og:image" content="https://mst123.github.io/.io//MacroTask1.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg">
 <meta property="article:published_time" content="2021-05-16T14:48:31.655Z">
 <meta property="article:modified_time" content="2021-05-17T07:49:13.807Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="eventLoop">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/.io//MacroTask1.jpg">
+<meta name="twitter:image" content="https://mst123.github.io/2021/05/16/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg">
 
 
 
@@ -408,7 +408,7 @@
 </ul>
 </li>
 </ul>
-<p>JS开发人员应该对这些方法都不会太陌生——都是些常见的异步操作。但这些方法在执行时有什么区别呢？通俗来说，macrotasks和microtasks最大的区别在它们会被放置在不同的任务调度队列中。我在网上找了一张图，如下所示：<br><img src="/.io//MacroTask1.jpg" alt="示意图"><br>每一次事件循环中，主进程都会先执行一个macroTask任务，这个任务就来自于所谓的MacroTask Queue队列；当该macroTask执行完后，Event loop会立马<strong>调用microTask队列的任务，直到消费完所有的microtask，再继续下一个事件循环</strong>。</p>
+<p>JS开发人员应该对这些方法都不会太陌生——都是些常见的异步操作。但这些方法在执行时有什么区别呢？通俗来说，macrotasks和microtasks最大的区别在它们会被放置在不同的任务调度队列中。我在网上找了一张图，如下所示：<br><img src="/2021/05/16/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg" alt="示意图"><br>每一次事件循环中，主进程都会先执行一个macroTask任务，这个任务就来自于所谓的MacroTask Queue队列；当该macroTask执行完后，Event loop会立马<strong>调用microTask队列的任务，直到消费完所有的microtask，再继续下一个事件循环</strong>。</p>
 <blockquote>
 <p>管中窥豹，microTask调用优先级较高于macroTask.<br>先看一个demo</p>
 </blockquote>
@@ -471,8 +471,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/05/16/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/" rel="prev" title="类的继承">
-                类的继承 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/05/16/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" rel="prev" title="前端安全">
+                前端安全 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

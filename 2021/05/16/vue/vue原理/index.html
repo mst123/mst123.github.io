@@ -85,17 +85,17 @@
 <meta property="og:url" content="https://mst123.github.io/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="1. Vue 响应式原理 核心实现类: Observer : 它的作用是给对象的属性添加 getter 和 setter，用于依赖收集和派发更新  Dep : 用于收集当前响应式对象的依赖关系,每个响应式对象包括子对象都拥有一个 Dep 实例（里面 subs 是 Watcher 实例数组）,当数据有变更时,会通过 dep.notify()通知各个 watcher。  Watcher : 观察者对象">
-<meta property="og:image" content="https://mst123.github.io/.io//bg1.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//bg2.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//bg3.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//bg4.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg1.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg2.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg3.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg4.jpg">
 <meta property="article:published_time" content="2021-05-16T14:48:31.570Z">
 <meta property="article:modified_time" content="2021-05-17T07:49:13.804Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/.io//bg1.jpg">
+<meta name="twitter:image" content="https://mst123.github.io/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg1.jpg">
 
 
 
@@ -391,7 +391,7 @@
       
 
       
-        <h2 id="1-Vue-响应式原理"><a href="#1-Vue-响应式原理" class="headerlink" title="1. Vue 响应式原理"></a>1. Vue 响应式原理</h2><p><img src="/.io//bg1.jpg" alt></p>
+        <h2 id="1-Vue-响应式原理"><a href="#1-Vue-响应式原理" class="headerlink" title="1. Vue 响应式原理"></a>1. Vue 响应式原理</h2><p><img src="/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg1.jpg" alt></p>
 <h3 id="核心实现类"><a href="#核心实现类" class="headerlink" title="核心实现类:"></a>核心实现类:</h3><ul>
 <li><p>Observer : 它的作用是给对象的属性添加 getter 和 setter，用于依赖收集和派发更新</p>
 </li>
@@ -452,7 +452,7 @@ reverse();</code></pre><p>由于只针对了以上 7 种方法进行了 hack<br>
 <li>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</li>
 <li>主线程不断重复上面的第三步。</li>
 </ol>
-<p><img src="/.io//bg2.jpg" alt></p>
+<p><img src="/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg2.jpg" alt></p>
 <p>主线程的执行过程就是一个 tick，而所有的异步结果都是通过 “任务队列” 来调度。 消息队列中存放的是一个个的任务（task）。 规范中规定 task 分为两大类，分别是 macro task 和 micro task，并且每个 macro task 结束后，都要清空所有的 micro task。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for (macroTask of macroTaskQueue) &#123;</span><br><span class="line">  &#x2F;&#x2F; 1. Handle current MACRO-TASK</span><br><span class="line">  handleMacroTask();</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 2. Handle all MICRO-TASK</span><br><span class="line">  for (microTask of microTaskQueue) &#123;</span><br><span class="line">    handleMicroTask(microTask);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在浏览器环境中 :</p>
@@ -485,7 +485,7 @@ reverse();</code></pre><p>由于只针对了以上 7 种方法进行了 hack<br>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">class Vue &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    &#x2F;&#x2F;  事件通道调度中心</span><br><span class="line">    this._events &#x3D; Object.create(null);</span><br><span class="line">  &#125;</span><br><span class="line">  $on(event, fn) &#123;</span><br><span class="line">    if (Array.isArray(event)) &#123;</span><br><span class="line">      event.map(item &#x3D;&gt; &#123;</span><br><span class="line">        this.$on(item, fn);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      (this._events[event] || (this._events[event] &#x3D; [])).push(fn);</span><br><span class="line">    &#125;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">  $once(event, fn) &#123;</span><br><span class="line">    function on() &#123;</span><br><span class="line">      this.$off(event, on);</span><br><span class="line">      fn.apply(this, arguments);</span><br><span class="line">    &#125;</span><br><span class="line">    on.fn &#x3D; fn;</span><br><span class="line">    this.$on(event, on);</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">  $off(event, fn) &#123;</span><br><span class="line">    if (!arguments.length) &#123;</span><br><span class="line">      this._events &#x3D; Object.create(null);</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line">    if (Array.isArray(event)) &#123;</span><br><span class="line">      event.map(item &#x3D;&gt; &#123;</span><br><span class="line">        this.$off(item, fn);</span><br><span class="line">      &#125;);</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line">    const cbs &#x3D; this._events[event];</span><br><span class="line">    if (!cbs) &#123;</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!fn) &#123;</span><br><span class="line">      this._events[event] &#x3D; null;</span><br><span class="line">      return this;</span><br><span class="line">    &#125;</span><br><span class="line">    let cb;</span><br><span class="line">    let i &#x3D; cbs.length;</span><br><span class="line">    while (i--) &#123;</span><br><span class="line">      cb &#x3D; cbs[i];</span><br><span class="line">      if (cb &#x3D;&#x3D;&#x3D; fn || cb.fn &#x3D;&#x3D;&#x3D; fn) &#123;</span><br><span class="line">        cbs.splice(i, 1);</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">  $emit(event) &#123;</span><br><span class="line">    let cbs &#x3D; this._events[event];</span><br><span class="line">    if (cbs) &#123;</span><br><span class="line">      const args &#x3D; [].slice.call(arguments, 1);</span><br><span class="line">      cbs.map(item &#x3D;&gt; &#123;</span><br><span class="line">        args ? item.apply(this, args) : item.call(this);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    return this;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="10-说说-Vue-的渲染过程"><a href="#10-说说-Vue-的渲染过程" class="headerlink" title="10. 说说 Vue 的渲染过程"></a>10. 说说 Vue 的渲染过程</h2><hr>
-<p><img src="/.io//bg3.jpg" alt></p>
+<p><img src="/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg3.jpg" alt></p>
 <ol>
 <li><p>调用 compile 函数,生成 render 函数字符串 ,编译过程如下:</p>
 <ul>
@@ -590,7 +590,7 @@ reverse();</code></pre><p>由于只针对了以上 7 种方法进行了 hack<br>
 <li>最后组件实例的 keepAlive 属性设置为<br>true,这个在渲染和执行被包裹组件的钩子函数会用到,这里不细说</li>
 </ol>
 <h3 id="LRU-缓存淘汰算法"><a href="#LRU-缓存淘汰算法" class="headerlink" title="LRU 缓存淘汰算法"></a>LRU 缓存淘汰算法</h3><p>LRU（Least recently used）算法根据数据的历史访问记录来进行淘汰数据,其核心思想是“如果数据最近被访问过,那么将来被访问的几率也更高”。</p>
-<p><img src="/.io//bg4.jpg" alt></p>
+<p><img src="/2021/05/16/vue/vue%E5%8E%9F%E7%90%86/bg4.jpg" alt></p>
 <p><strong>keep-alive 的实现正是用到了 LRU 策略,将最近访问的组件 push 到<br>this.keys 最后面,this.keys[0]也就是最久没被访问的组件,当缓存实例超过 max<br>设置值,删除 this.keys[0]</strong></p>
 <h2 id="12-vm-set-实现原理是什么"><a href="#12-vm-set-实现原理是什么" class="headerlink" title="12.vm.$set()实现原理是什么?"></a>12.vm.$set()实现原理是什么?</h2><hr>
 <p>受现代 JavaScript 的限制 (而且 Object.observe 也已经被废弃)，Vue<br>无法检测到对象属性的添加或删除。</p>

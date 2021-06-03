@@ -85,22 +85,22 @@
 <meta property="og:url" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/index.html">
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="背景说起鉴权大家应该都很熟悉，不过作为前端开发来讲，鉴权的流程大头都在后端小哥那边，本文的目的就是为了让大家了解一下常见的鉴权的方式和原理。 认知：HTTP 是一个无状态协议，所以客户端每次发出请求时，下一次请求无法得知上一次请求所包含的状态数据。 一、HTTP Auth Authentication简介HTTP 提供一个用于权限控制和认证的通用框架。最常用的HTTP认证方案是HTTP Basic">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-71336270489a1f46abaacd308d8d9fde_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-118035425560b7a0632a21fcf6a6ab0a_720w.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-08469f9c04bd676fafcf1c73f1441534_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-118035425560b7a0632a21fcf6a6ab0a_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-08469f9c04bd676fafcf1c73f1441534_720w.jpg">
 <meta property="og:image" content="https://pic2.zhimg.com/v2-b80f9dfb7ec08c42b4563246d8d137d5_180x120.jpg">
-<meta property="og:image" content="https://mst123.github.io/.io//v2-2d5f63df43b269637db32fb225cf576f_ipico.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-2d5f63df43b269637db32fb225cf576f_ipico.jpg">
 <meta property="article:published_time" content="2021-05-16T14:48:31.593Z">
 <meta property="article:modified_time" content="2021-05-16T14:48:31.593Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="鉴权">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/.io//v2-71336270489a1f46abaacd308d8d9fde_720w.jpg">
+<meta name="twitter:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg">
 
 
 
@@ -399,8 +399,8 @@
         <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>说起鉴权大家应该都很熟悉，不过作为前端开发来讲，鉴权的流程大头都在后端小哥那边，本文的目的就是为了让大家了解一下常见的鉴权的方式和原理。</p>
 <p>认知：HTTP 是一个无状态协议，所以客户端每次发出请求时，下一次请求无法得知上一次请求所包含的状态数据。</p>
 <h2 id="一、HTTP-Auth-Authentication"><a href="#一、HTTP-Auth-Authentication" class="headerlink" title="一、HTTP Auth Authentication"></a>一、HTTP Auth Authentication</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>HTTP 提供一个用于权限控制和认证的通用框架。最常用的HTTP认证方案是HTTP Basic Authentication</p>
-<p><img src="/.io//v2-71336270489a1f46abaacd308d8d9fde_720w.jpg" alt="img"></p>
-<h3 id="鉴权流程"><a href="#鉴权流程" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/.io//v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg" alt="img"></p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程"><a href="#鉴权流程" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg" alt="img"></p>
 <h3 id="加解密过程"><a href="#加解密过程" class="headerlink" title="加解密过程"></a>加解密过程</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Authorization 加密过程</span></span><br><span class="line"><span class="keyword">let</span> email = <span class="string">"postmail@test.com"</span></span><br><span class="line"><span class="keyword">let</span> password = <span class="string">"12345678"</span></span><br><span class="line"><span class="keyword">let</span> auth = <span class="string">`<span class="subst">$&#123;email&#125;</span>:<span class="subst">$&#123;password&#125;</span>`</span></span><br><span class="line"><span class="keyword">const</span> buf = Buffer.from(auth, <span class="string">'ascii'</span>);</span><br><span class="line"><span class="built_in">console</span>.info(buf.toString(<span class="string">'base64'</span>)); <span class="comment">// cG9zdG1haWxAdGVzdC5jb206MTIzNDU2Nzg=</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Authorization 解密过程</span></span><br><span class="line"><span class="keyword">const</span> buf = Buffer.from(authorization.split(<span class="string">' '</span>)[<span class="number">1</span>] || <span class="string">''</span>),  <span class="string">'base64'</span>);</span><br><span class="line"><span class="keyword">const</span> user = buf.toString(<span class="string">'ascii'</span>).split(<span class="string">':'</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="其他-HTTP-认证"><a href="#其他-HTTP-认证" class="headerlink" title="其他 HTTP 认证"></a>其他 HTTP 认证</h3><p>通用 HTTP 身份验证框架有多个验证方案使用。不同的验证方案会在安全强度上有所不同。</p>
@@ -413,14 +413,14 @@
 <li>Mutual (查看 <a href="https://link.zhihu.com/?target=https%3A//tools.ietf.org/html/draft-ietf-httpauth-mutual-11">draft-ietf-httpauth-mutual</a>),</li>
 <li>AWS4-HMAC-SHA256 (查看 <a href="https://link.zhihu.com/?target=http%3A//docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html">AWS docs</a>)</li>
 </ul>
-<h2 id="二、Cookie-Session"><a href="#二、Cookie-Session" class="headerlink" title="二、Cookie + Session"></a>二、Cookie + Session</h2><h3 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h3><p><img src="/.io//v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg" alt="img"></p>
+<h2 id="二、Cookie-Session"><a href="#二、Cookie-Session" class="headerlink" title="二、Cookie + Session"></a>二、Cookie + Session</h2><h3 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h3><p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg" alt="img"></p>
 <p><a href="https://link.zhihu.com/?target=https%3A//www.cnblogs.com/apolloren/p/11985083.html">思考：为什么要在密码里加点“盐”？</a></p>
-<h3 id="鉴权流程-1"><a href="#鉴权流程-1" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/.io//v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程-1"><a href="#鉴权流程-1" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg" alt="img"></p>
 <h3 id="Session-存储"><a href="#Session-存储" class="headerlink" title="Session 存储"></a>Session 存储</h3><p>最常用的 Session 存储方式是 KV 存储，如Redis，在分布式、API 支持、性能方面都是比较好的，除此之外还有 mysql、file 存储。</p>
 <p>如果服务是分布式的，使用 file 存储，多个服务间存在同步 session 的问题；高并发情况下错误读写锁的控制。</p>
 <h3 id="Session-Refresh"><a href="#Session-Refresh" class="headerlink" title="Session Refresh"></a>Session Refresh</h3><p>我们上面提到的流程中，缺少 Session 的刷新的环节，我们不能在用户登录之后经过一个 expires 时间就把用户踢出去，如果在 Session 有效期间用户一直在操作，这时候 expires 时间就应该刷新。</p>
 <p>以 Koa 为例，刷新 Session 的机制也比较简单： 开发一个 middleware（默认情况下所有请求都会经过该 middleware），如果校验 Session 有效，就更新 Session 的 expires: 当前时间+过期时间。</p>
-<p><img src="/.io//v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg" alt="img"></p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg" alt="img"></p>
 <p><strong>优化：</strong></p>
 <ol>
 <li>频繁更新 session 会影响性能，可以在 session 快过期的时候再更新过期时间。</li>
@@ -467,13 +467,13 @@
 <li>防CSRF（主要是伪造请求，带上cookie）</li>
 <li>适合移动应用 app</li>
 </ul>
-<h3 id="鉴权流程-2"><a href="#鉴权流程-2" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/.io//v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程-2"><a href="#鉴权流程-2" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg" alt="img"></p>
 <h3 id="Token-校验"><a href="#Token-校验" class="headerlink" title="Token 校验"></a>Token 校验</h3><p>对于验证一个 JWT 是否有效也是比较简单的，服务端根据前面介绍的计算方法计算出 signature，和要校验的JWT中的 signature 部分进行对比就可以了，如果 signature 部分相等则是一个有效的 JWT。</p>
 <h3 id="Token-Refresh"><a href="#Token-Refresh" class="headerlink" title="Token Refresh"></a>Token Refresh</h3><p>为了减少 JWT Token 泄露风险，一般有效期会设置的比较短。 这样就会存在 JWT Token 过期的情况，我们不可能让用户频繁去登录获取新的 JWT Token。</p>
 <p><strong>解决方案：</strong></p>
 <p>可以同时生成 JWT Token 与 Refresh Token，其中 Refresh Roken 的有效时间长于 JWT Token，这样当 JWT Token 过期之后，使用 Refresh Token 获取新的 JWT Token 与 Refresh Token，其中 Refresh Token 只能使用一次。</p>
 <h2 id="四、OAuth"><a href="#四、OAuth" class="headerlink" title="四、OAuth"></a>四、OAuth</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>有时候，我们登录某个网站，但我们又不想注册该网站的账号，这时我们可以使用第三方账号登录，比如 github、微博、微信、QQ等。</p>
-<p><img src="/.io//v2-118035425560b7a0632a21fcf6a6ab0a_720w.jpg" alt="img"></p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-118035425560b7a0632a21fcf6a6ab0a_720w.jpg" alt="img"></p>
 <blockquote>
 <p>开放授权（OAuth）是一个开放标准，允许用户让第三方应用访问该用户在某一网站上存储的私密的资源（如照片，视频，联系人列表），而无需将用户名和密码提供给第三方应用。<br>OAuth允许用户提供一个令牌，而不是用户名和密码来访问他们存放在特定服务提供者的数据。每一个令牌授权一个特定的网站（例如，视频编辑网站)在特定的时段（例如，接下来的2小时内）内访问特定的资源（例如仅仅是某一相册中的视频）。这样，OAuth让用户可以授权第三方网站访问他们存储在另外服务提供者的某些特定信息，而非所有内容。<br>OAuth是OpenID的一个补充，但是完全不同的服务。<br>—— 摘自 维基百科</p>
 </blockquote>
@@ -484,7 +484,7 @@
 <li>Authorization server：认证服务器，即 Github 专门用来处理认证的服务器。</li>
 <li>Resource server：资源服务器，即 Github 存放用户生成的资源的服务器。它与认证服务器，可以是同一台服务器，也可以是不同的服务器。</li>
 </ul>
-<p><img src="/.io//v2-08469f9c04bd676fafcf1c73f1441534_720w.jpg" alt="img"></p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-08469f9c04bd676fafcf1c73f1441534_720w.jpg" alt="img"></p>
 <ul>
 <li>A. A网站让用户跳转到 GitHub，请求授权码；GitHub 要求用户登录，然后询问“知乎网站要求获得 xx 权限，你是否同意？”； </li>
 <li>B. 用户同意，GitHub 就会重定向回 A 网站，同时发回一个授权码； </li>
@@ -502,7 +502,7 @@
 <p><a href="https://link.zhihu.com/?target=http%3A//www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html">OAuth 2.0 的四种方式 - 阮一峰的网络日志www.ruanyifeng.com<img src="https://pic2.zhimg.com/v2-b80f9dfb7ec08c42b4563246d8d137d5_180x120.jpg" alt="图标"></a></p>
 <h3 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h3><p>单点登录(Single Sign On, SSO)，即：单一标记（单点）登录。例如：QQ，我在QQ空间登录一次，我可以去访问QQ产品的其他服务：QQ邮箱、腾讯新闻等，都能保证你的账户保持登录状态。</p>
 <p><strong>延伸阅读</strong></p>
-<p><a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/Faker_Wang/article/details/80877654">单点登录注销_Faker_Wang的博客-CSDN博客blog.csdn.net<img src="/.io//v2-2d5f63df43b269637db32fb225cf576f_ipico.jpg" alt="图标"></a><a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/maxchenBug/article/details/88791514">《手机扫码登录内网怎么实现的？》blog.csdn.net</a></p>
+<p><a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/Faker_Wang/article/details/80877654">单点登录注销_Faker_Wang的博客-CSDN博客blog.csdn.net<img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%89%B4%E6%9D%83/v2-2d5f63df43b269637db32fb225cf576f_ipico.jpg" alt="图标"></a><a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/maxchenBug/article/details/88791514">《手机扫码登录内网怎么实现的？》blog.csdn.net</a></p>
 <h2 id="五、总结对比"><a href="#五、总结对比" class="headerlink" title="五、总结对比"></a>五、总结对比</h2><p>没有最好，只有最合适！！！</p>
 <h4 id="HTTP-Auth-Authentication："><a href="#HTTP-Auth-Authentication：" class="headerlink" title="HTTP Auth Authentication："></a>HTTP Auth Authentication：</h4><ul>
 <li><p>梳理总结：</p>
@@ -619,8 +619,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/05/16/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/html&css%E4%BC%98%E5%8C%96/" rel="prev" title="6.html和css优化">
-                6.html和css优化 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/05/16/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/js%E7%9A%84%E5%BC%80%E9%94%80%E4%B8%8E%E4%BC%98%E5%8C%96/" rel="prev" title="5.JavaScript的开销与优化">
+                5.JavaScript的开销与优化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
