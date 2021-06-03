@@ -132,7 +132,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/" itemprop="url">4.7.渲染层合并</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url">设计模式</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-25T17:22:40+08:00">
-                2021-02-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">性能优化</span>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -387,24 +387,28 @@
       
         
           
-          梳理浏览器渲染流程首先简单了解一下浏览器请求、加载、渲染一个页面的大致过程：
+          五大设计原则js常用前两种原则，语言特性和后三种原则关联不大。
+
+单一职责原则
+一个程序只做好一件事
+如果功能复杂就拆分开，每个部分保持独立
 
 
-DNS 查询
-TCP 连接
-HTTP 请求即响应
-服务器响应
-客户端渲染
+开放封闭原则
+对扩展开放，对修改封闭
+增加需求时，扩展新代码，而非修改已有代码
+这是软件设计的终极目标
 
 
-这里主要将客户端渲染展开梳理一下，从浏览器器内核拿到内容（渲染线程接收请求，加载网页并渲染网页），渲染大概可以划分成以下几个步骤：
+李氏置换原则
+接口独立原则
+依赖导致原则
 
-
-解析
+设
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -455,7 +459,7 @@ HTTP 请求即响应
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/25/css/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E7%BD%91%E7%BB%9C/http3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -474,7 +478,7 @@ HTTP 请求即响应
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/25/css/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/" itemprop="url">层叠上下文</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E7%BD%91%E7%BB%9C/http3/" itemprop="url">第 3 章　HTTP 报文内的 HTTP 信息</a></h1>
         
 
         <div class="post-meta">
@@ -486,8 +490,8 @@ HTTP 请求即响应
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-25T15:58:35+08:00">
-                2021-02-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -509,19 +513,8 @@ HTTP 请求即响应
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">性能优化</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -559,16 +552,12 @@ HTTP 请求即响应
       
         
           
-          一个 Web 页面的展示，简单来说可以认为经历了以下下几个步骤。
-
-
-JavaScript：一般来说，我们会使用 JavaScript 来实现一些视觉变化的效果。比如做一个动画或者往页面里添加一些 DOM 元素等。
-
-Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元素匹配对应
+          HTTP 通信过程包括从客户端发往服务器端的请求及从服务器端返回客户端的响应。
+HTTP 报文用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用 CR+LF 作换行符）数据构成的字符
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/25/css/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E7%BD%91%E7%BB%9C/http3/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -619,7 +608,7 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/25/css/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E7%BD%91%E7%BB%9C/http2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -638,7 +627,7 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/25/css/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/" itemprop="url">层叠上下文</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E7%BD%91%E7%BB%9C/http2/" itemprop="url">第 2 章　简单的 HTTP 协议</a></h1>
         
 
         <div class="post-meta">
@@ -650,8 +639,8 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-25T14:01:11+08:00">
-                2021-02-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -673,8 +662,8 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -712,17 +701,13 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
       
         
           
-          
-转载于  张鑫旭
-
-简短总结什么是层叠上下文​    层叠上下文，英文称作”stacking context”. 是HTML中的一个三维的概念。简单来说就是一个容器，比普通元素高一个层级
-如何产生一个层叠上下文
-如何创建层叠上下文
-HTML中的根元素&lt;html&gt;&lt;/html&gt
+          本章将针对 HTTP 协议结构进行讲解
+HTTP 协议用于客户端和服务器端之间的通信HTTP 协议和 TCP/IP 协议族内的其他众多的协议相同，用于客户端和服务器之间的通信。请求访问文本或图像等资源的一端称为客户端，而提供资源响应的一端称为服务器端。
+通过请求和响应的交换达成通信HTTP 协议规定
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/25/css/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E7%BD%91%E7%BB%9C/http2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -773,7 +758,7 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E7%AE%97%E6%B3%95/%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -792,7 +777,7 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/" itemprop="url">运算符优先级</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E7%AE%97%E6%B3%95/%E8%AE%B0%E5%BD%95/" itemprop="url">解题思路或方法</a></h1>
         
 
         <div class="post-meta">
@@ -804,8 +789,8 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T18:03:42+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -827,8 +812,8 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index">
-                    <span itemprop="name">零散知识</span>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -866,32 +851,15 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
       
         
           
-          运算符优先级，从上到下依次减低
+          统计数组或字符串重复数字数量的时候使用哈希表
+这种方法性能好，而且容易理解，且不易出错
 
-
-运算符
-描述
-
-
-
-. [] ()
-字段访问、数组下标、函数调用以及表达式分组
-
-
-++ – - ~ ! delete new typeof void
-一元运算符、返回数据类型、对象创建、未定义值
-
-
-* / %
-乘法、除法、取模
-
-
-+ - +
-加法、减法、字符
+不能用来统计连续出现的次数
+1234567891011&#x2F;&#x2F; 相同牌出现次数Maplet timeMap &#x3D; new Map();&#x2F;&#x2F; 遍历牌deck.forEa
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E7%AE%97%E6%B3%95/%E8%AE%B0%E5%BD%95/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -942,7 +910,7 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E7%AE%97%E6%B3%95/LeetCode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -961,7 +929,7 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/" itemprop="url">get post</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E7%AE%97%E6%B3%95/LeetCode/" itemprop="url">leetCode</a></h1>
         
 
         <div class="post-meta">
@@ -973,8 +941,8 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:59:24+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -996,8 +964,8 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index">
-                    <span itemprop="name">零散知识</span>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1035,16 +1003,16 @@ HTML中的根元素&lt;html&gt;&lt;/html&gt
       
         
           
-          POST提交数据时四种常见的数据格式
-application/x-www-form-urlencoded
-浏览器的原生 表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded方式提交数据。
+          卡牌分组给定一副牌，每张牌上都写着一个整数。
+此时，你需要选定一个数字 X，使我们可以将整副牌按下述规则分成 1 组或更多组：
+每组都有 X 张牌。组内所有的牌上都写着相同的整数。仅当你可选的 X &gt;= 2 时返回 true。
 
-
-multipart/form-data
+示例 1：
+输入：[1,2,3,4,4,3,2,1]输出：tru
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E7%AE%97%E6%B3%95/LeetCode/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1095,7 +1063,7 @@ multipart/form-data
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E7%BD%91%E7%BB%9C/cache/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1114,7 +1082,7 @@ multipart/form-data
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" itemprop="url">前端安全</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E7%BD%91%E7%BB%9C/cache/" itemprop="url">浏览器缓存原理</a></h1>
         
 
         <div class="post-meta">
@@ -1126,8 +1094,8 @@ multipart/form-data
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:59:24+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -1149,8 +1117,8 @@ multipart/form-data
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index">
-                    <span itemprop="name">零散知识</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -1188,11 +1156,13 @@ multipart/form-data
       
         
           
-          1. XSS攻击XSS(Cross-Site Scripting，跨站脚本攻击)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。
+          一、浏览器缓存基本认识分为强缓存和协商缓存
+
+浏览器在加载资源时，先根据这个资源的一些http header判断它是否命中强缓存，强缓存如果命中，浏览器直接从自己的缓存中读取资源，不会发请求到服务器。比如某个css文件，如果浏览器在加载它所在的网页时，这个css文件的缓存配置命中了强缓存，浏览器就直
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E7%BD%91%E7%BB%9C/cache/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1243,7 +1213,7 @@ multipart/form-data
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E7%BD%91%E7%BB%9C/http/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1262,7 +1232,7 @@ multipart/form-data
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/" itemprop="url">MacroTask（宏任务）和MicroTask（微任务）</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E7%BD%91%E7%BB%9C/http/" itemprop="url">第1章 了解 Web 及网络基础</a></h1>
         
 
         <div class="post-meta">
@@ -1274,8 +1244,8 @@ multipart/form-data
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:59:24+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -1297,8 +1267,8 @@ multipart/form-data
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index">
-                    <span itemprop="name">零散知识</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -1336,19 +1306,13 @@ multipart/form-data
       
         
           
-          micro-task和macro-task就是两种不同的任务队列 
-
-macro-task:
-script(script标签里面的整体代码) 
-setTimeout
-setInterval
-setImmediate
-MessageChannel（vue nextTick 以前应该是备选方案）
-I/O
+          为了理解 HTTP，我们有必要事先了解一下 TCP/IP 协议族
+网络基础 TCP/IP通常使用的网络（包括互联网）是在 TCP/IP 协议族的基础上运作 的。而 HTTP 属于它内部的一个子集。 
+TCP/IP 协议族计算机与网络设备要相互通信，双方就必须基于相同的方法。比如， 如何探测到通信目标
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E7%BD%91%E7%BB%9C/http/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1399,7 +1363,7 @@ I/O
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E6%AD%A3%E5%88%99/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1418,7 +1382,7 @@ I/O
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/" itemprop="url">工作中遇到的-小-问题记录</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E6%AD%A3%E5%88%99/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" itemprop="url">正则疑难点记录</a></h1>
         
 
         <div class="post-meta">
@@ -1430,8 +1394,8 @@ I/O
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:59:24+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -1453,19 +1417,8 @@ I/O
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index">
-                    <span itemprop="name">问题记录</span>
+                  <a href="/categories/%E6%AD%A3%E5%88%99/" itemprop="url" rel="index">
+                    <span itemprop="name">正则</span>
                   </a>
                 </span>
 
@@ -1503,12 +1456,15 @@ I/O
       
         
           
-          1 有效解决setTimeout跨级传参数12功能：修改 window.setTimeout，使之可以传递参数和对象参数 使用方法： setTimeout(回调函数,时间,参数1,...,参数n)
-2 单击和双击的冲突问题在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击
+          转载自
+什么是正则表达式？
+正则表达式是一组由字母和符号组成的特殊文本，它可以用来从文本中找出满足你想要的格式的句子。
+
+一个正则表达式是一种从左到右匹配主体字符串的模式。“Regular expression”这个词比较拗口，我们常使用缩写的术语“regex”或“regexp”。正则表达式可以从一
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E6%AD%A3%E5%88%99/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1559,7 +1515,7 @@ I/O
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E6%AD%A3%E5%88%99/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1578,7 +1534,7 @@ I/O
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/" itemprop="url">3.性能调试工具</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E6%AD%A3%E5%88%99/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/" itemprop="url">正则疑难点记录</a></h1>
         
 
         <div class="post-meta">
@@ -1590,8 +1546,8 @@ I/O
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:59:24+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -1613,8 +1569,8 @@ I/O
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">性能优化</span>
+                  <a href="/categories/%E6%AD%A3%E5%88%99/" itemprop="url" rel="index">
+                    <span itemprop="name">正则</span>
                   </a>
                 </span>
 
@@ -1652,21 +1608,12 @@ I/O
       
         
           
-          测试工具
-Chrome DevTools  开发调试、性能评测
-Lighthouse  网站整体质量评估
-WebPackTest 多测试地点、全面性能报告
-地址
-主要是三个指标，waterfall 、first view、repeat view
-
-
-
-lighthouse 使用
-可以使用npm 全局
+          正则疑难点记录贪婪、非贪婪与独占模式123&#x2F;&#x2F; 贪婪匹配&quot;c.*t&quot; &#x3D;&gt; The fat cat sat on the mat.&#x2F;&#x2F;匹配： cat sat on the mat
+在字符后加上一个问号（?）则可以开启懒惰模式
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E6%AD%A3%E5%88%99/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1717,7 +1664,7 @@ lighthouse 使用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/02/20/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%A6%82%E8%A7%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1736,7 +1683,7 @@ lighthouse 使用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/" itemprop="url">1.基本调试</a></h1>
+                <a class="post-title-link" href="/2021/05/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%A6%82%E8%A7%88/" itemprop="url">数据类型</a></h1>
         
 
         <div class="post-meta">
@@ -1748,8 +1695,8 @@ lighthouse 使用
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T16:59:24+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
               </time>
             
 
@@ -1771,8 +1718,8 @@ lighthouse 使用
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">性能优化</span>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">数据类型</span>
                   </a>
                 </span>
 
@@ -1810,17 +1757,27 @@ lighthouse 使用
       
         
           
-          chrome 浏览器调试工具的使用network性能测试
+          数据类型:
+基本数据类型
+Undefined
+Null
+Boolean
+Number
+String
+Symbol
 
-打开调试工具 -&gt; network 注意打钩选项 然后按住刷新，选择清空缓存并硬性重新加载
 
-下面重点研究瀑布图
+复杂类型：
+Objecttypeof操作符对一个值使用 typeof 操作符会返回下列字符串之一： 
 
-瀑布图由长短不一的条状图构成，处于同一竖线起点的请求，就是并行请求，并行请求数量浏览器有上限，其他的请求必须等上一个请
+
+“undefined”表示值未定义
+“boolean”表示值为布尔值
+“st
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%A6%82%E8%A7%88/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1862,7 +1819,7 @@ lighthouse 使用
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&lt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/">&lt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">&gt;</a>
   </nav>
 
 
@@ -1912,7 +1869,7 @@ lighthouse 使用
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1923,7 +1880,7 @@ lighthouse 使用
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1934,7 +1891,7 @@ lighthouse 使用
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
