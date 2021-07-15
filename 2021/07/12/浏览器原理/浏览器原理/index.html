@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="chrome架构,网络协议,从输入URL到页面展示，这中间发生了什么," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="chrome架构打开一个chrome网页，如图所示会出现很多线程   首先需要讲解一下 进程和线程 进程和线程 一个进程就是一个程序的运行实例 线程是不能单独存在的，它是由进程来启动和管理的 线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率    总结来说，进程和线程之间的关系有以下 4 个特点。  1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。 2. 线程之间共享进程中的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器原理">
+<meta property="og:url" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="chrome架构打开一个chrome网页，如图所示会出现很多线程   首先需要讲解一下 进程和线程 进程和线程 一个进程就是一个程序的运行实例 线程是不能单独存在的，它是由进程来启动和管理的 线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率    总结来说，进程和线程之间的关系有以下 4 个特点。  1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。 2. 线程之间共享进程中的">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712221958756.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222146731.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222743496.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712223130924.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714152647756.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714153451934.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714180345180.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143236150.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143850698.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715165934972.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715170447195.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715172527999.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173725392.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173820255.png">
+<meta property="article:published_time" content="2021-07-12T14:13:47.423Z">
+<meta property="article:modified_time" content="2021-07-15T09:41:43.971Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="chrome架构">
+<meta property="article:tag" content="网络协议">
+<meta property="article:tag" content="从输入URL到页面展示，这中间发生了什么">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712221958756.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2021/07/12/浏览器原理/浏览器原理/"/>
+
+
+
+
+
+  <title>浏览器原理 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浏览器原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-12T22:13:47+08:00">
+                2021-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">浏览器原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="chrome架构"><a href="#chrome架构" class="headerlink" title="chrome架构"></a>chrome架构</h2><p>打开一个chrome网页，如图所示会出现很多线程</p>
+<img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712221958756.png" alt="image-20210712221958756" style="zoom:50%;">
+
+<p>首先需要讲解一下 进程和线程</p>
+<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
+<li><strong>一个进程就是一个程序的运行实例</strong></li>
+<li><strong>线程是不能单独存在的，它是由进程来启动和管理的</strong></li>
+<li><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></li>
+</ul>
+<img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222146731.png" alt="image-20210712222146731" style="zoom:50%;">
+
+<p>总结来说，进程和线程之间的关系有以下 4 个特点。</p>
+<ul>
+<li><strong>1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。</strong></li>
+<li><strong>2. 线程之间共享进程中的数据。</strong></li>
+<li><strong>3. 当一个进程关闭之后，操作系统会回收进程所占用的内存(包括泄漏的内存)。</strong></li>
+<li><strong>4. 进程之间的内容相互隔离。(通信依靠IPC进程间通信)</strong></li>
+</ul>
+<h3 id="浏览器架构发展史"><a href="#浏览器架构发展史" class="headerlink" title="浏览器架构发展史"></a>浏览器架构发展史</h3><h4 id="单进程浏览器"><a href="#单进程浏览器" class="headerlink" title="单进程浏览器"></a>单进程浏览器</h4><p><strong>单进程浏览器是指浏览器的所有功能模块都是运行在同一个进程里</strong></p>
+<img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222743496.png" alt="image-20210712222743496" style="zoom:50%;">
+
+<p>缺点很明显</p>
+<ul>
+<li><p>不稳定</p>
+<p>一个插件的意外崩溃会引起整个浏览器的崩溃，除了插件之外，<strong>渲染引擎模块（复杂代码）</strong>也是不稳定的</p>
+</li>
+<li><p>不流畅</p>
+<p>所有页面的渲染模块、JavaScript 执行环境以及插件都是运行在同一个线程中的，这就意味着同一时刻只能有一个模块可以执行</p>
+</li>
+<li><p>不安全</p>
+<p>插件可以使用c++编写，可以轻易访问操作系统</p>
+</li>
+</ul>
+<h4 id="多进程浏览器"><a href="#多进程浏览器" class="headerlink" title="多进程浏览器"></a>多进程浏览器</h4><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712223130924.png" alt="image-20210712223130924" style="zoom:50%;">
+
+<p>多进程浏览器解决了单进程浏览器的几个问题</p>
+<ul>
+<li>不稳定：由于进程是相互隔离的，所以当一个页面或者插件崩溃时，影响到的仅仅是当前的页面进程或者插件进程，并不会影响到浏览器和其他页面</li>
+<li>不流畅：每个tab页均有一个渲染进程，JavaScript 也是运行在渲染进程中的，所以即使 JavaScript 阻塞了渲染进程，影响到的也只是当前的渲染页面</li>
+<li>不安全：安全沙箱，Chrome 把插件进程和渲染进程锁在沙箱里面</li>
+</ul>
+<p>多进程浏览器也会有一些问题</p>
+<ul>
+<li><p><strong>更高的资源占用：</strong>因为每个进程都会包含公共基础结构的副本（如 JavaScript 运行环</p>
+<p>境），这就意味着浏览器会消耗更多的内存资源。</p>
+</li>
+<li><p><strong>更复杂的体系架构：</strong>浏览器各模块之间耦合性高、扩展性差等问题，会导致现在的架构已</p>
+<p>经很难适应新的需求了。</p>
+</li>
+</ul>
+<p>多进程浏览器包括（浏览器架构持续优化中，仅供参考）:</p>
+<ul>
+<li><p><strong>浏览器进程</strong>。主要负责界面显示、用户交互、子进程管理，同时提供存储等功能。</p>
+</li>
+<li><p><strong>渲染进程</strong>。核心任务是将 HTML、CSS 和 JavaScript 转换为用户可以与之交互的网页，排版引擎 Blink 和 JavaScript 引擎 V8 都是运行在该进程中，默认情况下，<strong>Chrome 会为每个 Tab 标签创建一个渲染进程</strong>。出于安全考虑，渲染进程都是运行在沙箱模式下。</p>
+</li>
+<li><p><strong>GPU 进程</strong></p>
+</li>
+<li><p><strong>网络进程</strong></p>
+</li>
+<li><p><strong>插件进程</strong></p>
+</li>
+</ul>
+<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><h3 id="常见网页协议"><a href="#常见网页协议" class="headerlink" title="常见网页协议"></a>常见网页协议</h3><pre><code>-  **TCP/IP**  是互联网相关的各类协议族的总称
+-  **IP**（Internet Protocol）网际协议（**网络层协议**）IP 协议的作用是把各种数据包传送给对方。而要保证确实传送到对方 那里，则需要满足各类条件。其中两个重要的条件是 IP 地址和 MAC 地址（Media Access Control Address）
+-  **HTTP** 超文本传输协议是一个用于传输超媒体文档（例如 HTML）的**应用层协议**。它是为 Web 浏览器与 Web 服务器之间的通信而设计的，但也可以用于其他目的
+-  **TCP**（Transmission Control Protocol，传输控制协议）是一种面向连接的、可靠的、基于字节流的**传输层通信协议**
+-  **UDP**（User Data Protocol，用户数据报协议）一个非连接的协议，传输数据之前源端和终端不建立连接， 当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上</code></pre><h3 id="TCP-IP-的分层管理"><a href="#TCP-IP-的分层管理" class="headerlink" title="TCP/IP 的分层管理"></a><strong>TCP/IP</strong> 的分层管理</h3><p><strong>利用 TCP/IP 协议族进行网络通信时，会通过分层顺序与对方进行通信</strong></p>
+<img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714152647756.png" alt="image-20210714152647756" style="zoom: 50%;">
+
+<p>这些层基本上被分为4层：</p>
+<ul>
+<li><p>应用层</p>
+<ul>
+<li>1、超文本传输协议（<strong>HTTP</strong>):万维网的基本协议</li>
+<li>2、文件传输（FTP文件传输协议）；</li>
+<li>3、远程登录（Telnet），提供远程访问其它主机功能, 它允许用户登录internet主机，并在这台主机上执行命令</li>
+<li>4、网络管理（SNMP简单网络管理协议），该协议提供了监控网络设备的方法， 以及配置管理,统计信息收集,性能管理及安全管理等</li>
+<li>5、域名系统（<strong>DNS</strong>），该系统用于在internet中将域名及其公共广播的网络节点转换成IP地址</li>
+</ul>
+</li>
+<li><p>传输层</p>
+<ul>
+<li>1、<strong>TCP</strong></li>
+<li>2、<strong>UDP</strong></li>
+</ul>
+</li>
+<li><p>网络层</p>
+<ul>
+<li>1、Internet协议（<strong>IP</strong>）</li>
+<li>2、Internet控制信息协议（ICMP）</li>
+<li>3、地址解析协议（<em>ARP</em>）ARP 是一种用以解析地址的协议，根据通信方的 IP 地址就可以反查出对应的 MAC 地址。</li>
+<li>4、反向地址解析协议（RARP）</li>
+</ul>
+</li>
+<li><p>链路层</p>
+<p>用来处理连接网络的硬件部分。包括控制操作系统、硬件的设备驱 动、NIC（Network Interface Card，网络适配器，即网卡），及光纤等 物理可见部分（还包括连接器等一切传输媒介）。硬件上的范畴均在 链路层的作用范围之内。 </p>
+</li>
+</ul>
+<h3 id="TCP-IP-通信传输流"><a href="#TCP-IP-通信传输流" class="headerlink" title="TCP/IP 通信传输流"></a><strong>TCP/IP</strong> 通信传输流</h3><p>​    利用 TCP/IP 协议族进行网络通信时，会通过分层顺序与对方进行通信。发送端从应用层往下走，接收端则往应用层往上走。 发送端在层与层之间传输数据时，每经过一层时必定会被打上一个该 层所属的首部信息。反之，接收端在层与层传输数据时，每经过一层时会把对应的首部消去。 </p>
+<p>​    这种把数据信息包装起来的做法称为<strong>封装</strong>（encapsulate），如下图所示</p>
+<img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714153451934.png" alt="image-20210714153451934" style="zoom:50%;">
+
+<h3 id="TCP与UDP的区别"><a href="#TCP与UDP的区别" class="headerlink" title="TCP与UDP的区别"></a>TCP与UDP的区别</h3><p><strong>需要补充</strong></p>
+<h2 id="从输入URL到页面展示，这中间发生了什么"><a href="#从输入URL到页面展示，这中间发生了什么" class="headerlink" title="从输入URL到页面展示，这中间发生了什么"></a>从输入URL到页面展示，这中间发生了什么</h2><p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714180345180.png" alt="image-20210714180345180"></p>
+<p>从图中可以看出，<strong>整个过程需要各个进程之间的配合</strong>，首先介绍一下各进程的主要职责</p>
+<ul>
+<li><p>浏览器进程主要负责用户交互、子进程管理和文件储存等功能。</p>
+</li>
+<li><p>网络进程是面向渲染进程和浏览器进程等提供网络下载功能。</p>
+</li>
+<li><p>渲染进程的主要职责是把从网络下载的 HTML、JavaScript、CSS、图片等资源解析为可</p>
+</li>
+</ul>
+<p>以显示和交互的页面。</p>
+<h3 id="渲染流程之前的流程"><a href="#渲染流程之前的流程" class="headerlink" title="渲染流程之前的流程"></a>渲染流程之前的流程</h3><p>​    这个过程可以大致描述为如下。</p>
+<ul>
+<li><p>首先，浏览器进程接收到用户输入的 URL 请求，浏览器进程便将该 URL 转发给网络进程。然后，在网络进程中发起真正的 URL 请求。</p>
+</li>
+<li><p>接着网络进程接收到了响应头数据，便解析响应头数据，并将数据转发给浏览器进程。</p>
+</li>
+<li><p>浏览器进程接收到网络进程的响应头数据之后，发送“提交导航 (CommitNavigation)”消息到渲染进程；</p>
+</li>
+<li><p>渲染进程接收到“提交导航”的消息之后，便开始准备接收 HTML 数据，接收数据的方式是直接和网络进程建立数据管道；</p>
+</li>
+<li><p>最后渲染进程会向浏览器进程“确认提交”，这是告诉浏览器进程：“已经准备好接受和解析页面数据了”。</p>
+</li>
+<li><p>浏览器进程接收到渲染进程“提交文档”的消息之后，便开始移除之前旧的文档，然后更新浏览器进程中的页面状态。</p>
+</li>
+</ul>
+<h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>​    按照渲染的时间顺序，流水线可分为如下几个子阶段：</p>
+<h4 id="构建-DOM-树"><a href="#构建-DOM-树" class="headerlink" title="构建 DOM 树"></a>构建 DOM 树</h4><p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143236150.png" alt="image-20210715143236150"></p>
+<p>​    构建 DOM 树的<strong>输入内容</strong>是一个非常简单的 HTML 文件，然后经由HTML 解析器解析，最终输出树状结构的 DOM</p>
+<h4 id="样式计算"><a href="#样式计算" class="headerlink" title="样式计算"></a>样式计算</h4><p>​    样式计算的目的是为了计算出 DOM 节点中每个元素的具体样式，这个阶段大体可分为三步来完成：</p>
+<ol>
+<li><p>把CSS转换为浏览器能够理解的结构</p>
+<blockquote>
+<p>和 HTML 文件一样，浏览器也是无法直接理解这些纯文本的 CSS 样式，所以<strong>当渲染引擎接</strong></p>
+<p><strong>收到 CSS 文本时，会执行一个转换操作，将 CSS 文本转换为浏览器可以理解的结构——</strong></p>
+<p><strong>styleSheets</strong>。</p>
+</blockquote>
+</li>
+<li><p>转换样式表中的属性值，使其标准化</p>
+<p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143850698.png" alt="image-20210715143850698"></p>
+<blockquote>
+<p><strong>需要将所有值转换为渲染引擎容易理解的、标准化的计算值</strong></p>
+</blockquote>
+</li>
+<li><p>计算出 DOM 树中每个节点的具体样式</p>
+</li>
+</ol>
+<h4 id="布局阶段"><a href="#布局阶段" class="headerlink" title="布局阶段"></a>布局阶段</h4><p>​    我们有 DOM 树和 DOM 树中元素的样式，但这还不足以显示页面，因为我们还不知道 DOM 元素的几何位置信息。<strong>那么接下来就需要计算出 DOM 树中可见元素的几何位置，我们把这个计算过程叫做布局</strong>。</p>
+<p>​    Chrome 在布局阶段需要完成两个任务：创建布局树和布局计算。</p>
+<h5 id="创建布局树"><a href="#创建布局树" class="headerlink" title="创建布局树"></a>创建布局树</h5><p>​    在显示之前，我们还要额外地构建一棵只包含可见元素布局树。</p>
+<p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715165934972.png" alt="image-20210715165934972"></p>
+<h5 id="布局计算"><a href="#布局计算" class="headerlink" title="布局计算"></a>布局计算</h5><p>​    在执行布局操作的时候，会把布局运算的结果重新写回布局树中，所以布局树既是输入内容也是输出内容，这是布局阶段一个不合理的地方</p>
+<h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p>​    渲染引擎还需要为特定的节点生成专用的图层，并生成一棵对应的<strong>图层树（LayerTree）</strong></p>
+<p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715170447195.png" alt="image-20210715170447195"></p>
+<p>​    那么需要满足什么条件，渲染引擎才会为特定的节点创建新的层呢？</p>
+<ul>
+<li><p>拥有<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context" target="_blank" rel="noopener">层叠上下文</a>属性的元素会被提升为单独的一层</p>
+</li>
+<li><p>需要剪裁（clip）的地方也会被创建为图层</p>
+<blockquote>
+<p>层叠上下文在css中也是一个很重要的概念，在blog中也有一些相关文章</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="图层绘制"><a href="#图层绘制" class="headerlink" title="图层绘制"></a>图层绘制</h4><h5 id="分析出绘制列表"><a href="#分析出绘制列表" class="headerlink" title="分析出绘制列表"></a>分析出绘制列表</h5><p>​    在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进行绘制。渲染引擎会把一个图层的绘制拆分成很多小的<strong>绘制指令</strong>，然后再把这些指令按照顺序组成一个待绘制列表，如下图所示：</p>
+<p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715172527999.png" alt="image-20210715172527999"></p>
+<p>​    绘制列表只是用来记录绘制顺序和绘制指令的列表，而实际上绘制操作是由渲染引擎中的<strong>合成线程</strong>来完成的。当图层的绘制列表准备好之后，主线程会把该绘制列表<strong>提交（commit）</strong>给合成线程</p>
+<h5 id="分块"><a href="#分块" class="headerlink" title="分块"></a>分块</h5><p>​    通常一个页面可能很大，但是用户只能看到其中的一部分，我们把用户可以看到的这个部分叫做<strong>视口</strong>（viewport）。通过视口，用户只能看到页面的很小一部分，所以在这种情况下，要绘制出所有图层内容的话，就会产生太大的开销，而且也没有必要。</p>
+<p>​    基于这个原因，<strong>合成线程会将图层划分为图块（tile）</strong>，这些图块的大小通常是 <strong>256x256</strong> 或者 <strong>512x512</strong></p>
+<h5 id="光栅化raster"><a href="#光栅化raster" class="headerlink" title="光栅化raster"></a>光栅化raster</h5><p>​    合成线程会按照视口附近的图块来优先生成位图，实际生成位图的操作是由栅格化来执行的。所谓<strong>栅格化，是指将图块转换为位图</strong>。</p>
+<p>​    而图块是栅格化执行的最小单位。渲染进程维护了一个栅格化的线程池，所有的图块栅格化都是在线程池内执行的</p>
+<p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173725392.png" alt="image-20210715173725392"></p>
+<h5 id="合成和显示"><a href="#合成和显示" class="headerlink" title="合成和显示"></a>合成和显示</h5><p>​    一旦所有图块都被光栅化，合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程。</p>
+<p>​    浏览器进程里面有一个叫 viz 的组件，用来接收合成线程发过来的 DrawQuad 命令，然后根据 DrawQuad 命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</p>
+<h4 id="渲染流水线大总结"><a href="#渲染流水线大总结" class="headerlink" title="渲染流水线大总结"></a>渲染流水线大总结</h4><p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173820255.png" alt="image-20210715173820255"></p>
+<p>结合上图，一个完整的渲染流程大致可总结为如下：</p>
+<ul>
+<li><ol>
+<li>渲染进程将 HTML 内容转换为能够读懂的<strong>DOM 树</strong>结构。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>渲染引擎将 CSS 样式表转化为浏览器可以理解的<strong>styleSheets</strong>，计算出 DOM 节点的样式。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>创建<strong>布局树</strong>，并计算元素的布局信息。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>对布局树进行分层，并生成<strong>分层树</strong>。 </li>
+</ol>
+</li>
+<li><ol start="5">
+<li>为每个图层生成<strong>绘制列表</strong>，并将其提交到合成线程。</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>合成线程将图层分成<strong>图块</strong>，并在<strong>光栅化线程池</strong>中将图块转换成位图。</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>合成线程发送绘制图块命令<strong>DrawQuad</strong>给浏览器进程。</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>浏览器进程根据 DrawQuad 消息<strong>生成页面</strong>，并<strong>显示</strong>到显示器上。</li>
+</ol>
+</li>
+</ul>
+<h3 id="回流、重绘、合成"><a href="#回流、重绘、合成" class="headerlink" title="回流、重绘、合成"></a>回流、重绘、合成</h3><p>需要补充</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/chrome%E6%9E%B6%E6%9E%84/" rel="tag"># chrome架构</a>
+          
+            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" rel="tag"># 网络协议</a>
+          
+            <a href="/tags/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%EF%BC%8C%E8%BF%99%E4%B8%AD%E9%97%B4%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" rel="tag"># 从输入URL到页面展示，这中间发生了什么</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/05/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="next" title="事件循环及消息队列">
+                <i class="fa fa-chevron-left"></i> 事件循环及消息队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chrome架构"><span class="nav-number">1.</span> <span class="nav-text">chrome架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器架构发展史"><span class="nav-number">1.2.</span> <span class="nav-text">浏览器架构发展史</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单进程浏览器"><span class="nav-number">1.2.1.</span> <span class="nav-text">单进程浏览器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多进程浏览器"><span class="nav-number">1.2.2.</span> <span class="nav-text">多进程浏览器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见网页协议"><span class="nav-number">2.1.</span> <span class="nav-text">常见网页协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-的分层管理"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-通信传输流"><span class="nav-number">2.3.</span> <span class="nav-text">TCP&#x2F;IP 通信传输流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP与UDP的区别"><span class="nav-number">2.4.</span> <span class="nav-text">TCP与UDP的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从输入URL到页面展示，这中间发生了什么"><span class="nav-number">3.</span> <span class="nav-text">从输入URL到页面展示，这中间发生了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程之前的流程"><span class="nav-number">3.1.</span> <span class="nav-text">渲染流程之前的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">3.2.</span> <span class="nav-text">渲染流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建-DOM-树"><span class="nav-number">3.2.1.</span> <span class="nav-text">构建 DOM 树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样式计算"><span class="nav-number">3.2.2.</span> <span class="nav-text">样式计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局阶段"><span class="nav-number">3.2.3.</span> <span class="nav-text">布局阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建布局树"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">创建布局树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#布局计算"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">布局计算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分层"><span class="nav-number">3.2.4.</span> <span class="nav-text">分层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图层绘制"><span class="nav-number">3.2.5.</span> <span class="nav-text">图层绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析出绘制列表"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">分析出绘制列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分块"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">分块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#光栅化raster"><span class="nav-number">3.2.5.3.</span> <span class="nav-text">光栅化raster</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#合成和显示"><span class="nav-number">3.2.5.4.</span> <span class="nav-text">合成和显示</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渲染流水线大总结"><span class="nav-number">3.2.6.</span> <span class="nav-text">渲染流水线大总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回流、重绘、合成"><span class="nav-number">3.3.</span> <span class="nav-text">回流、重绘、合成</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
