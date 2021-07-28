@@ -108,8 +108,10 @@
 <meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210719180147793.png">
 <meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210719180806940.png">
 <meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210719181101068.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210719181919678.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210720105848139.png">
 <meta property="article:published_time" content="2021-07-12T14:13:47.423Z">
-<meta property="article:modified_time" content="2021-07-19T10:11:08.456Z">
+<meta property="article:modified_time" content="2021-07-21T05:31:26.941Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="chrome架构">
 <meta property="article:tag" content="网络协议">
@@ -648,12 +650,15 @@
 </li>
 </ul>
 <h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>执行上下文（以下简称“上下文”）的概念在 JavaScript 中是颇为重要的。变量或函数的上下文决定了它们可以访问哪些数据，以及它们的行为。每个上下文都有一个关联的<strong>变量对象</strong>（variable object），而这个上下文中定义的所有变量和函数都存在于这个对象上。</p>
-<p><strong>上下文基本上有三类</strong>：</p>
+<p><strong>上下文基本上有三类(包括ES6)</strong>：</p>
 <ul>
 <li>全局上下文 在浏览器环境下即为window</li>
 <li>函数上下文（当代码执行流进入函数时，函数的上下文被推到一个上下文栈上。在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文）</li>
 <li>eval上下文 （不考虑）</li>
 </ul>
+<blockquote>
+<p>ES6 中的箭头函数并不会创建其自身的执行上下文</p>
+</blockquote>
 <p>上下文中的代码在执行的时候，会创建<strong>变量对象</strong>的一个<strong>作用域链</strong>。</p>
 <blockquote>
 <p>作用域链中的下一个变量对象来自包含上下文，再下一个对象来自再下一个包含上下文。以此类推直至全局上下文；全局上下文的变量对象始终是作用域链的最后一个变量对象</p>
@@ -719,6 +724,23 @@
 <p>​    再接下来，当执行到作用域块中的console.log(a)这行代码时，就需要在词法环境和变量环境中查找变量 a 的值了，具体查找方式是：沿着词法环境的栈顶向下查询，如果在词法环境中的某个块中查找到了，就直接返回给 JavaScript 引擎，如果没有查找到，那么继续在变量环境中查找。</p>
 <img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210719181101068.png" alt="image-20210719181101068" style="zoom:50%;">
 
+<p>当作用域块执行结束之后，其内部定义的变量就会从词法环境的栈顶弹出，最终执行上下文</p>
+<p>如下图所示：</p>
+<img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210719181919678.png" alt="image-20210719181919678" style="zoom:50%;">
+
+<p>通过上面的分析，想必你已经理解了词法环境的结构和工作机制，<strong>块级作用域就是通过词法环境的栈结构来实现的，而变量提升是通过变量环境来实现</strong>，通过这两者的结合，JavaScript 引擎也就同时支持了变量提升和块级作用域了。</p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><h3 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h3><p>关于作用域链，和前面的知识关系紧密，这里只要简单的说一些就可以了，看下面的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function bar() &#123;</span><br><span class="line">	console.log(myName)</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">	var myName &#x3D; &quot; 极客邦 &quot;</span><br><span class="line">	bar()</span><br><span class="line">&#125; </span><br><span class="line">var myName &#x3D; &quot; 极客时间 &quot;</span><br><span class="line">foo()</span><br><span class="line">&#x2F;&#x2F; 极客时间</span><br></pre></td></tr></table></figure>
+
+<p>刚开始学习的时候，我比较疑惑为什么拿不到极客邦，其实重点在于作用域链是基于<strong>词法作用域</strong></p>
+<p><strong>词法作用域就是指作用域是由代码中函数声明的位置来决定的，和在哪里运行没有什么关系</strong></p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>老生常谈的概念，在这里仅说一些特殊情形，如有其它，后续补充</p>
+<h4 id="this会存在闭包吗？"><a href="#this会存在闭包吗？" class="headerlink" title="this会存在闭包吗？"></a>this会存在闭包吗？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &quot;The Window&quot;; </span><br><span class="line">var object &#x3D; &#123;     </span><br><span class="line">    name : &quot;My Object&quot;, </span><br><span class="line">    getNameFunc : function()&#123;</span><br><span class="line">        return function()&#123;</span><br><span class="line">            return this.name;</span><br><span class="line">        &#125;;     </span><br><span class="line">    &#125; </span><br><span class="line">&#125;; </span><br><span class="line">alert(object.getNameFunc()());  &#x2F;&#x2F;&quot;The Window&quot;（在非严格模式下）</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上述代码，看似利用闭包得到了想要的this指向，实际上并不是<br>每个函数在被调用时都会自动取得两个特殊变量：this 和 arguments。内部函数在搜索这两个变量时，<strong>只会搜索到其活动对象为止</strong>，因此永远不可能直接访问外部函数中的这两个变量</p>
+</blockquote>
+<h4 id="控制台看闭包"><a href="#控制台看闭包" class="headerlink" title="控制台看闭包"></a>控制台看闭包</h4><p>一图胜千言</p>
+<p><img src="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210720105848139.png" alt="image-20210720105848139"></p>
 
       
     </div>
@@ -762,6 +784,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/" rel="prev" title="变量提升的本质">
+                变量提升的本质 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -842,7 +868,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -853,7 +879,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -864,7 +890,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -897,7 +923,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chrome架构"><span class="nav-number">1.</span> <span class="nav-text">chrome架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器架构发展史"><span class="nav-number">1.2.</span> <span class="nav-text">浏览器架构发展史</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单进程浏览器"><span class="nav-number">1.2.1.</span> <span class="nav-text">单进程浏览器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多进程浏览器"><span class="nav-number">1.2.2.</span> <span class="nav-text">多进程浏览器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见网页协议"><span class="nav-number">2.1.</span> <span class="nav-text">常见网页协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-的分层管理"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-通信传输流"><span class="nav-number">2.3.</span> <span class="nav-text">TCP&#x2F;IP 通信传输流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP与UDP的区别"><span class="nav-number">2.4.</span> <span class="nav-text">TCP与UDP的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从输入URL到页面展示，这中间发生了什么"><span class="nav-number">3.</span> <span class="nav-text">从输入URL到页面展示，这中间发生了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程之前的流程"><span class="nav-number">3.1.</span> <span class="nav-text">渲染流程之前的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">3.2.</span> <span class="nav-text">渲染流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建-DOM-树"><span class="nav-number">3.2.1.</span> <span class="nav-text">构建 DOM 树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样式计算"><span class="nav-number">3.2.2.</span> <span class="nav-text">样式计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局阶段"><span class="nav-number">3.2.3.</span> <span class="nav-text">布局阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建布局树"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">创建布局树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#布局计算"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">布局计算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分层"><span class="nav-number">3.2.4.</span> <span class="nav-text">分层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图层绘制"><span class="nav-number">3.2.5.</span> <span class="nav-text">图层绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析出绘制列表"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">分析出绘制列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分块"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">分块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#光栅化raster"><span class="nav-number">3.2.5.3.</span> <span class="nav-text">光栅化raster</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#合成和显示"><span class="nav-number">3.2.5.4.</span> <span class="nav-text">合成和显示</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渲染流水线大总结"><span class="nav-number">3.2.6.</span> <span class="nav-text">渲染流水线大总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回流、重绘、合成"><span class="nav-number">3.3.</span> <span class="nav-text">回流、重绘、合成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量提升的本质"><span class="nav-number">4.</span> <span class="nav-text">变量提升的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量提升"><span class="nav-number">4.1.</span> <span class="nav-text">变量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-number">4.2.</span> <span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文"><span class="nav-number">4.3.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">4.3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数上下文"><span class="nav-number">4.3.2.</span> <span class="nav-text">函数上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行上下文的维护"><span class="nav-number">4.3.3.</span> <span class="nav-text">执行上下文的维护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决变量提升的弊端"><span class="nav-number">4.3.4.</span> <span class="nav-text">解决变量提升的弊端</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chrome架构"><span class="nav-number">1.</span> <span class="nav-text">chrome架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器架构发展史"><span class="nav-number">1.2.</span> <span class="nav-text">浏览器架构发展史</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单进程浏览器"><span class="nav-number">1.2.1.</span> <span class="nav-text">单进程浏览器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多进程浏览器"><span class="nav-number">1.2.2.</span> <span class="nav-text">多进程浏览器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见网页协议"><span class="nav-number">2.1.</span> <span class="nav-text">常见网页协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-的分层管理"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-通信传输流"><span class="nav-number">2.3.</span> <span class="nav-text">TCP&#x2F;IP 通信传输流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP与UDP的区别"><span class="nav-number">2.4.</span> <span class="nav-text">TCP与UDP的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从输入URL到页面展示，这中间发生了什么"><span class="nav-number">3.</span> <span class="nav-text">从输入URL到页面展示，这中间发生了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程之前的流程"><span class="nav-number">3.1.</span> <span class="nav-text">渲染流程之前的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">3.2.</span> <span class="nav-text">渲染流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建-DOM-树"><span class="nav-number">3.2.1.</span> <span class="nav-text">构建 DOM 树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样式计算"><span class="nav-number">3.2.2.</span> <span class="nav-text">样式计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局阶段"><span class="nav-number">3.2.3.</span> <span class="nav-text">布局阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建布局树"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">创建布局树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#布局计算"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">布局计算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分层"><span class="nav-number">3.2.4.</span> <span class="nav-text">分层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图层绘制"><span class="nav-number">3.2.5.</span> <span class="nav-text">图层绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分析出绘制列表"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">分析出绘制列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分块"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">分块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#光栅化raster"><span class="nav-number">3.2.5.3.</span> <span class="nav-text">光栅化raster</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#合成和显示"><span class="nav-number">3.2.5.4.</span> <span class="nav-text">合成和显示</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渲染流水线大总结"><span class="nav-number">3.2.6.</span> <span class="nav-text">渲染流水线大总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回流、重绘、合成"><span class="nav-number">3.3.</span> <span class="nav-text">回流、重绘、合成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量提升的本质"><span class="nav-number">4.</span> <span class="nav-text">变量提升的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量提升"><span class="nav-number">4.1.</span> <span class="nav-text">变量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-number">4.2.</span> <span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文"><span class="nav-number">4.3.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">4.3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数上下文"><span class="nav-number">4.3.2.</span> <span class="nav-text">函数上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行上下文的维护"><span class="nav-number">4.3.3.</span> <span class="nav-text">执行上下文的维护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决变量提升的弊端"><span class="nav-number">4.3.4.</span> <span class="nav-text">解决变量提升的弊端</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域链"><span class="nav-number">5.</span> <span class="nav-text">作用域链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#词法作用域"><span class="nav-number">5.1.</span> <span class="nav-text">词法作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">5.2.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#this会存在闭包吗？"><span class="nav-number">5.2.1.</span> <span class="nav-text">this会存在闭包吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制台看闭包"><span class="nav-number">5.2.2.</span> <span class="nav-text">控制台看闭包</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
