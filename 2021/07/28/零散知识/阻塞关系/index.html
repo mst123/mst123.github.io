@@ -79,17 +79,36 @@
 
 
 
-<meta name="description" content="css和js文件对html的阻塞 CSS 不会阻塞 DOM 的解析，但会阻塞 DOM 渲染实测并不会阻塞（92版本）。  在js前的css会阻塞js的解析（不会阻止下载），继而阻止dom的解析和渲染  JS 阻塞 DOM 解析，但浏览器会”偷看”DOM，预先下载相关资源。   1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&amp;lt">
+<meta name="description" content="下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92  html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测   js css并存 测试变量太多3*4&#x3D;12种情况，感觉意义不大、、  首先是html内容 12345678910111213">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阻塞关系">
 <meta property="og:url" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="css和js文件对html的阻塞 CSS 不会阻塞 DOM 的解析，但会阻塞 DOM 渲染实测并不会阻塞（92版本）。  在js前的css会阻塞js的解析（不会阻止下载），继而阻止dom的解析和渲染  JS 阻塞 DOM 解析，但浏览器会”偷看”DOM，预先下载相关资源。   1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&amp;lt">
+<meta property="og:description" content="下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92  html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测   js css并存 测试变量太多3*4&#x3D;12种情况，感觉意义不大、、  首先是html内容 12345678910111213">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812171549248.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2017.34.48.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812174254853.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2017.46.42.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812175156074.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2017.55.14.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2018.03.58.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140650543.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2021.36.22.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140535630.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2021.41.08.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813141225951.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture%202021-08-12%20at%2021.46.00.gif">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152617775.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152844462.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152950225.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153113295.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153206303.png">
 <meta property="article:published_time" content="2021-07-28T07:59:52.700Z">
-<meta property="article:modified_time" content="2021-07-28T08:11:17.551Z">
+<meta property="article:modified_time" content="2021-08-13T07:44:30.858Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="阻塞关系">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812171549248.png">
 
 
 
@@ -385,18 +404,70 @@
       
 
       
-        <h2 id="css和js文件对html的阻塞"><a href="#css和js文件对html的阻塞" class="headerlink" title="css和js文件对html的阻塞"></a>css和js文件对html的阻塞</h2><ul>
-<li><p><code>CSS</code> 不会阻塞 <code>DOM</code> 的解析，<del>但会阻塞 <code>DOM</code> 渲染</del>实测并不会阻塞（92版本）。</p>
+        <p>下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92</p>
+<ul>
+<li>html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div</li>
+<li>js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测</li>
+</ul>
+<blockquote>
+<p>js css并存 测试变量太多3*4=12种情况，感觉意义不大、、</p>
+</blockquote>
+<p>首先是html内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">		document.addEventListener(&#39;DOMContentLoaded&#39;,function()&#123;</span><br><span class="line">			console.log(&#39;DOMContentLoaded&#39;);</span><br><span class="line">		&#125;);</span><br><span class="line">		window.addEventListener(&#39;load&#39;,function()&#123;</span><br><span class="line">			console.log(&#39;load&#39;);</span><br><span class="line">		&#125;);</span><br><span class="line">	&lt;&#x2F;script&gt;</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			width: 100px;</span><br><span class="line">			height: 100px;</span><br><span class="line">			background: green;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;&#x2F;style&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;的时光飞逝东莞市地方刮大风&lt;&#x2F;div&gt;</span><br><span class="line">	&lt;div&gt;asfklasjf&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css 将div背景设置为blue，html中为green</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">div &#123;</span><br><span class="line">  background: blue!important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>js1 打印获取的div</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const div1 &#x3D; document.querySelector(&#39;div&#39;);</span><br><span class="line">console.log(div1);</span><br></pre></td></tr></table></figure>
+
+<p>Js2 执行复杂操作后 打印div</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [];</span><br><span class="line">for (let i &#x3D; 0; i &lt; 10000000; i++) &#123;</span><br><span class="line">  arr.push(i);</span><br><span class="line">  arr.splice(i % 3, i % 7, i % 5);</span><br><span class="line">&#125;</span><br><span class="line">const div &#x3D; document.querySelector(&#39;div&#39;);</span><br><span class="line">console.log(div);</span><br></pre></td></tr></table></figure>
+
+<h3 id="首先仅测试css"><a href="#首先仅测试css" class="headerlink" title="首先仅测试css"></a>首先仅测试css</h3><h4 id="外链css放在head内"><a href="#外链css放在head内" class="headerlink" title="外链css放在head内"></a>外链css放在head内</h4><p>图上dcl只是被挡住了，几乎是立刻执行，然后等待css下载完成后，触发load时间，然后进行fp、fcp、lcp</p>
+<p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812171549248.png" alt="image-20210812171549248"></p>
+<p>页面上前五秒并未显示div，但是此时在dom中已经存在div，css并不能阻塞dom的解析，五秒后显示蓝色div</p>
+<img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 17.34.48.gif" alt="Kapture 2021-08-12 at 17.34.48" style="zoom:67%;">
+
+<h4 id="外链css放在body最前部"><a href="#外链css放在body最前部" class="headerlink" title="外链css放在body最前部"></a>外链css放在body最前部</h4><p>放在body最前部，浏览器会等待css下载完毕后，才会触发dcl及一系列绘制</p>
+<p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812174254853.png" alt="image-20210812174254853"></p>
+<p>很明显，放在body前的外链css阻塞的dom的解析，当css下载完毕后，触发了一系列关键事件</p>
+<img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 17.46.42.gif" alt="Kapture 2021-08-12 at 17.46.42" style="zoom:67%;">
+
+<h4 id="外链css放在body内，两个div之间"><a href="#外链css放在body内，两个div之间" class="headerlink" title="外链css放在body内，两个div之间"></a>外链css放在body内，两个div之间</h4><p>浏览器会先绘制并渲染css之前的div，待css下载完毕后，会渲染另一个div，并显示蓝色背景，触发dcl及load</p>
+<p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812175156074.png" alt="image-20210812175156074"></p>
+<img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 17.55.14.gif" alt="Kapture 2021-08-12 at 17.55.14" style="zoom:67%;">
+
+<h4 id="css外链放在body内最后"><a href="#css外链放在body内最后" class="headerlink" title="css外链放在body内最后"></a>css外链放在body内最后</h4><p>performance和放在div之间一样，实际页面表现有一些差异</p>
+<img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 18.03.58.gif" alt="Kapture 2021-08-12 at 18.03.58" style="zoom:67%;">
+
+<h4 id="外链css放在body之后"><a href="#外链css放在body之后" class="headerlink" title="外链css放在body之后"></a>外链css放在body之后</h4><p>会被浏览器修复到body内最后</p>
+<h3 id="仅测试js"><a href="#仅测试js" class="headerlink" title="仅测试js"></a>仅测试js</h3><h4 id="js放在head内、body头部"><a href="#js放在head内、body头部" class="headerlink" title="js放在head内、body头部"></a>js放在head内、body头部</h4><p>很明显，js的下载和解析（执行）都会阻塞dom元素的解析和渲染，直到js下载解析之后，才会继续解析渲染dom，触发dcl、fp等等</p>
+<h4 id><a href="#" class="headerlink" title></a><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140650543.png" alt="image-20210813140650543"></h4><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 21.36.22.gif" alt="Kapture 2021-08-12 at 21.36.22" style="zoom:67%;">
+
+<h4 id="js放在div之间"><a href="#js放在div之间" class="headerlink" title="js放在div之间"></a>js放在div之间</h4><p>js会阻塞js之后的dom解析和渲染，对于js之前的dom会正常解析渲染，并触发fp等，但是dcl需要等待js下载解析（执行）完成后</p>
+<p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140535630.png" alt="image-20210813140535630"></p>
+<img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 21.41.08.gif" alt="Kapture 2021-08-12 at 21.41.08" style="zoom:67%;">
+
+<h4 id="js放body尾部"><a href="#js放body尾部" class="headerlink" title="js放body尾部"></a>js放body尾部</h4><p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813141225951.png" alt="image-20210813141225951"></p>
+<img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/Kapture 2021-08-12 at 21.46.00.gif" alt="Kapture 2021-08-12 at 21.46.00" style="zoom:67%;">
+
+
+
+<h3 id="js、css并存"><a href="#js、css并存" class="headerlink" title="js、css并存"></a>js、css并存</h3><h4 id="css处于head"><a href="#css处于head" class="headerlink" title="css处于head"></a>css处于head</h4><h5 id="js处于dom前"><a href="#js处于dom前" class="headerlink" title="js处于dom前"></a>js处于dom前</h5><p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152617775.png" alt="image-20210813152617775"></p>
+<h5 id="js处于dom中"><a href="#js处于dom中" class="headerlink" title="js处于dom中"></a>js处于dom中</h5><p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152844462.png" alt="image-20210813152844462"></p>
+<p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152950225.png" alt="image-20210813152950225"></p>
+<h5 id="js处于dom后"><a href="#js处于dom后" class="headerlink" title="js处于dom后"></a>js处于dom后</h5><p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153113295.png" alt="image-20210813153113295"></p>
+<p><img src="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153206303.png" alt="image-20210813153206303"></p>
+<h2 id="css和js文件对html的阻塞"><a href="#css和js文件对html的阻塞" class="headerlink" title="css和js文件对html的阻塞"></a>css和js文件对html的阻塞</h2><ul>
+<li><p><code>CSS</code> 不会（仅限head内）阻塞 <code>DOM</code> 的解析(document存在)，但会阻塞其后的 <code>DOM</code> 渲染。</p>
 </li>
 <li><p>在js前的css会阻塞js的解析（不会阻止下载），继而阻止dom的解析和渲染</p>
 </li>
 <li><p><code>JS</code> 阻塞 <code>DOM</code> 解析，但浏览器会”偷看”<code>DOM</code>，预先下载相关资源。</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			width: 100px;</span><br><span class="line">			height: 100px;</span><br><span class="line">			background: green;</span><br><span class="line">			border: 2px solid red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;&#x2F;style&gt;</span><br><span class="line">	&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;&#x2F;css&#x2F;sleep3000-common.css&quot;&gt;</span><br><span class="line">	&lt;script src&#x3D;&quot;&#x2F;js&#x2F;logDiv.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&#x2F;&#x2F; 页面空白较长时间(3s以上)，js执行并打印出null，页面直接加载出common.css样式的dom</span><br><span class="line">&#x2F;&#x2F; 结论 在js前的css会阻塞js的解析（不会阻止下载），继而阻止dom的解析和渲染</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">		div &#123;</span><br><span class="line">			width: 100px;</span><br><span class="line">			height: 100px;</span><br><span class="line">			background: green;</span><br><span class="line">			border: 2px solid red;</span><br><span class="line">		&#125;</span><br><span class="line">	&lt;&#x2F;style&gt;</span><br><span class="line">	&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;&#x2F;css&#x2F;sleep3000-common.css&quot;&gt;</span><br><span class="line">	&#x2F;&#x2F; 页面先加载出绿色的背景，等待css下载完后，展示蓝色</span><br><span class="line">	&#x2F;&#x2F; 结论 CSS不会阻塞 DOM的解析，也不会阻塞DOM渲染（92版本）</span><br></pre></td></tr></table></figure>
-
+<h2 id="DCL的结论"><a href="#DCL的结论" class="headerlink" title="DCL的结论"></a>DCL的结论</h2><p>除了放在head里的css，html中的js、css都会阻塞dcl事件</p>
 
       
     </div>
@@ -520,7 +591,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">125</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -542,7 +613,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -575,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#css和js文件对html的阻塞"><span class="nav-number">1.</span> <span class="nav-text">css和js文件对html的阻塞</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先仅测试css"><span class="nav-number">1.</span> <span class="nav-text">首先仅测试css</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#外链css放在head内"><span class="nav-number">1.1.</span> <span class="nav-text">外链css放在head内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外链css放在body最前部"><span class="nav-number">1.2.</span> <span class="nav-text">外链css放在body最前部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外链css放在body内，两个div之间"><span class="nav-number">1.3.</span> <span class="nav-text">外链css放在body内，两个div之间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css外链放在body内最后"><span class="nav-number">1.4.</span> <span class="nav-text">css外链放在body内最后</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外链css放在body之后"><span class="nav-number">1.5.</span> <span class="nav-text">外链css放在body之后</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仅测试js"><span class="nav-number">2.</span> <span class="nav-text">仅测试js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#js放在head内、body头部"><span class="nav-number">2.1.</span> <span class="nav-text">js放在head内、body头部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">2.2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js放在div之间"><span class="nav-number">2.3.</span> <span class="nav-text">js放在div之间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js放body尾部"><span class="nav-number">2.4.</span> <span class="nav-text">js放body尾部</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js、css并存"><span class="nav-number">3.</span> <span class="nav-text">js、css并存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#css处于head"><span class="nav-number">3.1.</span> <span class="nav-text">css处于head</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#js处于dom前"><span class="nav-number">3.1.1.</span> <span class="nav-text">js处于dom前</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js处于dom中"><span class="nav-number">3.1.2.</span> <span class="nav-text">js处于dom中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js处于dom后"><span class="nav-number">3.1.3.</span> <span class="nav-text">js处于dom后</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css和js文件对html的阻塞"><span class="nav-number"></span> <span class="nav-text">css和js文件对html的阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL的结论"><span class="nav-number"></span> <span class="nav-text">DCL的结论</span></a></div>
             
 
           </div>
