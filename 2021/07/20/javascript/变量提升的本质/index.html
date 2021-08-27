@@ -86,6 +86,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="变量提升12345678showName()console.log(myname)var myname &#x3D; &#39;极客时间&#39;function showName() &amp;#123;	console.log(&#39;函数 showName 被执行&#39;);&amp;#125;&#x2F;&#x2F; 函数 showName 被执行&#x2F;&#x2F; undifined  最后输">
 <meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg">
 <meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png">
 <meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png">
 <meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png">
@@ -96,7 +97,7 @@
 <meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png">
 <meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png">
 <meta property="article:published_time" content="2021-07-20T02:50:57.770Z">
-<meta property="article:modified_time" content="2021-08-03T07:56:58.683Z">
+<meta property="article:modified_time" content="2021-08-24T13:18:41.724Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="变量提升">
 <meta name="twitter:card" content="summary">
@@ -429,6 +430,11 @@
 </li>
 </ul>
 <h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>执行上下文（以下简称“上下文”）的概念在 JavaScript 中是颇为重要的。变量或函数的上下文决定了它们可以访问哪些数据，以及它们的行为。每个上下文都有一个关联的<strong>变量对象</strong>（variable object），而这个上下文中定义的所有变量和函数都存在于这个对象上。</p>
+<p><strong>执行上下文的组成代码示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const ExecutionContextObj &#x3D; &#123;</span><br><span class="line">    VO: window, &#x2F;&#x2F; 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, &#x2F;&#x2F; 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行上下文的组成图例示例：</strong></p>
+<p><img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg" alt="img"></p>
 <p><strong>上下文基本上有三类(包括ES6)</strong>：</p>
 <ul>
 <li>全局上下文 在浏览器环境下即为window</li>
@@ -639,7 +645,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -650,7 +656,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
