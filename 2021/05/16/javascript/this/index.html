@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="作用域,this," />
+  <meta name="keywords" content="this," />
 
 
 
@@ -87,9 +87,8 @@
 <meta property="og:description" content="this的由来看下述一段代码 123456789101112var bar &#x3D; &amp;#123; 	myName:&quot;time.geekbang.com&quot;, 	printName: function () &amp;#123; 		console.log(myName) 	&amp;#125; &amp;#125;function foo() &amp;#123; 	let myName &#x3D; &amp;">
 <meta property="og:image" content="https://mst123.github.io/2021/05/16/javascript/this/image-20210720111215903.png">
 <meta property="article:published_time" content="2021-05-16T14:48:31.559Z">
-<meta property="article:modified_time" content="2021-07-20T03:13:13.165Z">
+<meta property="article:modified_time" content="2021-09-01T07:56:56.619Z">
 <meta property="article:author" content="马农">
-<meta property="article:tag" content="作用域">
 <meta property="article:tag" content="this">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mst123.github.io/2021/05/16/javascript/this/image-20210720111215903.png">
@@ -362,8 +361,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/%E4%BD%9C%E7%94%A8%E5%9F%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">作用域</span>
+                  <a href="/categories/javascript/this/" itemprop="url" rel="index">
+                    <span itemprop="name">this</span>
                   </a>
                 </span>
 
@@ -404,7 +403,7 @@
 
 <p>相信你已经知道了，在 printName 函数里面使用的变量 myName 是属于全局作用域下面的，所以最终打印出来的值都是“极客邦”</p>
 <p>不过按照常理来说，调用bar.printName方法时，该方法内部的变量 myName 应该使用bar 对象中的，因为它们是一个整体，大多数面向对象语言都是这样设计的，以<strong>在对象内部的方法中使用对象内部的属性是一个非常普遍的需求</strong>。但是 JavaScript 的作用域机制并不支持这一点，基于这个需求，JavaScript 又搞出来另外一套<strong>this 机制</strong>。</p>
-<h2 id="this到底是什么"><a href="#this到底是什么" class="headerlink" title="this到底是什么"></a>this到底是什么</h2><p><code>this</code> 是在运行时进行绑定的，<strong>==是和执行上下文绑定的==</strong>，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。<code>this</code>的绑定和<strong>函数声明的位置没有任何关系，只取决于函数的调用方式</strong>。</p>
+<h2 id="this到底是什么"><a href="#this到底是什么" class="headerlink" title="this到底是什么"></a>this到底是什么</h2><p><code>this</code> 是在运行时进行绑定的，==是和执行上下文绑定的==，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。<code>this</code>的绑定和<strong>函数声明的位置没有任何关系，只取决于函数的调用方式</strong>。</p>
 <p><img src="/2021/05/16/javascript/this/image-20210720111215903.png" alt="image-20210720111215903"></p>
 <blockquote>
 <p>执行上下文其余相关的内容，在blog中浏览器原理中有详细介绍</p>
@@ -435,6 +434,13 @@
 <li>这个新对象会绑定到函数调用的 this。 </li>
 <li>如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象</li>
 </ol>
+<h3 id="还有一些需要注意的示例"><a href="#还有一些需要注意的示例" class="headerlink" title="还有一些需要注意的示例"></a>还有一些需要注意的示例</h3><p>注意后三个示例，详细解释在 同分类下 从ECMAScript规范解读this中有解读</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var value &#x3D; 1;</span><br><span class="line"></span><br><span class="line">var foo &#x3D; &#123;</span><br><span class="line">  value: 2,</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    return this.value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例1</span><br><span class="line">console.log(foo.bar()); &#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F;示例2</span><br><span class="line">console.log((foo.bar)()); &#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F;示例3</span><br><span class="line">console.log((foo.bar &#x3D; foo.bar)()); &#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F;示例4</span><br><span class="line">console.log((false || foo.bar)()); &#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F;示例5</span><br><span class="line">console.log((foo.bar, foo.bar)()); &#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
+
+<p>后三个类型，方便记忆的话，可以将其理解为隐式绑定，foo.bar被隐式的赋值了，相当于 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; foo.bar</span><br><span class="line">a()</span><br></pre></td></tr></table></figure>
+
+<p>但是需要注意第二个示例</p>
 
       
     </div>
@@ -451,8 +457,6 @@
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/" rel="tag"># 作用域</a>
           
             <a href="/tags/this/" rel="tag"># this</a>
           
@@ -560,7 +564,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +575,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -582,7 +586,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -615,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#this的由来"><span class="nav-number">1.</span> <span class="nav-text">this的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this到底是什么"><span class="nav-number">2.</span> <span class="nav-text">this到底是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this的绑定规则"><span class="nav-number">3.</span> <span class="nav-text">this的绑定规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认绑定"><span class="nav-number">3.1.</span> <span class="nav-text">默认绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式绑定"><span class="nav-number">3.2.</span> <span class="nav-text">隐式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式绑定"><span class="nav-number">3.3.</span> <span class="nav-text">显式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-绑定-（暂不深究）"><span class="nav-number">3.4.</span> <span class="nav-text">new 绑定 （暂不深究）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#this的由来"><span class="nav-number">1.</span> <span class="nav-text">this的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this到底是什么"><span class="nav-number">2.</span> <span class="nav-text">this到底是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this的绑定规则"><span class="nav-number">3.</span> <span class="nav-text">this的绑定规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认绑定"><span class="nav-number">3.1.</span> <span class="nav-text">默认绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式绑定"><span class="nav-number">3.2.</span> <span class="nav-text">隐式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式绑定"><span class="nav-number">3.3.</span> <span class="nav-text">显式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-绑定-（暂不深究）"><span class="nav-number">3.4.</span> <span class="nav-text">new 绑定 （暂不深究）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有一些需要注意的示例"><span class="nav-number">3.5.</span> <span class="nav-text">还有一些需要注意的示例</span></a></li></ol></li></ol></div>
             
 
           </div>
