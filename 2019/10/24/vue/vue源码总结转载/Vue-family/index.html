@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="vue,vue思维导图," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,41 +79,40 @@
 
 
 
-<meta name="description" content="前言 本文内容讲解的内容：一张思维导图辅助你深入了解 Vue | Vue-Router | Vuex 源码架构。 转载项目地址：https:&#x2F;&#x2F;github.com&#x2F;biaochenxuying&#x2F;vue-family-mindmap 先来张 Vue 全家桶 总图：  1. 项目目录 scripts: 构建相关的文件，一般情况下我们不需要动。  git-hooks：存放git钩子的目录 alias">
+<meta name="description" content="前言 本文内容讲解的内容：一张思维导图辅助你深入了解 Vue | Vue-Router | Vuex 源码架构。 项目地址：https:&#x2F;&#x2F;github.com&#x2F;biaochenxuying&#x2F;vue-family-mindmap markdown 文字版 pdf 版 先来张 Vue 全家桶 总图：  1. 项目目录 scripts: 构建相关的文件，一般情况下我们不需要动。  git-hooks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue思维导图文字版">
-<meta property="og:url" content="https://mst123.github.io/2021/09/07/vue/vue%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/index.html">
+<meta property="og:title" content="vue&#x2F;vue源码总结转载&#x2F;Vue-family">
+<meta property="og:url" content="https://mst123.github.io/2019/10/24/vue/vue%E6%BA%90%E7%A0%81%E6%80%BB%E7%BB%93%E8%BD%AC%E8%BD%BD/Vue-family/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="前言 本文内容讲解的内容：一张思维导图辅助你深入了解 Vue | Vue-Router | Vuex 源码架构。 转载项目地址：https:&#x2F;&#x2F;github.com&#x2F;biaochenxuying&#x2F;vue-family-mindmap 先来张 Vue 全家桶 总图：  1. 项目目录 scripts: 构建相关的文件，一般情况下我们不需要动。  git-hooks：存放git钩子的目录 alias">
-<meta property="og:image" content="https://camo.githubusercontent.com/086272f62efd31acec8621f17f8c7ad435cd493fbe4bc177adcd829b8d9453c1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373832306263323030393263346334302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/6abcc542b538757ad1b90505e40cdc0500e84b28748e3607478649f96ee87517/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663761323738386662633631653638612e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/95db3c2afd4c67f086dbbc56f730c8aeb4da936215b3e7069ae81a0646df1180/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d343165666335613965656330343066382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/8827121ee929da58494077cbb3a89a1f6cb8128cd53355a980387b845eac99a0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d646663353237363865313934323731392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/cf291fd146d23a4a63421ed41ebf33d5222f808053a705166da7cb727aa2c457/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373132653766666232353333393637372e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/9178d14ed625bd391e8e86354aeca9b39340e23abc366606474610b268c53f51/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d643736663265616464616532663037612e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/2fe25c2508aaa56eec3bf5d393cd4e443c83048da56ac13e78eb45855cf0cfd0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d316230613565393936343939373863322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/b15861df3e3a9800a411b0da4349a68a27f389cd4da89cf377bea7c50ad600e9/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373364653336386262373635323862372e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/8a76e12561ff05f158f51e74f29cd420a1633349f9efbe4a800be6644ef82270/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663764363764343339646466326163642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/6eb030c61b531fdbb200ca084b9354b3e532cc8237f7946e2ade54eee4847d85/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323235376231646436633532393839392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/229df1d6ce9e5ae9f3ef252ad7e711119168eee5aeccd9e554e03855e5aaf530/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323238643962376164353330666666322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/5ae3a4b3e244aac8345912ff14db6ea0ef1e43ddfd68683ec4a76bab3663db2f/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d666163616565326565303837363766662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/77c41df5841d5e0976b398f16cc852b026cebd4210f6725bec3a8b656b5f7499/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d383335333832363964343135313465652e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/e876327f0d7eae6e5925c28f1d1ae45e3bb7ca975def58bd3fc652f2aae2f8e2/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d633230393233626332363937636437362e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/9e7a2f60ed45e27194e289a84409f7ff2c54ce751f9fba06ecdd551bd497b793/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323865666637643939643937323566382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/350d4a39640942eed038fcd8fdd73de411fc1184c44da689e03a873deb1f31f6/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663936633039356366356561373537302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/bfa124d4a7d5dad02792c7331475340c83e5e82bc453ea37d7df4ec5605ed92d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d396161656639346439386461623932302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/db3b98e77fa0bb0cd9bbe7258addf97a3fd89f72d56ad276016484271978e5a7/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d353731306633303139656332623138392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/8a30f8a8b799b9856b87bed7e48dc691210a024bd4beb279765557f8c23deaed/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d383430353531626435353130323032322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/e0577dd9f101608c87b465d3ee25a322475b19aec06190ec14363b28d13ae168/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d626430633439376634386634343330632e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/def429ab544c06acefd9d475a0bca20852366199c9ef05df7d6f6ccabd57fb2b/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d616635616664616230626437373531342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="og:image" content="https://camo.githubusercontent.com/0485f984c93b835629b9e96e46c43671c0895978a1a60b72b07347d2eae0b21e/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d656262346337653761393930333934392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
-<meta property="article:published_time" content="2021-09-07T03:25:40.759Z">
-<meta property="article:modified_time" content="2021-09-07T03:28:50.105Z">
+<meta property="og:description" content="前言 本文内容讲解的内容：一张思维导图辅助你深入了解 Vue | Vue-Router | Vuex 源码架构。 项目地址：https:&#x2F;&#x2F;github.com&#x2F;biaochenxuying&#x2F;vue-family-mindmap markdown 文字版 pdf 版 先来张 Vue 全家桶 总图：  1. 项目目录 scripts: 构建相关的文件，一般情况下我们不需要动。  git-hooks">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-7820bc20092c4c40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-f7a2788fbc61e68a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-41efc5a9eec040f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-dfc52768e1942719.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-712e7ffb25339677.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-d76f2eaddae2f07a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-1b0a5e99649978c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-73de368bb76528b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-f7d67d439ddf2acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-2257b1dd6c529899.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-228d9b7ad530fff2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-facaee2ee08767ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-83538269d41514ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-c20923bc2697cd76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-28eff7d99d9725f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-f96c095cf5ea7570.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-9aaef94d98dab920.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-5710f3019ec2b189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-840551bd55102022.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-bd0c497f48f4430c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-af5afdab0bd77514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-ebb4c7e7a9903949.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12890819-bce9560fec5c49ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2019-10-24T09:56:50.000Z">
+<meta property="article:modified_time" content="2019-10-24T09:56:50.000Z">
 <meta property="article:author" content="马农">
-<meta property="article:tag" content="vue">
-<meta property="article:tag" content="vue思维导图">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://camo.githubusercontent.com/086272f62efd31acec8621f17f8c7ad435cd493fbe4bc177adcd829b8d9453c1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373832306263323030393263346334302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/12890819-7820bc20092c4c40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -143,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://mst123.github.io/2021/09/07/vue/vue思维导图/"/>
+  <link rel="canonical" href="https://mst123.github.io/2019/10/24/vue/vue源码总结转载/Vue-family/"/>
 
 
 
 
 
-  <title>vue思维导图文字版 | 博客</title>
+  <title>vue/vue源码总结转载/Vue-family | 博客</title>
   
 
 
@@ -320,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/09/07/vue/vue%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2019/10/24/vue/vue%E6%BA%90%E7%A0%81%E6%80%BB%E7%BB%93%E8%BD%AC%E8%BD%BD/Vue-family/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -337,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue思维导图文字版</h1>
+          <h1 class="post-title" itemprop="name headline">vue/vue源码总结转载/Vue-family</h1>
         
 
         <div class="post-meta">
@@ -349,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-07T11:25:40+08:00">
-                2021-09-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-24T17:56:50+08:00">
+                2019-10-24
               </time>
             
 
@@ -359,28 +358,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -409,13 +386,15 @@
       
 
       
-        <p><a href="https://camo.githubusercontent.com/086272f62efd31acec8621f17f8c7ad435cd493fbe4bc177adcd829b8d9453c1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373832306263323030393263346334302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/086272f62efd31acec8621f17f8c7ad435cd493fbe4bc177adcd829b8d9453c1/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373832306263323030393263346334302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="vue"></a></p>
+        <p><img src="https://upload-images.jianshu.io/upload_images/12890819-7820bc20092c4c40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vue"></p>
 <p><strong>前言</strong></p>
 <p>本文内容讲解的内容：<strong>一张思维导图辅助你深入了解 Vue | Vue-Router | Vuex 源码架构</strong>。</p>
-<p><strong>转载项目地址</strong>：<a href="https://github.com/biaochenxuying/vue-family-mindmap" target="_blank" rel="noopener">https://github.com/biaochenxuying/vue-family-mindmap</a></p>
+<p>项目地址：<a href="https://github.com/biaochenxuying/vue-family-mindmap" target="_blank" rel="noopener">https://github.com/biaochenxuying/vue-family-mindmap</a></p>
+<p><a href="https://github.com/biaochenxuying/vue-family-mindmap/blob/master/Vue-family.md" target="_blank" rel="noopener">markdown 文字版</a></p>
+<p><a href="https://github.com/biaochenxuying/vue-family-mindmap/blob/master/Vue-family.pdf" target="_blank" rel="noopener">pdf 版</a></p>
 <p>先来张 Vue 全家桶 总图：</p>
-<p><a href="https://camo.githubusercontent.com/6abcc542b538757ad1b90505e40cdc0500e84b28748e3607478649f96ee87517/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663761323738386662633631653638612e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/6abcc542b538757ad1b90505e40cdc0500e84b28748e3607478649f96ee87517/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663761323738386662633631653638612e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
-<h2 id="1-项目目录"><a href="#1-项目目录" class="headerlink" title="1. 项目目录"></a>1. 项目目录</h2><p><a href="https://camo.githubusercontent.com/95db3c2afd4c67f086dbbc56f730c8aeb4da936215b3e7069ae81a0646df1180/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d343165666335613965656330343066382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/95db3c2afd4c67f086dbbc56f730c8aeb4da936215b3e7069ae81a0646df1180/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d343165666335613965656330343066382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-f7a2788fbc61e68a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="1-项目目录"><a href="#1-项目目录" class="headerlink" title="1. 项目目录"></a>1. 项目目录</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-41efc5a9eec040f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>scripts: 构建相关的文件，一般情况下我们不需要动。</p>
 <ul>
 <li>git-hooks：存放git钩子的目录</li>
@@ -432,8 +411,10 @@
 <p>test: 包含所有测试文件</p>
 <p>src: 源码,重点</p>
 <ul>
-<li>compiler: 编译器代码的存放目录，将 template 编译为 render 函数</li>
-<li>core: 核心代码 ，与平台无关的代码<ul>
+<li><p>compiler: 编译器代码的存放目录，将 template 编译为 render 函数</p>
+</li>
+<li><p>core: 核心代码 ，与平台无关的代码</p>
+<ul>
 <li>observer： 响应系统，包含数据观测的核心代码</li>
 <li>vdom：包含虚拟DOM创建(creation)和打补丁(patching)的代码</li>
 <li>instance：包含Vue构造函数设计相关的代码</li>
@@ -441,8 +422,10 @@
 <li>components：包含抽象出来的通用组件</li>
 </ul>
 </li>
-<li>platforms: 不同平台的支持，包含平台特有的相关代码，不同平台的不同构建的入口文件也在这里<ul>
-<li>web：web平台<ul>
+<li><p>platforms: 不同平台的支持，包含平台特有的相关代码，不同平台的不同构建的入口文件也在这里</p>
+<ul>
+<li><p>web：web平台</p>
+<ul>
 <li>entry-runtime.js：运行时构建的入口，不包含模板(template)到render函数的编译器，所以不支持 <code>template</code> 选项，我们使用vue默认导出的就是这个运行时的版本。大家使用的时候要注意</li>
 <li>entry-runtime-with-compiler.js：独立构建版本的入口，它在 entry-runtime 的基础上添加了模板(template)到render函数的编译器</li>
 <li>entry-compiler.js：vue-template-compiler 包的入口文件</li>
@@ -450,12 +433,16 @@
 <li>entry-server-basic-renderer.js：输出 packages/vue-server-renderer/basic.js 文件</li>
 </ul>
 </li>
-<li>weex：混合应用</li>
+<li><p>weex：混合应用</p>
+</li>
 </ul>
 </li>
-<li>serve: 服务端渲染，包含(server-side rendering)的相关代码</li>
-<li>sfc: 包含单文件组件( .vue 文件)的解析逻辑，用于vue-template-compiler包</li>
-<li>shared: 共享代码，包含整个代码库通用的代码</li>
+<li><p>serve: 服务端渲染，包含(server-side rendering)的相关代码</p>
+</li>
+<li><p>sfc: 包含单文件组件( .vue 文件)的解析逻辑，用于vue-template-compiler包</p>
+</li>
+<li><p>shared: 共享代码，包含整个代码库通用的代码</p>
+</li>
 </ul>
 <p>package.json：对项目的描述文件，包含了依赖包等信息</p>
 <p>yarn.lock ：yarn 锁定文件</p>
@@ -465,20 +452,23 @@
 <p>.eslintrc：eslint 配置文件</p>
 <p>.eslintignore：eslint 忽略配置</p>
 <p>.gitignore：git 忽略配置</p>
-<h2 id="2-源码构建，基于-Rollup"><a href="#2-源码构建，基于-Rollup" class="headerlink" title="2. 源码构建，基于 Rollup"></a>2. 源码构建，基于 Rollup</h2><p><a href="https://camo.githubusercontent.com/8827121ee929da58494077cbb3a89a1f6cb8128cd53355a980387b845eac99a0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d646663353237363865313934323731392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/8827121ee929da58494077cbb3a89a1f6cb8128cd53355a980387b845eac99a0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d646663353237363865313934323731392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="2-源码构建，基于-Rollup"><a href="#2-源码构建，基于-Rollup" class="headerlink" title="2. 源码构建，基于 Rollup"></a>2. 源码构建，基于 Rollup</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-dfc52768e1942719.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. 根据 format 构建格式可分为三个版（再根据有无 compiler ，每个版本中又可以再分出二个版本）</strong></p>
 <ul>
-<li>cjs：表示构建出来的文件遵循 CommonJS 规范<ul>
+<li><p>cjs：表示构建出来的文件遵循 CommonJS 规范</p>
+<ul>
 <li>Runtime Only </li>
 <li>Runtime + Compiler</li>
 </ul>
 </li>
-<li>es：构建出来的文件遵循 ES Module 规范<ul>
+<li><p>es：构建出来的文件遵循 ES Module 规范</p>
+<ul>
 <li>Runtime Only </li>
 <li>Runtime + Compiler</li>
 </ul>
 </li>
-<li>umd：构建出来的文件遵循 UMD 规范<ul>
+<li><p>umd：构建出来的文件遵循 UMD 规范</p>
+<ul>
 <li>Runtime Only </li>
 <li>Runtime + Compiler</li>
 </ul>
@@ -488,22 +478,22 @@
 <ul>
 <li>Runtime Only：通常需要借助如 webpack 的 vue-loader 工具把 .vue 文件编译成JavaScript，因为是在编译阶段做的，所以它只包含运行时的 Vue.js 代码，因此代码体积也会更轻量。<br>Runtime + Compiler：我们如果没有对代码做预编译，但又使用了 Vue 的 template 属性并传入一个字符串，则需要在客户端编译模板。Vue.js 2.0 中，最终渲染都是通过 render 函数，如果写 template 属性，则需要编译成 render 函数，那么这个编译过程会发生运行时，所以需要带有编译器的版本。</li>
 </ul>
-<h2 id="3-vue-本质：构造函数"><a href="#3-vue-本质：构造函数" class="headerlink" title="3. vue 本质：构造函数"></a>3. vue 本质：构造函数</h2><p><a href="https://camo.githubusercontent.com/cf291fd146d23a4a63421ed41ebf33d5222f808053a705166da7cb727aa2c457/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373132653766666232353333393637372e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/cf291fd146d23a4a63421ed41ebf33d5222f808053a705166da7cb727aa2c457/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373132653766666232353333393637372e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="3-vue-本质：构造函数"><a href="#3-vue-本质：构造函数" class="headerlink" title="3. vue 本质：构造函数"></a>3. vue 本质：构造函数</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-712e7ffb25339677.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Vue (options) &#123;</span><br><span class="line">  if (process.env.NODE_ENV !&#x3D;&#x3D; production&#39; &amp;&amp; !(this instanceof Vue) ) &#123;</span><br><span class="line">    warn(&#39;Vue is a constructor and should be called with the &#96;new&#96; keyword&#39;)</span><br><span class="line">  &#125;</span><br><span class="line">  this._init(options)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>总结</strong></p>
 <ul>
-<li>vue 本质上就是一个用 Function 实现的 Class，然后在它的原型 prototype 以及它本身上扩展了一系列的方法和属性。</li>
-<li>Vue 不用 ES6 的 Class 去实现的原因：按功能区分，把功能扩展分散到多个模块中去实现，然后挂载中 vue 的原型 prototype 上，也有在 Vue 这个对象本身上。</li>
+<li>vue 本质上就是一个用 Function 实现的 Class，然后在它的原型 prototype 以及它本身上扩展了一系列的方法和属性。                                      </li>
+<li>Vue 不用 ES6 的 Class 去实现的原因：按功能区分，把功能扩展分散到多个模块中去实现，然后挂载中 vue 的原型 prototype 上，也有在 Vue 这个对象本身上。                                                       </li>
 <li>而不是在一个模块里实现所有，这种方式是用 Class 难以实现的。这么做的好处是非常方便代码的维护和管理。</li>
 </ul>
-<h2 id="4-数据驱动"><a href="#4-数据驱动" class="headerlink" title="4. 数据驱动"></a>4. 数据驱动</h2><p><a href="https://camo.githubusercontent.com/9178d14ed625bd391e8e86354aeca9b39340e23abc366606474610b268c53f51/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d643736663265616464616532663037612e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/9178d14ed625bd391e8e86354aeca9b39340e23abc366606474610b268c53f51/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d643736663265616464616532663037612e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
-<p><strong>1. new Vue</strong></p>
+<h2 id="4-数据驱动"><a href="#4-数据驱动" class="headerlink" title="4. 数据驱动"></a>4. 数据驱动</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-d76f2eaddae2f07a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>1.  new Vue</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var app &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: &#39;Hello Vue!&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p><strong>2. init</strong></p>
 <ul>
-<li>调用 this._init(options) 进行初始化<ul>
+<li><p>调用 this._init(options) 进行初始化</p>
+<ul>
 <li>mergeOptions 合并配置</li>
 <li>initLifecycle(vm) 初始化生命周期，调用生命周期钩子函数 callHook(vm, ‘beforeCreate’)</li>
 <li>initEvents(vm) 初始化事件中心</li>
@@ -514,24 +504,25 @@
 </ul>
 <p><strong>3. Vue 实例挂载 $mount</strong></p>
 <ul>
-<li>$mount 这个方法的实现是和平台、构建方式都相关的。我们分析带 compiler 版本的 $mount 实现。在 Vue 2.0 版本中，所有 Vue 的组件最终都会转换成 render 方法。<ul>
+<li><p>$mount 这个方法的实现是和平台、构建方式都相关的。我们分析带 compiler 版本的 $mount 实现。在 Vue 2.0 版本中，所有 Vue 的组件最终都会转换成 render 方法。</p>
+<ul>
 <li><ol>
 <li>它对 el 做了限制，Vue 不能挂载在 body、html 这样的根节点上。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>如果没有定义 render 方法，则会调用 compileToFunctions 方法把 el 或者 template 字符串转换成 render 方法。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>mountComponent：核心就是先实例化一个渲染Watcher，在它的回调函数中会调用 updateComponent 方法，在此方法中调用 vm._render 方法先生成虚拟 Node，最终调用 vm._update 更新 DOM。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>将 vm._isMounted 设置为 true，表示已经挂载</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="5">
 <li>执行 mounted 钩子函数：callHook(vm, ‘mounted’)</li>
 </ol>
 </li>
@@ -546,29 +537,27 @@
 <ul>
 <li>vm._render 最终是通过执行 createElement 方法并返回的是 vnode，它是一个虚拟 Node</li>
 </ul>
-<p><strong>6. Virtual DOM（虚拟 dom）: 本质上是一个原生的 JS 对象，用 class 来定义。</strong></p>
+<p><strong>6. Virtual DOM（虚拟 dom）:  本质上是一个原生的 JS 对象，用 class 来定义。</strong></p>
 <ul>
 <li><ol>
 <li>核心定义：几个关键属性，标签名、数据、子节点、键值等，其它属性都是都是用来扩展 VNode 的灵活性以及实现一些特殊 feature 的。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>映射到真实的 DOM ，实际上要经历 VNode 的 create、diff、patch 等过程。</li>
 </ol>
 </li>
-<li><ol>
-<li>createElement： 创建 VNode</li>
-</ol>
+<li><ol start="3">
+<li><p>createElement： 创建 VNode</p>
 <ul>
 <li><ol>
-<li>children 的规范化：由于 Virtual DOM 实际上是一个树状结构，每一个 VNode 可能会有若干个子节点，这些子节点应该也是 VNode 的类型。因为子节点 children 是任意类型的，因此需要把它们规范成 VNode 类型。</li>
-</ol>
+<li><p>children 的规范化：由于 Virtual DOM 实际上是一个树状结构，每一个 VNode 可能会有若干个子节点，这些子节点应该也是 VNode 的类型。因为子节点 children 是任意类型的，因此需要把它们规范成 VNode 类型。</p>
 <ul>
 <li><ol>
 <li>simpleNormalizeChildren：调用场景是 render 函数是编译生成的。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>normalizeChildren</li>
 </ol>
 <ul>
@@ -576,13 +565,13 @@
 <li>一个场景是 render 函数是用户手写的，当 children 只有一个节点的时候，Vue.js 从接口层面允许用户把 children 写成基础类型用来创建单个简单的文本节点，这种情况会调用 createTextVNode 创建一个文本节点的 VNode。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>另一个场景是当编译 slot、v-for 的时候会产生嵌套数组的情况，会调用 normalizeArrayChildren 方法，遍历 children (可能会递归调用 normalizeArrayChildren )。</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>总结</li>
 </ol>
 <ul>
@@ -591,9 +580,10 @@
 </li>
 </ul>
 </li>
-<li><ol>
-<li>VNode 的创建</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>VNode 的创建</p>
 <ul>
 <li><p>规范化 children 后，会去创建一个 VNode 的实例。</p>
 <ul>
@@ -601,62 +591,69 @@
 <li>直接创建一个普通 VNode。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>或者通过 createComponent 创建一个组件类型的 VNode，本质上它还是返回了一个 VNode。</li>
 </ol>
 </li>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="3">
+<li><p>总结</p>
 <ul>
 <li>每个 VNode 有 children，children 每个元素也是一个 VNode，这样就形成了一个 VNode Tree，它很好的描述了我们的 DOM Tree。</li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ol>
-<li>update：通过 Vue 的 _update 方法，_update 方法的作用是把 VNode 渲染成真实的 DOM。_update 的核心就是调用 vm.<strong>patch</strong> 方法，<strong>patch</strong>在不同的平台，比如 web 和 weex 上的定义是不一样的。</li>
 </ol>
 </li>
 </ul>
 </li>
 </ul>
-<p><strong>7. update 的核心：调用 vm.\</strong>patch** 方法**</p>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>update：通过 Vue 的 <em>update 方法，<em>update 方法的作用是把 VNode 渲染成真实的 DOM。_update 的核心就是调用 vm.__patch</em></em> 方法，<strong>patch</strong>在不同的平台，比如 web 和 weex 上的定义是不一样的。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>7. update 的核心：调用 vm.<strong>patch</strong> 方法</strong></p>
 <ul>
-<li><p>update：通过 Vue 的 _update 方法，_update 方法的作用是把 VNode 渲染成真实的 DOM。_update 的核心就是调用 vm.<strong>patch</strong> 方法，<strong>patch</strong>在不同的平台，比如 web 和 weex 上的定义是不一样的。</p>
+<li><p>update：通过 Vue 的 <em>update 方法，<em>update 方法的作用是把 VNode 渲染成真实的 DOM。_update 的核心就是调用 vm.__patch</em></em> 方法，<strong>patch</strong>在不同的平台，比如 web 和 weex 上的定义是不一样的。</p>
 <ul>
 <li><ol>
-<li>首次渲染</li>
-</ol>
+<li><p>首次渲染</p>
 <ul>
 <li><ol>
 <li>通过 createElm 方法，把虚拟节点创建真实的 DOM 并插入到它的父节点中。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>然后调用 createChildren 方法去创建子元素，实际上是遍历子虚拟节点，递归调用 createElm。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>接着再调用 invokeCreateHooks 方法执行所有的 create 的钩子并把 vnode push 到 insertedVnodeQueue</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>最后调用 insert 方法把 DOM 插入到父节点中，因为是递归调用，子元素会优先调用 insert，所以整个 vnode 树节点的插入顺序是先子后父。</li>
 </ol>
 </li>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="5">
+<li><p>总结</p>
 <ul>
 <li>其实就是调用原生 DOM 的 API 进行 DOM 操作，Vue 就是这样动态创建的 DOM。</li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="2">
 <li>数据更新</li>
 </ol>
 </li>
@@ -669,7 +666,7 @@
 <li>初始化 Vue 到最终渲染的整个过程：</li>
 </ul>
 <p><strong>new Vue =&gt; init =&gt; $mounted =&gt; compile =&gt; render =&gt; vnode =&gt; patch =&gt; DOM</strong></p>
-<h2 id="5-组件化"><a href="#5-组件化" class="headerlink" title="5. 组件化"></a>5. 组件化</h2><p><a href="https://camo.githubusercontent.com/2fe25c2508aaa56eec3bf5d393cd4e443c83048da56ac13e78eb45855cf0cfd0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d316230613565393936343939373863322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/2fe25c2508aaa56eec3bf5d393cd4e443c83048da56ac13e78eb45855cf0cfd0/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d316230613565393936343939373863322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="5-组件化"><a href="#5-组件化" class="headerlink" title="5. 组件化"></a>5. 组件化</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-1b0a5e99649978c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. introduction</strong></p>
 <ul>
 <li>组件化，就是把页面拆分成多个组件 (component)，每个组件依赖的 CSS、JavaScript、模板、图片等资源放在一起开发和维护。组件是资源独立的，组件在系统内部可复用，组件和组件之间可以嵌套。</li>
@@ -679,36 +676,52 @@
 <li><p>在 createElement 的实现的时候，如果不是一个普通的 html 标签，就是通过 createComponent 方法创建一个组件 VNode。</p>
 <ul>
 <li><ol>
-<li>构造子类构造函数</li>
+<li><p>构造子类构造函数</p>
+<ul>
+<li><p>Vue.extend 函数</p>
+<ul>
+<li><p>Vue.extend 的作用就是构造一个 Vue 的子类，它使用一种非常经典的原型继承的方式把一个纯对象转换一个继承于 Vue 的构造器 Sub 并返回，然后对 Sub 这个对象本身扩展了一些属性，如扩展 options、添加全局 API 等；并且对配置中的 props 和 computed 做了初始化工作；最后对于这个 Sub 构造函数做了缓存，避免多次执行 Vue.extend 的时候对同一个子组件重复构造。</p>
+<ul>
+<li>当我们去实例化 Sub 的时候，就会执行 this._init 逻辑再次走到了 Vue 实例的初始化逻辑。</li>
+<li>代码如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const Sub &#x3D; function VueComponent (options) &#123;</span><br><span class="line">  this._init(options)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
 <ul>
-<li>Vue.extend 函数<ul>
-<li>Vue.extend 的作用就是构造一个 Vue 的子类，它使用一种非常经典的原型继承的方式把一个纯对象转换一个继承于 Vue 的构造器 Sub 并返回，然后对 Sub 这个对象本身扩展了一些属性，如扩展 options、添加全局 API 等；并且对配置中的 props 和 computed 做了初始化工作；最后对于这个 Sub 构造函数做了缓存，避免多次执行 Vue.extend 的时候对同一个子组件重复构造。<ul>
-<li>当我们去实例化 Sub 的时候，就会执行 this._init 逻辑再次走到了 Vue 实例的初始化逻辑。</li>
-<li>代码如下：</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const Sub &#x3D; function VueComponent (options) &#123;</span><br><span class="line">  this._init(options)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li><ol start="2">
+<li>安装组件钩子函数：installComponentHooks(data)</li>
+</ol>
 <ul>
-<li><ol>
-<li>安装组件钩子函数：installComponentHooks(data)<ul>
 <li>installComponentHooks 的过程就是把 componentVNodeHooks 的钩子函数合并到 data.hook 中，在 VNode 执行 patch 的过程中执行相关的钩子函数</li>
 <li>这里要注意的是合并策略，在合并过程中，如果某个时机的钩子已经存在 data.hook 中，那么通过执行 mergeHook 函数做合并，这个逻辑很简单，就是在最终执行的时候，依次执行这两个钩子函数即可。</li>
 </ul>
 </li>
+</ul>
+</li>
+<li><ol start="3">
+<li><p>实例化 vnode</p>
+<ul>
+<li>通过 new VNode 实例化一个 vnode 并返回。需要注意的是和普通元素节点的 vnode 不同，组件的 vnode 是没有 children 的，这点很关键</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol start="4">
+<li><p>总结</p>
+<ul>
+<li>createComponent 后返回的是组件 vnode，它也一样走到 vm._update 方法，进而执行了 patch 函数。</li>
+</ul>
+</li>
 </ol>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 3. 实例化 vnode</span><br><span class="line"></span><br><span class="line">	- 通过 new VNode 实例化一个 vnode 并返回。需要注意的是和普通元素节点的 vnode 不同，组件的 vnode 是没有 children 的，这点很关键</span><br><span class="line"></span><br><span class="line">- 4. 总结</span><br><span class="line"></span><br><span class="line">	- createComponent 后返回的是组件 vnode，它也一样走到 vm._update 方法，进而执行了 patch 函数。</span><br></pre></td></tr></table></figure>
-
+</li>
+</ul>
 <p><strong>3. path</strong></p>
 <ul>
 <li>一个组件的 VNode 是如何创建、初始化、渲染的过程</li>
@@ -716,25 +729,28 @@
 <p><strong>4. 合并配置</strong></p>
 <ul>
 <li><ol>
-<li>外部调用场景</li>
-</ol>
+<li><p>外部调用场景</p>
 <ul>
 <li>外部我们的代码主动调用 new Vue(options) 的方式实例化一个 Vue 对象。</li>
 </ul>
 </li>
-<li><ol>
-<li>组件场景</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>组件场景</p>
 <ul>
 <li>上一节分析的组件过程中内部通过 new Vue(options) 实例化子组件。</li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>总结</p>
 <ul>
 <li>子组件初始化过程通过 initInternalComponent 方式要比外部初始化 Vue 通过 mergeOptions 的过程要快，合并完的结果保留在 vm.$options 中。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>5. 生命周期</strong></p>
@@ -744,23 +760,24 @@
 <blockquote>
 <p>注意：activated 和 deactivated 钩子函数是专门为 keep-alive 组件定制的钩子。</p>
 </blockquote>
-<p><a href="https://camo.githubusercontent.com/b15861df3e3a9800a411b0da4349a68a27f389cd4da89cf377bea7c50ad600e9/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373364653336386262373635323862372e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/b15861df3e3a9800a411b0da4349a68a27f389cd4da89cf377bea7c50ad600e9/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d373364653336386262373635323862372e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-73de368bb76528b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>6. 组件注册</strong></p>
 <ul>
 <li><ol>
 <li>全局注册：Vue.component(tagName, options)</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>局部注册</li>
 </ol>
 </li>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="3">
+<li><p>总结</p>
 <ul>
 <li>注意，局部注册和全局注册不同的是，只有该类型的组件才可以访问局部注册的子组件，而全局注册是扩展到 Vue.options 下，所以在所有组件创建的过程中，都会从全局的 Vue.options.components 扩展到当前组件的 vm.$options.components 下，这就是全局注册的组件能被任意使用的原因。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>7. 异步组件</strong></p>
@@ -774,7 +791,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(&#39;async-example&#39;, function (resolve, reject) &#123;</span><br><span class="line">   &#x2F;&#x2F; 这个特殊的 require 语法告诉 webpack</span><br><span class="line">   &#x2F;&#x2F; 自动将编译后的代码分割成不同的块，</span><br><span class="line">   &#x2F;&#x2F; 这些块将通过 Ajax 请求自动下载。</span><br><span class="line">   require([&#39;.&#x2F;my-async-component&#39;], resolve)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><ol>
+<li><ol start="2">
 <li>Promise 异步组件</li>
 </ol>
 </li>
@@ -783,7 +800,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(</span><br><span class="line">  &#39;async-webpack-example&#39;,</span><br><span class="line">  &#x2F;&#x2F; 该 &#96;import&#96; 函数返回一个 &#96;Promise&#96; 对象。</span><br><span class="line">  () &#x3D;&gt; import(&#39;.&#x2F;my-async-component&#39;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><ol>
+<li><ol start="3">
 <li>高级异步组件</li>
 </ol>
 </li>
@@ -792,13 +809,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const AsyncComp &#x3D; () &#x3D;&gt; (&#123;</span><br><span class="line">  &#x2F;&#x2F; 需要加载的组件。应当是一个 Promise</span><br><span class="line">  component: import(&#39;.&#x2F;MyComp.vue&#39;),</span><br><span class="line">  &#x2F;&#x2F; 加载中应当渲染的组件</span><br><span class="line">  loading: LoadingComp,</span><br><span class="line">  &#x2F;&#x2F; 出错时渲染的组件</span><br><span class="line">  error: ErrorComp,</span><br><span class="line">  &#x2F;&#x2F; 渲染加载中组件前的等待时间。默认：200ms。</span><br><span class="line">  delay: 200,</span><br><span class="line">  &#x2F;&#x2F; 最长等待时间。超出此时间则渲染错误组件。默认：Infinity</span><br><span class="line">  timeout: 3000</span><br><span class="line">&#125;)</span><br><span class="line">Vue.component(&#39;async-example&#39;, AsyncComp)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><ol>
+<li><ol start="4">
 <li>总结</li>
 </ol>
 </li>
 </ul>
 <p>异步组件实现的本质是 2 次渲染，除了 0 delay 的高级异步组件第一次直接渲染成 loading 组件外，其它都是第一次渲染生成一个注释节点，当异步获取组件成功后，再通过 forceRender 强制重新渲染，这样就能正确渲染出我们异步加载的组件了。</p>
-<h2 id="6-深入响应式原理"><a href="#6-深入响应式原理" class="headerlink" title="6. 深入响应式原理"></a>6. 深入响应式原理</h2><p><a href="https://camo.githubusercontent.com/8a76e12561ff05f158f51e74f29cd420a1633349f9efbe4a800be6644ef82270/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663764363764343339646466326163642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/8a76e12561ff05f158f51e74f29cd420a1633349f9efbe4a800be6644ef82270/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663764363764343339646466326163642e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="6-深入响应式原理"><a href="#6-深入响应式原理" class="headerlink" title="6. 深入响应式原理"></a>6. 深入响应式原理</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-f7d67d439ddf2acd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. 响应式对象：Vue.js 实现响应式的核心是利用了 ES5 的 Object.defineProperty。</strong></p>
 <ul>
 <li><ol>
@@ -808,117 +825,133 @@
 </ul>
 <p>直接在一个对象上定义一个新属性，或者修改一个对象的现有属性</p>
 <ul>
-<li><ol>
-<li>initState：在 Vue 的初始化阶段，_init 方法执行的时候，会执行 initState(vm) 方法</li>
-</ol>
+<li><ol start="2">
+<li><p>initState：在 Vue 的初始化阶段，_init 方法执行的时候，会执行 initState(vm) 方法</p>
 <ul>
 <li><p>主要是对 props、methods、data、computed 和 wathcer 等属性做了初始化操作</p>
 <ul>
 <li><ol>
-<li>initProps：props 的初始化主要过程，就是遍历定义的 props 配置</li>
-</ol>
+<li><p>initProps：props 的初始化主要过程，就是遍历定义的 props 配置</p>
 <ul>
 <li><ol>
 <li>一个是调用 defineReactive 方法把每个 prop 对应的值变成响应式，可以通过 vm._props.xxx 访问到定义 props 中对应的属性。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>通过 proxy 把 vm._props.xxx 的访问代理到 vm.xxx 上</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>initData</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>initData</p>
 <ul>
 <li><ol>
 <li>一个是对定义 data 函数返回对象的遍历，通过 proxy 把每一个值 vm._data.xxx 都代理到 vm.xxx 上；</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>另一个是调用 observe 方法观测整个 data 的变化，把 data 也变成响应式，可以通过 vm._data.xxx 访问到定义 data 返回函数中对应的属性</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>proxy：代理的作用是把 props 和 data 上的属性代理到 vm 实例上</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>proxy：代理的作用是把 props 和 data 上的属性代理到 vm 实例上</p>
 <ul>
-<li>proxy 方法的实现很简单，通过 Object.defineProperty 把 target[sourceKey][key] 的读写变成了对 target[key] 的读写。<ul>
+<li><p>proxy 方法的实现很简单，通过 Object.defineProperty 把 target[sourceKey][key] 的读写变成了对 target[key] 的读写。</p>
+<ul>
 <li>比如 data ，对 vm._data.xxxx 的读写变成了对 vm.xxxx 的读写。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
 </ol>
+</li>
+<li><ol start="4">
+<li><p>总结</p>
 <ul>
 <li>无论是 props 或是 data 的初始化都是把它们变成响应式对象</li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ol>
-<li>observe ：功能就是用来监测数据的变化</li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li><p>observe ：功能就是用来监测数据的变化</p>
 <ul>
 <li>observe 方法的作用就是给非 VNode 的对象类型数据添加一个 Observer，如果已经添加过则直接返回，否则在满足一定条件下去实例化一个 Observer 对象实例</li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="4">
 <li>Observer 是一个类，它的作用是给对象的属性添加 getter 和 setter，用于依赖收集和派发更新</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="5">
 <li>defineReactive： 功能就是定义一个响应式对象，给对象动态添加 getter 和 setter。</li>
 </ol>
 </li>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="6">
+<li><p>总结</p>
 <ul>
 <li>响应式对象，核心就是利用 Object.defineProperty 给数据添加了 getter 和 setter，目的就是为了在我们访问数据以及写数据的时候能自动执行一些逻辑：getter 做的事情是依赖收集，setter 做的事情是派发更新</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>2. 依赖收集：响应式对象 getter 相关的逻辑就是做依赖收集</strong></p>
 <ul>
 <li><ol>
-<li>Dep：整个 getter 依赖收集的核心</li>
-</ol>
+<li><p>Dep：整个 getter 依赖收集的核心</p>
 <ul>
 <li>Dep 实际上就是对 Watcher 的一种管理。而且在同一时间只能有一个全局的 Watcher 被计算</li>
 </ul>
 </li>
-<li><ol>
-<li>Watcher</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>Watcher</p>
 <ul>
-<li>Watcher 是一个 Class，定义了一些和 Dep 相关的属性， 还定义了一些原型的方法，和依赖收集相关的有 get、addDep 和 cleanupDeps 方法。</li>
-<li>总结<ul>
+<li><p>Watcher 是一个 Class，定义了一些和 Dep 相关的属性， 还定义了一些原型的方法，和依赖收集相关的有 get、addDep 和 cleanupDeps 方法。</p>
+</li>
+<li><p>总结</p>
+<ul>
 <li>在添加 deps 的订阅过程，可以通过 id 去重避免重复订阅。在每次添加完新的订阅，会移除掉旧的订阅</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>总结</p>
 <ul>
 <li>收集依赖就是订阅数据变化的 watcher 的收集。收集依赖的目的是为了当这些响应式数据发生变化，触发它们的 setter 的时候，能知道应该通知哪些订阅者去做相应的逻辑处理，我们把这个过程叫派发更新，其实 Watcher 和 Dep 就是一个非常经典的观察者设计模式的实现</li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <p><strong>3. 派发更新</strong></p>
 <ul>
-<li>修改值的时候，会触发 setter ，会对新设置的值变成一个响应式对象，并通过 dep.notify() 通知所有的订阅者<ul>
-<li>做派发更新的时候的一个优化的点，它并不会每次数据改变都触发 watcher 的回调，而是把这些 watcher 先添加到一个队列里，然后在 nextTick 后执行 flushSchedulerQueue</li>
-<li>总结<ul>
+<li><p>修改值的时候，会触发 setter ，会对新设置的值变成一个响应式对象，并通过 dep.notify() 通知所有的订阅者</p>
+<ul>
+<li><p>做派发更新的时候的一个优化的点，它并不会每次数据改变都触发 watcher 的回调，而是把这些 watcher 先添加到一个队列里，然后在 nextTick 后执行 flushSchedulerQueue</p>
+</li>
+<li><p>总结</p>
+<ul>
 <li>当数据发生变化的时候，触发 setter 逻辑，把在依赖过程中订阅的的所有观察者，也就是 watcher，都触发它们的 update 过程，这个过程又利用了队列做了进一步优化，在 nextTick 后执行所有 watcher 的 run，最后执行它们的回调函数。</li>
 </ul>
 </li>
@@ -928,27 +961,27 @@
 <p><strong>4. nextTick</strong></p>
 <ul>
 <li><ol>
-<li>JS 运行机制</li>
-</ol>
+<li><p>JS 运行机制</p>
 <ul>
-<li>JS 执行是单线程的，它是基于事件循环的。事件循环大致分为以下几个步骤<ul>
+<li><p>JS 执行是单线程的，它是基于事件循环的。事件循环大致分为以下几个步骤</p>
+<ul>
 <li><ol>
 <li>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>主线程不断重复上面的第三步。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="5">
 <li>代码演示 macro task 和 micro task 执行顺序</li>
 </ol>
 </li>
@@ -956,31 +989,34 @@
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for (macroTask of macroTaskQueue) &#123;</span><br><span class="line">    &#x2F;&#x2F; 1. Handle current MACRO-TASK</span><br><span class="line">    handleMacroTask();</span><br><span class="line">      </span><br><span class="line">    &#x2F;&#x2F; 2. Handle all MICRO-TASK</span><br><span class="line">    for (microTask of microTaskQueue) &#123;</span><br><span class="line">        handleMicroTask(microTask);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在浏览器环境中，常见的 macro task 有 setTimeout、MessageChannel、postMessage、setImmediate；</span><br><span class="line">&#x2F;&#x2F; 常见的 micro task 有 MutationObsever 和 Promise.then。</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><ol>
+<li><ol start="6">
 <li>总结</li>
 </ol>
 </li>
 </ul>
 <p>主线程的执行过程就是一个 tick，而所有的异步结果都是通过 “任务队列” 来调度。 消息队列中存放的是一个个的任务（task）。 规范中规定 task 分为两大类，分别是 macro task 和 micro task，并且每个 macro task 结束后，都要清空所有的 micro task。</p>
 <ul>
-<li>vue 中 nextTick 实现<ul>
+<li><p>vue 中 nextTick 实现</p>
+<ul>
 <li><ol>
 <li>申明了 microTimerFunc 和 macroTimerFunc 2 个变量，它们分别对应的是 micro task 的函数和 macro task 的函数。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>对于 macro task 的实现，优先检测是否支持原生 setImmediate，这是一个高版本 IE 和 Edge 才支持的特性，不支持的话再去检测是否支持原生的 MessageChannel，如果也不支持的话就会降级为 setTimeout 0；</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>而对于 micro task 的实现，则检测浏览器是否原生支持 Promise，不支持的话直接指向 macro task 的实现。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>nextTick 把传入的回调函数 cb 压入 callbacks 数组，最后一次性地根据 useMacroTask 条件执行 macroTimerFunc 或者是 microTimerFunc，而它们都会在下一个 tick 执行 flushCallbacks，flushCallbacks 的逻辑非常简单，对 callbacks 遍历，然后执行相应的回调函数。</li>
 </ol>
 </li>
@@ -988,9 +1024,8 @@
 </li>
 </ul>
 <p>这里使用 callbacks 而不是直接在 nextTick 中执行回调函数的原因是保证在同一个 tick 内多次执行 nextTick，不会开启多个异步任务，而把这些异步任务都压成一个同步任务，在下一个 tick 执行完毕。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 5. next-tick.js 还对外暴露了 withMacroTask 函数，它是对函数做一层包装，确保函数执行过程中对数据任意的修改，触发变化执行 nextTick 的时候强制走 macroTimerFunc。比如对于一些 DOM 交互事件，如 v-on 绑定的事件回调函数的处理，会强制走 macro task。</span><br><span class="line">- 6. 总结</span><br></pre></td></tr></table></figure>
-
-<p>对 nextTick 的分析，并结合上一节的 setter 分析，我们了解到数据的变化到 DOM 的重新渲染是一个异步过程，发生在下一个 tick。这就是我们平时在开发的过程中，比如从服务端接口去获取数据的时候，数据做了修改，如果我们的某些方法去依赖了数据修改后的 DOM 变化，我们就必须在 nextTick 后执行。</p>
+<pre><code>- 5. next-tick.js 还对外暴露了 withMacroTask 函数，它是对函数做一层包装，确保函数执行过程中对数据任意的修改，触发变化执行 nextTick 的时候强制走 macroTimerFunc。比如对于一些 DOM 交互事件，如 v-on 绑定的事件回调函数的处理，会强制走 macro task。
+- 6. 总结</code></pre><p>对 nextTick 的分析，并结合上一节的 setter 分析，我们了解到数据的变化到 DOM 的重新渲染是一个异步过程，发生在下一个 tick。这就是我们平时在开发的过程中，比如从服务端接口去获取数据的时候，数据做了修改，如果我们的某些方法去依赖了数据修改后的 DOM 变化，我们就必须在 nextTick 后执行。</p>
 <p>Vue.js 提供了 2 种调用 nextTick 的方式，一种是全局 API Vue.nextTick，一种是实例上的方法 vm.$nextTick，无论我们使用哪一种，最后都是调用 next-tick.js 中实现的 nextTick 方法。</p>
 <p><strong>5. 检测变化的注意事项</strong></p>
 <ul>
@@ -1005,25 +1040,26 @@
 <p>要用 Vue.set 方法</p>
 <p>set 方法是在对象上设置属性。添加新属性和如果属性不存在，通过 defineReactive(ob.value, key, val) 把新添加的属性变成响应式对象，然后再通过 ob.dep.notify() 手动的触发依赖通知。</p>
 <ul>
-<li><ol>
-<li>数组</li>
-</ol>
+<li><ol start="2">
+<li><p>数组</p>
 <ul>
 <li><p>Vue 也是不能检测到以下变动的数组</p>
 <ul>
 <li><ol>
-<li>当你利用索引直接设置一个项时，例如：vm.items[indexOfItem] = newValue</li>
-</ol>
+<li><p>当你利用索引直接设置一个项时，例如：vm.items[indexOfItem] = newValue</p>
 <ul>
 <li>可以使用：Vue.set(example1.items, indexOfItem, newValue)</li>
 </ul>
 </li>
-<li><ol>
-<li>当你修改数组的长度时，例如：vm.items.length = newLength</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>当你修改数组的长度时，例如：vm.items.length = newLength</p>
 <ul>
 <li>可以使用 vm.items.splice(newLength)</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 </li>
@@ -1034,83 +1070,97 @@
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <p><strong>6. 计算属性 VS 侦听属性</strong></p>
 <ul>
 <li><ol>
-<li>computd</li>
-</ol>
+<li><p>computd</p>
 <ul>
-<li>计算属性本质上就是一个 computed watcher，确保不仅仅是计算属性依赖的值发生变化，而是当计算属性最终计算的值发生变化才会触发渲染 watcher 重新渲染。<ul>
+<li><p>计算属性本质上就是一个 computed watcher，确保不仅仅是计算属性依赖的值发生变化，而是当计算属性最终计算的值发生变化才会触发渲染 watcher 重新渲染。</p>
+<ul>
 <li>computed watcher</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>watch</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>watch</p>
 <ul>
-<li>本质上侦听属性也是基于 Watcher 实现的，它是一个 user watcher<ul>
-<li>deep watcher</li>
-<li>user watcher<ul>
+<li><p>本质上侦听属性也是基于 Watcher 实现的，它是一个 user watcher</p>
+<ul>
+<li><p>deep watcher</p>
+</li>
+<li><p>user watcher</p>
+<ul>
 <li>通过 vm.$watch 创建的 watcher 是一个 user watcher，其实它的功能很简单，在对 watcher 求值以及在执行回调函数的时候，会处理一下错误</li>
 </ul>
 </li>
-<li>computed watcher</li>
-<li>sync watcher</li>
-</ul>
+<li><p>computed watcher</p>
+</li>
+<li><p>sync watcher</p>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
+</ul>
+</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>总结</p>
 <ul>
 <li>计算属性本质上是 computed watcher，而侦听属性本质上是 user watcher。就应用场景而言，计算属性适合用在模板渲染中，某个值是依赖了其它的响应式对象甚至是计算属性计算而来；而侦听属性适用于观测某个值的变化去完成一段复杂的业务逻辑。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>7. 组件更新：过程的核心就是新旧 vnode diff，对新旧节点相同以及不同的情况分别做不同的处理。</strong></p>
 <ul>
 <li><ol>
-<li>新旧节点不同</li>
-</ol>
+<li><p>新旧节点不同</p>
 <ul>
 <li><p>新旧 vnode 不同，本质上是要替换已存在的节点。</p>
 <ul>
 <li><ol>
-<li>创建新节点</li>
-</ol>
+<li><p>创建新节点</p>
 <ul>
 <li>以当前旧节点为参考节点，创建新的节点，并插入到 DOM 中</li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="2">
 <li>更新父的占位符节点</li>
 </ol>
 </li>
-<li><ol>
-<li>删除旧节点</li>
-</ol>
+<li><ol start="3">
+<li><p>删除旧节点</p>
 <ul>
 <li>删除节点就是遍历待删除的 vnodes 做删除</li>
 </ul>
 </li>
-</ul>
+</ol>
 </li>
 </ul>
 </li>
-<li><ol>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol start="2">
 <li>新旧节点相同</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>updateChildren</li>
 </ol>
 </li>
 </ul>
-<h2 id="7-编译"><a href="#7-编译" class="headerlink" title="7. 编译"></a>7. 编译</h2><p><a href="https://camo.githubusercontent.com/6eb030c61b531fdbb200ca084b9354b3e532cc8237f7946e2ade54eee4847d85/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323235376231646436633532393839392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/6eb030c61b531fdbb200ca084b9354b3e532cc8237f7946e2ade54eee4847d85/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323235376231646436633532393839392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="7-编译"><a href="#7-编译" class="headerlink" title="7. 编译"></a>7. 编译</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-2257b1dd6c529899.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. introduction</strong></p>
 <ul>
 <li>模板到真实 DOM 渲染的过程，中间有一个环节是把模板编译成 render 函数，这个过程我们把它称作编译。</li>
@@ -1120,32 +1170,36 @@
 <li><p>mount 的时候，通过 compileToFunctions 方法就是把模板 template 编译生成 render 以及 staticRenderFns</p>
 <ul>
 <li><ol>
-<li>解析模板字符串生成 AST</li>
-</ol>
+<li><p>解析模板字符串生成 AST</p>
 <ul>
 <li>const ast = parse(template.trim(), options)</li>
 </ul>
 </li>
-<li><ol>
-<li>优化语法树</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>优化语法树</p>
 <ul>
 <li>optimize(ast, options)</li>
 </ul>
 </li>
-<li><ol>
-<li>生成代码</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>生成代码</p>
 <ul>
 <li>const code = generate(ast, options)</li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
 </ol>
+</li>
+<li><ol start="4">
+<li><p>总结</p>
 <ul>
 <li>编译入口逻辑之所以这么绕，是因为 Vue.js 在不同的平台下都会有编译的过程，因此编译过程中的依赖的配置 baseOptions 会有所不同。而编译过程会多次执行，但这同一个平台下每一次的编译过程配置又是相同的，为了不让这些配置在每次编译过程都通过参数传入，Vue.js 利用了函数柯里化的技巧很好的实现了 baseOptions 的参数保留。同样，Vue.js 也是利用函数柯里化技巧把基础的编译过程函数抽出来，通过 createCompilerCreator(baseCompile) 的方式把真正编译的过程和其它逻辑如对编译配置处理、缓存处理等剥离开，这样的设计还是非常巧妙的。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 </li>
@@ -1157,70 +1211,80 @@
 <li><p>整体流程</p>
 <ul>
 <li><ol>
-<li>从 options 中获取方法和配置, 如伪代码 getFnsAndConfigFromOptions(options)</li>
-</ol>
+<li><p>从 options 中获取方法和配置, 如伪代码 getFnsAndConfigFromOptions(options)</p>
 <ul>
 <li>这些属性和方法之所以放到 platforms 目录下是因为它们在不同的平台（web 和 weex）的实现是不同的。</li>
 </ul>
 </li>
-<li><ol>
-<li>解析 HTML 模板， 对应伪代码 parseHTML(template, options)</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>解析 HTML 模板， 对应伪代码  parseHTML(template, options)</p>
 <ul>
-<li>整体来说它的逻辑就是循环解析 template ，用正则做各种匹配，对于不同情况分别进行不同的处理，直到整个 template 被解析完毕。 在匹配的过程中会利用 advance 函数不断前进整个模板字符串，直到字符串末尾。<ul>
+<li><p>整体来说它的逻辑就是循环解析 template ，用正则做各种匹配，对于不同情况分别进行不同的处理，直到整个 template 被解析完毕。 在匹配的过程中会利用 advance 函数不断前进整个模板字符串，直到字符串末尾。</p>
+<ul>
 <li>匹配的过程中主要利用了正则表达式，通过一系列正则表达式，可以匹配注释节点、文档类型节点、文本、开始标签、闭合标签等。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>处理开始标签</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>处理开始标签</p>
 <ul>
 <li><ol>
 <li>创建 AST 元素</li>
 </ol>
 </li>
-<li><ol>
-<li>处理 AST 元素</li>
-</ol>
+<li><ol start="2">
+<li><p>处理 AST 元素</p>
 <ul>
 <li>这过程会判断 element 是否包含各种指令通过 processXXX 做相应的处理，处理的结果就是扩展 AST 元素的属性。比如 v-for、v-if 指令。</li>
 </ul>
 </li>
-<li><ol>
-<li>AST 树管理</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>AST 树管理</p>
 <ul>
-<li>在处理开始标签的时候为每一个标签创建了一个 AST 元素，在不断解析模板创建 AST 元素的时候，我们也要为它们建立父子关系，就像 DOM 元素的父子关系那样。<ul>
+<li><p>在处理开始标签的时候为每一个标签创建了一个 AST 元素，在不断解析模板创建 AST 元素的时候，我们也要为它们建立父子关系，就像 DOM 元素的父子关系那样。</p>
+<ul>
 <li>AST 树管理的目标是构建一颗 AST 树，本质上它要维护 root 根节点和当前父节点 currentParent。为了保证元素可以正确闭合，这里也利用了 stack 栈的数据结构，和我们之前解析模板时用到的 stack 类似。</li>
 </ul>
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 </li>
-<li><ol>
-<li>处理闭合标签</li>
 </ol>
+</li>
+<li><ol start="4">
+<li><p>处理闭合标签</p>
 <ul>
-<li>对应伪代码： end () { treeManagement() closeElement() }</li>
+<li>对应伪代码：<br>end () {<br>treeManagement()<br>closeElement()<br>}</li>
 </ul>
 </li>
-<li><ol>
-<li>处理文本内容</li>
 </ol>
+</li>
+<li><ol start="5">
+<li><p>处理文本内容</p>
 <ul>
-<li>对应伪代码： chars (text: string) { handleText() createChildrenASTOfText() }</li>
+<li>对应伪代码：<br>chars (text: string) {<br>handleText()<br>createChildrenASTOfText()<br>}</li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
 </ol>
+</li>
+<li><ol start="6">
+<li><p>总结</p>
 <ul>
-<li>parse 的目标是把 template 模板字符串转换成 AST 树，它是一种用 JavaScript 对象的形式来描述整个模板。那么整个 parse 的过程是利用正则表达式顺序解析模板，当解析到开始标签、闭合标签、文本的时候都会分别执行对应的回调函数，来达到构造 AST 树的目的。 AST 元素节点总共有 3 种类型，type 为 1 表示是普通元素，为 2 表示是表达式，为 3 表示是纯文本。其实这里我觉得源码写的不够友好，这种是典型的魔术数字，如果转换成用常量表达会更利于源码阅读。</li>
+<li>parse 的目标是把 template 模板字符串转换成 AST 树，它是一种用 JavaScript 对象的形式来描述整个模板。那么整个 parse 的过程是利用正则表达式顺序解析模板，当解析到开始标签、闭合标签、文本的时候都会分别执行对应的回调函数，来达到构造 AST 树的目的。                    AST 元素节点总共有 3 种类型，type 为 1 表示是普通元素，为 2 表示是表达式，为 3 表示是纯文本。其实这里我觉得源码写的不够友好，这种是典型的魔术数字，如果转换成用常量表达会更利于源码阅读。</li>
 <li>当 AST 树构造完毕，下一步就是 optimize 优化这颗树。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 </li>
@@ -1229,18 +1293,20 @@
 </ul>
 <p><strong>4. optimize</strong></p>
 <ul>
-<li>当我们的模板 template 经过 parse 过程后，会输出生成 AST 树，那么接下来我们需要对这颗树做优化，Vue 是数据驱动，是响应式的，但是我们的模板并不是所有数据都是响应式的，也有很多数据是首次渲染后就永远不会变化的，那么这部分数据生成的 DOM 也不会变化，我们可以在 patch 的过程跳过对他们的比对。<ul>
+<li><p>当我们的模板 template 经过 parse 过程后，会输出生成 AST 树，那么接下来我们需要对这颗树做优化，Vue 是数据驱动，是响应式的，但是我们的模板并不是所有数据都是响应式的，也有很多数据是首次渲染后就永远不会变化的，那么这部分数据生成的 DOM 也不会变化，我们可以在 patch 的过程跳过对他们的比对。</p>
+<ul>
 <li><ol>
 <li>标记静态节点 markStatic(root)</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>标记静态根 markStaticRoots(root, false)</li>
 </ol>
 </li>
 </ul>
 </li>
-<li>总结<ul>
+<li><p>总结</p>
+<ul>
 <li>optimize 的过程，就是深度遍历这个 AST 树，去检测它的每一颗子树是不是静态节点，如果是静态节点则它们生成 DOM 永远不需要改变，这对运行时对模板的更新起到极大的优化作用。</li>
 </ul>
 </li>
@@ -1260,34 +1326,34 @@
 <ul>
 <li>codegen 的目标是把 AST 树转换成代码字符串，整个 codegen 过程就是深度遍历 AST 树，根据不同条件生成不同代码的过程。</li>
 </ul>
-<h2 id="8-扩展"><a href="#8-扩展" class="headerlink" title="8. 扩展"></a>8. 扩展</h2><p><a href="https://camo.githubusercontent.com/229df1d6ce9e5ae9f3ef252ad7e711119168eee5aeccd9e554e03855e5aaf530/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323238643962376164353330666666322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/229df1d6ce9e5ae9f3ef252ad7e711119168eee5aeccd9e554e03855e5aaf530/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323238643962376164353330666666322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="8-扩展"><a href="#8-扩展" class="headerlink" title="8. 扩展"></a>8. 扩展</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-228d9b7ad530fff2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. event</strong></p>
 <ul>
 <li><ol>
-<li>编译</li>
-</ol>
+<li><p>编译</p>
 <ul>
 <li><ol>
 <li>先从编译阶段开始看起，在 parse 阶段，会执行 processAttrs 方法。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>processAttrs 方法在对标签属性的处理过程中，判断如果是指令，首先通过 parseModifiers 解析出修饰符，然后判断如果事件的指令，则执行 addHandler(el, name, value, modifiers, false, warn) 方法。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>addHandler 函数实际上就做了 3 件事情，首先根据 modifier 修饰符对事件名 name 做处理，接着根据 modifier.native 判断是一个纯原生事件还是普通事件，分别对应 el.nativeEvents 和 el.events，最后按照 name 对事件做归类，并把回调函数的字符串保留到对应的事件中。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>然后在 codegen 的阶段，会在 genData 函数中根据 AST 元素节点上的 events 和 nativeEvents 生成 data 数据，也即是事件的代码字符串。</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>DOM 事件</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>DOM 事件</p>
 <ul>
 <li><ol>
 <li>原生 DOM 事件</li>
@@ -1295,21 +1361,26 @@
 </li>
 </ul>
 </li>
-<li><ol>
-<li>自定义事件</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>自定义事件</p>
 <ul>
-<li>Vue 还支持了自定义事件，并且自定义事件只能作用在组件上，如果在组件上使用原生事件，需要加 .native 修饰符，普通元素上使用 .native 修饰符无效</li>
-<li>总结<ul>
+<li><p>Vue 还支持了自定义事件，并且自定义事件只能作用在组件上，如果在组件上使用原生事件，需要加 .native 修饰符，普通元素上使用 .native 修饰符无效</p>
+</li>
+<li><p>总结</p>
+<ul>
 <li>Vue 支持 2 种事件类型，原生 DOM 事件和自定义事件，它们主要的区别在于添加和删除事件的方式不一样，并且自定义事件的派发是往当前实例上派发，但是可以利用在父组件环境定义回调函数来实现父子组件的通讯。另外要注意一点，只有组件节点才可以添加自定义事件，并且添加原生 DOM 事件需要使用 native 修饰符；而普通元素使用 .native 修饰符是没有作用的，也只能添加原生 DOM 事件。</li>
 </ul>
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <p><strong>2. v-model</strong></p>
 <p>实现</p>
-<p>在理解 Vue 的时候都把 Vue 的数据响应原理理解为双向绑定，但实际上这是不准确的，我们之前提到的数据响应，都是通过数据的改变去驱动 DOM 视图的变化，而双向绑定除了数据驱动 DOM 外， DOM 的变化反过来影响数据，是一个双向关系，在 Vue 中，我们可以通过 v-model 来实现双向绑定。</p>
+<p> 在理解 Vue 的时候都把 Vue 的数据响应原理理解为双向绑定，但实际上这是不准确的，我们之前提到的数据响应，都是通过数据的改变去驱动 DOM 视图的变化，而双向绑定除了数据驱动 DOM 外， DOM 的变化反过来影响数据，是一个双向关系，在 Vue 中，我们可以通过 v-model 来实现双向绑定。</p>
 <ul>
 <li><ol>
 <li>表单元素</li>
@@ -1320,11 +1391,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let vm &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  template: &#39;&lt;div&gt;&#39;</span><br><span class="line">  + &#39;&lt;input v-model&#x3D;&quot;message&quot; placeholder&#x3D;&quot;edit me&quot;&gt;&#39; +</span><br><span class="line">  &#39;&lt;p&gt;Message is: &#123;&#123; message &#125;&#125;&lt;&#x2F;p&gt;&#39; +</span><br><span class="line">  &#39;&lt;&#x2F;div&gt;&#39;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      message: &#39;&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>首先在 parse 阶段， v-model 被当做普通的指令解析到 el.directives 中，然后在 codegen 阶段，执行 genData ，最终的生成的 code</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if($event.target.composing)return; message&#x3D;$event.target.value</span><br></pre></td></tr></table></figure>
-
-<ol>
+<li>首先在 parse 阶段， v-model 被当做普通的指令解析到 el.directives 中，然后在 codegen 阶段，执行 genData ，最终的生成的 code <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if($event.target.composing)return; message&#x3D;$event.target.value</span><br></pre></td></tr></table></figure></li>
 <li>code 生成完后，又执行了 2 句非常关键的代码：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">addProp(el, &#39;value&#39;, &#96;($&#123;value&#125;)&#96;)</span><br><span class="line">addHandler(el, event, code, null, true)</span><br></pre></td></tr></table></figure>
@@ -1333,13 +1400,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;input</span><br><span class="line">  v-bind:value&#x3D;&quot;message&quot;</span><br><span class="line">  v-on:input&#x3D;&quot;message&#x3D;$event.target.value&quot;&gt;</span><br></pre></td></tr></table></figure>
 
 <p>其实就是动态绑定了 input 的 value 指向了 messgae 变量，并且在触发 input 事件的时候去动态把 message 设置为目标值，这样实际上就完成了数据双向绑定了，所以说 v-model 实际上就是语法糖。</p>
-<ol>
+<ol start="3">
 <li>最终生成的 render 代码如下：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">with(this) &#123;</span><br><span class="line">  return _c(&#39;div&#39;,[_c(&#39;input&#39;,&#123;</span><br><span class="line">    directives:[&#123;</span><br><span class="line">      name:&quot;model&quot;,</span><br><span class="line">      rawName:&quot;v-model&quot;,</span><br><span class="line">      value:(message),</span><br><span class="line">      expression:&quot;message&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    attrs:&#123;&quot;placeholder&quot;:&quot;edit me&quot;&#125;,</span><br><span class="line">    domProps:&#123;&quot;value&quot;:(message)&#125;,</span><br><span class="line">    on:&#123;&quot;input&quot;:function($event)&#123;</span><br><span class="line">      if($event.target.composing)</span><br><span class="line">        return;</span><br><span class="line">      message&#x3D;$event.target.value</span><br><span class="line">    &#125;&#125;&#125;),_c(&#39;p&#39;,[_v(&quot;Message is: &quot;+_s(message))])</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><ol>
+<li><ol start="2">
 <li>组件</li>
 </ol>
 </li>
@@ -1353,7 +1420,8 @@
 
 <p>子组件传递的 value 绑定到当前父组件的 message，同时监听自定义 input 事件，当子组件派发 input 事件的时候，父组件会在事件回调函数中修改 message 的值，同时 value 也会发生变化，子组件的 input 值被更新。</p>
 <ul>
-<li>总结<ul>
+<li><p>总结</p>
+<ul>
 <li>v-model 实现双向绑定的本质上就是一种语法糖，它即可以支持原生表单元素，也可以支持自定义组件。在组件的实现中，我们是可以配置子组件接收的 prop 名称，以及派发的事件名称。</li>
 </ul>
 </li>
@@ -1361,27 +1429,29 @@
 <p><strong>3. slot</strong></p>
 <ul>
 <li><ol>
-<li>编译</li>
-</ol>
+<li><p>编译</p>
 <ul>
 <li>编译是发生在调用 vm.$mount 的时候，所以编译的顺序是先编译父组件，再编译子组件。</li>
 </ul>
 </li>
-<li><ol>
-<li>普通插槽</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>普通插槽</p>
 <ul>
 <li><ol>
 <li>有定义对应 name 的是具名插槽</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>没有定义 name 的是默认插槽</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="3">
 <li>作用域插槽</li>
 </ol>
 </li>
@@ -1394,194 +1464,209 @@
 <p><strong>4. keep-alive</strong></p>
 <ul>
 <li><ol>
-<li>内置组件</li>
-</ol>
+<li><p>内置组件</p>
 <ul>
-<li>是 Vue 源码中实现的一个组件，是 Vue 的内置组件，是下抽象组件，形式 “有点像” 平时写的 Vue 的组件，但是做了缓存的处理。</li>
+<li><keep-alive> 是 Vue 源码中实现的一个组件，是 Vue 的内置组件，是下抽象组件，形式 “有点像” 平时写的 Vue 的组件，但是做了缓存的处理。</keep-alive></li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="2">
 <li>组件渲染</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>生命周期</li>
 </ol>
 </li>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="4">
+<li><p>总结</p>
 <ul>
 <li><ol>
-<li>组件是一个抽象组件，它的实现通过自定义 render 函数并且利用了插槽，并且 缓存 vnode，组件包裹的子元素——也就是插槽是如何做更新的</li>
+<li><keep-alive> 组件是一个抽象组件，它的实现通过自定义 render 函数并且利用了插槽，并且 <keep-alive> 缓存 vnode，组件包裹的子元素——也就是插槽是如何做更新的</keep-alive></keep-alive></li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>且在 patch 过程中对于已缓存的组件不会执行 mounted，所以不会有一般的组件的生命周期函数但是又提供了 activated 和 deactivated 钩子函数。</li>
 </ol>
 </li>
-<li><ol>
-<li>的 props 除了 include 和 exclude 还有文档中没有提到的 max，它能控制我们缓存的个数。</li>
+<li><ol start="3">
+<li><keep-alive> 的 props 除了 include 和 exclude 还有文档中没有提到的 max，它能控制我们缓存的个数。</keep-alive></li>
 </ol>
 </li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>5. transition</strong></p>
 <ul>
 <li><ol>
-<li>内置组件</li>
-</ol>
+<li><p>内置组件</p>
 <ul>
-<li>组件和 组件一样，都是 Vue 的内置组件，同样是抽象组件，同样直接实现 render 函数，同样利用了默认插槽。而且 组件是 web 平台独有的</li>
+<li><transition> 组件和 <keep-alive> 组件一样，都是 Vue 的内置组件，同样是抽象组件，同样直接实现 render 函数，同样利用了默认插槽。而且 <transition> 组件是 web 平台独有的</transition></keep-alive></transition></li>
 </ul>
 </li>
-<li><ol>
-<li>transition module</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>transition module</p>
 <ul>
 <li>动画相关的逻辑，过渡动画提供了 2 个时机，一个是 create 和 activate 的时候提供了 entering 进入动画，一个是 remove 的时候提供了 leaving 离开动画</li>
 </ul>
 </li>
-<li><ol>
-<li>entering</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>entering</p>
 <ul>
 <li>主要发生在组件插入后</li>
 </ul>
 </li>
-<li><ol>
-<li>leaving</li>
 </ol>
+</li>
+<li><ol start="4">
+<li><p>leaving</p>
 <ul>
 <li>主要发生在组件销毁前</li>
 </ul>
 </li>
-<li><ol>
-<li>总结</li>
 </ol>
+</li>
+<li><ol start="5">
+<li><p>总结</p>
 <ul>
 <li><ol>
 <li>自动嗅探目标元素是否应用了 CSS 过渡或动画，如果是，在恰当的时机添加/删除 CSS 类名。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>如果过渡组件提供了 JavaScript 钩子函数，这些钩子函数将在恰当的时机被调用。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。</li>
 </ol>
 </li>
-<li>总结<ul>
-<li>所以真正执行动画的是我们写的 CSS 或者是 JavaScript 钩子函数，而 Vue 的 只是帮我们很好地管理了这些 CSS 的添加/删除，以及钩子函数的执行时机。</li>
+<li><p>总结</p>
+<ul>
+<li>所以真正执行动画的是我们写的 CSS 或者是 JavaScript 钩子函数，而 Vue 的 <transition> 只是帮我们很好地管理了这些 CSS 的添加/删除，以及钩子函数的执行时机。</transition></li>
 </ul>
 </li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>6. transition-group</strong></p>
 <ul>
 <li><ol>
-<li>render 函数</li>
-</ol>
+<li><p>render 函数</p>
 <ul>
-<li>组件也是由 render 函数渲染生成 vnode，不同于 组件， 组件非抽象组件，它会渲染成一个真实元素，默认 tag 是 span。</li>
+<li><transition-group> 组件也是由 render 函数渲染生成 vnode，不同于 <transition> 组件，<transition-group> 组件非抽象组件，它会渲染成一个真实元素，默认 tag 是 span。</transition-group></transition></transition-group></li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="2">
 <li>move 过渡实现</li>
 </ol>
 </li>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="3">
+<li><p>总结</p>
 <ul>
-<li>和 组件相比，实现了列表的过渡，以及它会渲染成真实的元素。当我们去修改列表的数据的时候，如果是添加或者删除数据，则会触发相应元素本身的过渡动画，这点和 组件实现效果一样，除此之外 还实现了 move 的过渡效果，让我们的列表过渡动画更加丰富。</li>
+<li><transtion-group> 和 <transition> 组件相比，实现了列表的过渡，以及它会渲染成真实的元素。当我们去修改列表的数据的时候，如果是添加或者删除数据，则会触发相应元素本身的过渡动画，这点和 <transition> 组件实现效果一样，除此之外 <transtion-group> 还实现了 move 的过渡效果，让我们的列表过渡动画更加丰富。</transtion-group></transition></transition></transtion-group></li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
-<h2 id="9-Vue-Router"><a href="#9-Vue-Router" class="headerlink" title="9. Vue-Router"></a>9. Vue-Router</h2><p><a href="https://camo.githubusercontent.com/5ae3a4b3e244aac8345912ff14db6ea0ef1e43ddfd68683ec4a76bab3663db2f/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d666163616565326565303837363766662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/5ae3a4b3e244aac8345912ff14db6ea0ef1e43ddfd68683ec4a76bab3663db2f/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d666163616565326565303837363766662e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="9-Vue-Router"><a href="#9-Vue-Router" class="headerlink" title="9. Vue-Router"></a>9. Vue-Router</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-facaee2ee08767ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. introduction</strong></p>
-<p><a href="https://camo.githubusercontent.com/77c41df5841d5e0976b398f16cc852b026cebd4210f6725bec3a8b656b5f7499/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d383335333832363964343135313465652e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/77c41df5841d5e0976b398f16cc852b026cebd4210f6725bec3a8b656b5f7499/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d383335333832363964343135313465652e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-83538269d41514ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
-<li>Vue-Router 的能力十分强大，它支持 hash、history、abstract 3 种路由方式，提供了 和 2 种组件，还提供了简单的路由配置和一系列好用的 API。注意：本思维导图主要讲的是 hash 模式下的。</li>
+<li>Vue-Router 的能力十分强大，它支持 hash、history、abstract 3 种路由方式，提供了 <router-link> 和 <router-view> 2 种组件，还提供了简单的路由配置和一系列好用的 API。注意：本思维导图主要讲的是 hash 模式下的。</router-view></router-link></li>
 </ul>
 <p><strong>2. 路由注册</strong></p>
-<p><a href="https://camo.githubusercontent.com/e876327f0d7eae6e5925c28f1d1ae45e3bb7ca975def58bd3fc652f2aae2f8e2/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d633230393233626332363937636437362e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/e876327f0d7eae6e5925c28f1d1ae45e3bb7ca975def58bd3fc652f2aae2f8e2/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d633230393233626332363937636437362e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-c20923bc2697cd76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
 <li><ol>
-<li>Vue.use</li>
-</ol>
+<li><p>Vue.use</p>
 <ul>
 <li>Vue 提供了 Vue.use 的全局 API 来注册这些插件，比如注册 VueRouter。</li>
 </ul>
 </li>
-<li><ol>
-<li>路由安装</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>路由安装</p>
 <ul>
 <li><ol>
 <li>VueRouter 本质上是一个类，实现了 install 的静态方法：VueRouter.install = install，当执行 Vue.use(VueRouter) 的时候，实际上就是在执行 install 函数</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>Vue-Router 安装最重要的一步就是利用 Vue.mixin 去把 beforeCreate 和 destroyed 钩子函数注入到每一个组件中。</li>
 </ol>
 </li>
-<li><ol>
-<li>通过 Vue.component 方法定义了全局的 和 2 个组件，这也是为什么我们在写模板的时候可以使用这两个标签</li>
+<li><ol start="3">
+<li>通过 Vue.component 方法定义了全局的 <router-link> 和 <router-view> 2 个组件，这也是为什么我们在写模板的时候可以使用这两个标签</router-view></router-link></li>
 </ol>
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <p><strong>3. VueRouter 对象</strong></p>
-<p><a href="https://camo.githubusercontent.com/9e7a2f60ed45e27194e289a84409f7ff2c54ce751f9fba06ecdd551bd497b793/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323865666637643939643937323566382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/9e7a2f60ed45e27194e289a84409f7ff2c54ce751f9fba06ecdd551bd497b793/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d323865666637643939643937323566382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-28eff7d99d9725f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
 <li><ol>
 <li>VueRouter 的实现是一个类，定义了一些属性和方法。</li>
 </ol>
 </li>
-<li><ol>
-<li>当我们执行 new VueRouter 的时候</li>
-</ol>
+<li><ol start="2">
+<li><p>当我们执行 new VueRouter 的时候</p>
 <ul>
 <li><ol>
 <li>在浏览器不支持 history.pushState 的情况下，根据传入的 fallback 配置参数，决定是否回退到 hash 模式。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>实例化 VueRouter 后会返回它的实例 router</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="3">
 <li>组件在执行 beforeCreate 钩子函数的时候，如果传入了 router 实例，都会执行 router.init 进行初始化。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>然后又会执行 history.transitionTo 方法做路由过渡，进而引出了 matcher 的概念。</li>
 </ol>
 </li>
 </ul>
 <p><strong>4. matcher</strong></p>
-<p><a href="https://camo.githubusercontent.com/350d4a39640942eed038fcd8fdd73de411fc1184c44da689e03a873deb1f31f6/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663936633039356366356561373537302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/350d4a39640942eed038fcd8fdd73de411fc1184c44da689e03a873deb1f31f6/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d663936633039356366356561373537302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-f96c095cf5ea7570.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
 <li><ol>
-<li>createMatcher</li>
-</ol>
+<li><p>createMatcher</p>
 <ul>
 <li>createMatcher 的初始化就是根据路由的配置描述建立映射表，包括路径、名称到路由 record 的映射关系。</li>
 </ul>
 </li>
-<li><ol>
-<li>addRoutes</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>addRoutes</p>
 <ul>
-<li>addRoutes 方法的作用是动态添加路由配置，因为在实际开发中有些场景是不能提前把路由写死的，需要根据一些条件动态添加路由<ul>
-<li>function addRoutes (routes) { createRouteMap(routes, pathList, pathMap, nameMap) }<ul>
+<li><p>addRoutes 方法的作用是动态添加路由配置，因为在实际开发中有些场景是不能提前把路由写死的，需要根据一些条件动态添加路由</p>
+<ul>
+<li><p>function addRoutes (routes) {<br>createRouteMap(routes, pathList, pathMap, nameMap)<br>}</p>
+<ul>
 <li>addRoutes 的方法十分简单，再次调用 createRouteMap 即可，传入新的 routes 配置，由于 pathList、pathMap、nameMap 都是引用类型，执行 addRoutes 后会修改它们的值。</li>
 </ul>
 </li>
@@ -1589,89 +1674,95 @@
 </li>
 </ul>
 </li>
-<li><ol>
-<li>match</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>match</p>
 <ul>
-<li>match 会根据传入的位置和路径计算出新的位置并匹配到相应的路由 record ，然后根据新的位置 和 record 创建新的路径并返回。<ul>
+<li><p>match 会根据传入的位置和路径计算出新的位置并匹配到相应的路由 record ，然后根据新的位置 和 record 创建新的路径并返回。</p>
+<ul>
 <li>通过 matcher 的 match 方法，我们会找到匹配的路径 Route，这个对 Route 的切换，组件的渲染都有非常重要的指导意义。</li>
 </ul>
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 <p><strong>5. 路径切换</strong></p>
-<p><a href="https://camo.githubusercontent.com/bfa124d4a7d5dad02792c7331475340c83e5e82bc453ea37d7df4ec5605ed92d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d396161656639346439386461623932302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/bfa124d4a7d5dad02792c7331475340c83e5e82bc453ea37d7df4ec5605ed92d/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d396161656639346439386461623932302e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-9aaef94d98dab920.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
 <li><ol>
-<li>history.transitionTo</li>
-</ol>
+<li><p>history.transitionTo</p>
 <ul>
 <li><ol>
 <li>前一节我们分析了 matcher 的相关实现，知道它是如何找到匹配的新线路，那么匹配到新线路后，当我们切换路由线路的时候，就会执行到方法 transitionTo。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>拿到新的路径后，那么接下来就会执行 confirmTransition 方法去做真正的切换，由于这个过程可能有一些异步的操作（如异步组件），所以整个 confirmTransition API 设计成带有成功回调函数和失败回调函数。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>拿到 updated、activated、deactivated 3 个 ReouteRecord 数组后，接下来就是路径变换后的一个重要部分，执行一系列的钩子函数，也就是导航守卫。</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>导航守卫</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>导航守卫</p>
 <ul>
-<li>实际上就是发生在路由路径切换的时候，执行的一系列钩子函数。<ul>
-<li>完整的导航解析流程<ul>
+<li><p>实际上就是发生在路由路径切换的时候，执行的一系列钩子函数。</p>
+<ul>
+<li><p>完整的导航解析流程</p>
+<ul>
 <li><ol>
 <li>导航被触发。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>在失活的组件里调用离开守卫。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>调用全局的 beforeEach 守卫。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="4">
 <li>在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="5">
 <li>在路由配置里调用 beforeEnter。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="6">
 <li>解析异步路由组件。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="7">
 <li>在被激活的组件里调用 beforeRouteEnter。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="8">
 <li>调用全局的 beforeResolve 守卫 (2.5+)。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="9">
 <li>导航被确认。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="10">
 <li>调用全局的 afterEach 钩子。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="11">
 <li>触发 DOM 更新。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="12">
 <li>用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。</li>
 </ol>
 </li>
@@ -1681,65 +1772,74 @@
 </li>
 </ul>
 </li>
-<li><ol>
-<li>url ( hash 模式 )</li>
 </ol>
+</li>
+<li><ol start="3">
+<li><p>url ( hash 模式 )</p>
 <ul>
 <li><ol>
 <li>当我们点击 router-link 的时候，实际上最终会执行 router.push。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>push 函数会先执行 this.transitionTo 做路径切换，在切换完成的回调函数中，执行 pushHash 函数</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>pushState 会调用浏览器原生的 history 的 pushState 接口或者 replaceState 接口，更新浏览器的 url 地址，并把当前 url 压入历史栈中。</li>
 </ol>
 </li>
-<li><ol>
-<li>ensureSlash</li>
-</ol>
+<li><ol start="4">
+<li><p>ensureSlash</p>
 <ul>
-<li>开发项目时，打开调试页面 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080</a> 后会自动把 url 修改为 <a href="http://localhost:8080/#/。这是因为在实例化" target="_blank" rel="noopener">http://localhost:8080/#/。这是因为在实例化</a> HashHistory 的时候，构造函数会执行 ensureSlash() 方法，修改了 url 的原因。</li>
+<li>开发项目时，打开调试页面 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 后会自动把 url 修改为 <a href="http://localhost:8080/#/。这是因为在实例化" target="_blank" rel="noopener">http://localhost:8080/#/。这是因为在实例化</a> HashHistory 的时候，构造函数会执行 ensureSlash() 方法，修改了 url 的原因。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="4">
 <li>组件</li>
 </ol>
 </li>
 </ul>
-<p>路由最终的渲染离不开组件，Vue-Router 内置了 组件。 是一个 functional 组件，它的渲染也是依赖 render 函数。</p>
+<p>路由最终的渲染离不开组件，Vue-Router 内置了 <router-view> 组件。<router-view> 是一个 functional 组件，它的渲染也是依赖 render 函数。</router-view></router-view></p>
 <ol>
-<li>是支持嵌套的，回到 render 函数，其中定义了 depth 的概念，它表示 嵌套的深度。</li>
-<li>每个 在渲染的时候，会进行一个循环，就是从当前的 的父节点向上找，一直找到根 Vue 实例，在这个过程，如果碰到了父节点也是 的时候，说明 有嵌套的情况，depth++。遍历完成后，根据当前线路匹配的路径和 depth 找到对应的 RouteRecord，进而找到该渲染的组件。</li>
+<li><router-view> 是支持嵌套的，回到 render 函数，其中定义了 depth 的概念，它表示 <router-view> 嵌套的深度。</router-view></router-view></li>
+<li>每个 <router-view> 在渲染的时候，会进行一个循环，就是从当前的 <router-view> 的父节点向上找，一直找到根 Vue 实例，在这个过程，如果碰到了父节点也是 <router-view> 的时候，说明 <router-view> 有嵌套的情况，depth++。遍历完成后，根据当前线路匹配的路径和 depth 找到对应的 RouteRecord，进而找到该渲染的组件。</router-view></router-view></router-view></router-view></li>
 <li>注册路由实例</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const registerInstance &#x3D; (vm, callVal) &#x3D;&gt; &#123;</span><br><span class="line">  let i &#x3D; vm.$options._parentVnode</span><br><span class="line">  if (isDef(i) &amp;&amp; isDef(i &#x3D; i.data) &amp;&amp; isDef(i &#x3D; i.registerRouteInstance)) &#123;</span><br><span class="line">    i(vm, callVal)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Vue.mixin(&#123;</span><br><span class="line">  beforeCreate () &#123;</span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">    registerInstance(this, this)</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed () &#123;</span><br><span class="line">    registerInstance(this)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>在混入的 beforeCreate 钩子函数中，会执行 registerInstance 方法，进而执行 render 函数中定义的 registerRouteInstance 方法，从而给 matched.instances[name] 赋值当前组件的 vm 实例。</p>
-<ol>
+<ol start="4">
 <li>render 函数的最后根据 component 渲染出对应的组件 vonde：</li>
 </ol>
 <p>return h(component, data, children)</p>
+<ol start="5">
+<li><p>当我们执行 transitionTo 来更改路由线路后，组件是如何重新渲染 ？</p>
 <ol>
-<li>当我们执行 transitionTo 来更改路由线路后，组件是如何重新渲染 ？</li>
-<li>在 Vue 混入的 beforeCreate 钩子函数中，我们把根 Vue 实例的 _route 属性定义成响应式的了。</li>
+<li>在 Vue  混入的 beforeCreate 钩子函数中，我们把根 Vue 实例的 _route 属性定义成响应式的了。</li>
+</ol>
+</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (isDef(this.$options.router)) &#123;</span><br><span class="line">     Vue.util.defineReactive(this, &#39;_route&#39;, this._router.history.current)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>访问 this._routerRoot._route，触发了它的 getter，相当于 对它有依赖，然后再执行完 transitionTo 后，修改 app._route 的时候，又触发了setter，因此会通知 的渲染 watcher 更新，重新渲染组件。</li>
-</ol>
+<ol start="2">
+<li><p>访问 this._routerRoot._route，触发了它的 getter，相当于 <router-view> 对它有依赖，然后再执行完 transitionTo 后，修改 app._route 的时候，又触发了setter，因此会通知 <router-view> 的渲染 watcher 更新，重新渲染组件。</router-view></router-view></p>
 <ul>
-<li><ol>
-<li></li>
+<li><ol start="5">
+<li><router-link>
+
+</router-link></li>
 </ol>
 </li>
 </ul>
-<p>Vue-Router 还内置了另一个组件 ，它支持用户在具有路由功能的应用中（点击）导航。 通过 to 属性指定目标地址，默认渲染成带有正确链接的 标签，可以通过配置 tag 属性生成别的标签。另外，当目标路由成功激活时，链接元素自动设置一个表示激活的 CSS 类名。</p>
+</li>
+</ol>
+<p>Vue-Router 还内置了另一个组件 <router-link>，它支持用户在具有路由功能的应用中（点击）导航。 通过 to 属性指定目标地址，默认渲染成带有正确链接的 <a> 标签，可以通过配置 tag 属性生成别的标签。另外，当目标路由成功激活时，链接元素自动设置一个表示激活的 CSS 类名。</a></router-link></p>
 <ol>
 <li>首先做了路由解析</li>
 <li>router.resolve 计算出最终跳转的 href</li>
@@ -1747,52 +1847,56 @@
 <li>创建了一个守卫函数 handler，最终会监听点击事件或者其它可以通过 prop 传入的事件类型，执行 hanlder 函数，最终执行 router.push 或者 router.replace 函数</li>
 </ol>
 <p>实际上就是执行了 history 的 push 和 replace 方法做路由跳转。</p>
-<ol>
-<li>最后判断当前 tag 是否是 标签， 默认会渲染成 标签，当然我们也可以修改 tag 的 prop 渲染成其他节点，这种情况下会尝试找它子元素的 标签，如果有则把事件绑定到 标签上并添加 href 属性，否则绑定到外层元素本身。</li>
+<ol start="5">
+<li>最后判断当前 tag 是否是 <a> 标签，<router-link> 默认会渲染成 <a> 标签，当然我们也可以修改 tag 的 prop 渲染成其他节点，这种情况下会尝试找它子元素的 <a> 标签，如果有则把事件绑定到 <a> 标签上并添加 href 属性，否则绑定到外层元素本身。</a></a></a></router-link></a></li>
 </ol>
 <ul>
-<li><ol>
-<li>总结</li>
-</ol>
+<li><ol start="6">
+<li><p>总结</p>
 <ul>
 <li>路径变化是路由中最重要的功能，我们要记住以下内容：路由始终会维护当前的线路，路由切换的时候会把当前线路切换到目标线路，切换过程中会执行一系列的导航守卫钩子函数，会更改 url，同样也会渲染对应的组件，切换完毕后会把目标线路更新替换当前线路，这样就会作为下一次的路径切换的依据。</li>
 </ul>
+</li>
+</ol>
 </li>
 </ul>
 <p><strong>6. 总结</strong></p>
 <ul>
 <li>路由始终会维护当前的线路，路由切换的时候会把当前线路切换到目标线路，切换过程中会执行一系列的导航守卫钩子函数，会更改 url，同样也会渲染对应的组件，切换完毕后会把目标线路更新替换当前线路，这样就会作为下一次的路径切换的依据。</li>
 </ul>
-<h2 id="10-Vuex"><a href="#10-Vuex" class="headerlink" title="10. Vuex"></a>10. Vuex</h2><p><a href="https://camo.githubusercontent.com/db3b98e77fa0bb0cd9bbe7258addf97a3fd89f72d56ad276016484271978e5a7/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d353731306633303139656332623138392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/db3b98e77fa0bb0cd9bbe7258addf97a3fd89f72d56ad276016484271978e5a7/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d353731306633303139656332623138392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<h2 id="10-Vuex"><a href="#10-Vuex" class="headerlink" title="10. Vuex"></a>10. Vuex</h2><p><img src="https://upload-images.jianshu.io/upload_images/12890819-5710f3019ec2b189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>1. introduction</strong></p>
-<p><a href="https://camo.githubusercontent.com/8a30f8a8b799b9856b87bed7e48dc691210a024bd4beb279765557f8c23deaed/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d383430353531626435353130323032322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/8a30f8a8b799b9856b87bed7e48dc691210a024bd4beb279765557f8c23deaed/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d383430353531626435353130323032322e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-840551bd55102022.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
-<li>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</li>
-<li>什么是“状态管理模式”？<ul>
+<li><p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
+</li>
+<li><p>什么是“状态管理模式”？</p>
+<ul>
 <li><ol>
 <li>state，驱动应用的数据源；</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>view，以声明方式将 state 映射到视图；</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>actions，响应在 view 上的用户输入导致的状态变化。</li>
 </ol>
 </li>
 </ul>
 </li>
-<li>Vuex 核心思想<ul>
+<li><p>Vuex 核心思想</p>
+<ul>
 <li><ol>
 <li>Vuex 应用的核心就是 store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (state)</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="3">
 <li>你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。</li>
 </ol>
 </li>
@@ -1800,7 +1904,7 @@
 </li>
 </ul>
 <p><strong>2. Vuex 初始化</strong></p>
-<p><a href="https://camo.githubusercontent.com/e0577dd9f101608c87b465d3ee25a322475b19aec06190ec14363b28d13ae168/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d626430633439376634386634343330632e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/e0577dd9f101608c87b465d3ee25a322475b19aec06190ec14363b28d13ae168/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d626430633439376634386634343330632e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-bd0c497f48f4430c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
 <li><ol>
 <li>安装</li>
@@ -1812,17 +1916,16 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  Store,</span><br><span class="line">  install,</span><br><span class="line">  version: &#39;__VERSION__&#39;,</span><br><span class="line">  mapState,</span><br><span class="line">  mapMutations,</span><br><span class="line">  mapGetters,</span><br><span class="line">  mapActions,</span><br><span class="line">  createNamespacedHelpers</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ol>
+<ol start="2">
 <li>和 Vue-Router 一样，Vuex 也同样存在一个静态的 install 方法，它的定义在 src/store.js 中：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export function install (_Vue) &#123;</span><br><span class="line">  if (Vue &amp;&amp; _Vue &#x3D;&#x3D;&#x3D; Vue) &#123;</span><br><span class="line">    if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">      console.error(</span><br><span class="line">        &#39;[vuex] already installed. Vue.use(Vuex) should be called only once.&#39;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Vue &#x3D; _Vue</span><br><span class="line">  applyMixin(Vue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
+<ol start="3">
 <li>install 的逻辑很简单，把传入的 _Vue 赋值给 Vue 并执行了 applyMixin(Vue) 方法，执行 Vue.mixin({ beforeCreate: vuexInit })。</li>
 </ol>
 <p>它其实给 Vue 全局混入了一个 beforeCreate 钩子函数，它的实现非常简单，就是把 options.store 保存在所有组件的 this.$store 中，这个 options.store 就是我们在实例化 Store 对象的实例。</p>
 <ul>
-<li><ol>
+<li><ol start="2">
 <li>Store 实例化</li>
 </ol>
 </li>
@@ -1833,15 +1936,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const store &#x3D; new Vuex.Store(&#123;</span><br><span class="line">    strict: process.env.NODE_ENV !&#x3D;&#x3D; &quot;production&quot;,</span><br><span class="line">    modules: &#123;</span><br><span class="line">        moduleA</span><br><span class="line">    &#125;,</span><br><span class="line">    state: initPageState(),</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">export default store;</span><br></pre></td></tr></table></figure>
 
 <p>Store 对象的构造函数也是一个 class，接收一个对象参数，它包含 actions、getters、state、mutations、modules 等 Vuex 的核心概念</p>
-<ol>
-<li>初始化模块</li>
-<li>Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter，甚至是嵌套子模块——从上至下进行同样方式的分割</li>
+<ol start="2">
+<li><p>初始化模块</p>
+</li>
+<li><p>Vuex 允许我们将 store 分割成模块（module）。每个模块拥有自己的 state、mutation、action、getter，甚至是嵌套子模块——从上至下进行同样方式的分割</p>
+</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- const moduleA &#x3D; &#123;</span><br><span class="line">  state: &#123; ... &#125;,</span><br><span class="line">  mutations: &#123; ... &#125;,</span><br><span class="line">  actions: &#123; ... &#125;,</span><br><span class="line">  getters: &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const moduleB &#x3D; &#123;</span><br><span class="line">  state: &#123; ... &#125;,</span><br><span class="line">  mutations: &#123; ... &#125;,</span><br><span class="line">  actions: &#123; ... &#125;,</span><br><span class="line">  getters: &#123; ... &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const store &#x3D; new Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    a: moduleA,</span><br><span class="line">    b: moduleB</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">store.state.a &#x2F;&#x2F; -&gt; moduleA 的状态</span><br><span class="line">store.state.b &#x2F;&#x2F; -&gt; moduleB 的状态</span><br></pre></td></tr></table></figure>
 
 <p>从数据结构上来看，模块的设计就是一个树型结构，store 本身可以理解为一个 root module，它下面的 modules 就是子模块，Vuex 需要完成这颗树的构建。</p>
 <ul>
-<li><ol>
+<li><ol start="2">
 <li>构建过程的入口</li>
 </ol>
 </li>
@@ -1849,33 +1954,38 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this._modules &#x3D; new ModuleCollection(options)</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>调用 register 方法，通过 const newModule = new Module(rawModule, runtime) 创建了一个 Module 的实例，Module 是用来描述单个模块的类。</li>
-<li>register 首先根据路径获取到父模块，然后再调用父模块的 addChild 方法建立父子关系。</li>
-<li>register 的最后一步，就是遍历当前模块定义中的所有 modules，根据 key 作为 path，递归调用 register 方法，这样就建立父子关系。</li>
+<li><p>调用  register 方法，通过 const newModule = new Module(rawModule, runtime) 创建了一个 Module 的实例，Module 是用来描述单个模块的类。</p>
+</li>
+<li><p>register 首先根据路径获取到父模块，然后再调用父模块的 addChild 方法建立父子关系。</p>
+</li>
+<li><p>register 的最后一步，就是遍历当前模块定义中的所有 modules，根据 key 作为 path，递归调用 register 方法，这样就建立父子关系。</p>
+</li>
 </ol>
 <ul>
-<li><ol>
+<li><ol start="3">
 <li>安装模块</li>
 </ol>
 </li>
 </ul>
-<p>对模块中的 state、getters、mutations、actions 做初始化工作 它的入口代码是：</p>
+<p>对模块中的 state、getters、mutations、actions 做初始化工作<br>它的入口代码是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const state &#x3D; this._modules.root.state;</span><br><span class="line">installModule(this, state, [], this._modules.root);</span><br></pre></td></tr></table></figure>
 
 <ol>
-<li>默认情况下，模块内部的 action、mutation 和 getter 是注册在全局命名空间的——这样使得多个模块能够对同一 mutation 或 action 作出响应。如果我们希望模块具有更高的封装度和复用性，可以通过添加 namespaced: true 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。</li>
-<li>构造了一个本地上下文环境：</li>
+<li><p>默认情况下，模块内部的 action、mutation 和 getter 是注册在全局命名空间的——这样使得多个模块能够对同一 mutation 或 action 作出响应。如果我们希望模块具有更高的封装度和复用性，可以通过添加 namespaced: true 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。</p>
+</li>
+<li><p>构造了一个本地上下文环境：</p>
+</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const local &#x3D; module.context &#x3D; makeLocalContext(store, namespace, path);</span><br></pre></td></tr></table></figure>
 
-<ol>
+<ol start="3">
 <li>registerMutation</li>
 <li>registerAction</li>
 <li>registerGetter</li>
 </ol>
 <p>总结: 所以 installModule 实际上就是完成了模块下的 state、getters、actions、mutations 的初始化工作，并且通过递归遍历的方式，就完成了所有子模块的安装工作。</p>
 <ul>
-<li><ol>
+<li><ol start="4">
 <li>初始化 store._vm</li>
 </ol>
 </li>
@@ -1889,50 +1999,55 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if (store.strict) &#123;</span><br><span class="line">  enableStrictMode(store)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function enableStrictMode (store) &#123;</span><br><span class="line">  store._vm.$watch(function () &#123; return this._data.$$state &#125;, () &#x3D;&gt; &#123;</span><br><span class="line">    if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">      assert(store._committing, &#96;Do not mutate vuex store state outside mutation handlers.&#96;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, &#123; deep: true, sync: true &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><ol>
+<li><ol start="3">
 <li>总结</li>
 </ol>
 </li>
 </ul>
 <p>我们要把 store 想象成一个数据仓库，为了更方便的管理仓库，我们把一个大的 store 拆成一些 modules，整个 modules 是一个树型结构。每个 module 又分别定义了 state，getters，mutations、actions，我们也通过递归遍历模块的方式都完成了它们的初始化。为了 module 具有更高的封装度和复用性，还定义了 namespace 的概念。最后我们还定义了一个内部的 Vue 实例，用来建立 state 到 getters 的联系，并且可以在严格模式下监测 state 的变化是不是来自外部，确保改变 state 的唯一途径就是显式地提交 mutation。</p>
 <p><strong>3. API</strong></p>
-<p><a href="https://camo.githubusercontent.com/def429ab544c06acefd9d475a0bca20852366199c9ef05df7d6f6ccabd57fb2b/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d616635616664616230626437373531342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/def429ab544c06acefd9d475a0bca20852366199c9ef05df7d6f6ccabd57fb2b/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d616635616664616230626437373531342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-af5afdab0bd77514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
 <li><ol>
-<li>数据获取</li>
-</ol>
+<li><p>数据获取</p>
 <ul>
-<li>Vuex 最终存储的数据是在 state 上的，我们之前分析过在 store.state 存储的是 root state，那么对于模块上的 state，假设我们有 2 个嵌套的 modules，它们的 key 分别为 a 和 b，我们可以通过 store.state.a.b.xxx 的方式去获取。<ul>
+<li><p>Vuex 最终存储的数据是在 state 上的，我们之前分析过在 store.state 存储的是 root state，那么对于模块上的 state，假设我们有 2 个嵌套的 modules，它们的 key 分别为 a 和 b，我们可以通过 store.state.a.b.xxx 的方式去获取。</p>
+<ul>
 <li>在递归执行 installModule 的过程中，就完成了整个 state 的建设，这样我们就可以通过 module 名的 path 去访问到一个深层 module 的 state。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><ol>
-<li>数据存储</li>
 </ol>
+</li>
+<li><ol start="2">
+<li><p>数据存储</p>
 <ul>
 <li><ol>
 <li>Vuex 对数据存储的存储本质上就是对 state 做修改，并且只允许我们通过提交 mutaion 的形式去修改 state。</li>
 </ol>
 </li>
-<li><ol>
+<li><ol start="2">
 <li>mutation 必须是同步函数</li>
 </ol>
 </li>
-<li><ol>
-<li>action</li>
-</ol>
+<li><ol start="3">
+<li><p>action</p>
 <ul>
-<li>action 类似于 mutation，不同在于 action 提交的是 mutation，而不是直接操作 state，并且它可以包含任意异步操作。<ul>
+<li><p>action 类似于 mutation，不同在于 action 提交的是 mutation，而不是直接操作 state，并且它可以包含任意异步操作。</p>
+<ul>
 <li>action 比我们自己写一个函数执行异步操作然后提交 muataion 的好处是在于它可以在参数中获取到当前模块的一些方法和状态，Vuex 帮我们做好了这些。</li>
 </ul>
 </li>
 </ul>
 </li>
+</ol>
+</li>
 </ul>
 </li>
-<li><ol>
+</ol>
+</li>
+<li><ol start="3">
 <li>语法糖</li>
 </ol>
 </li>
@@ -1947,7 +2062,7 @@
 <p>主要原因是在 Vuex 初始化执行 installModule 的过程中，初始化了这个映射表：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function installModule (store, rootState, path, module, hot) &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  const namespace &#x3D; store._modules.getNamespace(path)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; register in namespace map</span><br><span class="line">  if (module.namespaced) &#123;</span><br><span class="line">    store._modulesNamespaceMap[namespace] &#x3D; module</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ol>
+<ol start="2">
 <li>mapGetters</li>
 </ol>
 <p>mapGetters 的用法：</p>
@@ -1956,7 +2071,7 @@
 <p>和 mapState 类似，mapGetters 是将 store 中的 getter 映射到局部计算属性</p>
 <p>mapGetters 也同样支持 namespace，如果不写 namespace ，访问一个子 module 的属性需要写很长的 key，一旦我们使用了 namespace，就可以方便我们的书写，每个 mappedGetter 的实现实际上就是取 this.$store.getters[val]。</p>
 <ul>
-<li><ol>
+<li><ol start="3">
 <li>mapMutations</li>
 </ol>
 </li>
@@ -1967,7 +2082,7 @@
 
 <p>mappedMutation 同样支持了 namespace，并且支持了传入额外的参数 args，作为提交 mutation 的 payload，最终就是执行了 store.commit 方法，并且这个 commit 会根据传入的 namespace 映射到对应 module 的 commit 上。</p>
 <ul>
-<li><ol>
+<li><ol start="4">
 <li>mapActions</li>
 </ol>
 </li>
@@ -1975,7 +2090,7 @@
 <p>在组件中使用 this.$store.dispatch(‘xxx’) 提交 action，或者使用 mapActions 辅助函数将组件中的 methods 映射为 store.dispatch 的调用。</p>
 <p>mapActions 在用法上和 mapMutations 几乎一样，实现也很类似，和 mapMutations 的实现几乎一样，不同的是把 commit 方法换成了 dispatch。</p>
 <ul>
-<li><ol>
+<li><ol start="4">
 <li>动态更新模块</li>
 </ol>
 </li>
@@ -1985,7 +2100,7 @@
 </ol>
 <p>在有一些场景下，我们需要动态去注入一些新的模块，Vuex 提供了模块动态注册功能，在 store 上提供了一个 registerModule 的 API。</p>
 <p>registerModule 支持传入一个 path 模块路径 和 rawModule 模块定义，首先执行 register 方法扩展我们的模块树，接着执行 installModule 去安装模块，最后执行 resetStoreVM 重新实例化 store._vm，并销毁旧的 store._vm。</p>
-<ol>
+<ol start="2">
 <li>动态卸载模块 unregisterModule</li>
 </ol>
 <p>相对的，有动态注册模块的需求就有动态卸载模块的需求，Vuex 提供了模块动态卸载功能，在 store 上提供了一个 unregisterModule 的 API。</p>
@@ -1995,7 +2110,7 @@
 <li>该方法就是把 store 下的对应存储的 _actions、_mutations、_wrappedGetters 和 _modulesNamespaceMap 都清空，然后重新执行 installModule 安装所有模块以及 resetStoreVM 重置 store._vm。</li>
 </ol>
 <p><strong>4. 插件</strong></p>
-<p><a href="https://camo.githubusercontent.com/0485f984c93b835629b9e96e46c43671c0895978a1a60b72b07347d2eae0b21e/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d656262346337653761393930333934392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/0485f984c93b835629b9e96e46c43671c0895978a1a60b72b07347d2eae0b21e/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31323839303831392d656262346337653761393930333934392e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="img"></a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-ebb4c7e7a9903949.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>Vuex 除了提供的存取能力，还提供了一种插件能力，让我们可以监控 store 的变化过程来做一些事情。</p>
 <ul>
 <li><ol>
@@ -2003,10 +2118,13 @@
 </ol>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const &#123;</span><br><span class="line">  plugins &#x3D; [],</span><br><span class="line">  strict &#x3D; false</span><br><span class="line">&#125; &#x3D; options</span><br><span class="line">&#x2F;&#x2F; apply plugins</span><br><span class="line">plugins.forEach(plugin &#x3D;&gt; plugin(this))；</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><ol>
+<pre><code>const {
+  plugins = [],
+  strict = false
+} = options
+// apply plugins
+plugins.forEach(plugin =&gt; plugin(this))；</code></pre><ul>
+<li><ol start="2">
 <li>Logger 插件</li>
 </ol>
 </li>
@@ -2014,12 +2132,43 @@
 <ol>
 <li>Logger 函数，它相当于订阅了 mutation 的提交，它的 prevState 表示之前的 state，nextState 表示提交 mutation 后的 state，这两个 state 都需要执行 deepCopy 方法拷贝一份对象的副本，这样对他们的修改就不会影响原始 store.state。</li>
 <li>接下来就构造一些格式化的消息，打印出一些时间消息 message， 之前的状态 prevState，对应的 mutation 操作 formattedMutation 以及下一个状态 nextState。</li>
+</ol>
+<ol start="3">
 <li>最后更新 prevState = nextState，为下一次提交 mutation 输出日志做准备。</li>
 <li>总结</li>
 </ol>
 <ul>
 <li>Vuex 从设计上支持了插件，让我们很好地从外部追踪 store 内部的变化，Logger 插件在我们的开发阶段也提供了很好地指引作用。</li>
 </ul>
+<h2 id="11-已完成与待完成"><a href="#11-已完成与待完成" class="headerlink" title="11. 已完成与待完成"></a>11. 已完成与待完成</h2><p><strong>已完成</strong>：</p>
+<ul>
+<li>思维导图</li>
+</ul>
+<p><strong>待完成</strong>：</p>
+<ul>
+<li>继续完善 思维导图</li>
+<li>添加 流程图</li>
+</ul>
+<p>因为该项目都是业余时间做的，笔者能力与时间也有限，很多细节还没有完善。</p>
+<p>如果你是大神，或者对 vue 源码有更好的见解，<strong>欢迎提交 issue ，大家一起交流学习，一起打造一个像样的 讲解 Vue 全家桶源码架构 的开源项目</strong>。</p>
+<h2 id="12-总结"><a href="#12-总结" class="headerlink" title="12. 总结"></a>12. 总结</h2><p>以上内容是笔者最近学习 Vue 源码时的收获与所做的笔记，本文内容大多是开源项目 <strong>Vue.js 技术揭秘</strong> 的内容，只不过是以思维导图的形式来展现，内容有省略，还加入了笔者的一点理解。</p>
+<p>笔者之所以采用思维导图的形式来记录所学内容，是因为思维导图更能反映知识体系与结构，更能使人形成完整的知识架构，知识一旦形成一个体系，就会容易理解和不易忘记。</p>
+<blockquote>
+<p><strong>注意</strong>：文章的图片可能上传时会经过压缩，可能有点模糊，不过本文用到的 所有 <strong>超清图片</strong> 都已经放在 <a href="https://github.com/biaochenxuying/vue-family-mindmap" target="_blank" rel="noopener">github</a> 上，而且还有 <strong>pdf 格式、markdown 语法、思维导图 的原文件</strong>，自己可以根据 <strong>思维导图原文件</strong> 导出相应的超清图片。</p>
+</blockquote>
+<p>笔者文章常更地址：</p>
+<p><a href="https://mp.weixin.qq.com/s/-gwh7z1xjpBQ4IzD1ZJd-g" target="_blank" rel="noopener">1. 微信公众号</a><br><a href="https://github.com/biaochenxuying/blog" target="_blank" rel="noopener">2. github</a><br><a href="https://biaochenxuying.cn/" target="_blank" rel="noopener">3. 全栈修炼</a></p>
+<h2 id="13-最后"><a href="#13-最后" class="headerlink" title="13. 最后"></a>13. 最后</h2><blockquote>
+<p>传承至善</p>
+</blockquote>
+<p>如果你觉得本文章或者项目对你有启发，请给个赞或者  star 吧，点赞是一种美德，谢谢。</p>
+<p>参考开源项目：</p>
+<ol>
+<li><a href="https://github.com/ustbhuangyi/vue-analysis" target="_blank" rel="noopener">https://github.com/ustbhuangyi/vue-analysis</a></li>
+<li><a href="https://github.com/HcySunYang/vue-design" target="_blank" rel="noopener">https://github.com/HcySunYang/vue-design</a></li>
+</ol>
+<p>关注公众号并回复 <strong>福利</strong> 可领取免费学习资料，福利详情请猛戳：  <a href="https://biaochenxuying.cn/articleDetail?article_id=5bf4ba3c245730373274df61" target="_blank" rel="noopener">Python、Java、Linux、Go、node、vue、react、javaScript</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/12890819-bce9560fec5c49ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="全栈修炼"></p>
 
       
     </div>
@@ -2035,14 +2184,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/vue/" rel="tag"># vue</a>
-          
-            <a href="/tags/vue%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" rel="tag"># vue思维导图</a>
-          
-        </div>
-      
 
       
       
@@ -2052,18 +2193,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/01/javascript/%E4%BB%8Ees%E8%A7%84%E8%8C%83%E6%9D%A5%E7%9C%8Bthis/" rel="next" title="从ECMAScript规范解读this">
-                <i class="fa fa-chevron-left"></i> 从ECMAScript规范解读this
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/" rel="prev" title="diff算法">
-                diff算法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/24/vue/vue%E6%BA%90%E7%A0%81%E6%80%BB%E7%BB%93%E8%BD%AC%E8%BD%BD/README/" rel="prev" title="VUE源码总结--转载">
+                VUE源码总结--转载 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -2145,7 +2282,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2200,7 +2337,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-项目目录"><span class="nav-number">1.</span> <span class="nav-text">1. 项目目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-源码构建，基于-Rollup"><span class="nav-number">2.</span> <span class="nav-text">2. 源码构建，基于 Rollup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-vue-本质：构造函数"><span class="nav-number">3.</span> <span class="nav-text">3. vue 本质：构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据驱动"><span class="nav-number">4.</span> <span class="nav-text">4. 数据驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-组件化"><span class="nav-number">5.</span> <span class="nav-text">5. 组件化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-深入响应式原理"><span class="nav-number">6.</span> <span class="nav-text">6. 深入响应式原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-编译"><span class="nav-number">7.</span> <span class="nav-text">7. 编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-扩展"><span class="nav-number">8.</span> <span class="nav-text">8. 扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Vue-Router"><span class="nav-number">9.</span> <span class="nav-text">9. Vue-Router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Vuex"><span class="nav-number">10.</span> <span class="nav-text">10. Vuex</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-项目目录"><span class="nav-number">1.</span> <span class="nav-text">1. 项目目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-源码构建，基于-Rollup"><span class="nav-number">2.</span> <span class="nav-text">2. 源码构建，基于 Rollup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-vue-本质：构造函数"><span class="nav-number">3.</span> <span class="nav-text">3. vue 本质：构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据驱动"><span class="nav-number">4.</span> <span class="nav-text">4. 数据驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-组件化"><span class="nav-number">5.</span> <span class="nav-text">5. 组件化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-深入响应式原理"><span class="nav-number">6.</span> <span class="nav-text">6. 深入响应式原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-编译"><span class="nav-number">7.</span> <span class="nav-text">7. 编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-扩展"><span class="nav-number">8.</span> <span class="nav-text">8. 扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Vue-Router"><span class="nav-number">9.</span> <span class="nav-text">9. Vue-Router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Vuex"><span class="nav-number">10.</span> <span class="nav-text">10. Vuex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-已完成与待完成"><span class="nav-number">11.</span> <span class="nav-text">11. 已完成与待完成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-总结"><span class="nav-number">12.</span> <span class="nav-text">12. 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-最后"><span class="nav-number">13.</span> <span class="nav-text">13. 最后</span></a></li></ol></div>
             
 
           </div>

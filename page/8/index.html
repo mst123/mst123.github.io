@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/javascript/%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/javascript/%E9%97%AD%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/16/javascript/%E4%BD%9C%E7%94%A8%E5%9F%9F/" itemprop="url">词法作用域与动态作用域</a></h1>
+                <a class="post-title-link" href="/2021/05/16/javascript/%E9%97%AD%E5%8C%85/" itemprop="url">闭包</a></h1>
         
 
         <div class="post-meta">
@@ -359,8 +359,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/%E4%BD%9C%E7%94%A8%E5%9F%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">作用域</span>
+                  <a href="/categories/javascript/%E9%97%AD%E5%8C%85/" itemprop="url" rel="index">
+                    <span itemprop="name">闭包</span>
                   </a>
                 </span>
 
@@ -398,12 +398,12 @@
       
         
           
-          词法作用域词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变（大部分情况下是这样的）。
-123456789function foo() &#123;  console.log( a ); &#x2F;
+          看着简单，实际隐藏了很多东西
+123456789101112131415function count()&#123;    let countNum &#x3D; 0    return () &#x3D;&gt; &#123;        return ++countNum    &#125;&
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/javascript/%E4%BD%9C%E7%94%A8%E5%9F%9F/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/javascript/%E9%97%AD%E5%8C%85/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -614,166 +614,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/javascript/%E9%97%AD%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/16/javascript/%E9%97%AD%E5%8C%85/" itemprop="url">闭包</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/%E9%97%AD%E5%8C%85/" itemprop="url" rel="index">
-                    <span itemprop="name">闭包</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          看着简单，实际隐藏了很多东西
-123456789101112131415function count()&#123;    let countNum &#x3D; 0    return () &#x3D;&gt; &#123;        return ++countNum    &#125;&
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/javascript/%E9%97%AD%E5%8C%85/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/es6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -874,6 +714,154 @@ Object.is()ES5 比较两个值是否相等，只有两个运算符：相等运�
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/05/16/es6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/es6/%E5%A3%B0%E6%98%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/16/es6/%E5%A3%B0%E6%98%8E/" itemprop="url">ES6详细内容参照 阮一峰的ES6深入浅出</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/16/es6/%E5%A3%B0%E6%98%8E/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1051,154 +1039,6 @@ Object.getOwnPropertyNames()
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2021/05/16/es6/%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%96%B9%E6%B3%95/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/es6/%E5%A3%B0%E6%98%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/16/es6/%E5%A3%B0%E6%98%8E/" itemprop="url">ES6详细内容参照 阮一峰的ES6深入浅出</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/es6/%E5%A3%B0%E6%98%8E/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1545,6 +1385,156 @@ Object.getOwnPropertyNames()
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/css/%E8%9D%89%E5%8E%9F%E5%88%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/16/css/%E8%9D%89%E5%8E%9F%E5%88%99/" itemprop="url">蝉原则</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          “蝉原则”与CSS3随机多背景随机圆角等效果什么是“蝉原则”？“蝉原则”，英文称作“cicada principle”，是一种让事物的重复出现符合“自然随机性”的规则，为什么这么说呢？  
+“蝉原则”源自于北美，中国似乎并未有这样的说法，这背后是有有故事的：  
+北美和东亚蝉的种群是不一样的，在东亚
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/16/css/%E8%9D%89%E5%8E%9F%E5%88%99/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/css/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1709,7 +1699,7 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/css/%E8%9D%89%E5%8E%9F%E5%88%99/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/css/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1728,7 +1718,7 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/16/css/%E8%9D%89%E5%8E%9F%E5%88%99/" itemprop="url">蝉原则</a></h1>
+                <a class="post-title-link" href="/2021/05/16/css/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/" itemprop="url">层叠上下文-张鑫旭</a></h1>
         
 
         <div class="post-meta">
@@ -1802,13 +1792,18 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
       
         
           
-          “蝉原则”与CSS3随机多背景随机圆角等效果什么是“蝉原则”？“蝉原则”，英文称作“cicada principle”，是一种让事物的重复出现符合“自然随机性”的规则，为什么这么说呢？  
-“蝉原则”源自于北美，中国似乎并未有这样的说法，这背后是有有故事的：  
-北美和东亚蝉的种群是不一样的，在东亚
+          
+转载于  张鑫旭
+
+简短总结什么是层叠上下文​    层叠上下文，英文称作”stacking context”. 是HTML中的一个三维的概念。简单来说就是一个容器，比普通元素高一个层级
+如何产生一个层叠上下文
+如何创建层叠上下文(MDN)
+文档根元素（&lt;html&gt;）；
+positio
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/16/css/%E8%9D%89%E5%8E%9F%E5%88%99/#more" rel="contents">
+            <a class="btn" href="/2021/05/16/css/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1900,7 +1895,7 @@ Style：计算样式，这个过程是根据 CSS 选择器，对每个 DOM 元�
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
