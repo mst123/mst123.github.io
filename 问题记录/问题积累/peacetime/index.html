@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="问题记录," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1 有效解决setTimeout跨级传参数12功能：修改 window.setTimeout，使之可以传递参数和对象参数 使用方法： setTimeout(回调函数,时间,参数1,...,参数n) 2 单击和双击的冲突问题在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。解决该问题可以通过定时器解决 1234567891011var TimeFn &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工作中遇到的-小-问题记录">
+<meta property="og:url" content="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="1 有效解决setTimeout跨级传参数12功能：修改 window.setTimeout，使之可以传递参数和对象参数 使用方法： setTimeout(回调函数,时间,参数1,...,参数n) 2 单击和双击的冲突问题在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。解决该问题可以通过定时器解决 1234567891011var TimeFn &#x3D;">
+<meta property="og:image" content="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/require1.png">
+<meta property="og:image" content="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/form1.jpg">
+<meta property="og:image" content="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/form2.jpg">
+<meta property="article:published_time" content="2021-05-17T07:49:13.772Z">
+<meta property="article:modified_time" content="2021-08-13T10:20:40.981Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="问题记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/require1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/问题记录/问题积累/peacetime/"/>
+
+
+
+
+
+  <title>工作中遇到的-小-问题记录 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">工作中遇到的-小-问题记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-17T15:49:13+08:00">
+                2021-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index">
+                    <span itemprop="name">问题记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-有效解决setTimeout跨级传参数"><a href="#1-有效解决setTimeout跨级传参数" class="headerlink" title="1 有效解决setTimeout跨级传参数"></a>1 有效解决setTimeout跨级传参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">功能：修改 window.setTimeout，使之可以传递参数和对象参数 </span><br><span class="line">使用方法： setTimeout(回调函数,时间,参数1,...,参数n)</span><br></pre></td></tr></table></figure>
+<h2 id="2-单击和双击的冲突问题"><a href="#2-单击和双击的冲突问题" class="headerlink" title="2 单击和双击的冲突问题"></a>2 单击和双击的冲突问题</h2><p>在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。<br>解决该问题可以通过定时器解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var TimeFn &#x3D; null;</span><br><span class="line">$(&#39;#box&#39;).click(function () &#123;</span><br><span class="line">    clearTimeout(TimeFn);</span><br><span class="line">    TimeFn &#x3D; setTimeout(function()&#123;</span><br><span class="line">        console.log(&#39;click&#39;)</span><br><span class="line">    &#125;,100);</span><br><span class="line">&#125;);</span><br><span class="line">$(&#39;#box&#39;).dblclick(function () &#123;</span><br><span class="line">    clearTimeout(TimeFn);</span><br><span class="line">    console.log(&#39;dbclick&#39;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当定时器延迟启动的时间小于300毫秒，第一个单击事件无法被抹消，发生事件为 单击-双击<br>（第二个单击事件和双击事件触发的时间隔间几乎为0，延迟时间对它没有影响）<br>当定时器延迟启动的事件大于300毫秒，第一个单击事件可以被抹消，发生事件为 双击</p>
+<h2 id="3-jQuery-事件传参"><a href="#3-jQuery-事件传参" class="headerlink" title="3 jQuery 事件传参"></a>3 jQuery 事件传参</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;js&#x2F;jquery-2.1.1.js&quot; type&#x3D;&quot;text&#x2F;javascript&quot; charset&#x3D;&quot;utf-8&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    function Ceshi()&#123;</span><br><span class="line">      this.a&#x3D;1;</span><br><span class="line">      this.b&#x3D;2;</span><br><span class="line">      this.c&#x3D;3;</span><br><span class="line">      this.d&#x3D;4;    </span><br><span class="line">    &#125;</span><br><span class="line">    Ceshi.prototype.aa&#x3D;function()&#123;</span><br><span class="line">      var _this&#x3D;this;</span><br><span class="line">&#x2F;&#x2F;    $(&#39;input&#39;).on(&#39;click&#39;,&#123;e:_this&#125;,this.bb) 用此方法可以拿到</span><br><span class="line">      $(&#39;input&#39;).on(&#39;click&#39;,this.bb).bind(this)</span><br><span class="line">    &#125;</span><br><span class="line">    Ceshi.prototype.bb&#x3D;function(evt)&#123;               </span><br><span class="line">      console.log(this.b)&#x2F;&#x2F; undefined</span><br><span class="line">&#x2F;&#x2F;    console.log(_this.b) &#x2F;&#x2F; _this is not defined</span><br><span class="line">&#x2F;&#x2F;    console.log(evt.data.e.b)   &#x2F;&#x2F;用此方法可以拿到</span><br><span class="line">&#x2F;&#x2F;    console.log(evt.clientX)</span><br><span class="line">    &#125;</span><br><span class="line">    var demo&#x3D;new Ceshi()</span><br><span class="line">    demo.aa()</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="4-ajax-同步异步"><a href="#4-ajax-同步异步" class="headerlink" title="4 ajax 同步异步"></a>4 ajax 同步异步</h2><p>ajax异步请求，不会按上下顺序执行，注意数组操作，以防错位，可以使用同步</p>
+<h2 id="5-利用元素记录信息"><a href="#5-利用元素记录信息" class="headerlink" title="5 利用元素记录信息"></a>5 利用元素记录信息</h2><p>利用JSON.stringfiy 可以将复杂json数据存入元素中，利用JSON.parse可以拿出</p>
+<h2 id="6-窗口大小改变事件"><a href="#6-窗口大小改变事件" class="headerlink" title="6 窗口大小改变事件"></a>6 窗口大小改变事件</h2><p>window.onresize以最后一个函数为准， $(window).resize(function(){})，可以同时存在多个</p>
+<h2 id="7-判断一个对象是否存在的方法"><a href="#7-判断一个对象是否存在的方法" class="headerlink" title="7 判断一个对象是否存在的方法"></a>7 判断一个对象是否存在的方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (typeof myObj &#x3D;&#x3D; &quot;undefined&quot;) &#123;</span><br><span class="line">　var myObj &#x3D; &#123; &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是目前使用最广泛的判断javascript对象是否存在的方法。</p>
+</blockquote>
+<h2 id="8-深拷贝函数，可以复制对象中的函数及数组（很全面）"><a href="#8-深拷贝函数，可以复制对象中的函数及数组（很全面）" class="headerlink" title="8 深拷贝函数，可以复制对象中的函数及数组（很全面）"></a>8 深拷贝函数，可以复制对象中的函数及数组（很全面）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy(p, c) &#123;</span><br><span class="line">  var c &#x3D; c || &#123;&#125;;</span><br><span class="line">  for (var i in p) &#123;</span><br><span class="line">    if(! p.hasOwnProperty(i))&#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    if (typeof p[i] &#x3D;&#x3D;&#x3D; &#39;object&#39;) &#123;</span><br><span class="line">      c[i] &#x3D; (p[i].constructor &#x3D;&#x3D;&#x3D; Array) ? [] : &#123;&#125;;</span><br><span class="line">      deepCopy(p[i], c[i]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      c[i] &#x3D; p[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent &#x3D; &#123;name: &#39;foo&#39;, birthPlaces: [&#39;北京&#39;,&#39;上海&#39;,&#39;香港&#39;]&#125;</span><br><span class="line">var Child &#x3D; deepCopy(Parent);</span><br></pre></td></tr></table></figure>
+<h2 id="9-‘undefined’-和-undefined-使用区别"><a href="#9-‘undefined’-和-undefined-使用区别" class="headerlink" title="9  ‘undefined’ 和 undefined 使用区别"></a>9  ‘undefined’ 和 undefined 使用区别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;</span><br><span class="line">     a:1, </span><br><span class="line">&#125;</span><br><span class="line">console.log(obj.b &#x3D;&#x3D; &#39;undefined&#39;) &#x2F;&#x2F;  false</span><br><span class="line">console.log(obj.b &#x3D;&#x3D; undefined) &#x2F;&#x2F;  true 判断元素属性是否存在的常用方法</span><br><span class="line">console.log(typeof obj.b &#x3D;&#x3D;&#39;undefined&#39;)  &#x2F;&#x2F;true</span><br><span class="line">console.log(typeof ob)        &#x2F;&#x2F;  &#39;undefined&#39;</span><br><span class="line">console.log(typeof ob &#x3D;&#x3D; &#39;undefined&#39;) &#x2F;&#x2F; true  此为最常用的判断元素是否存在的方法</span><br><span class="line">console.log(typeof ob &#x3D;&#x3D; undefined) &#x2F;&#x2F;  false</span><br></pre></td></tr></table></figure>
+<h2 id="10-padding-bottom"><a href="#10-padding-bottom" class="headerlink" title="10 padding-bottom"></a>10 padding-bottom</h2><p>占位防止图片加载过程中的抖动 % 定义基于父元素宽度的百分比下内边距</p>
+<h2 id="11-siblings-兄弟元素-且包括它本身"><a href="#11-siblings-兄弟元素-且包括它本身" class="headerlink" title="11 siblings() 兄弟元素 且包括它本身"></a>11 siblings() 兄弟元素 且包括它本身</h2><h2 id="12-撑开父元素宽度超过父元素外层宽度的方法"><a href="#12-撑开父元素宽度超过父元素外层宽度的方法" class="headerlink" title="12 撑开父元素宽度超过父元素外层宽度的方法"></a>12 撑开父元素宽度超过父元素外层宽度的方法</h2><p>父元素 white-space: nowrap;  内部元素 display: inline-block; </p>
+<h2 id="13-pointer-events"><a href="#13-pointer-events" class="headerlink" title="13 pointer-events"></a>13 pointer-events</h2><p>更像是JavaScript，它能够：</p>
+<ul>
+<li>阻止用户的点击动作产生任何效果</li>
+<li>阻止缺省鼠标指针的显示</li>
+<li>阻止CSS里的 hover 和 active 状态的变化触发事件</li>
+<li>阻止JavaScript点击动作触发的事件<br>pointer-events: none 顾名思义，就是鼠标事件拜拜的意思。元素应用了该 CSS 属性，链接啊，点击啊什么的都变成了 “浮云牌酱油”。pointer-events: none 的作用是让元素实体 “虚化”。例如一个应用 pointer-events: none 的按钮元素，则我们在页面上看到的这个按钮，只是一个虚幻的影子而已，您可以理解为海市蜃楼，幽灵的躯体。当我们用手触碰它的时候可以轻易地没有任何感觉地从中穿过去。<h2 id="14-switch需要注意的地方，没有break的情况"><a href="#14-switch需要注意的地方，没有break的情况" class="headerlink" title="14 switch需要注意的地方，没有break的情况"></a>14 switch需要注意的地方，没有break的情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function handle(num)&#123;</span><br><span class="line">  switch (num)&#123;</span><br><span class="line">    case 1:</span><br><span class="line">      console.log(1)</span><br><span class="line">    case 2:</span><br><span class="line">      console.log(2)</span><br><span class="line">    case 3:</span><br><span class="line">      console.log(3)</span><br><span class="line">    case 4:</span><br><span class="line">      console.log(4)</span><br><span class="line">    case 5:</span><br><span class="line">      console.log(5)</span><br><span class="line">    case 6:</span><br><span class="line">      console.log(6)</span><br><span class="line">    default:</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">handle(3)   &#x2F;&#x2F; 3 4 5 6</span><br></pre></td></tr></table></figure>
+没有break的情况下，从<strong>满足条件开始</strong>一直会向下执行，无视case，直至break停止<h2 id="15-设置position-absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素"><a href="#15-设置position-absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素" class="headerlink" title="15 设置position absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素"></a>15 设置position absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素</h2><h2 id="16-js中如何判断属性是对象实例中的属性还是原型中的属性"><a href="#16-js中如何判断属性是对象实例中的属性还是原型中的属性" class="headerlink" title="16 js中如何判断属性是对象实例中的属性还是原型中的属性"></a>16 js中如何判断属性是对象实例中的属性还是原型中的属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function hasPrototypeProperty(obj, name) &#123;</span><br><span class="line">  return !obj.hasOwnProperty(name) &amp;&amp; (name in obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+当属性存在对象实例上的时候，函数返回false，表示该属性不是存在原型上，当属性存在原型上的时候，函数返回true。<h2 id="17-vue中-dispath-支持promise-和-commit"><a href="#17-vue中-dispath-支持promise-和-commit" class="headerlink" title="17 vue中 dispath(支持promise) 和 commit"></a>17 vue中 dispath(支持promise) 和 commit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this.$store.dispatch(&#39;LoginByUsername&#39;, this.loginForm).then(() &#x3D;&gt; &#123;</span><br><span class="line">  this.$router.push(&#123; path: &#39;&#x2F;&#39; &#125;); &#x2F;&#x2F;登录成功之后重定向到首页</span><br><span class="line">&#125;).catch(err &#x3D;&gt; &#123;</span><br><span class="line">  this.$message.error(err); &#x2F;&#x2F;登录失败提示错误</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LoginByUsername(&#123; commit &#125;, userInfo) &#123;</span><br><span class="line">  const username &#x3D; userInfo.username.trim()</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    loginByUsername(username, userInfo.password).then(response &#x3D;&gt; &#123;</span><br><span class="line">      const data &#x3D; response.data</span><br><span class="line">      Cookies.set(&#39;Token&#39;, response.data.token) &#x2F;&#x2F;登录成功后将token存储在cookie之中</span><br><span class="line">      commit(&#39;SET_TOKEN&#39;, data.token)</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;).catch(error &#x3D;&gt; &#123;</span><br><span class="line">      reject(error)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="18-变量提升也有优先级-函数声明-gt-arguments-gt-变量声明"><a href="#18-变量提升也有优先级-函数声明-gt-arguments-gt-变量声明" class="headerlink" title="18 变量提升也有优先级, 函数声明 &gt; arguments &gt; 变量声明"></a>18 变量提升也有优先级, 函数声明 &gt; arguments &gt; 变量声明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">console.log(c);</span><br><span class="line">function c(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  var a &#x3D; 3;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;function c()&#123;...&#125;</span><br><span class="line">&#x2F;&#x2F;案例2 </span><br><span class="line">console.log(c);</span><br><span class="line">var c &#x3D; function (a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  var a &#x3D; 3;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;undefined</span><br></pre></td></tr></table></figure>
+重复声明会被忽略<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo(); &#x2F;&#x2F; 1</span><br><span class="line">var foo;</span><br><span class="line">function foo() &#123; console.log( 1 ); &#125;</span><br><span class="line">foo &#x3D; function() &#123; console.log( 2 ); &#125;;</span><br></pre></td></tr></table></figure>
+注意，var foo 尽管出现在 function foo()… 的声明之前，<strong>但它是重复的声明（因此被忽略了）</strong>，因为函数声明会被提升到普通变量之前。<blockquote>
+<p>看一下你所不知道的JavaScript上 40页</p>
+</blockquote>
+<h2 id="19-npx讲解"><a href="#19-npx讲解" class="headerlink" title="19 npx讲解"></a>19 npx讲解</h2>npx 会帮你执行依赖包里的二进制文件<br>举个例子： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack -D      &#x2F;&#x2F;非全局安装</span><br><span class="line">&#x2F;&#x2F;如果要执行 webpack 的命令</span><br><span class="line">.&#x2F;node_modules&#x2F;.bin&#x2F;webpack -v</span><br></pre></td></tr></table></figure>
+有了 npx 之后<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack -D    &#x2F;&#x2F;非全局安装</span><br><span class="line">npx webpack -v</span><br></pre></td></tr></table></figure>
+npx 会自动查找当前依赖包中的可执行文件，如果找不到，就会去 PATH 里找。如果依然找不到，就会帮你安装。</li>
+</ul>
+<blockquote>
+<p>使用package.json中的script命令，也会优先使用依赖包里的二进制文件</p>
+</blockquote>
+<h2 id="20-引用图片-两种方式都可以"><a href="#20-引用图片-两种方式都可以" class="headerlink" title="20 引用图片,两种方式都可以"></a>20 引用图片,两种方式都可以</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const url &#x3D; require(&#39;.&#x2F;bg.jpg&#39;)</span><br><span class="line">import url from &#39;.&#x2F;bg.jpg&#39;</span><br></pre></td></tr></table></figure>
+<h2 id="21-ES6类和TS类的区别记忆"><a href="#21-ES6类和TS类的区别记忆" class="headerlink" title="21 ES6类和TS类的区别记忆"></a>21 ES6类和TS类的区别记忆</h2><h3 id="ES6类的写法"><a href="#ES6类的写法" class="headerlink" title="ES6类的写法"></a>ES6类的写法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  name &#x3D; &#39;aaa&#39; &#x2F;&#x2F;可以用此方式定义实例属性初始值</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name &#x3D; name &#x2F;&#x2F;实例属性</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; &#x2F;&#x2F;原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;不需要符号间隔</span><br><span class="line">  eat()&#123;</span><br><span class="line">    return &#39;food&#39;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;静态方法，不会被实例继承，只能通过Person.destroyed()调用，可以被子类继承</span><br><span class="line">  static destroyed() &#123; </span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;类的内部所有定义的方法，与ES5不同，都是不可枚举的（non-enumerable）</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;仅可以用下述方式添加原型属性</span><br><span class="line">Person.prototype.prop &#x3D; &#39;prop&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="TS类的写法"><a href="#TS类的写法" class="headerlink" title="TS类的写法"></a>TS类的写法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 传统写法</span><br><span class="line">class Person &#123;</span><br><span class="line">  public name: string; &#x2F;&#x2F;实例属性</span><br><span class="line">  constructor(name: string) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; &#x2F;&#x2F;原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 简化写法</span><br><span class="line">class Person &#123; </span><br><span class="line">  constructor(public name: string) &#123; &#x2F;&#x2F;实例属性</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; &#x2F;&#x2F;原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TS类 有不同的访问类型</p>
+<ul>
+<li>private, protected, public 访问类型<ul>
+<li>public 完全开放使用</li>
+<li>private 仅允许在类内被使用</li>
+<li>protected 仅允许在类内及继承的子类中使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  public name: string; &#x2F;&#x2F;不写constructor 实例属性name压根不存在</span><br><span class="line">  constructor(name: string) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">  &#125;</span><br><span class="line">  protected sayHi() &#123;</span><br><span class="line">    this.name;</span><br><span class="line">    console.log(&#39;hi&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  private sayABC() &#123;</span><br><span class="line">    this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES6类的继承"><a href="#ES6类的继承" class="headerlink" title="ES6类的继承"></a>ES6类的继承</h3>详细书写在分类继承下</li>
+</ul>
+</li>
+</ul>
+<h2 id="22-TS转义代码中发现的-的骚操作"><a href="#22-TS转义代码中发现的-的骚操作" class="headerlink" title="22 TS转义代码中发现的,的骚操作"></a>22 TS转义代码中发现的<code>,</code>的骚操作</h2><p>原代码较为复杂，用下方简化代码示意</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function handle(a, b)&#123;</span><br><span class="line">  console.log(a+b);</span><br><span class="line">&#125;</span><br><span class="line">var d &#x3D; 4</span><br><span class="line">var c &#x3D; ((handle(1, 2)), d)</span><br><span class="line">console.log(c);</span><br><span class="line">&#x2F;&#x2F;3</span><br><span class="line">&#x2F;&#x2F;4</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>程序会先执行逗号之前的语句，然后把逗号之后的语句赋值<br>必须要加外层的括号</p>
+</blockquote>
+<h2 id="error类无法直观的打印，可以借用下列方法"><a href="#error类无法直观的打印，可以借用下列方法" class="headerlink" title="error类无法直观的打印，可以借用下列方法"></a>error类无法直观的打印，可以借用下列方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (const key of Object.keys(error)) &#123;</span><br><span class="line">  console.log(error[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue中事件绑定的this指向"><a href="#vue中事件绑定的this指向" class="headerlink" title="vue中事件绑定的this指向"></a>vue中事件绑定的this指向</h2><p>下面是从vue单文件中methods方法中截取的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">addPointMove() &#123;</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;mousedown&quot;, this.mouseDownHandle);</span><br><span class="line">  document.addEventListener(&quot;mouseup&quot;, this.mouseUpHandle);</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].onclick &#x3D; function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;;</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;click&quot;, this.ceshi1);</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;click&quot;, this.ceshi2);</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;click&quot;, this.ceshi3);</span><br><span class="line">&#125;,</span><br><span class="line">ceshi1() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;,</span><br><span class="line">ceshi2: function () &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;,</span><br><span class="line">ceshi3: () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>当点击click后，控制台输出如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 this.$refs[&quot;preview-img&quot;]</span><br><span class="line">2 vue实例</span><br><span class="line">3 vue实例</span><br><span class="line">4 undefined</span><br></pre></td></tr></table></figure>
+
+<h2 id="async的错误捕捉"><a href="#async的错误捕捉" class="headerlink" title="async的错误捕捉"></a>async的错误捕捉</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">async function main() &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    const val1 &#x3D; await 1;</span><br><span class="line">    const val2 &#x3D; await 2;</span><br><span class="line">    await Promise.reject(new Error(&quot;222&quot;))</span><br><span class="line">    const val3 &#x3D; await 3;</span><br><span class="line">    console.log(&#39;Final: &#39;, val3);</span><br><span class="line">  &#125;</span><br><span class="line">  catch (err) &#123;</span><br><span class="line">    console.error(err);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(111);</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p>运行至reject，try模块内的代码就停止了，然后运行catch代码块，之后正常运行<br>Error: 222<br>111  </p>
+<h2 id="require-一个图片资源出现的问题"><a href="#require-一个图片资源出现的问题" class="headerlink" title="require 一个图片资源出现的问题"></a>require 一个图片资源出现的问题</h2><p>我在项目中书写一个头部组件的时候，需要动态引入背景图片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;..&#x2F;assets&#x2F;rwkb.png&quot;) + &quot;)&quot;</span><br></pre></td></tr></table></figure>
+<p>写法是对的，但是死活出不来，我真是百思不得其解、、、后来发现打印出来的资源<br><img src="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/require1.png" alt="资源"></p>
+<hr>
+<p>然后我抱着试一试的态度多写了一个<code>.default</code>竟然成功了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;..&#x2F;..&#x2F;assets&#x2F;img&#x2F;rwkb.png&quot;).default + &quot;)&quot;</span><br></pre></td></tr></table></figure>
+<p>后来我在另一个项目里打印</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(require(&quot;@&#x2F;assets&#x2F;img&#x2F;401.png&quot;));</span><br></pre></td></tr></table></figure>
+<p>控制台输出 <code>/img/401.abca6a5b.png</code></p>
+<h2 id="element-ui-form表单动态验证"><a href="#element-ui-form表单动态验证" class="headerlink" title="element ui form表单动态验证"></a>element ui form表单动态验证</h2><p><img src="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/form1.jpg" alt="资源"><br><img src="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/peacetime/form2.jpg" alt="资源"><br>切换某一个选项后，会动态改变表单及需要校验的表单<br>项目中采用v-if v-else方法改变表单，但是form rules验证会失效，解决方法：<strong>给元素添加唯一KEY</strong>  </p>
+<blockquote>
+<p>产生bug的原因在于diff算法的复用</p>
+</blockquote>
+<h2 id="vue-响应式的注意点"><a href="#vue-响应式的注意点" class="headerlink" title="vue 响应式的注意点"></a>vue 响应式的注意点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      obj1: &#123;</span><br><span class="line">        a: 1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>没有任何方法能在初始化后添加根级别的响应式</p>
+<ul>
+<li>结合上方代码即无法添加obj1以外的响应式</li>
+</ul>
+</li>
+<li><p>向存在的嵌套对象添加新的响应式 property，比如obj1，有下面两种方式</p>
+<ol>
+<li><p>Vue.set(object, propertyName, value)</p>
+</li>
+<li><p>this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })</p>
+<blockquote>
+<p>注意 Object.assign 第一个参数是  { } </p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><h3 id="Vue-delete-target-propertyName-index"><a href="#Vue-delete-target-propertyName-index" class="headerlink" title="Vue.delete( target, propertyName/index )"></a><a href="https://cn.vuejs.org/v2/api/#Vue-delete" target="_blank" rel="noopener">Vue.delete( target, propertyName/index )</a></h3><ul>
+<li>不能删除根对象 例如obj1 可以删除obj1.xx</li>
+</ul>
+</li>
+</ul>
+<h2 id="input事件和change事件的区别"><a href="#input事件和change事件的区别" class="headerlink" title="input事件和change事件的区别"></a>input事件和change事件的区别</h2><ul>
+<li>input事件：<blockquote>
+<p>input事件在输入框输入的时候回实时响应并触发</p>
+</blockquote>
+</li>
+<li>change事件：<blockquote>
+<p>change事件在input失去焦点才会考虑触发，它的缺点是无法实时响应。与blur事件有着相似的功能，但与blur事件不同的是，change事件在输入框的值未改变时并不会触发，当输入框的值和上一次的值不同，并且输入框失去焦点，就会触发change事件。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="GC-垃圾回收机制"><a href="#GC-垃圾回收机制" class="headerlink" title="GC 垃圾回收机制"></a>GC 垃圾回收机制</h2><ul>
+<li>引用计数 无法解决循环引用 基本上被淘汰了</li>
+<li>标记清除 mark and sweep 也存在一定的局限（对象如果有一个属性经常使用，其余属性就无法被回收）</li>
+</ul>
+<h2 id="void-0"><a href="#void-0" class="headerlink" title="void 0"></a>void 0</h2><ul>
+<li>viod 任何东西都会返回 <code>undefined</code>，之所以使用0，是因为void 0 是表达式中最短的  </li>
+<li>undefined可以被重写，所以用 void 0 比较保险</li>
+<li>不少 JavaScript 压缩工具在压缩过程中，正是将 undefined 用 void 0 代替掉了</li>
+</ul>
+<h2 id="URLSearchParams-Object-fromEntries"><a href="#URLSearchParams-Object-fromEntries" class="headerlink" title="URLSearchParams Object.fromEntries"></a>URLSearchParams Object.fromEntries</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.fromEntries(new URLSearchParams(‘foo&#x3D;bar&amp;baz&#x3D;qux’))</span><br><span class="line">&#x2F;&#x2F; &#123; foo: “bar”, baz: “qux” &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="node-contains-otherNode"><a href="#node-contains-otherNode" class="headerlink" title="node.contains(otherNode)"></a>node.contains(otherNode)</h2><p>node 是否包含otherNode节点, otherNode 是否是node的后代节点<br>如果 otherNode 是 node 的后代节点或是 node 节点本身.则返回true , 否则返回 false.</p>
+<h2 id="getComputedStyle-和-style的区别"><a href="#getComputedStyle-和-style的区别" class="headerlink" title="getComputedStyle 和 style的区别"></a>getComputedStyle 和 style的区别</h2><p>用法<br>let style = window.getComputedStyle(element, [pseudoElt]);</p>
+<ul>
+<li><p>element 用于获取计算样式的Element。</p>
+</li>
+<li><p>pseudoElt 可选<br>指定一个要匹配的伪元素的字符串，例如’::after’，必须对普通元素省略（或null）。</p>
+</li>
+<li><p>只读与可写<br>getComputedStyle方法是只读的，只能获取样式，不能设置；而element.style能读能写，能屈能伸。</p>
+</li>
+<li><p>获取的对象范围<br>getComputedStyle方法获取的是最终应用在元素上的所有CSS属性对象（即使没有CSS代码，也会把默认的祖宗八代都显示出来）；而element.style只能获取元素style属性中的CSS样式。因此对于一个光秃秃的元素</p><p>，getComputedStyle方法返回对象中length属性值（如果有）就是190+(据我测试FF:192, IE9:195, Chrome:253, 不同环境结果可能有差异), 而element.style就是0。</p>
+</li>
+<li><p>作用<br>getComputedStyle方法有一个很重要的，类似css()方法没有的功能——获取伪类元素样式</p>
+</li>
+<li><p>兼容性<br>getComputedStyle方法IE6~8是不支持的</p>
+</li>
+</ul>
+<h2 id="Math-floor-的另类写法"><a href="#Math-floor-的另类写法" class="headerlink" title="Math.floor 的另类写法"></a>Math.floor 的另类写法</h2><p>Math.floor((touch.y2 - touch.y1) / ANCHOR_HEIGHT) === Math.floor((touch.y2 - touch.y1) | 0</p>
+<h2 id="取一段区间值的小技巧"><a href="#取一段区间值的小技巧" class="headerlink" title="取一段区间值的小技巧"></a>取一段区间值的小技巧</h2><p>如果需要参数范围控制在[min,max]之间，传统方法可能需要三个控制流，借助math函数可以这么写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arg &#x3D; Math.max(min, Math.min(arg, max))</span><br></pre></td></tr></table></figure>
+<p>即可以arg控制在[min, max] 范围内</p>
+<h2 id="filter-和-backdrop-filter"><a href="#filter-和-backdrop-filter" class="headerlink" title="filter 和 backdrop-filter"></a>filter 和 backdrop-filter</h2><ul>
+<li>backdrop-filter CSS 属性可以让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。</li>
+<li>filter CSS属性将模糊或颜色偏移等图形效果应用于元素。滤镜通常用于调整图像，背景和边框的渲染。<br>(详情)[<a href="https://www.jb51.net/css/745019.html]" target="_blank" rel="noopener">https://www.jb51.net/css/745019.html]</a></li>
+</ul>
+<h2 id="需要小范围闭环取值"><a href="#需要小范围闭环取值" class="headerlink" title="需要小范围闭环取值"></a>需要小范围闭环取值</h2><p>可以借助取余函数，例如type只有三种值 0 1 2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let type &#x3D; 0 </span><br><span class="line">function changeType()&#123;</span><br><span class="line">  type &#x3D; (type + 1) % 3</span><br><span class="line">&#125;</span><br><span class="line">for(var i &#x3D; 0;i&lt;&#x3D;100;i++)&#123;</span><br><span class="line">  changeType()</span><br><span class="line">  console.log(type) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果 0、1、2、0、1、2、0、1、2………….<br>适合闭环取值</p>
+<h2 id="console-log-打印彩色"><a href="#console-log-打印彩色" class="headerlink" title="console.log 打印彩色"></a>console.log 打印彩色</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var message &#x3D; &quot;Hello word&quot;;</span><br><span class="line">var color &#x3D; &quot;red&quot;;</span><br><span class="line">   </span><br><span class="line">console.log(&quot;%c &quot; + message ,  &quot;color:&quot; + color);</span><br><span class="line">console.log(&quot;%c &quot; + message ,  &quot;color:&quot; + &quot;blue&quot;);</span><br><span class="line">console.log(&quot;%c &quot; + message ,  &quot;color:&quot; + &quot;yellow&quot;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="element-动态rules"><a href="#element-动态rules" class="headerlink" title="element 动态rules"></a>element 动态rules</h2><p>form默认会在rules改变后，重新校验，有字段可以设置。需要注意数据变化和rules变化的先后顺序问题，会带来一些不可预见的bug，form有去除校验结果的办法</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="tag"># 问题记录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/" rel="next" title="get post">
+                <i class="fa fa-chevron-left"></i> get post
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/CSS/css/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/" rel="prev" title="css中重要的概念">
+                css中重要的概念 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-有效解决setTimeout跨级传参数"><span class="nav-number">1.</span> <span class="nav-text">1 有效解决setTimeout跨级传参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-单击和双击的冲突问题"><span class="nav-number">2.</span> <span class="nav-text">2 单击和双击的冲突问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-jQuery-事件传参"><span class="nav-number">3.</span> <span class="nav-text">3 jQuery 事件传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ajax-同步异步"><span class="nav-number">4.</span> <span class="nav-text">4 ajax 同步异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-利用元素记录信息"><span class="nav-number">5.</span> <span class="nav-text">5 利用元素记录信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-窗口大小改变事件"><span class="nav-number">6.</span> <span class="nav-text">6 窗口大小改变事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-判断一个对象是否存在的方法"><span class="nav-number">7.</span> <span class="nav-text">7 判断一个对象是否存在的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-深拷贝函数，可以复制对象中的函数及数组（很全面）"><span class="nav-number">8.</span> <span class="nav-text">8 深拷贝函数，可以复制对象中的函数及数组（很全面）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-‘undefined’-和-undefined-使用区别"><span class="nav-number">9.</span> <span class="nav-text">9  ‘undefined’ 和 undefined 使用区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-padding-bottom"><span class="nav-number">10.</span> <span class="nav-text">10 padding-bottom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-siblings-兄弟元素-且包括它本身"><span class="nav-number">11.</span> <span class="nav-text">11 siblings() 兄弟元素 且包括它本身</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-撑开父元素宽度超过父元素外层宽度的方法"><span class="nav-number">12.</span> <span class="nav-text">12 撑开父元素宽度超过父元素外层宽度的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-pointer-events"><span class="nav-number">13.</span> <span class="nav-text">13 pointer-events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-switch需要注意的地方，没有break的情况"><span class="nav-number">14.</span> <span class="nav-text">14 switch需要注意的地方，没有break的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-设置position-absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素"><span class="nav-number">15.</span> <span class="nav-text">15 设置position absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-js中如何判断属性是对象实例中的属性还是原型中的属性"><span class="nav-number">16.</span> <span class="nav-text">16 js中如何判断属性是对象实例中的属性还是原型中的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-vue中-dispath-支持promise-和-commit"><span class="nav-number">17.</span> <span class="nav-text">17 vue中 dispath(支持promise) 和 commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-变量提升也有优先级-函数声明-gt-arguments-gt-变量声明"><span class="nav-number">18.</span> <span class="nav-text">18 变量提升也有优先级, 函数声明 &gt; arguments &gt; 变量声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-npx讲解"><span class="nav-number">19.</span> <span class="nav-text">19 npx讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-引用图片-两种方式都可以"><span class="nav-number">20.</span> <span class="nav-text">20 引用图片,两种方式都可以</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-ES6类和TS类的区别记忆"><span class="nav-number">21.</span> <span class="nav-text">21 ES6类和TS类的区别记忆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6类的写法"><span class="nav-number">21.1.</span> <span class="nav-text">ES6类的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TS类的写法"><span class="nav-number">21.2.</span> <span class="nav-text">TS类的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6类的继承"><span class="nav-number">21.3.</span> <span class="nav-text">ES6类的继承</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-TS转义代码中发现的-的骚操作"><span class="nav-number">22.</span> <span class="nav-text">22 TS转义代码中发现的,的骚操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#error类无法直观的打印，可以借用下列方法"><span class="nav-number">23.</span> <span class="nav-text">error类无法直观的打印，可以借用下列方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue中事件绑定的this指向"><span class="nav-number">24.</span> <span class="nav-text">vue中事件绑定的this指向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async的错误捕捉"><span class="nav-number">25.</span> <span class="nav-text">async的错误捕捉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#require-一个图片资源出现的问题"><span class="nav-number">26.</span> <span class="nav-text">require 一个图片资源出现的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-ui-form表单动态验证"><span class="nav-number">27.</span> <span class="nav-text">element ui form表单动态验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-响应式的注意点"><span class="nav-number">28.</span> <span class="nav-text">vue 响应式的注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-delete-target-propertyName-index"><span class="nav-number">28.1.</span> <span class="nav-text">Vue.delete( target, propertyName&#x2F;index )</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#input事件和change事件的区别"><span class="nav-number">29.</span> <span class="nav-text">input事件和change事件的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-垃圾回收机制"><span class="nav-number">30.</span> <span class="nav-text">GC 垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#void-0"><span class="nav-number">31.</span> <span class="nav-text">void 0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URLSearchParams-Object-fromEntries"><span class="nav-number">32.</span> <span class="nav-text">URLSearchParams Object.fromEntries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-contains-otherNode"><span class="nav-number">33.</span> <span class="nav-text">node.contains(otherNode)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getComputedStyle-和-style的区别"><span class="nav-number">34.</span> <span class="nav-text">getComputedStyle 和 style的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-floor-的另类写法"><span class="nav-number">35.</span> <span class="nav-text">Math.floor 的另类写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取一段区间值的小技巧"><span class="nav-number">36.</span> <span class="nav-text">取一段区间值的小技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter-和-backdrop-filter"><span class="nav-number">37.</span> <span class="nav-text">filter 和 backdrop-filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要小范围闭环取值"><span class="nav-number">38.</span> <span class="nav-text">需要小范围闭环取值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console-log-打印彩色"><span class="nav-number">39.</span> <span class="nav-text">console.log 打印彩色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-动态rules"><span class="nav-number">40.</span> <span class="nav-text">element 动态rules</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
