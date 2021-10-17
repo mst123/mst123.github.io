@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="变量提升," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="变量提升12345678showName()console.log(myname)var myname &#x3D; &#39;极客时间&#39;function showName() &amp;#123;	console.log(&#39;函数 showName 被执行&#39;);&amp;#125;&#x2F;&#x2F; 函数 showName 被执行&#x2F;&#x2F; undifined  最后输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变量提升的本质">
+<meta property="og:url" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="变量提升12345678showName()console.log(myname)var myname &#x3D; &#39;极客时间&#39;function showName() &amp;#123;	console.log(&#39;函数 showName 被执行&#39;);&amp;#125;&#x2F;&#x2F; 函数 showName 被执行&#x2F;&#x2F; undifined  最后输">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png">
+<meta property="og:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png">
+<meta property="article:published_time" content="2021-07-20T02:50:57.770Z">
+<meta property="article:modified_time" content="2021-09-01T02:30:07.623Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="变量提升">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2021/07/20/javascript/变量提升的本质/"/>
+
+
+
+
+
+  <title>变量提升的本质 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">变量提升的本质</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T10:50:57+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">变量提升的本质</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">showName()</span><br><span class="line">console.log(myname)</span><br><span class="line">var myname &#x3D; &#39;极客时间&#39;</span><br><span class="line">function showName() &#123;</span><br><span class="line">	console.log(&#39;函数 showName 被执行&#39;);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 函数 showName 被执行</span><br><span class="line">&#x2F;&#x2F; undifined</span><br></pre></td></tr></table></figure>
+
+<p>最后输出的结果不太符合预期，其中的本质与js的执行过程有关，这种现象被称为变量提升</p>
+<p><strong>所谓的变量提升，是指在 JavaScript 代码执行过程中，JavaScript 引擎把变量的声明部分和函数的声明部分提升到代码开头的“行为”。变量被提升后，会给变量设置默认值，这个默认值就是我们熟悉的 undefined。</strong></p>
+<blockquote>
+<p>声明部分 指 var myname = 这部分 以及 完整的函数声明</p>
+<p>var bar = function(){} 这种与var bar = 1 并无大的区别，与funtion bar(){} 从编译过程来说截然不同</p>
+</blockquote>
+<p><strong>实际上变量和函数声明在代码里的位置是不会改变的，而且是在编译阶段被 JavaScript 引擎放入内存中</strong></p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png" alt="image-20210719142421766"></p>
+<p>从上图可以看出，输入一段代码，经过编译后，会生成两部分内容：<strong>执行上下文（Execution context）和可执行代码</strong>。</p>
+<blockquote>
+<p>执行上下文也是一个特别重要的概念，会在后边具体分析</p>
+</blockquote>
+<p>由此不难分析出打印的结果，但是如果存在<strong>相同的命名</strong>怎么处理，可以参考下述规则：</p>
+<ul>
+<li><p>如果是同名的函数，JavaScript编译阶段会选择最后声明的那个。</p>
+</li>
+<li><p>如果变量和函数同名，那么在编译阶段，变量的声明会被忽略</p>
+</li>
+</ul>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>执行上下文（以下简称“上下文”）的概念在 JavaScript 中是颇为重要的。变量或函数的上下文决定了它们可以访问哪些数据，以及它们的行为。每个上下文都有一个关联的<strong>变量对象</strong>（variable object），而这个上下文中定义的所有变量和函数都存在于这个对象上。</p>
+<p><strong>执行上下文的组成代码示例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const ExecutionContextObj &#x3D; &#123;</span><br><span class="line">    VO: window, &#x2F;&#x2F; 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, &#x2F;&#x2F; 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行上下文的组成图例示例：</strong></p>
+<p><img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg" alt="img"></p>
+<p><strong>上下文基本上有三类(包括ES6)</strong>：</p>
+<ul>
+<li>全局上下文 在浏览器环境下即为window</li>
+<li>函数上下文（当代码执行流进入函数时，函数的上下文被推到一个上下文栈上。在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文）</li>
+<li>eval上下文 （不考虑）</li>
+</ul>
+<p>上下文中的代码在执行的时候，会创建<strong>变量对象</strong>的一个<strong>作用域链</strong>。</p>
+<blockquote>
+<p>作用域链中的下一个变量对象来自包含上下文，再下一个对象来自再下一个包含上下文。以此类推直至全局上下文；全局上下文的变量对象始终是作用域链的最后一个变量对象</p>
+</blockquote>
+<h4 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h4><p><strong>如果上下文是函数，则其活动对象（activation object）用作变量对象，下面以函数为例具体分析一下</strong></p>
+<blockquote>
+<p>为什么称其为活动对象呢，因为只有到当进入一个执行上下文中，这个执行上下文的变量对象才会被激活，并且只有被激活的变量对象，其属性才能被访问。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var scope &#x3D; &#39;global scope&#39;;</span><br><span class="line">function checkscope(s) &#123;  </span><br><span class="line">	var scope &#x3D; &#39;local scope&#39;;  </span><br><span class="line">	function f() &#123;    </span><br><span class="line">		return scope;</span><br><span class="line">  &#125;  </span><br><span class="line">  return f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope(&#39;scope&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>在执行checkscope函数之前，会为其创建执行上下文，并初始化变量对象，此时的变量对象为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">VO &#x3D; &#123;</span><br><span class="line">  arguments: &#123;</span><br><span class="line">    0: &#39;scope&#39;,</span><br><span class="line">    length: 1,</span><br><span class="line">  &#125;,</span><br><span class="line">  s: &#39;scope&#39;, &#x2F;&#x2F; 传入的参数</span><br><span class="line">  f: pointer to function f(),</span><br><span class="line">  scope: undefined, &#x2F;&#x2F; 此时声明的变量为undefined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>随着checkscope函数的执行，变量对象被激活，变相对象内的属性随着代码的执行而改变：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">VO &#x3D; &#123;</span><br><span class="line">  arguments: &#123;</span><br><span class="line">    0: &#39;scope&#39;,</span><br><span class="line">    length: 1,</span><br><span class="line">  &#125;,</span><br><span class="line">  s: &#39;scope&#39;, &#x2F;&#x2F; 传入的参数</span><br><span class="line">  f: pointer to function f(),</span><br><span class="line">  scope: &#39;local scope&#39;, &#x2F;&#x2F; 变量赋值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="执行上下文的维护"><a href="#执行上下文的维护" class="headerlink" title="执行上下文的维护"></a>执行上下文的维护</h4><p>说在执行 JavaScript 时，可能会存在多个执行上下文，那么 JavaScript 引擎是如何管理这些执行上下文的呢？</p>
+<p>答案是<strong>通过一种叫栈的数据结构来管理的</strong>。</p>
+<p>JavaScript 引擎正是利用栈的这种结构来管理执行上下文的。在执行上下文创建好后，JavaScript 引擎会将执行上下文压入栈中，通常把这种用来管理执行上下文的栈称为<strong>执行上下文栈，又称调用栈</strong>。</p>
+<p>看如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 2</span><br><span class="line">function add(b,c)&#123;</span><br><span class="line">	return b+c</span><br><span class="line">&#125; </span><br><span class="line">function addAll(b,c)&#123;</span><br><span class="line">	var d &#x3D; 10</span><br><span class="line">	result &#x3D; add(b,c)</span><br><span class="line">	return a+result+d</span><br><span class="line">&#125;</span><br><span class="line">addAll(3,6)</span><br></pre></td></tr></table></figure>
+
+<p><strong>第一步，创建全局上下文，并将其压入栈底</strong>。</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png" alt="image-20210719153100763" style="zoom:50%;">
+
+<p><strong>第二步是调用 addAll 函数</strong>。当调用该函数时，JavaScript 引擎会编译该函数，并为其创建一个执行上下文，最后还将该函数的执行上下文压入栈中，如下图所示：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png" alt="image-20210719153303513" style="zoom:50%;">
+
+<p><strong>第三步，当执行到 add 函数</strong>调用语句时，同样会为其创建执行上下文，并将其压入调用栈，如下图所示：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png" alt="image-20210719153352832" style="zoom:50%;">
+
+<p>当 add 函数返回时，该函数的执行上下文就会从栈顶弹出，并将 result 的值设置为 add函数的返回值，也就是 9。如下图所示：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png" alt="image-20210719153501404" style="zoom:50%;">
+
+<p>紧接着 addAll 执行最后一个相加操作后并返回，addAll 的执行上下文也会从栈顶部弹出，此时调用栈中就只剩下全局上下文了。最终如下图所示：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png" alt="image-20210719153551914" style="zoom:50%;">
+
+<p>至此，整个 JavaScript 流程执行结束了。</p>
+<blockquote>
+<p>调用栈的跟踪可以借助chorme调试工具中的call stack 或者借助 console.trace()</p>
+</blockquote>
+<h4 id="解决变量提升的弊端"><a href="#解决变量提升的弊端" class="headerlink" title="解决变量提升的弊端"></a>解决变量提升的弊端</h4><p>ES6 通过 let const 解决了变量提升的问题，那么 ES6 又是如何在函数级作用域的基础之上，实现对块级作用域的支持呢？</p>
+<p>下面我们来看如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  var a &#x3D; 1</span><br><span class="line">  let b &#x3D; 2</span><br><span class="line">  &#123;</span><br><span class="line">    let b &#x3D; 3</span><br><span class="line">    var c &#x3D; 4</span><br><span class="line">    let d &#x3D; 5</span><br><span class="line">    console.log(a)</span><br><span class="line">    console.log(b)</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(b)</span><br><span class="line">  console.log(c)</span><br><span class="line">  console.log(d)</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+
+<p><strong>第一步是编译并创建执行上下文</strong>，下面是我画出来的执行上下文示意图，你可以参考下：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png" alt="image-20210719180147793" style="zoom:50%;">
+
+<p>通过上图，我们可以得出以下结论：</p>
+<ul>
+<li><p>函数内部通过 var 声明的变量，在编译阶段全都被存放到<strong>变量环境</strong>里面了。</p>
+</li>
+<li><p>通过 let 声明的变量，在编译阶段会被存放到<strong>词法环境（Lexical Environment）</strong>中。</p>
+</li>
+<li><p>在函数的作用域内部，通过 let 声明的变量并（<strong>暂时</strong>）没有被存放到词法环境中。</p>
+</li>
+</ul>
+<p>接下来，<strong>第二步继续执行代码</strong>，当执行到代码块里面时，变量环境中 a 的值已经被设置成了 1，词法环境中 b 的值已经被设置成了 2，这时候函数的执行上下文就如下图所示：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png" alt="image-20210719180806940" style="zoom:50%;">
+
+<p>​    从图中可以看出，当进入函数的作用域块时，作用域块中通过 let 声明的变量，会被存放在词法环境的一个单独的区域中，这个区域中的变量并不影响作用域块外面的变量，比如在作用域外面声明了变量 b，在该作用域块内部也声明了变量 b，当执行到作用域内部时，它们都是独立的存在。</p>
+<p>​    其实，<strong>在词法环境内部，维护了一个小型栈结构</strong>，栈底是函数最外层的变量，进入一个作用域块后，就会把该作用域块内部的变量压到栈顶；当作用域执行完成之后，该作用域的信息就会从栈顶弹出，这就是词法环境的结构。需要注意下，我这里所讲的变量是指通过 let 或者 const 声明的变量。</p>
+<p>​    再接下来，当执行到作用域块中的console.log(a)这行代码时，就需要在词法环境和变量环境中查找变量 a 的值了，具体查找方式是：沿着词法环境的栈顶向下查询，如果在词法环境中的某个块中查找到了，就直接返回给 JavaScript 引擎，如果没有查找到，那么继续在变量环境中查找。</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png" alt="image-20210719181101068" style="zoom:50%;">
+
+<p>当作用域块执行结束之后，其内部定义的变量就会从词法环境的栈顶弹出，最终执行上下文</p>
+<p>如下图所示：</p>
+<img src="/2021/07/20/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png" alt="image-20210719181919678" style="zoom:50%;">
+
+<p>通过上面的分析，想必你已经理解了词法环境的结构和工作机制，<strong>块级作用域就是通过词法环境的栈结构来实现的，而变量提升是通过变量环境来实现</strong>，通过这两者的结合，JavaScript 引擎也就同时支持了变量提升和块级作用域了。</p>
+<h3 id="查缺补漏–优秀blog文章"><a href="#查缺补漏–优秀blog文章" class="headerlink" title="查缺补漏–优秀blog文章"></a>查缺补漏–优秀blog文章</h3><ol>
+<li><h4 id="JavaScript深入之执行上下文栈"><a href="#JavaScript深入之执行上下文栈" class="headerlink" title="JavaScript深入之执行上下文栈"></a><a href="https://github.com/mqyqingfeng/Blog/issues/4" target="_blank" rel="noopener">JavaScript深入之执行上下文栈</a></h4></li>
+<li><h4 id="JavaScript深入之变量对象"><a href="#JavaScript深入之变量对象" class="headerlink" title="JavaScript深入之变量对象"></a><a href="https://github.com/mqyqingfeng/Blog/issues/5" target="_blank" rel="noopener">JavaScript深入之变量对象</a></h4></li>
+<li><h4 id="JavaScript深入之作用域链"><a href="#JavaScript深入之作用域链" class="headerlink" title="JavaScript深入之作用域链"></a><a href="https://github.com/mqyqingfeng/Blog/issues/6" target="_blank" rel="noopener">JavaScript深入之作用域链</a></h4></li>
+</ol>
+<blockquote>
+<p>该作者其余文章  <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog</a></p>
+</blockquote>
+<h4 id="Tips-为了防止链接失效，请看-深入执行上下文"><a href="#Tips-为了防止链接失效，请看-深入执行上下文" class="headerlink" title="Tips 为了防止链接失效，请看 深入执行上下文"></a>Tips 为了防止链接失效，请看 深入执行上下文</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/" rel="tag"># 变量提升</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/12/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/" rel="next" title="浏览器原理">
+                <i class="fa fa-chevron-left"></i> 浏览器原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/20/javascript/js%E7%9A%84%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4/" rel="prev" title="JavaScript的内存空间">
+                JavaScript的内存空间 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量提升"><span class="nav-number">1.</span> <span class="nav-text">变量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-number">2.</span> <span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文"><span class="nav-number">3.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数上下文"><span class="nav-number">3.2.</span> <span class="nav-text">函数上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行上下文的维护"><span class="nav-number">3.3.</span> <span class="nav-text">执行上下文的维护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决变量提升的弊端"><span class="nav-number">3.4.</span> <span class="nav-text">解决变量提升的弊端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查缺补漏–优秀blog文章"><span class="nav-number">4.</span> <span class="nav-text">查缺补漏–优秀blog文章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript深入之执行上下文栈"><span class="nav-number">4.1.</span> <span class="nav-text">JavaScript深入之执行上下文栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript深入之变量对象"><span class="nav-number">4.2.</span> <span class="nav-text">JavaScript深入之变量对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript深入之作用域链"><span class="nav-number">4.3.</span> <span class="nav-text">JavaScript深入之作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips-为了防止链接失效，请看-深入执行上下文"><span class="nav-number">4.4.</span> <span class="nav-text">Tips 为了防止链接失效，请看 深入执行上下文</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,diff," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="转载至 blogdiff 算法 也可以参考掘金小册 目录 前言 virtual dom 分析diff 总结  前言vue2.0加入了virtual dom，有向react靠拢的意思。vue的diff位于patch.js文件中，我的一个小框架aoy也同样使用此算法，该算法来源于snabbdom，复杂度为O(n)。了解diff过程可以让我们更高效的使用框架。本文力求以图文并茂的方式来讲明这个diff的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="diff算法">
+<meta property="og:url" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="转载至 blogdiff 算法 也可以参考掘金小册 目录 前言 virtual dom 分析diff 总结  前言vue2.0加入了virtual dom，有向react靠拢的意思。vue的diff位于patch.js文件中，我的一个小框架aoy也同样使用此算法，该算法来源于snabbdom，复杂度为O(n)。了解diff过程可以让我们更高效的使用框架。本文力求以图文并茂的方式来讲明这个diff的">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff2.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff3.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff4.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff5.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff6.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff7.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff8.png">
+<meta property="og:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff9.png">
+<meta property="article:published_time" content="2021-09-08T07:19:36.387Z">
+<meta property="article:modified_time" content="2021-09-08T07:23:25.737Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="diff">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2021/09/08/vue/diff算法/"/>
+
+
+
+
+
+  <title>diff算法 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">diff算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-08T15:19:36+08:00">
+                2021-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>转载至</strong> <a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">blog</a><br>diff 算法 也可以参考<a href="https://juejin.cn/book/6844733705089449991/section/6844733705232056328" target="_blank" rel="noopener">掘金小册</a></p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li>前言</li>
+<li>virtual dom</li>
+<li>分析diff</li>
+<li>总结</li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>vue2.0加入了virtual dom，有向react靠拢的意思。vue的diff位于<a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js" target="_blank" rel="noopener">patch.js</a>文件中，我的一个小框架<a href="https://github.com/aooy/aoy" target="_blank" rel="noopener">aoy</a>也同样使用此算法，该算法来源于<a href="https://github.com/snabbdom/snabbdom" target="_blank" rel="noopener">snabbdom</a>，复杂度为O(n)。<br>了解diff过程可以让我们更高效的使用框架。<br>本文力求以图文并茂的方式来讲明这个diff的过程。</p>
+<h1 id="virtual-dom"><a href="#virtual-dom" class="headerlink" title="virtual dom"></a>virtual dom</h1><p>如果不了解virtual dom，要理解diff的过程是比较困难的。虚拟dom对应的是真实dom， 使用<code>document.CreateElement</code> 和 <code>document.CreateTextNode</code>创建的就是真实节点。</p>
+<p>我们可以做个试验。打印出一个空元素的第一层属性，可以看到标准让元素实现的东西太多了。如果每次都重新生成新的元素，对性能是巨大的浪费。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var mydiv &#x3D; document.createElement(&#39;div&#39;);</span><br><span class="line">for(var k in mydiv )&#123;</span><br><span class="line">  console.log(k)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>virtual dom就是解决这个问题的一个思路，到底什么是virtual dom呢？通俗易懂的来说就是用一个简单的对象去代替复杂的dom对象。<br>举个简单的例子，我们在body里插入一个class为a的div。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var mydiv &#x3D; document.createElement(&#39;div&#39;);</span><br><span class="line">mydiv.className &#x3D; &#39;a&#39;;</span><br><span class="line">document.body.appendChild(mydiv);</span><br></pre></td></tr></table></figure>
+
+<p>对于这个div我们可以用一个简单的对象<code>mydivVirtual</code>代表它，它存储了对应dom的一些重要参数，在改变dom之前，会先比较相应虚拟dom的数据，如果需要改变，才会将改变应用到真实dom上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;伪代码</span><br><span class="line">var mydivVirtual &#x3D; &#123; </span><br><span class="line">  tagName: &#39;DIV&#39;,</span><br><span class="line">  className: &#39;a&#39;</span><br><span class="line">&#125;;</span><br><span class="line">var newmydivVirtual &#x3D; &#123;</span><br><span class="line">   tagName: &#39;DIV&#39;,</span><br><span class="line">   className: &#39;b&#39;</span><br><span class="line">&#125;</span><br><span class="line">if(mydivVirtual.tagName !&#x3D;&#x3D; newmydivVirtual.tagName || mydivVirtual.className  !&#x3D;&#x3D; newmydivVirtual.className)&#123;</span><br><span class="line">   change(mydiv)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 会执行相应的修改 mydiv.className &#x3D; &#39;b&#39;;</span><br><span class="line">&#x2F;&#x2F;最后  &lt;div class&#x3D;&#39;b&#39;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual-dom呢？"><a href="#读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual-dom呢？" class="headerlink" title="读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual dom呢？"></a>读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual dom呢？</h4><p>很多时候手工优化dom确实会比virtual dom效率高，对于比较简单的dom结构用手工优化没有问题，但当页面结构很庞大，结构很复杂时，手工优化会花去大量时间，而且可维护性也不高，不能保证每个人都有手工优化的能力。至此，virtual dom的解决方案应运而生，<strong>virtual dom很多时候都不是最优的操作，但它具有普适性，在效率、可维护性之间达平衡。</strong></p>
+<p>virtual dom 另一个重大意义就是提供一个中间层，js去写ui，ios安卓之类的负责渲染，就像reactNative一样。</p>
+<h1 id="分析diff"><a href="#分析diff" class="headerlink" title="分析diff"></a>分析diff</h1><p>一篇相当经典的文章<a href="https://calendar.perfplanet.com/2013/diff/" target="_blank" rel="noopener">React’s diff algorithm</a>中的图，react的diff其实和vue的diff大同小异。所以这张图能很好的解释过程。<strong>比较只会在同层级进行, 不会跨层级比较。</strong></p>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff.png" alt="img"></a></p>
+<p>举个形象的例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 之前 --&gt;</span><br><span class="line">&lt;div&gt;           &lt;!-- 层级1 --&gt;</span><br><span class="line">  &lt;p&gt;            &lt;!-- 层级2 --&gt;</span><br><span class="line">    &lt;b&gt; aoy &lt;&#x2F;b&gt;   &lt;!-- 层级3 --&gt;   </span><br><span class="line">    &lt;span&gt;diff&lt;&#x2F;Span&gt;</span><br><span class="line">  &lt;&#x2F;P&gt; </span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 之后 --&gt;</span><br><span class="line">&lt;div&gt;            &lt;!-- 层级1 --&gt;</span><br><span class="line">  &lt;p&gt;             &lt;!-- 层级2 --&gt;</span><br><span class="line">      &lt;b&gt; aoy &lt;&#x2F;b&gt;        &lt;!-- 层级3 --&gt;</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;span&gt;diff&lt;&#x2F;Span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我们可能期望将<code>&lt;span&gt;</code>直接移动到<code>&lt;p&gt;</code>的后边，这是最优的操作。但是实际的diff操作是移除<code>&lt;p&gt;</code>里的<code>&lt;span&gt;</code>在创建一个新的<code>&lt;span&gt;</code>插到<code>&lt;p&gt;</code>的后边。<br>因为新加的<code>&lt;span&gt;</code>在层级2，旧的在层级3，属于不同层级的比较。</p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>文中的代码位于<a href="https://github.com/aooy/aoy/blob/master/src/vdom/diff.js" target="_blank" rel="noopener">aoy-diff</a>中，已经精简了很多代码，留下最核心的部分。</p>
+<p>diff的过程就是调用patch函数，就像打补丁一样修改真实dom。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function patch (oldVnode, vnode) &#123;</span><br><span class="line">	if (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">		patchVnode(oldVnode, vnode)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		const oEl &#x3D; oldVnode.el</span><br><span class="line">		let parentEle &#x3D; api.parentNode(oEl)</span><br><span class="line">		createEle(vnode)</span><br><span class="line">		if (parentEle !&#x3D;&#x3D; null) &#123;</span><br><span class="line">			api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">			api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">			oldVnode &#x3D; null</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return vnode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>patch</code>函数有两个参数，<code>vnode</code>和<code>oldVnode</code>，也就是新旧两个虚拟节点。在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; body下的 &lt;div id&#x3D;&quot;v&quot; class&#x3D;&quot;classA&quot;&gt;&lt;div&gt; 对应的 oldVnode 就是</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  &#x2F;&#x2F;对真实的节点的引用，本例中就是document.querySelector(&#39;#id.classA&#39;)</span><br><span class="line">  tagName: &#39;DIV&#39;,   &#x2F;&#x2F;节点的标签</span><br><span class="line">  sel: &#39;div#v.classA&#39;  &#x2F;&#x2F;节点的选择器</span><br><span class="line">  data: null,       &#x2F;&#x2F; 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span><br><span class="line">  children: [], &#x2F;&#x2F;存储子节点的数组，每个子节点也是vnode结构</span><br><span class="line">  text: null,    &#x2F;&#x2F;如果是文本节点，对应文本节点的textContent，否则为null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，el属性引用的是此 virtual dom对应的真实dom，<code>patch</code>的<code>vnode</code>参数的<code>el</code>最初是null，因为<code>patch</code>之前它还没有对应的真实dom。</p>
+<p>来到<code>patch</code>的第一部分，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">	patchVnode(oldVnode, vnode)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sameVnode</code>函数就是看这两个节点是否值得比较，代码相当简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function sameVnode(oldVnode, vnode)&#123;</span><br><span class="line">	return vnode.key &#x3D;&#x3D;&#x3D; oldVnode.key &amp;&amp; vnode.sel &#x3D;&#x3D;&#x3D; oldVnode.sel</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两个vnode的key和sel相同才去比较它们，比如<code>p</code>和<code>span</code>，<code>div.classA</code>和<code>div.classB</code>都被认为是不同结构而不去比较它们。</p>
+<p>如果值得比较会执行<code>patchVnode(oldVnode, vnode)</code>，稍后会详细讲<code>patchVnode</code>函数。</p>
+<p>当节点不值得比较，进入else中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">else &#123;</span><br><span class="line">		const oEl &#x3D; oldVnode.el</span><br><span class="line">		let parentEle &#x3D; api.parentNode(oEl)</span><br><span class="line">		createEle(vnode)</span><br><span class="line">		if (parentEle !&#x3D;&#x3D; null) &#123;</span><br><span class="line">			api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">			api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">			oldVnode &#x3D; null</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过程如下：</p>
+<ul>
+<li>取得<code>oldvnode.el</code>的父节点，<code>parentEle</code>是真实dom</li>
+<li><code>createEle(vnode)</code>会为<code>vnode</code>创建它的真实dom，令<code>vnode.el</code> =<code>真实dom</code></li>
+<li><code>parentEle</code>将新的dom插入，移除旧的dom<br><strong>当不值得比较时，新节点直接把老节点整个替换了</strong></li>
+</ul>
+<p>最后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return vnode</span><br></pre></td></tr></table></figure>
+
+<p>patch最后会返回vnode，vnode和进入patch之前的不同在哪？<br>没错，就是vnode.el，<strong>唯一的改变就是之前vnode.el = null, 而现在它引用的是对应的真实dom。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var oldVnode &#x3D; patch (oldVnode, vnode)</span><br></pre></td></tr></table></figure>
+
+<p>至此完成一个patch过程。</p>
+<h3 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a>patchVnode</h3><p>两个节点值得比较时，会调用<code>patchVnode</code>函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">patchVnode (oldVnode, vnode) &#123;</span><br><span class="line">    const el &#x3D; vnode.el &#x3D; oldVnode.el</span><br><span class="line">    let i, oldCh &#x3D; oldVnode.children, ch &#x3D; vnode.children</span><br><span class="line">    if (oldVnode &#x3D;&#x3D;&#x3D; vnode) return</span><br><span class="line">    if (oldVnode.text !&#x3D;&#x3D; null &amp;&amp; vnode.text !&#x3D;&#x3D; null &amp;&amp; oldVnode.text !&#x3D;&#x3D; vnode.text) &#123;</span><br><span class="line">        api.setTextContent(el, vnode.text)</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        updateEle(el, vnode, oldVnode)</span><br><span class="line">    	if (oldCh &amp;&amp; ch &amp;&amp; oldCh !&#x3D;&#x3D; ch) &#123;</span><br><span class="line">	    	updateChildren(el, oldCh, ch)</span><br><span class="line">	    &#125;else if (ch)&#123;</span><br><span class="line">	    	createEle(vnode) &#x2F;&#x2F;create el&#39;s children dom</span><br><span class="line">	    &#125;else if (oldCh)&#123;</span><br><span class="line">	    	api.removeChildren(el)</span><br><span class="line">	    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>const el = vnode.el = oldVnode.el</code> 这是很重要的一步，让<code>vnode.el</code>引用到现在的真实dom，当<code>el</code>修改时，<code>vnode.el</code>会同步变化。</p>
+<p>节点的比较有5种情况</p>
+<ol>
+<li><code>if (oldVnode === vnode)</code>，他们的引用一致，可以认为没有变化。</li>
+<li><code>if(oldVnode.text !== null &amp;&amp; vnode.text !== null &amp;&amp; oldVnode.text !== vnode.text)</code>，文本节点的比较，需要修改，则会调用<code>Node.textContent = vnode.text</code>。</li>
+<li><code>if( oldCh &amp;&amp; ch &amp;&amp; oldCh !== ch )</code>, 两个节点都有子节点，而且它们不一样，这样我们会调用<code>updateChildren</code>函数比较子节点，这是diff的核心，后边会讲到。</li>
+<li><code>else if (ch)</code>，只有新的节点有子节点，调用<code>createEle(vnode)</code>，<code>vnode.el</code>已经引用了老的dom节点，<code>createEle</code>函数会在老dom节点上添加子节点。</li>
+<li><code>else if (oldCh)</code>，新节点没有子节点，老节点有子节点，直接删除老节点。</li>
+</ol>
+<h3 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">updateChildren (parentElm, oldCh, newCh) &#123;</span><br><span class="line">    let oldStartIdx &#x3D; 0, newStartIdx &#x3D; 0</span><br><span class="line">    let oldEndIdx &#x3D; oldCh.length - 1</span><br><span class="line">    let oldStartVnode &#x3D; oldCh[0]</span><br><span class="line">    let oldEndVnode &#x3D; oldCh[oldEndIdx]</span><br><span class="line">    let newEndIdx &#x3D; newCh.length - 1</span><br><span class="line">    let newStartVnode &#x3D; newCh[0]</span><br><span class="line">    let newEndVnode &#x3D; newCh[newEndIdx]</span><br><span class="line">    let oldKeyToIdx</span><br><span class="line">    let idxInOld</span><br><span class="line">    let elmToMove</span><br><span class="line">    let before</span><br><span class="line">    while (oldStartIdx &lt;&#x3D; oldEndIdx &amp;&amp; newStartIdx &lt;&#x3D; newEndIdx) &#123;</span><br><span class="line">            if (oldStartVnode &#x3D;&#x3D; null) &#123;   &#x2F;&#x2F;对于vnode.key的比较，会把oldVnode &#x3D; null</span><br><span class="line">                oldStartVnode &#x3D; oldCh[++oldStartIdx] </span><br><span class="line">            &#125;else if (oldEndVnode &#x3D;&#x3D; null) &#123;</span><br><span class="line">                oldEndVnode &#x3D; oldCh[--oldEndIdx]</span><br><span class="line">            &#125;else if (newStartVnode &#x3D;&#x3D; null) &#123;</span><br><span class="line">                newStartVnode &#x3D; newCh[++newStartIdx]</span><br><span class="line">            &#125;else if (newEndVnode &#x3D;&#x3D; null) &#123;</span><br><span class="line">                newEndVnode &#x3D; newCh[--newEndIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">                patchVnode(oldStartVnode, newStartVnode)</span><br><span class="line">                oldStartVnode &#x3D; oldCh[++oldStartIdx]</span><br><span class="line">                newStartVnode &#x3D; newCh[++newStartIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">                patchVnode(oldEndVnode, newEndVnode)</span><br><span class="line">                oldEndVnode &#x3D; oldCh[--oldEndIdx]</span><br><span class="line">                newEndVnode &#x3D; newCh[--newEndIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldStartVnode, newEndVnode)) &#123;</span><br><span class="line">                patchVnode(oldStartVnode, newEndVnode)</span><br><span class="line">                api.insertBefore(parentElm, oldStartVnode.el, api.nextSibling(oldEndVnode.el))</span><br><span class="line">                oldStartVnode &#x3D; oldCh[++oldStartIdx]</span><br><span class="line">                newEndVnode &#x3D; newCh[--newEndIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldEndVnode, newStartVnode)) &#123;</span><br><span class="line">                patchVnode(oldEndVnode, newStartVnode)</span><br><span class="line">                api.insertBefore(parentElm, oldEndVnode.el, oldStartVnode.el)</span><br><span class="line">                oldEndVnode &#x3D; oldCh[--oldEndIdx]</span><br><span class="line">                newStartVnode &#x3D; newCh[++newStartIdx]</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">               &#x2F;&#x2F; 使用key时的比较</span><br><span class="line">                if (oldKeyToIdx &#x3D;&#x3D;&#x3D; undefined) &#123;</span><br><span class="line">                    oldKeyToIdx &#x3D; createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) &#x2F;&#x2F; 有key生成index表</span><br><span class="line">                &#125;</span><br><span class="line">                idxInOld &#x3D; oldKeyToIdx[newStartVnode.key]</span><br><span class="line">                if (!idxInOld) &#123;</span><br><span class="line">                    api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)</span><br><span class="line">                    newStartVnode &#x3D; newCh[++newStartIdx]</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    elmToMove &#x3D; oldCh[idxInOld]</span><br><span class="line">                    if (elmToMove.sel !&#x3D;&#x3D; newStartVnode.sel) &#123;</span><br><span class="line">                        api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        patchVnode(elmToMove, newStartVnode)</span><br><span class="line">                        oldCh[idxInOld] &#x3D; null</span><br><span class="line">                        api.insertBefore(parentElm, elmToMove.el, oldStartVnode.el)</span><br><span class="line">                    &#125;</span><br><span class="line">                    newStartVnode &#x3D; newCh[++newStartIdx]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">            before &#x3D; newCh[newEndIdx + 1] &#x3D;&#x3D; null ? null : newCh[newEndIdx + 1].el</span><br><span class="line">            addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx)</span><br><span class="line">        &#125;else if (newStartIdx &gt; newEndIdx) &#123;</span><br><span class="line">            removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码很密集，为了形象的描述这个过程，可以看看这张图。</p>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff2.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff2.png" alt="img"></a></p>
+<p>过程可以概括为：<code>oldCh</code>和<code>newCh</code>各有两个头尾的变量<code>StartIdx</code>和<code>EndIdx</code>，它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦<code>StartIdx&gt;EndIdx</code>表明<code>oldCh</code>和<code>newCh</code>至少有一个已经遍历完了，就会结束比较。</p>
+<h3 id="具体的diff分析"><a href="#具体的diff分析" class="headerlink" title="具体的diff分析"></a>具体的diff分析</h3><p>设置key和不设置key的区别：<br><strong>不设key，newCh和oldCh只会进行头尾两端的相互比较，设key后，除了头尾两端的比较外，还会从用key生成的对象<code>oldKeyToIdx</code>中查找匹配的节点，所以为节点设置key可以更高效的利用dom。</strong></p>
+<p>diff的遍历过程中，只要是对dom进行的操作都调用<code>api.insertBefore</code>，<code>api.insertBefore</code>只是原生<code>insertBefore</code>的简单封装。<br>比较分为两种，一种是有<code>vnode.key</code>的，一种是没有的。但这两种比较对真实dom的操作是一致的。</p>
+<p>对于与<code>sameVnode(oldStartVnode, newStartVnode)</code>和<code>sameVnode(oldEndVnode,newEndVnode)</code>为true的情况，不需要对dom进行移动。</p>
+<p>总结遍历过程，有3种dom操作：</p>
+<ol>
+<li>当<code>oldStartVnode</code>，<code>newEndVnode</code>值得比较，说明<code>oldStartVnode.el</code>跑到<code>oldEndVnode.el</code>的后边了。</li>
+</ol>
+<p>图中假设startIdx遍历到1。</p>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff3.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff3.png" alt="img"></a></p>
+<ol>
+<li>当<code>oldEndVnode</code>，<code>newStartVnode</code>值得比较，说明 <code>oldEndVnode.el</code>跑到了<code>newStartVnode.el</code>的前边。（这里笔误，应该是“oldEndVnode.el跑到了oldStartVnode.el的前边”，准确的说应该是oldEndVnode.el需要移动到oldStartVnode.el的前边”）</li>
+</ol>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff4.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff4.png" alt="img"></a></p>
+<ol>
+<li>newCh中的节点oldCh里没有， 将新节点插入到<code>oldStartVnode.el</code>的前边。</li>
+</ol>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff5.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff5.png" alt="img"></a></p>
+<p>在结束时，分为两种情况：</p>
+<ol>
+<li><code>oldStartIdx &gt; oldEndIdx</code>，可以认为<code>oldCh</code>先遍历完。当然也有可能<code>newCh</code>此时也正好完成了遍历，统一都归为此类。此时<code>newStartIdx</code>和<code>newEndIdx</code>之间的vnode是新增的，调用<code>addVnodes</code>，把他们全部插进<code>before</code>的后边，<code>before</code>很多时候是为null的。<code>addVnodes</code>调用的是<code>insertBefore</code>操作dom节点，我们看看<code>insertBefore</code>的文档：<code>parentElement.insertBefore(newElement, referenceElement)</code><br>如果referenceElement为null则newElement将被插入到子节点的末尾。如果newElement已经在DOM树中，newElement首先会从DOM树中移除。<strong>所以<code>before</code>为null，newElement将被插入到子节点的末尾。</strong></li>
+</ol>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff6.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff6.png" alt="img"></a></p>
+<ol>
+<li><code>newStartIdx &gt; newEndIdx</code>，可以认为<code>newCh</code>先遍历完。此时<code>oldStartIdx</code>和<code>oldEndIdx</code>之间的vnode在新的子节点里已经不存在了，调用<code>removeVnodes</code>将它们从dom里删除。</li>
+</ol>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff7.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff7.png" alt="img"></a></p>
+<h4 id="下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。"><a href="#下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。" class="headerlink" title="下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。"></a>下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。</h4><ol>
+<li>a,b,c,d,e假设是4个不同的元素，我们没有设置key时，b没有复用，而是直接创建新的，删除旧的。</li>
+</ol>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff8.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff8.png" alt="img"></a></p>
+<ol>
+<li>当我们给4个元素加上唯一key时，b得到了的复用。</li>
+</ol>
+<p><a href="https://github.com/aooy/blog/blob/master/images/issues-2/diff9.png?raw=true" target="_blank" rel="noopener"><img src="/2021/09/08/vue/diff%E7%AE%97%E6%B3%95/diff9.png" alt="img"></a></p>
+<p>这个例子如果我们使用手工优化，只需要3步就可以达到。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>尽量不要跨层级的修改dom</li>
+<li>设置key可以最大化的利用节点</li>
+<li>diff的效率并不是每种情况下都是最优的</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/diff/" rel="tag"># diff</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/01/javascript/%E4%BB%8Ees%E8%A7%84%E8%8C%83%E6%9D%A5%E7%9C%8Bthis/" rel="next" title="从ECMAScript规范解读this">
+                <i class="fa fa-chevron-left"></i> 从ECMAScript规范解读this
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/09/09/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" rel="prev" title="vue初始化流程简单分析">
+                vue初始化流程简单分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#virtual-dom"><span class="nav-number">3.</span> <span class="nav-text">virtual dom</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual-dom呢？"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual dom呢？</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析diff"><span class="nav-number">4.</span> <span class="nav-text">分析diff</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">4.1.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#patchVnode"><span class="nav-number">4.1.1.</span> <span class="nav-text">patchVnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updateChildren"><span class="nav-number">4.1.2.</span> <span class="nav-text">updateChildren</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的diff分析"><span class="nav-number">4.1.3.</span> <span class="nav-text">具体的diff分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

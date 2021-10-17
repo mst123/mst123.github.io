@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ssh,阿里云," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器 创建秘钥对，然后绑定到实例 运行长命令 ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里云服务器配置">
+<meta property="og:url" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器 创建秘钥对，然后绑定到实例 运行长命令 ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/20190407133555456.png">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70.png">
+<meta property="og:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70-20210421214616330.png">
+<meta property="article:published_time" content="2021-05-16T14:48:31.592Z">
+<meta property="article:modified_time" content="2021-09-10T02:33:04.716Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="阿里云">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/2021/05/16/大前端学习/配置ssh到阿里云/"/>
+
+
+
+
+
+  <title>阿里云服务器配置 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阿里云服务器配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">大前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>解决方案最好去官网查看</p>
+<h2 id="简短的记录一下步骤"><a href="#简短的记录一下步骤" class="headerlink" title="简短的记录一下步骤"></a>简短的记录一下步骤</h2><ul>
+<li>申请阿里云服务器</li>
+<li>创建秘钥对，然后绑定到实例</li>
+<li>运行长命令<ul>
+<li>ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~/.ssh/alien-linux.pem} {root}@{39.106.100.189}</li>
+<li>应该会出现权限问题</li>
+</ul>
+</li>
+<li>运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400 ~/.ssh/alien-linux.pem</li>
+<li>配置config文件 vim ~/.ssh/config<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host Aliyun #自定义别名</span><br><span class="line">HostName 39.106.100.189 #ssh服务器公网IP</span><br><span class="line">Port 22 #ssh服务器端口，默认22</span><br><span class="line">User root #ssh服务器用户名，默认root</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;alien-linux.pem #秘钥文件路径</span><br></pre></td></tr></table></figure></li>
+<li>这样差不多就ok了</li>
+</ul>
+<h2 id="在阿里云安装docker"><a href="#在阿里云安装docker" class="headerlink" title="在阿里云安装docker"></a>在阿里云安装docker</h2><p><a href="https://github.com/docker/docker-install" target="_blank" rel="noopener">docker-install</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com -o get-docker.sh</span><br><span class="line">sh get-docker.sh</span><br></pre></td></tr></table></figure>
+<p>然后 需要安装 docker-compose 查找linux安装方法,mac docker客户端集成了docker-compose<br><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">compose</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.29.1&#x2F;docker-compose-$(uname -s)-$(uname -m)&quot; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>然后需要给脚本执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装mongo"><a href="#安装mongo" class="headerlink" title="安装mongo"></a>安装mongo</h2><h3 id="下载mongo"><a href="#下载mongo" class="headerlink" title="下载mongo"></a>下载mongo</h3><p>docker pull mongo</p>
+<p>如果失败的话，可以配置中国镜像, 编写<code>/etc/docker/daemon.json</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;&lt;my-docker-mirror-host&gt;&quot;]</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line"> &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后重启docker  <code>systemctl restart docker.service</code></p>
+<h3 id="运行mongo"><a href="#运行mongo" class="headerlink" title="运行mongo"></a>运行mongo</h3><p><code>docker run -d --name some-mongo -p 10050:27017 mongo</code></p>
+<ul>
+<li>-d 表示后台运行</li>
+<li>-p 定义端口 10050:27017  容器端口27017映射到宿主机10050</li>
+<li>–name 命名</li>
+<li>mongo 可以接:tag 比如 mongo:4  版本4</li>
+</ul>
+<p>检查docker下边运行的镜像 <code>docker ps</code>，如下图所示</p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png" alt="Snipaste_2021-04-20_10-22-34"></p>
+<h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><p>简单粗暴法</p>
+<p>ubuntu：service ufw stop</p>
+<p>Centos service firewalld stop</p>
+<p>B格高的方法，放行特定端口</p>
+<p>ubuntu： ufw allow Port端口号</p>
+<p>centos：<code>firewall-cmd --zone=public --add-port=10050/tcp --permanent</code>  –permanent 永久生肖</p>
+<p>服务器提示 FirewallD is not running 未开启防火墙，先把防火墙开启（不知道有无必要）,<code>systemctl start firewalld</code></p>
+<p>然后继续执行上一条命令，输出success，然后运行<code>firewall-cmd --reload</code>,重启生效</p>
+<p>现在验证是否可以访问，通过robo 3T 或者 Navicat连接测试，<strong>需要修改阿里云安全组策略，要不然无法连接</strong></p>
+<h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h2><p>1.wget <a href="https://nodejs.org/dist/v6.10.3/node-v6.10.3-linux-x64.tar.xz" target="_blank" rel="noopener">https://nodejs.org/dist/v6.10.3/node-v6.10.3-linux-x64.tar.xz</a> //下载最新的稳定版 v6.10.3 到本地</p>
+<p>（最新 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fnodejs.org%2Fdist%2Fv14.15.1%2Fnode-v14.15.1-linux-x64.tar.xz" target="_blank" rel="noopener">https://nodejs.org/dist/v14.15.1/node-v14.15.1-linux-x64.tar.xz</a>）</p>
+<p>2.tar xvJf node-v6.10.3-linux-x64.tar.xz                       //下载完成后, 将其解压</p>
+<p>3.mv node-v6.10.3-linux-x64 /usr/local/node-v6                //将解压的 Node.js 目录移动到 /usr/local 目录下</p>
+<p>4.ln -s /usr/local/node-v6/bin/node /bin/node                  //配置 node 软链接到 /bin 目录</p>
+<p>5.ln -s /usr/local/node-v6/bin/npm /bin/npm                   //下载 node 的压缩包中已经包含了 npm , 我们只需要将其软链接到 bin 目录下即可</p>
+<p>6.echo ‘export PATH=/usr/local/node-v6/bin:$PATH’ &gt;&gt; /etc/profile //将/usr/local/node−v6/bin目录添加到PATH′&gt;&gt;/etc/profile//将/usr/local/node−v6/bin目录添加到PATH 环境变量中可以方便地使用通过 npm 全局安装的第三方工具</p>
+<p>7.source /etc/profile 有时候需要更新</p>
+<blockquote>
+<p>第六、七步可能不需要，试一下npm -v 能不能ok，如果不可以的话，在运行第六步</p>
+</blockquote>
+<h3 id="docker的基本命令"><a href="#docker的基本命令" class="headerlink" title="docker的基本命令"></a>docker的基本命令</h3><p>一、基本命令<br>docker version查看docker版本<br>docker info查看docker详细信息<br>docker –help查看docker命令<br>二、镜像命令<br>docker images查看docker镜像</p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/20190407133555456.png" alt="img"></p>
+<p>PEPOSITORY：镜像的仓库源<br>TAG：镜像的标签<br>IMAGE ID：镜像ID<br>CREATED：镜像创建时间<br>SIZE：镜像大小<br> 同一个仓库源可以有多个TAG，表示这个仓库源的不同版本，我们使用REPOSITORY:TAG来定义不同的镜像。如果不指定一个镜像的版本标签，例如只使用tomcat，docker将默认使用tomcat:latest镜像<br>docker images -a列出本地所有的镜像<br>docker images -p只显示镜像ID<br>docker images –digests显示镜像的摘要信息<br>docker images –no-trunc显示完整的镜像信息</p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70.png" alt="img"></p>
+<p>docker search tomcat从Docker Hub上查找tomcat镜像</p>
+<p><img src="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70-20210421214616330.png" alt="img"></p>
+<p>STARS：关注度<br>docker search -s 30 tomcat从Docker Hub上查找关注度大于30的tomcat镜像<br>docker pull tomcat从Docker Hub上下载tomcat镜像。等价于：docker pull tomcat:latest<br>docker commit -m “提交的描述信息” -a “作者” 容器ID 要创建的目标镜像名称:[标签名]提交容器使之成为一个新的镜像。<br>如：docker commit -m “新的tomcat” -a “lizq” f9e29e8455a5 mytomcat:1.2<br>docker rmi hello-world从Docker中删除hello-world镜像<br>docker rmi -f hello-world从Docker中强制删除hello-world镜像<br>docker rmi -f hello-world nginx从Docker中强制删除hello-world镜像和nginx镜像<br>docker rmi -f $(docker images -p)通过docker images -p查询到的镜像ID来删除所有镜像<br>三、容器命令。<br>docker run [OPTIONS] IMAGE根据镜像新建并启动容器。IMAGE是镜像ID或镜像名称<br>OPTIONS说明：<br> –name=“容器新名字”：为容器指定一个名称<br> -d：后台运行容器，并返回容器ID，也即启动守护式容器<br> -i：以交互模式运行容器，通常与-t同时使用<br> -t：为容器重新分配一个伪输入终端，通常与-i同时使用<br> -P：随机端口映射<br> -p：指定端口映射，有以下四种格式：<br>  ip:hostPort:containerPort<br>  ip::containerPort<br>  hostPort:containerPort<br>  containerPort<br>docker ps列出当前所有正在运行的容器<br>docker ps -a列出所有的容器<br>docker ps -l列出最近创建的容器<br>docker ps -n 3列出最近创建的3个容器<br>docker ps -q只显示容器ID<br>docker ps –no-trunc显示当前所有正在运行的容器完整信息<br>exit退出并停止容器<br>Ctrl+p+q只退出容器，不停止容器<br>docker start 容器ID或容器名称启动容器<br>docker restart 容器ID或容器名称重新启动容器<br>docker stop容器ID或容器名称停止容器<br>docker kill 容器ID或容器名称强制停止容器<br>docker rm 容器ID或容器名称删除容器<br>docker rm -f 容器ID或容器名称强制删除容器<br>docker rm -f $(docker ps -a -q)删除多个容器<br>docker logs -f -t –since –tail 容器ID或容器名称查看容器日志<br>如：docker logs -f -t –since=”2018-09-10” –tail=10 f9e29e8455a5<br> -f : 查看实时日志<br> -t : 查看日志产生的日期<br> –since : 此参数指定了输出日志开始日期，即只输出指定日期之后的日志<br> –tail=10 : 查看最后的10条日志<br>docker top 容器ID或容器名称查看容器内运行的进程<br>docker inspect 容器ID或容器名称查看容器内部细节<br>docker attach 容器ID进到容器内<br>docker exec 容器ID进到容器内<br>docker cp 容器ID:容器内的文件路径 宿主机路径从容器内拷贝文件到宿主机.<br>如：docker cp f9e29e8455a5:/tmp/yum.log /root</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ssh/" rel="tag"># ssh</a>
+          
+            <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag"># 阿里云</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/websocket/" rel="next" title="websocket">
+                <i class="fa fa-chevron-left"></i> websocket
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/16/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/%E6%8F%92%E4%BB%B6%E8%AE%B0%E5%BD%95/" rel="prev" title="插件记录">
+                插件记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简短的记录一下步骤"><span class="nav-number">1.</span> <span class="nav-text">简短的记录一下步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在阿里云安装docker"><span class="nav-number">2.</span> <span class="nav-text">在阿里云安装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装mongo"><span class="nav-number">3.</span> <span class="nav-text">安装mongo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载mongo"><span class="nav-number">3.1.</span> <span class="nav-text">下载mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行mongo"><span class="nav-number">3.2.</span> <span class="nav-text">运行mongo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">4.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装nodejs"><span class="nav-number">5.</span> <span class="nav-text">安装nodejs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker的基本命令"><span class="nav-number">5.1.</span> <span class="nav-text">docker的基本命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
