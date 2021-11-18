@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/09/01/javascript/%E4%BB%8Ees%E8%A7%84%E8%8C%83%E6%9D%A5%E7%9C%8Bthis/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/vuex%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%AE%80%E6%98%93%E6%B5%81%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -313,7 +313,465 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/09/01/javascript/%E4%BB%8Ees%E8%A7%84%E8%8C%83%E6%9D%A5%E7%9C%8Bthis/" itemprop="url">从ECMAScript规范解读this</a></h1>
+                <a class="post-title-link" href="/vue/vuex%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%AE%80%E6%98%93%E6%B5%81%E7%A8%8B/" itemprop="url">vuex源码分析-简易流程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-23T09:41:33+08:00">
+                2021-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          先放一张store的代码结构图
+
+vuex初始化Vuex 存在一个静态的 install 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑
+123456789101112function vuexInit () &#123;    const options &#x3D; t
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/vue/vuex%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%AE%80%E6%98%93%E6%B5%81%E7%A8%8B/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/vue/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/" itemprop="url">vue初始化流程简单分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-09T11:09:04+08:00">
+                2021-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          本文简单的分析一下vue从初始化到完成渲染的流程，重点还是在于响应式的分析，生命周期函数简单带过。
+
+以下代码均经过不同程度的精简
+
+vue.init12345678910111213141516171819202122Vue.prototype._init &#x3D; function(opti
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/vue/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/diff%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/vue/diff%E7%AE%97%E6%B3%95/" itemprop="url">diff算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-08T15:19:36+08:00">
+                2021-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          转载至 blogdiff 算法 也可以参考掘金小册
+目录
+前言
+virtual dom
+分析diff
+总结
+
+前言vue2.0加入了virtual dom，有向react靠拢的意思。vue的diff位于patch.js文件中，我的一个小框架aoy也同样使用此算法，该算法来源于snabbdom，复杂度
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/vue/diff%E7%AE%97%E6%B3%95/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript/this/%E4%BB%8Eecmascript%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/javascript/this/%E4%BB%8Eecmascript%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/" itemprop="url">从ECMAScript规范解读this</a></h1>
         
 
         <div class="post-meta">
@@ -405,7 +863,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/09/01/javascript/%E4%BB%8Ees%E8%A7%84%E8%8C%83%E6%9D%A5%E7%9C%8Bthis/#more" rel="contents">
+            <a class="btn" href="/javascript/this/%E4%BB%8Eecmascript%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -456,7 +914,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/09/01/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -475,7 +933,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/09/01/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" itemprop="url">变量提升的本质</a></h1>
+                <a class="post-title-link" href="/javascript/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/" itemprop="url">变量提升的本质</a></h1>
         
 
         <div class="post-meta">
@@ -566,7 +1024,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/09/01/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/#more" rel="contents">
+            <a class="btn" href="/javascript/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -617,7 +1075,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/08/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%B1%BB%E7%9A%84%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -636,7 +1094,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/08/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/" itemprop="url">类的多种继承方式</a></h1>
+                <a class="post-title-link" href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%B1%BB%E7%9A%84%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/" itemprop="url">类的多种继承方式</a></h1>
         
 
         <div class="post-meta">
@@ -718,7 +1176,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/08/30/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/#more" rel="contents">
+            <a class="btn" href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%B1%BB%E7%9A%84%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -769,7 +1227,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/08/30/JavaScript%E5%9F%BA%E7%A1%80/%E5%89%8D%E8%A8%80/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript%E5%9F%BA%E7%A1%80/%E5%89%8D%E8%A8%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -788,7 +1246,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/08/30/JavaScript%E5%9F%BA%E7%A1%80/%E5%89%8D%E8%A8%80/" itemprop="url">前言</a></h1>
+                <a class="post-title-link" href="/javascript%E5%9F%BA%E7%A1%80/%E5%89%8D%E8%A8%80/" itemprop="url">前言</a></h1>
         
 
         <div class="post-meta">
@@ -867,7 +1325,7 @@
           
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/08/30/JavaScript%E5%9F%BA%E7%A1%80/%E5%89%8D%E8%A8%80/#more" rel="contents">
+            <a class="btn" href="/javascript%E5%9F%BA%E7%A1%80/%E5%89%8D%E8%A8%80/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -918,7 +1376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/08/30/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/%E7%AE%80%E5%8D%95%E7%9A%84%E9%98%90%E8%BF%B0%E5%8E%9F%E5%9E%8B%E9%93%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -937,7 +1395,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/08/30/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/" itemprop="url">简单的阐述原型链</a></h1>
+                <a class="post-title-link" href="/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/%E7%AE%80%E5%8D%95%E7%9A%84%E9%98%90%E8%BF%B0%E5%8E%9F%E5%9E%8B%E9%93%BE/" itemprop="url">简单的阐述原型链</a></h1>
         
 
         <div class="post-meta">
@@ -1027,7 +1485,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/08/30/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/#more" rel="contents">
+            <a class="btn" href="/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/%E7%AE%80%E5%8D%95%E7%9A%84%E9%98%90%E8%BF%B0%E5%8E%9F%E5%9E%8B%E9%93%BE/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1078,7 +1536,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/08/27/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1097,7 +1555,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/08/27/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" itemprop="url">类型判断</a></h1>
+                <a class="post-title-link" href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" itemprop="url">类型判断</a></h1>
         
 
         <div class="post-meta">
@@ -1176,7 +1634,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/08/27/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/#more" rel="contents">
+            <a class="btn" href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1227,7 +1685,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/08/24/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -1246,7 +1704,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/08/24/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/" itemprop="url">递归链表翻转</a></h1>
+                <a class="post-title-link" href="/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/" itemprop="url">递归链表翻转</a></h1>
         
 
         <div class="post-meta">
@@ -1332,471 +1790,7 @@
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/08/24/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/08/12/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/08/12/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" itemprop="url">性能指标</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-12T15:09:37+08:00">
-                2021-08-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">性能优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          性能指标在chrome的devtools里有很多性能指标，下面简单介绍一下这些指标
-首先是可以在chrome的performance中标识的指标
-
-DCL (DOMContentLoaded Event)
-当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/08/12/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/07/30/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/30/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/" itemprop="url">二叉搜索树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-30T10:40:39+08:00">
-                2021-07-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          二叉搜索树
-常见操作​    模拟操作示意网站二叉搜索树
-
-查询
-
-插入
-首先需要搜索是否有重复节点，如果有 count++ ，如果没有，查询到的最后节点也就是插入需要操作的节点
-
-删除
-
-删除 叶子节点(即最底层的节点，仅有一个关联节点)很简单，直接删除就可以，如果是关联节点(有子节点)，则会找出
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/07/30/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/" itemprop="url">阻塞关系</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-28T15:59:52+08:00">
-                2021-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index">
-                    <span itemprop="name">零散知识</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92
-
-html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div
-js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测
-
-
-js css并存 测试变
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/07/28/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/#more" rel="contents">
+            <a class="btn" href="/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1838,7 +1832,7 @@ js css并存 测试变
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&lt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/">&lt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">&gt;</a>
   </nav>
 
 
@@ -1888,7 +1882,7 @@ js css并存 测试变
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">92</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1899,7 +1893,7 @@ js css并存 测试变
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1910,7 +1904,7 @@ js css并存 测试变
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
