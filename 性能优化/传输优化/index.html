@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83.png">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/reducehttp%E8%AF%B7%E6%B1%82.png">
 <meta property="article:published_time" content="2021-05-16T14:48:31.605Z">
-<meta property="article:modified_time" content="2021-12-01T06:35:34.968Z">
+<meta property="article:modified_time" content="2021-12-01T06:54:16.193Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="性能优化">
 <meta property="article:tag" content="传输优化">
@@ -416,10 +416,14 @@
 <h3 id="资源优先级"><a href="#资源优先级" class="headerlink" title="资源优先级"></a>资源优先级</h3><ul>
 <li>浏览器默认安排资源加载优先级</li>
 <li>使用preload，prefetch调整优先级</li>
-<li>preload 提前加载较晚出现，但对于当前页面非常重要的资源</li>
+<li>preload 提前加载较晚出现，但对于当前页面非常重要的资源<ul>
+<li>就是通过标签显式声明一个高优先级资源，强制浏览器提前请求资源，同时不阻塞文档正常onload</li>
+<li>preload link必须设置as属性来声明资源的类型（font/image/style/script等)，否则浏览器可能无法正确加载资源。</li>
+</ul>
+</li>
 <li>prefetch 提前加载后继路由需要的资源，优先级低</li>
 </ul>
-<p><a href="https://juejin.cn/post/6893681741240909832" target="_blank" rel="noopener">pre系列讲解</a><br><a href="./prefetch和preload">同上，防止链接挂掉</a></p>
+<p>文章写的相当好<br><a href="https://juejin.cn/post/6893681741240909832" target="_blank" rel="noopener">pre系列讲解</a><br><a href="./prefetch和preload">同上，防止链接挂掉</a></p>
 <h3 id="接口缓存策略"><a href="#接口缓存策略" class="headerlink" title="接口缓存策略"></a>接口缓存策略</h3><ol>
 <li><p>ajax/fetch缓存</p>
 <ul>
