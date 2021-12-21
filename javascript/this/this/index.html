@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="this的由来看下述一段代码 123456789101112var bar &#x3D; &amp;#123; 	myName:&quot;time.geekbang.com&quot;, 	printName: function () &amp;#123; 		console.log(myName) 	&amp;#125; &amp;#125;function foo() &amp;#123; 	let myName &#x3D; &amp;">
+<meta name="description" content="this的由来看下述一段代码 123456789101112131415var bar &#x3D; &amp;#123;    myName:&quot;time.geekbang.com&quot;,    printName: function () &amp;#123;        console.log(myName)    &amp;#125;    &amp;#125;function foo() &amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this绑定规则的详解">
 <meta property="og:url" content="https://mst123.github.io/javascript/this/this/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="this的由来看下述一段代码 123456789101112var bar &#x3D; &amp;#123; 	myName:&quot;time.geekbang.com&quot;, 	printName: function () &amp;#123; 		console.log(myName) 	&amp;#125; &amp;#125;function foo() &amp;#123; 	let myName &#x3D; &amp;">
+<meta property="og:description" content="this的由来看下述一段代码 123456789101112131415var bar &#x3D; &amp;#123;    myName:&quot;time.geekbang.com&quot;,    printName: function () &amp;#123;        console.log(myName)    &amp;#125;    &amp;#125;function foo() &amp;#123;">
 <meta property="og:image" content="https://mst123.github.io/javascript/this/this/image-20210720111215903.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.245Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.246Z">
+<meta property="article:modified_time" content="2021-12-16T03:04:15.849Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="this">
 <meta name="twitter:card" content="summary">
@@ -399,11 +399,11 @@
 
       
         <h2 id="this的由来"><a href="#this的由来" class="headerlink" title="this的由来"></a>this的由来</h2><p>看下述一段代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var bar &#x3D; &#123;</span><br><span class="line"> 	myName:&quot;time.geekbang.com&quot;,</span><br><span class="line"> 	printName: function () &#123;</span><br><span class="line"> 		console.log(myName)</span><br><span class="line"> 	&#125; </span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line"> 	let myName &#x3D; &quot; 极客时间 &quot;</span><br><span class="line"> 	return bar.printName</span><br><span class="line">&#125;</span><br><span class="line">let myName &#x3D; &quot; 极客邦 &quot;</span><br><span class="line">let _printName &#x3D; foo()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var bar &#x3D; &#123;</span><br><span class="line">    myName:&quot;time.geekbang.com&quot;,</span><br><span class="line">    printName: function () &#123;</span><br><span class="line">        console.log(myName)</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">    let myName &#x3D; &quot;极客时间&quot;</span><br><span class="line">    return bar.printName</span><br><span class="line">&#125;</span><br><span class="line">let myName &#x3D; &quot;极客邦&quot;</span><br><span class="line">let _printName &#x3D; foo()</span><br><span class="line">_printName()</span><br><span class="line">bar.printName()</span><br></pre></td></tr></table></figure>
 
 <p>相信你已经知道了，在 printName 函数里面使用的变量 myName 是属于全局作用域下面的，所以最终打印出来的值都是“极客邦”</p>
 <p>不过按照常理来说，调用bar.printName方法时，该方法内部的变量 myName 应该使用bar 对象中的，因为它们是一个整体，大多数面向对象语言都是这样设计的，以<strong>在对象内部的方法中使用对象内部的属性是一个非常普遍的需求</strong>。但是 JavaScript 的作用域机制并不支持这一点，基于这个需求，JavaScript 又搞出来另外一套<strong>this 机制</strong>。</p>
-<h2 id="this到底是什么"><a href="#this到底是什么" class="headerlink" title="this到底是什么"></a>this到底是什么</h2><p><code>this</code> 是在运行时进行绑定的，==是和执行上下文绑定的==，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。<code>this</code>的绑定和<strong>函数声明的位置没有任何关系，只取决于函数的调用方式</strong>。</p>
+<h2 id="this到底是什么"><a href="#this到底是什么" class="headerlink" title="this到底是什么"></a>this到底是什么</h2><p><code>this</code> 是在运行时进行绑定的，<strong>是和执行上下文绑定的</strong>，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。<code>this</code>的绑定和<strong>函数声明的位置没有任何关系，只取决于函数的调用方式</strong>。</p>
 <p><img src="/javascript/this/this/image-20210720111215903.png" alt="image-20210720111215903"></p>
 <blockquote>
 <p>执行上下文其余相关的内容，在blog中浏览器原理中有详细介绍</p>
@@ -416,7 +416,7 @@
 <li>对象属性引用链中只有最顶层或者说最后一层会影响调用位置,看下例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;      </span><br><span class="line">  console.log( this.a ); </span><br><span class="line">&#125; </span><br><span class="line">var obj2 &#x3D; &#123;      </span><br><span class="line">  a: 42,     </span><br><span class="line">  foo: foo  </span><br><span class="line">&#125;; </span><br><span class="line">var obj1 &#x3D; &#123;      </span><br><span class="line">  a: 2,     </span><br><span class="line">  obj2: obj2  </span><br><span class="line">&#125;; </span><br><span class="line">obj1.obj2.foo(); &#x2F;&#x2F; 42</span><br></pre></td></tr></table></figure></li>
 <li>隐式丢失, 一个最常见的 this 绑定问题就是被隐式绑定的函数会丢失绑定对象，也就是说它会应用默认绑定，从而把 this 绑定到全局对象或者 undefined 上，取决于是否是严格模式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;      </span><br><span class="line">  console.log( this.a ); </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">var obj &#x3D; &#123;      </span><br><span class="line">  a: 2,     </span><br><span class="line">  foo: foo  </span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line">var bar &#x3D; obj.foo; &#x2F;&#x2F; 函数别名！   </span><br><span class="line">var a &#x3D; &quot;oops, global&quot;; &#x2F;&#x2F; a 是全局对象的属性 </span><br><span class="line">bar(); &#x2F;&#x2F; &quot;oops, global&quot;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>虽然 bar 是 obj.foo 的一个引用，但是实际上，它引用的是 foo 函数本身，因此此时的 bar() 其实是一个不带任何修饰的函数调用，因此应用了默认绑定</p>
+<p>虽然 bar 是 obj.foo 的一个引用，<strong>但是实际上，它引用的是 foo 函数本身</strong>，因此此时的 bar() 其实是一个不带任何修饰的函数调用，因此应用了默认绑定</p>
 </blockquote>
 </li>
 </ol>
@@ -434,13 +434,16 @@
 <li>这个新对象会绑定到函数调用的 this。 </li>
 <li>如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象</li>
 </ol>
-<h3 id="还有一些需要注意的示例"><a href="#还有一些需要注意的示例" class="headerlink" title="还有一些需要注意的示例"></a>还有一些需要注意的示例</h3><p>注意后三个示例，详细解释在 同分类下 从ECMAScript规范解读this中有解读</p>
+<h3 id="还有一些需要注意的示例"><a href="#还有一些需要注意的示例" class="headerlink" title="还有一些需要注意的示例"></a>还有一些需要注意的示例</h3><p>注意后三个示例，详细解释在 <strong>同分类下-从ECMAScript规范解读this</strong>中有解读</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var value &#x3D; 1;</span><br><span class="line"></span><br><span class="line">var foo &#x3D; &#123;</span><br><span class="line">  value: 2,</span><br><span class="line">  bar: function () &#123;</span><br><span class="line">    return this.value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;示例1</span><br><span class="line">console.log(foo.bar()); &#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F;示例2</span><br><span class="line">console.log((foo.bar)()); &#x2F;&#x2F; 2</span><br><span class="line">&#x2F;&#x2F;示例3</span><br><span class="line">console.log((foo.bar &#x3D; foo.bar)()); &#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F;示例4</span><br><span class="line">console.log((false || foo.bar)()); &#x2F;&#x2F; 1</span><br><span class="line">&#x2F;&#x2F;示例5</span><br><span class="line">console.log((foo.bar, foo.bar)()); &#x2F;&#x2F; 1</span><br></pre></td></tr></table></figure>
 
 <p>后三个类型，方便记忆的话，可以将其理解为隐式绑定，foo.bar被隐式的赋值了，相当于 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; foo.bar</span><br><span class="line">a()</span><br></pre></td></tr></table></figure>
 
 <p>但是需要注意第二个示例</p>
+<h2 id="关于this补充"><a href="#关于this补充" class="headerlink" title="关于this补充"></a>关于this补充</h2><p>可以帮助理解</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/7" target="_blank" rel="noopener">从ECMAScript规范解读this</a></p>
+<p><a href="https://time.geekbang.org/column/article/128427" target="_blank" rel="noopener">极客时间</a></p>
 
       
     </div>
@@ -564,7 +567,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -575,7 +578,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -586,7 +589,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -619,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#this的由来"><span class="nav-number">1.</span> <span class="nav-text">this的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this到底是什么"><span class="nav-number">2.</span> <span class="nav-text">this到底是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this的绑定规则"><span class="nav-number">3.</span> <span class="nav-text">this的绑定规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认绑定"><span class="nav-number">3.1.</span> <span class="nav-text">默认绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式绑定"><span class="nav-number">3.2.</span> <span class="nav-text">隐式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式绑定"><span class="nav-number">3.3.</span> <span class="nav-text">显式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-绑定-（暂不深究）"><span class="nav-number">3.4.</span> <span class="nav-text">new 绑定 （暂不深究）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有一些需要注意的示例"><span class="nav-number">3.5.</span> <span class="nav-text">还有一些需要注意的示例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#this的由来"><span class="nav-number">1.</span> <span class="nav-text">this的由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this到底是什么"><span class="nav-number">2.</span> <span class="nav-text">this到底是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this的绑定规则"><span class="nav-number">3.</span> <span class="nav-text">this的绑定规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认绑定"><span class="nav-number">3.1.</span> <span class="nav-text">默认绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式绑定"><span class="nav-number">3.2.</span> <span class="nav-text">隐式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式绑定"><span class="nav-number">3.3.</span> <span class="nav-text">显式绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-绑定-（暂不深究）"><span class="nav-number">3.4.</span> <span class="nav-text">new 绑定 （暂不深究）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有一些需要注意的示例"><span class="nav-number">3.5.</span> <span class="nav-text">还有一些需要注意的示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于this补充"><span class="nav-number">4.</span> <span class="nav-text">关于this补充</span></a></li></ol></div>
             
 
           </div>

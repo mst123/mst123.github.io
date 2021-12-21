@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,常用概念," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程和线程​    启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，我们把这样的一个运行环境叫进程  一个进程就是一个程序的运行实例 线程是不能单独存在的，它是由进程来启动和管理的 线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率    总结来说，进程和线程之间的关系有以下 4 个特点。  1. 进程中的任意一线程执行出错，都会导致">
+<meta property="og:type" content="article">
+<meta property="og:title" content="需要掌握的概念">
+<meta property="og:url" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="进程和线程​    启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，我们把这样的一个运行环境叫进程  一个进程就是一个程序的运行实例 线程是不能单独存在的，它是由进程来启动和管理的 线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率    总结来说，进程和线程之间的关系有以下 4 个特点。  1. 进程中的任意一线程执行出错，都会导致">
+<meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png">
+<meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png">
+<meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.awebp">
+<meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png">
+<meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png">
+<meta property="article:published_time" content="2021-12-07T08:08:23.054Z">
+<meta property="article:modified_time" content="2021-12-21T07:25:14.688Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="常用概念">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '马识途'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://mst123.github.io/面试/常用概念/"/>
+
+
+
+
+
+  <title>需要掌握的概念 | 博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="马农">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/luopo.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">需要掌握的概念</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-07T16:08:23+08:00">
+                2021-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>​    启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，我们把这样的一个运行环境叫进程</p>
+<ul>
+<li><strong>一个进程就是一个程序的运行实例</strong></li>
+<li><strong>线程是不能单独存在的，它是由进程来启动和管理的</strong></li>
+<li><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></li>
+</ul>
+<img src="/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png" alt="image-20210712222146731" style="zoom:50%;">
+
+<p>总结来说，进程和线程之间的关系有以下 4 个特点。</p>
+<ul>
+<li><strong>1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。</strong></li>
+<li><strong>2. 线程之间共享进程中的数据。</strong></li>
+<li><strong>3. 当一个进程关闭之后，操作系统会回收进程所占用的内存(包括泄漏的内存)。</strong></li>
+<li><strong>4. 进程之间的内容相互隔离。(通信依靠IPC进程间通信)</strong></li>
+</ul>
+<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><h3 id="常见网页协议"><a href="#常见网页协议" class="headerlink" title="常见网页协议"></a>常见网页协议</h3><ul>
+<li><strong>TCP/IP</strong>  是互联网相关的各类协议族的总称</li>
+<li><strong>IP</strong>（Internet Protocol）网际协议（<strong>网络层协议</strong>）IP 协议的作用是把各种数据包传送给对方。而要保证确实传送到对方 那里，则需要满足各类条件。其中两个重要的条件是 IP 地址和 MAC 地址（Media Access Control Address）</li>
+<li><strong>HTTP</strong> 超文本传输协议是一个用于传输超媒体文档（例如 HTML）的<strong>应用层协议</strong>。它是为 Web 浏览器与 Web 服务器之间的通信而设计的，但也可以用于其他目的</li>
+<li><strong>TCP</strong>（Transmission Control Protocol，传输控制协议）是一种面向连接的、可靠的、基于字节流的<strong>传输层通信协议</strong></li>
+<li><strong>UDP</strong>（User Data Protocol，用户数据报协议）一个非连接的协议，传输数据之前源端和终端不建立连接， 当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上</li>
+</ul>
+<h3 id="TCP-IP-的分层管理"><a href="#TCP-IP-的分层管理" class="headerlink" title="TCP/IP 的分层管理"></a><strong>TCP/IP</strong> 的分层管理</h3><p><strong>利用 TCP/IP 协议族进行网络通信时，会通过分层顺序与对方进行通信</strong></p>
+<img src="/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png" alt="image-20210714152647756" style="zoom: 50%;">
+
+<p>这些层基本上被分为4层：</p>
+<ul>
+<li><p>应用层</p>
+<ul>
+<li>1、超文本传输协议（<strong>HTTP</strong>):万维网的基本协议</li>
+<li>2、文件传输（FTP文件传输协议）；</li>
+<li>3、远程登录（Telnet），提供远程访问其它主机功能, 它允许用户登录internet主机，并在这台主机上执行命令</li>
+<li>4、网络管理（SNMP简单网络管理协议），该协议提供了监控网络设备的方法， 以及配置管理,统计信息收集,性能管理及安全管理等</li>
+<li>5、域名系统（<strong>DNS</strong>），该系统用于在internet中将域名及其公共广播的网络节点转换成IP地址</li>
+</ul>
+</li>
+<li><p>传输层</p>
+<ul>
+<li>1、<strong>TCP</strong></li>
+<li>2、<strong>UDP</strong></li>
+</ul>
+</li>
+<li><p>网络层</p>
+<ul>
+<li>1、Internet协议（IP）</li>
+<li>2、Internet控制信息协议（ICMP）</li>
+<li>3、地址解析协议（ARP）ARP 是一种用以解析地址的协议，根据通信方的 IP 地址就可以反查出对应的 MAC 地址。</li>
+<li>4、反向地址解析协议（RARP）</li>
+</ul>
+</li>
+<li><p>链路层</p>
+<p>用来处理连接网络的硬件部分。包括控制操作系统、硬件的设备驱动、NIC（Network Interface Card，网络适配器，即网卡），及光纤等物理可见部分（还包括连接器等一切传输媒介）。硬件上的范畴均在链路层的作用范围之内。 </p>
+</li>
+</ul>
+<h2 id="Cookies-的属性"><a href="#Cookies-的属性" class="headerlink" title="Cookies 的属性"></a>Cookies 的属性</h2><p>在下面这张图里我们可以看到 Cookies 相关的一些属性：</p>
+<p><img src="/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.awebp" alt="img"></p>
+<p>这里主要说一些大家可能没有注意的点：</p>
+<h3 id="Name-Value"><a href="#Name-Value" class="headerlink" title="Name/Value"></a>Name/Value</h3><p>用 JavaScript 操作 Cookie 的时候注意对 Value 进行编码处理。</p>
+<h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>Expires 用于设置 Cookie 的过期时间。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id&#x3D;a3fWa; Expires&#x3D;Wed, 21 Oct 2015 07:28:00 GMT;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>当 Expires 属性缺省时，表示是会话性 Cookie，像上图 Expires 的值为 Session，表示的就是会话性 Cookie。当为会话性 Cookie 的时候，值保存在客户端内存中，并在用户关闭浏览器时失效。需要注意的是，有些浏览器提供了会话恢复功能，这种情况下即使关闭了浏览器，会话期 Cookie 也会被保留下来，就好像浏览器从来没有关闭一样。</p>
+<p>与会话性 Cookie 相对的是持久性 Cookie，持久性 Cookies 会保存在用户的硬盘中，直至过期或者清除 Cookie。这里值得注意的是，设定的日期和时间只与客户端相关，而不是服务端。</p>
+<h3 id="Max-Age"><a href="#Max-Age" class="headerlink" title="Max-Age"></a>Max-Age</h3><p>Max-Age 用于设置在 Cookie 失效之前需要经过的秒数。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id&#x3D;a3fWa; Max-Age&#x3D;604800;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>Max-Age 可以为正数、负数、甚至是 0。</p>
+<p>如果 max-Age 属性为正数时，浏览器会将其持久化，即写到对应的 Cookie 文件中。</p>
+<p>当 max-Age 属性为负数，则表示该 Cookie 只是一个会话性 Cookie。</p>
+<p>当 max-Age 为 0 时，则会立即删除这个 Cookie。</p>
+<p>假如 Expires 和 Max-Age 都存在，Max-Age 优先级更高。</p>
+<h3 id="Domain"><a href="#Domain" class="headerlink" title="Domain"></a>Domain</h3><p>Domain 指定了 Cookie 可以送达的主机名。假如没有指定，那么默认值为当前文档访问地址中的主机部分（但是不包含子域名）。</p>
+<p>像淘宝首页设置的 Domain 就是 .taobao.com，这样无论是 a.taobao.com 还是 b.taobao.com 都可以使用 Cookie。</p>
+<p>在这里注意的是，不能跨域设置 Cookie，比如阿里域名下的页面把 Domain 设置成百度是无效的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: qwerty=<span class="number">219</span>ffwef9w0f; Domain=baidu.com; Path=<span class="regexp">/; Expires=Wed, 30 Aug 2020 00:00:00 GMT</span></span><br><span class="line"><span class="regexp">复制代码</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h3><p>Path 指定了一个 URL 路径，这个路径必须出现在要请求的资源的路径中才可以发送 Cookie 首部。比如设置 <code>Path=/docs</code>，<code>/docs/Web/</code> 下的资源会带 Cookie 首部，<code>/test</code> 则不会携带 Cookie 首部。</p>
+<p><strong>Domain 和 Path 标识共同定义了 Cookie 的作用域：即 Cookie 应该发送给哪些 URL</strong>。</p>
+<h3 id="Secure属性"><a href="#Secure属性" class="headerlink" title="Secure属性"></a>Secure属性</h3><p>标记为 Secure 的 Cookie 只应通过被HTTPS协议加密过的请求发送给服务端。使用 HTTPS 安全协议，可以保护 Cookie 在浏览器和 Web 服务器间的传输过程中不被窃取和篡改。</p>
+<h3 id="HTTPOnly"><a href="#HTTPOnly" class="headerlink" title="HTTPOnly"></a>HTTPOnly</h3><p>设置 HTTPOnly 属性可以防止客户端脚本通过 document.cookie 等方式访问 Cookie，有助于避免 XSS 攻击。</p>
+<h3 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h3><p>SameSite 是最近非常值得一提的内容，因为 2 月份发布的 Chrome80 版本中默认屏蔽了第三方的 Cookie，这会导致阿里系的很多应用都产生问题，为此还专门成立了问题小组，推动各 BU 进行改造。</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>我们先来看看这个属性的作用：</p>
+<p>SameSite 属性可以让 Cookie 在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）。</p>
+<h4 id="属性值"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h4><p>SameSite 可以有下面三种值：</p>
+<ol>
+<li><strong>Strict</strong> 仅允许一方请求携带 Cookie，即浏览器将只发送相同站点请求的 Cookie，即当前网页 URL 与请求目标 URL 完全一致。</li>
+<li><strong>Lax</strong> 允许部分第三方请求携带 Cookie</li>
+<li><strong>None</strong> 无论是否跨站都会发送 Cookie</li>
+</ol>
+<p>之前默认是 None 的，Chrome80 后默认是 Lax。</p>
+<blockquote>
+<p>作者：冴羽<br>链接：<a href="https://juejin.cn/post/6844904095711494151" target="_blank" rel="noopener">https://juejin.cn/post/6844904095711494151</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+</blockquote>
+<h2 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a>层叠上下文</h2><ul>
+<li>文档根元素（<code>&lt;html&gt;</code>）；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 值为 <code>absolute</code>（绝对定位）或 <code>relative</code>（相对定位）且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code> 的元素；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 值为 <code>fixed</code>（固定定位）或 <code>sticky</code>（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；</li>
+<li>flex (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox" target="_blank" rel="noopener"><code>flexbox</code> (en-US)</a>) 容器的子元素，且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>；</li>
+<li>grid (<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid" target="_blank" rel="noopener"><code>grid</code></a>) 容器的子元素，且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity" target="_blank" rel="noopener"><code>opacity</code></a> 属性值小于 <code>1</code> 的元素（参见 <a href="https://www.w3.org/TR/css3-color/#transparency" target="_blank" rel="noopener">the specification for opacity</a>）；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode" target="_blank" rel="noopener"><code>mix-blend-mode</code></a> 属性值不为 <code>normal</code> 的元素；</li>
+<li>以下任意属性值不为none的元素：<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform" target="_blank" rel="noopener"><code>transform</code></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter" target="_blank" rel="noopener"><code>filter</code></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective" target="_blank" rel="noopener"><code>perspective</code></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path" target="_blank" rel="noopener"><code>clip-path</code></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask" target="_blank" rel="noopener"><code>mask</code></a> / <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask-image" target="_blank" rel="noopener"><code>mask-image</code></a> / <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask-border" target="_blank" rel="noopener"><code>mask-border</code></a></li>
+</ul>
+</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation" target="_blank" rel="noopener"><code>isolation</code></a> 属性值为 <code>isolate</code> 的元素；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling" target="_blank" rel="noopener"><code>-webkit-overflow-scrolling</code></a> 属性值为 <code>touch</code> 的元素；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change" target="_blank" rel="noopener"><code>will-change</code></a> 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考<a href="https://dev.opera.com/articles/css-will-change-property/" target="_blank" rel="noopener">这篇文章</a>）；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain" target="_blank" rel="noopener"><code>contain</code></a> 属性值为 <code>layout</code>、<code>paint</code> 或包含它们其中之一的合成值（比如 <code>contain: strict</code>、<code>contain: content</code>）的元素。</li>
+</ul>
+<p><img src="/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png" alt="image-20211213143326679"></p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><p><strong>块格式化上下文（Block Formatting Context，BFC）</strong> 是Web页面的可视CSS渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。</p>
+<p>下列方式会创建<strong>块格式化上下文</strong>：</p>
+<ul>
+<li>根元素（<code>&lt;html&gt;）</code></li>
+<li>浮动元素（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/float" target="_blank" rel="noopener"><code>float</code></a> 不是 <code>none</code>）</li>
+<li>绝对定位元素（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 为 <code>absolute</code> 或 <code>fixed</code>）</li>
+<li>行内块元素（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 为 <code>inline-block</code>）</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/overflow" target="_blank" rel="noopener"><code>overflow</code></a> 计算值(Computed)不为 <code>visible</code> 的块元素</li>
+<li>弹性元素（<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 为 <code>flex</code> 或 <code>inline-flex</code>元素的直接子元素）</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain" target="_blank" rel="noopener"><code>contain</code></a> 值为 <code>layout</code>、<code>content</code>或 paint 的元素</li>
+<li><strong>前边的是比较常见的</strong></li>
+<li>表格单元格（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 为 <code>table-cell</code>，HTML表格单元格默认为该值）</li>
+<li>表格标题（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 为 <code>table-caption</code>，HTML表格标题默认为该值）</li>
+<li>匿名表格单元格元素（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 为 <code>table、``table-row</code>、 <code>table-row-group、``table-header-group、``table-footer-group</code>（分别是HTML table、row、tbody、thead、tfoot 的默认属性）或 <code>inline-table</code>）</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 值为 <code>flow-root</code> 的元素</li>
+<li>网格元素（<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/display" target="_blank" rel="noopener"><code>display</code></a> 为 <code>grid</code> 或 <code>inline-grid</code> 元素的直接子元素）</li>
+<li>多列容器（元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-count" target="_blank" rel="noopener"><code>column-count</code></a> 或 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-width" target="_blank" rel="noopener"><code>column-width</code> (en-US)</a> 不为 <code>auto，包括 ``column-count</code> 为 <code>1</code>）</li>
+<li><code>column-span</code> 为 <code>all</code> 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（<a href="https://github.com/w3c/csswg-drafts/commit/a8634b96900279916bd6c505fda88dda71d8ec51" target="_blank" rel="noopener">标准变更</a>，<a href="https://bugs.chromium.org/p/chromium/issues/detail?id=709362" target="_blank" rel="noopener">Chrome bug</a>）。</li>
+</ul>
+<p>块格式化上下文包含创建它的元素内部的所有内容.</p>
+<p>块格式化上下文对浮动定位（参见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/float" target="_blank" rel="noopener"><code>float</code></a>）与清除浮动（参见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clear" target="_blank" rel="noopener"><code>clear</code></a>）都很重要。浮动定位和清除浮动时只会应用于同一个BFC内的元素。浮动不会影响其它BFC中元素的布局，而清除浮动只能清除同一BFC中在它前面的元素的浮动。外边距折叠（<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing" target="_blank" rel="noopener">Margin collapsing</a>）也只会发生在属于同一BFC的块级元素之间。</p>
+<p>规则:</p>
+<ul>
+<li>属于同一个 BFC 的两个相邻 Box 垂直排列</li>
+<li>属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠</li>
+<li>BFC 中子元素的 margin box 的左边， 与包含块 (BFC) border box的左边相接触 (子元素 absolute 除外)</li>
+<li>BFC 的区域不会与 float 的元素区域重叠 自适应两栏布局</li>
+<li><img src="/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png" alt="img"></li>
+<li>计算 BFC 的高度时，浮动子元素也参与计算</li>
+<li>文字层不会被浮动层覆盖，环绕于周围</li>
+</ul>
+<p>应用:</p>
+<ul>
+<li>阻止<code>margin</code>重叠</li>
+<li>可以包含浮动元素 —— 清除内部浮动(清除浮动的原理是两个<code>div</code>都位于同一个 BFC 区域之中)</li>
+<li>自适应两栏布局</li>
+<li>可以阻止元素被浮动元素覆盖</li>
+</ul>
+<p>可以参考<a href="https://zhuanlan.zhihu.com/p/25321647" target="_blank" rel="noopener">知乎</a></p>
+<h2 id="同源的定义"><a href="#同源的定义" class="headerlink" title="同源的定义"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy#同源的定义" target="_blank" rel="noopener"><strong>同源</strong>的<strong>定义</strong></a></h2><p>如果两个 URL 的 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Protocol" target="_blank" rel="noopener">protocol</a>、<a href="https://developer.mozilla.org/en-US/docs/Glossary/Port" target="_blank" rel="noopener">port (en-US)</a> (如果有指定的话)和 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Host" target="_blank" rel="noopener">host</a> 都相同的话，则这两个 URL 是<em>同源</em>。这个方案也被称为“协议/主机/端口元组”，或者直接是 “元组”。（“元组” 是指一组项目构成的整体，双重/三重/四重/五重/等的通用形式）。</p>
+<p>下表给出了与 URL <code>http://store.company.com/dir/page.html</code> 的源进行对比的示例:</p>
+<table>
+<thead>
+<tr>
+<th align="left">URL</th>
+<th align="left">结果</th>
+<th align="right">原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>http://store.company.com/dir2/other.html</code></td>
+<td align="left">同源</td>
+<td align="right">只有路径不同</td>
+</tr>
+<tr>
+<td align="left"><code>http://store.company.com/dir/inner/another.html</code></td>
+<td align="left">同源</td>
+<td align="right">只有路径不同</td>
+</tr>
+<tr>
+<td align="left"><code>https://store.company.com/secure.html</code></td>
+<td align="left">失败</td>
+<td align="right">协议不同</td>
+</tr>
+<tr>
+<td align="left"><code>http://store.company.com:81/dir/etc.html</code></td>
+<td align="left">失败</td>
+<td align="right">端口不同 ( <code>http://</code> 默认端口是80)</td>
+</tr>
+<tr>
+<td align="left"><code>http://news.company.com/dir/other.html</code></td>
+<td align="left">失败</td>
+<td align="right">主机不同</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Cookie中的「同站」判断就比较宽松：只要两个 URL 的 eTLD+1 相同即可，不需要考虑协议和端口。其中，eTLD 表示有效顶级域名，注册于 Mozilla 维护的公共后缀列表（Public Suffix List）中，例如，.com、.co.uk、.github.io 等。eTLD+1 则表示，有效顶级域名+二级域名，例如 taobao.com 等。</p>
+</blockquote>
+<h2 id="位-bit-amp-字节-Byte"><a href="#位-bit-amp-字节-Byte" class="headerlink" title="位(bit) &amp; 字节(Byte)"></a>位(bit) &amp; 字节(Byte)</h2><p><a href="https://juejin.cn/post/7002088412903637022#heading-2" target="_blank" rel="noopener">详细</a></p>
+<h3 id="bit"><a href="#bit" class="headerlink" title="bit"></a>bit</h3><p>1位二进制数，也就是1bit，有2种可能，可以表示数0,1 <strong>也就是开关状态 是计算机的存储基础</strong></p>
+<p>2位二进制数，2bit，有4种可能(2x2)，可以表示数0,1,2,3</p>
+<p>3位二进制数,3bit，有8种可能(2x2x2)，可以表示数0,1,2,3,4,5,6,7</p>
+<h3 id="Byte"><a href="#Byte" class="headerlink" title="Byte"></a>Byte</h3><p>大B，表示字节</p>
+<p>1Byte = 8 bit, 2^8是256，1个字节能表示的数就是0-255,共256种可能性。</p>
+<h2 id="Unicode编码"><a href="#Unicode编码" class="headerlink" title="Unicode编码"></a>Unicode编码</h2><p><a href="https://juejin.cn/post/6844903590155272199#heading-3" target="_blank" rel="noopener">摘抄</a></p>
+<p>​    Unicode（统一码、万国码、单一码）是计算机科学领域里的一项业界标准,包括字符集、编码方案等。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。</p>
+<h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p>UTF-8（<strong>8-bit Unicode Transformation Format</strong>）是一种针对Unicode的可变长度字符编码，又称万国码。UTF-8 <strong>用1到6个字节编码Unicode字符</strong>。用在网页上可以统一页面显示中文简体繁体及其它语言（如英文，日文，韩文）。</p>
+<blockquote>
+<p>UTF-8是一种非常通用的<strong>可变长</strong>字符编码方式</p>
+<p>像UTF-8里面，ASCII所表示的字符集就是用1 Byte来表示，而大部分汉字则是用3 Byte来表示。</p>
+</blockquote>
+<h3 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h3><blockquote>
+<p>UTF-16 Unicode字符编码五层次模型的第三层：字符编码表（Character Encoding Form，也称为 “storage format”）的一种实现方式。即把Unicode字符集的抽象码位映射为16位长的二进制整数（即码元， 长度为2 Byte）的序列，用于数据存储或传递。Unicode字符的码位，需要1个或者2个16位长的码元来表示，因此这是一个变长表示。</p>
+</blockquote>
+<p>引用维基百科中对于UTF-16编码的解释我们可以知道，UTF-16最少也会用2 Byte来表示一个字符，因此没有办法兼容ASCII编码（ASCII编码使用1 Byte来进行存储）。</p>
+<h3 id="JS中的string"><a href="#JS中的string" class="headerlink" title="JS中的string"></a>JS中的string</h3><p>在JavaScript中，所有的string类型（或者被称为DOMString）都是使用UTF-16编码的。</p>
+<p>因此，当我们需要转换成二进制与后端进行通信时，需要注意相关的编码方式。</p>
+<h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><p>在chrome的devtools里有很多性能指标，下面简单介绍一下这些指标</p>
+<p>首先是可以在chrome的performance中标识的指标</p>
+<ul>
+<li><p>DCL (DOMContentLoaded Event)</p>
+<ul>
+<li>当初始的 <strong>HTML</strong> 文档被完全加载和解析完成之后，<strong><code>DOMContentLoaded</code></strong> 事件被触发，而无需等待样式表、图像和子框架的完全加载。(MDN的概念)</li>
+<li>更加清晰的结论是，DOMContentLoaded 事件在 html文档加载完毕，并且 html 所引用的内联 js、以及外链 js 的同步代码都执行完毕后触发。</li>
+</ul>
+</li>
+<li><p>L (Onload Event)</p>
+<ul>
+<li><strong>load</strong> 应该仅用于检测一个完全加载的页面 当一个资源及其依赖资源已完成加载时，将触发load事件</li>
+<li>更加清晰的结论是，当页面 DOM 结构中的 js、css、图片，以及 js 异步加载的 js、css 、图片都加载完成之后，才会触发 load 事件。</li>
+</ul>
+<blockquote>
+<p>页面中引用的 js 代码如果有异步加载的 js、css、图片，是会影响 load 事件触发的。<br>video、audio、flash 不会影响 load 事件触发。</p>
+</blockquote>
+</li>
+<li><p>FP (First Paint)</p>
+<ul>
+<li><code>首次绘制</code>: 标记浏览器渲染任何在视觉上不同于导航前屏幕内容之内容的时间点，<strong>简而言之就是浏览器第一次发生变化的时间</strong></li>
+</ul>
+</li>
+<li><p>FCP (First Contentful Paint)</p>
+<ul>
+<li><code>首次内容绘制</code> 标记浏览器渲染来自 DOM 第一位内容的时间点，该内容可能是文本、图像、SVG 甚至 元素.</li>
+</ul>
+</li>
+<li><p>LCP (Largest Contentful Paint)</p>
+<ul>
+<li><code>最大内容渲染</code>: 代表在viewport中最大的页面元素加载的时间. LCP的数据会通过PerformanceEntry对象记录, 每次出现更大的内容渲染, 则会产生一个新的PerformanceEntry对象.(2019年11月新增)</li>
+</ul>
+</li>
+</ul>
+<p>然后是在性能分析 lighthouse中出现的六个指标,前两个在performance中也存在</p>
+<ul>
+<li>FCP (First Contentful Paint)</li>
+<li>LCP (Largest Contentful Paint)</li>
+<li>SI (Speed Index)<ul>
+<li>指标用于显示页面可见部分的显示速度, 单位是时间</li>
+</ul>
+</li>
+<li>TTI (Time to Interactive)<ul>
+<li><code>可交互时间</code>: 指标用于标记应用已进行视觉渲染并能可靠响应用户输入的时间点.</li>
+</ul>
+</li>
+<li>TBT (Total Blocking Time)<ul>
+<li><code>页面阻塞总时长</code>: TBT汇总所有加载过程中阻塞用户操作的时长，在FCP和TTI之间任何long task中阻塞部分都会被汇总（超过50ms的长任务）</li>
+</ul>
+</li>
+<li>CLS (Cumulative Layout Shift)<ul>
+<li><code>累积布局偏移</code>: 总结起来就是一个元素初始时和其hidden之间的任何时间如果元素偏移了, 则会被计算进去，说简单点就是用户不期望的元素位置偏移。</li>
+<li>根据 Google 的介绍，CLS 问题产生的原因一般包括：<ul>
+<li>图片没有宽高</li>
+<li>无尺寸的广告、嵌入式和iframes</li>
+<li>动态注入的内容</li>
+<li>导致FOIT/FOUT的Web字体</li>
+<li>在更新DOM之前等待网络响应的操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象获取属性的方法"><a href="#对象获取属性的方法" class="headerlink" title="对象获取属性的方法"></a>对象获取属性的方法</h2><table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">不可枚举属性</th>
+<th align="center">继承属性</th>
+<th align="center">symbol属性</th>
+<th align="center">自身属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">for…in / in</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">Object.keys()、Object.values()、Object.entries()</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">Object.getOwnPropertyNames()</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">Object.getOwnPropertySymbols(obj)</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td align="center">Reflect.ownKeys(obj)</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">JSON.stringfy()</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">Object.assign()</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">… 扩展运算符</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">Object.getOwnPropertyDescriptor<a href>s</a></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+</tbody></table>
+<h2 id="寄生组合继承"><a href="#寄生组合继承" class="headerlink" title="寄生组合继承"></a>寄生组合继承</h2><p> <strong>避免二次调用父的prototype</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F; 父</span><br><span class="line"> function SuperType(name) &#123;</span><br><span class="line">   this.name &#x3D; name;</span><br><span class="line">   this.colors &#x3D; [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line"> &#125;</span><br><span class="line"> SuperType.prototype.sayName &#x3D; function () &#123;</span><br><span class="line">   console.log(this.name);</span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 借助辅助原型函数链接到父prototype</span><br><span class="line">function object(o) &#123; </span><br><span class="line">   function F() &#123;&#125; </span><br><span class="line">   F.prototype &#x3D; o; </span><br><span class="line">   return new F(); </span><br><span class="line"> &#125;</span><br><span class="line"> &#x2F;&#x2F; 保证正确的construct，将只prototype链接到辅助原型函数上的实例上</span><br><span class="line"> function inheritPrototype(subType, superType) &#123;</span><br><span class="line">   let prototype &#x3D; object(superType.prototype); &#x2F;&#x2F; 创建对象</span><br><span class="line">   prototype.constructor &#x3D; subType; &#x2F;&#x2F; 增强对象 </span><br><span class="line">   subType.prototype &#x3D; prototype; &#x2F;&#x2F; 赋值对象</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 继承</span><br><span class="line"> function SubType(name, age) &#123;</span><br><span class="line"> 	&#x2F;&#x2F; 一</span><br><span class="line">   SuperType.call(this, name);</span><br><span class="line">   this.age &#x3D; age;</span><br><span class="line"> &#125;</span><br><span class="line"> &#x2F;&#x2F; 二</span><br><span class="line"> inheritPrototype(SubType, SuperType);</span><br><span class="line"> </span><br><span class="line"> SubType.prototype.sayAge &#x3D; function () &#123;</span><br><span class="line">   console.log(this.age);</span><br><span class="line"> &#125;;</span><br><span class="line"> var child &#x3D; new SubType(&quot;头疼&quot;, 30)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          
+            <a href="/tags/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/" rel="tag"># 常用概念</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HTTP/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" rel="next" title="三次握手、四次挥手">
+                <i class="fa fa-chevron-left"></i> 三次握手、四次挥手
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" rel="prev" title="腾讯企鹅辅导 H5 性能极致优化案例">
+                腾讯企鹅辅导 H5 性能极致优化案例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/luopo.gif"
+                alt="马农" />
+            
+              <p class="site-author-name" itemprop="name">马农</p>
+              <p class="site-description motion-element" itemprop="description">学习记录</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">110</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见网页协议"><span class="nav-number">2.1.</span> <span class="nav-text">常见网页协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-的分层管理"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookies-的属性"><span class="nav-number">3.</span> <span class="nav-text">Cookies 的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Name-Value"><span class="nav-number">3.1.</span> <span class="nav-text">Name&#x2F;Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Max-Age"><span class="nav-number">3.3.</span> <span class="nav-text">Max-Age</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain"><span class="nav-number">3.4.</span> <span class="nav-text">Domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path"><span class="nav-number">3.5.</span> <span class="nav-text">Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secure属性"><span class="nav-number">3.6.</span> <span class="nav-text">Secure属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPOnly"><span class="nav-number">3.7.</span> <span class="nav-text">HTTPOnly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SameSite"><span class="nav-number">3.8.</span> <span class="nav-text">SameSite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作用"><span class="nav-number">3.8.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性值"><span class="nav-number">3.8.2.</span> <span class="nav-text">属性值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#层叠上下文"><span class="nav-number">4.</span> <span class="nav-text">层叠上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC"><span class="nav-number">5.</span> <span class="nav-text">BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同源的定义"><span class="nav-number">6.</span> <span class="nav-text">同源的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位-bit-amp-字节-Byte"><span class="nav-number">7.</span> <span class="nav-text">位(bit) &amp; 字节(Byte)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bit"><span class="nav-number">7.1.</span> <span class="nav-text">bit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Byte"><span class="nav-number">7.2.</span> <span class="nav-text">Byte</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode编码"><span class="nav-number">8.</span> <span class="nav-text">Unicode编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-8"><span class="nav-number">8.1.</span> <span class="nav-text">UTF-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-16"><span class="nav-number">8.2.</span> <span class="nav-text">UTF-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS中的string"><span class="nav-number">8.3.</span> <span class="nav-text">JS中的string</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">9.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象获取属性的方法"><span class="nav-number">10.</span> <span class="nav-text">对象获取属性的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生组合继承"><span class="nav-number">11.</span> <span class="nav-text">寄生组合继承</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">马农</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

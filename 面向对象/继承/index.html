@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/bg4.png">
 <meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/bg3.png">
 <meta property="article:published_time" content="2021-05-16T14:48:31.656Z">
-<meta property="article:modified_time" content="2021-05-16T14:48:31.656Z">
+<meta property="article:modified_time" content="2021-12-13T06:03:56.028Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="class">
 <meta property="article:tag" content="继承">
@@ -397,12 +397,20 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor:</span><br><span class="line">  configurable: true</span><br><span class="line">  enumerable: false  &#x2F;&#x2F; 不可枚举</span><br><span class="line">  value: ƒ Student(name, age)</span><br><span class="line">  writable: true</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>组合继承<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  &#x2F;&#x2F;拓展一个实例属性 </span><br><span class="line">  Person.call(this, name); &#x2F;&#x2F;其实很简单直接，就是调用一遍父类的this.x &#x3D; x</span><br><span class="line">  this.age &#x3D; age</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;将子类的原型对象指向Person的实例</span><br><span class="line">Student.prototype &#x3D; new Person(); </span><br><span class="line">&#x2F;&#x2F;将子类的原型对象的构造函数正确指回</span><br><span class="line">Student.prototype.constructor &#x3D; Student;</span><br><span class="line">&#x2F;&#x2F;新增一个实例方法</span><br><span class="line">Student.prototype.sayAge &#x3D; function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>寄生组合继承<br>第一种方式，感觉不太好<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  Person.call(this, name);</span><br><span class="line">  this.age &#x3D; age</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; Object.assign 无法复制继承属性及不可枚举的数据 以及get set函数</span><br><span class="line">Student.prototype &#x3D; Object.assign(Object.create(Person.prototype), Student.prototype)</span><br><span class="line">&#x2F;&#x2F; 所以需要重新赋值constructor,但是用这种方法constructor属性就变为可枚举属性了</span><br><span class="line">Student.prototype.constructor &#x3D; Student;</span><br><span class="line">Student.prototype.sayAge &#x3D; function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const student &#x3D; new Student(&#39;lucy&#39;,30)</span><br><span class="line">console.log(student);</span><br></pre></td></tr></table></figure>
-第二种方式,可以解决枚举属性的问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype &#x3D; Object.create(Person.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: Student,</span><br><span class="line">    enumerable: false,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true</span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-第三种方式是我自己想的，结合<code>Object.getOwnPropertyDescriptors()</code><br>该函数的参数是<strong>Student.prototype</strong>，第一次写的时候忘了写<code>.prototype</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype &#x3D; Object.create(</span><br><span class="line">  Person.prototype, </span><br><span class="line">  Object.getOwnPropertyDescriptors(Student.prototype)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-下图是控制台输出，左边是组合继承，右边是寄生组合继承<br><img src="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/bg2.png" alt="控制台输出">  </li>
+<li>组合继承 最常用的继承<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  &#x2F;&#x2F;拓展一个实例属性 </span><br><span class="line">  Person.call(this, name); &#x2F;&#x2F;其实很简单直接，就是调用一遍父类的this.x &#x3D; x</span><br><span class="line">  this.age &#x3D; age</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;将子类的原型对象指向Person的实例</span><br><span class="line">Student.prototype &#x3D; new Person(); </span><br><span class="line">&#x2F;&#x2F;将子类的原型对象的构造函数正确指回</span><br><span class="line">Student.prototype.constructor &#x3D; Student;</span><br><span class="line">&#x2F;&#x2F;新增一个实例方法</span><br><span class="line">Student.prototype.sayAge &#x3D; function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>寄生组合继承  完美的继承</li>
 </ul>
+<p>JavaScript高程里的写法，<strong>需要借助两个辅助函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function inheritPrototype(subType, superType) &#123;</span><br><span class="line">    let prototype &#x3D; object(superType.prototype); &#x2F;&#x2F; 创建对象</span><br><span class="line">    prototype.constructor &#x3D; subType; &#x2F;&#x2F; 增强对象 </span><br><span class="line">    subType.prototype &#x3D; prototype; &#x2F;&#x2F; 赋值对象</span><br><span class="line">  &#125;</span><br><span class="line">  function object(o) &#123; </span><br><span class="line">    function F() &#123;&#125; </span><br><span class="line">    F.prototype &#x3D; o; </span><br><span class="line">    return new F(); </span><br><span class="line">  &#125;</span><br><span class="line">  function SuperType(name) &#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">    this.colors &#x3D; [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">  SuperType.prototype.sayName &#x3D; function () &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">  &#125;;</span><br><span class="line">  function SubType(name, age) &#123;</span><br><span class="line">    SuperType.call(this, name);</span><br><span class="line">    this.age &#x3D; age;</span><br><span class="line">  &#125;</span><br><span class="line">  inheritPrototype(SubType, SuperType);</span><br><span class="line">  SubType.prototype.sayAge &#x3D; function () &#123;</span><br><span class="line">    console.log(this.age);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>下边是网上的变种（倒是能用）</p>
+<p>第一种方式，感觉不太好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  Person.call(this, name);</span><br><span class="line">  this.age &#x3D; age</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; Object.assign 无法复制继承属性及不可枚举的数据 以及get set函数</span><br><span class="line">Student.prototype &#x3D; Object.assign(Object.create(Person.prototype), Student.prototype)</span><br><span class="line">&#x2F;&#x2F; 所以需要重新赋值constructor,但是用这种方法constructor属性就变为可枚举属性了</span><br><span class="line">Student.prototype.constructor &#x3D; Student;</span><br><span class="line">Student.prototype.sayAge &#x3D; function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const student &#x3D; new Student(&#39;lucy&#39;,30)</span><br><span class="line">console.log(student);</span><br></pre></td></tr></table></figure>
+<p>第二种方式,可以解决枚举属性的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype &#x3D; Object.create(Person.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: Student,</span><br><span class="line">    enumerable: false,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true</span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>第三种方式是我自己想的，结合<code>Object.getOwnPropertyDescriptors()</code><br>该函数的参数是<strong>Student.prototype</strong>，第一次写的时候忘了写<code>.prototype</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype &#x3D; Object.create(</span><br><span class="line">  Person.prototype, </span><br><span class="line">  Object.getOwnPropertyDescriptors(Student.prototype)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>下图是控制台输出，左边是组合继承，右边是寄生组合继承<br><img src="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/bg2.png" alt="控制台输出">  </p>
 <hr>
 <blockquote>
 <p>我们为什么要把子类的prototype<strong>指向父类的实例而不是父类的prototype</strong>呢<br>如果我们把子类的原型对象直接指向父类的原型对象，扩展子类会影响到父类  </p>
@@ -453,8 +461,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" rel="next" title="防抖和节流">
-                <i class="fa fa-chevron-left"></i> 防抖和节流
+              <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式">
+                <i class="fa fa-chevron-left"></i> 设计模式
               </a>
             
           </div>
@@ -463,8 +471,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="prev" title="运算符">
-                运算符 <i class="fa fa-chevron-right"></i>
+              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="prev" title="箭头函数与call">
+                箭头函数与call <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -546,7 +554,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +565,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -568,7 +576,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

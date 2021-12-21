@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="1. XSS攻击XSS(Cross-Site Scripting，跨站脚本攻击)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。 XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致">
+<meta name="description" content="美团安全系列-XSS 美团安全系列-CSRF 1. XSS攻击XSS(Cross-Site Scripting，跨站脚本攻击)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。 XSS 的本质是：恶意代码未经过滤，与网站正常的代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端安全">
 <meta property="og:url" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="1. XSS攻击XSS(Cross-Site Scripting，跨站脚本攻击)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。 XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致">
+<meta property="og:description" content="美团安全系列-XSS 美团安全系列-CSRF 1. XSS攻击XSS(Cross-Site Scripting，跨站脚本攻击)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。 XSS 的本质是：恶意代码未经过滤，与网站正常的代码">
 <meta property="article:published_time" content="2021-11-26T03:35:02.371Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.372Z">
+<meta property="article:modified_time" content="2021-12-21T05:45:31.093Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="xss">
 <meta property="article:tag" content="csrf">
@@ -387,21 +387,20 @@
       
 
       
-        <h2 id="1-XSS攻击"><a href="#1-XSS攻击" class="headerlink" title="1. XSS攻击"></a>1. XSS攻击</h2><p>XSS(Cross-Site Scripting，跨站脚本攻击)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。</p>
+        <p><a href="https://juejin.cn/post/6844903685122703367" target="_blank" rel="noopener">美团安全系列-XSS</a></p>
+<p><a href="https://juejin.cn/post/6844903689702866952" target="_blank" rel="noopener">美团安全系列-CSRF</a></p>
+<h2 id="1-XSS攻击"><a href="#1-XSS攻击" class="headerlink" title="1. XSS攻击"></a>1. XSS攻击</h2><p>XSS(Cross-Site Scripting，<strong>跨站脚本攻击</strong>)是一种代码注入攻击。攻击者在目标网站上注入恶意代码，当被攻击者登陆网站时就会执行这些恶意代码，这些脚本可以读取 cookie，session tokens，或者其它敏感的网站信息，对用户进行钓鱼欺诈，甚至发起蠕虫攻击等。</p>
 <p>XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。由于直接在用户的终端执行，恶意代码能够直接获取用户的信息，利用这些信息冒充用户向网站发起攻击者定义的请求。</p>
 <blockquote>
 <p>XSS分类</p>
 </blockquote>
-<p>根据攻击的来源，S攻击可以分为存储型(持久性)、反射型(非持久型)和DOM型三种。下面我们来详细了解一下这三种XSS攻击：</p>
-<blockquote>
-<h3 id="1-1-反射型XSS"><a href="#1-1-反射型XSS" class="headerlink" title="1.1 反射型XSS"></a>1.1 反射型XSS</h3></blockquote>
-<p>当用户点击一个恶意链接，或者提交一个表单，或者进入一个恶意网站时，注入脚本进入被攻击者的网站。Web服务器将注入脚本，比如一个错误信息，搜索结果等，未进行过滤直接返回到用户的浏览器上。</p>
+<p>根据攻击的来源，XSS攻击可以分为存储型(持久性)、反射型(非持久型)和DOM型三种。下面我们来详细了解一下这三种XSS攻击：</p>
+<h3 id="1-1-反射型XSS"><a href="#1-1-反射型XSS" class="headerlink" title="1.1 反射型XSS"></a>1.1 反射型XSS</h3><p>当用户点击一个恶意链接，或者提交一个表单，或者进入一个恶意网站时，注入脚本进入被攻击者的网站。Web服务器将注入脚本，比如一个错误信息，搜索结果等，未进行过滤直接返回到用户的浏览器上。</p>
 <blockquote>
 <p>反射型 XSS 的攻击步骤：</p>
 </blockquote>
 <ol>
 <li>攻击者构造出特殊的 <code>URL</code>，其中包含恶意代码。</li>
-<li></li>
 <li>用户打开带有恶意代码的 <code>URL</code> 时，网站服务端将恶意代码从 <code>URL</code> 中取出，拼接在 HTML 中返回给浏览器。</li>
 <li>用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。</li>
 <li>恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</li>
@@ -417,9 +416,7 @@
 <p>对url的查询参数进行转义后再输出到页面。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.get(&#39;&#x2F;welcome&#39;, function(req, res) &#123;</span><br><span class="line">    &#x2F;&#x2F;对查询参数进行编码，避免反射型 XSS攻击</span><br><span class="line">    res.send(&#96;$&#123;encodeURIComponent(req.query.type)&#125;&#96;); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<h3 id="1-2-DOM-型-XSS"><a href="#1-2-DOM-型-XSS" class="headerlink" title="1.2 DOM 型 XSS"></a>1.2 DOM 型 XSS</h3></blockquote>
-<p>DOM 型 XSS 攻击，实际上就是前端 <code>JavaScript</code> 代码不够严谨，把不可信的内容插入到了页面。在使用 <code>.innerHTML</code>、<code>.outerHTML</code>、<code>.appendChild</code>、<code>document.write()</code>等API时要特别小心，不要把不可信的数据作为 HTML 插到页面上，尽量使用 <code>.innerText</code>、<code>.textContent</code>、<code>.setAttribute()</code> 等。</p>
+<h3 id="1-2-DOM-型-XSS"><a href="#1-2-DOM-型-XSS" class="headerlink" title="1.2 DOM 型 XSS"></a>1.2 DOM 型 XSS</h3><p>DOM 型 XSS 攻击，实际上就是前端 <code>JavaScript</code> 代码不够严谨，把不可信的内容插入到了页面。在使用 <code>.innerHTML</code>、<code>.outerHTML</code>、<code>.appendChild</code>、<code>document.write()</code>等API时要特别小心，不要把不可信的数据作为 HTML 插到页面上，尽量使用 <code>.innerText</code>、<code>.textContent</code>、<code>.setAttribute()</code> 等。</p>
 <blockquote>
 <p>DOM 型 XSS 的攻击步骤：</p>
 </blockquote>
@@ -437,9 +434,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function encodeHtml(str) &#123;</span><br><span class="line">    return str.replace(&#x2F;&quot;&#x2F;g, &#39;&quot;&#39;)</span><br><span class="line">            .replace(&#x2F;&#39;&#x2F;g, &#39;&amp;apos;&#39;)</span><br><span class="line">            .replace(&#x2F;&lt;&#x2F;g, &#39;&lt;&#39;)</span><br><span class="line">            .replace(&#x2F;&gt;&#x2F;g, &#39;&gt;&#39;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞。</p>
-<blockquote>
-<h3 id="1-3-存储型XSS"><a href="#1-3-存储型XSS" class="headerlink" title="1.3 存储型XSS"></a>1.3 存储型XSS</h3></blockquote>
-<p>恶意脚本永久存储在目标服务器上。当浏览器请求数据时，脚本从服务器传回并执行，影响范围比反射型和DOM型XSS更大。存储型XSS攻击的原因仍然是没有做好数据过滤：前端提交数据至服务端时，没有做好过滤；服务端在接受到数据时，在存储之前，没有做过滤；前端从服务端请求到数据，没有过滤输出。</p>
+<h3 id="1-3-存储型XSS"><a href="#1-3-存储型XSS" class="headerlink" title="1.3 存储型XSS"></a>1.3 存储型XSS</h3><p>恶意脚本永久存储在目标服务器上。当浏览器请求数据时，脚本从服务器传回并执行，影响范围比反射型和DOM型XSS更大。存储型XSS攻击的原因仍然是没有做好数据过滤：前端提交数据至服务端时，没有做好过滤；服务端在接受到数据时，在存储之前，没有做过滤；前端从服务端请求到数据，没有过滤输出。</p>
 <blockquote>
 <p>存储型 XSS 的攻击步骤：</p>
 </blockquote>
@@ -678,7 +673,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -689,7 +684,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -700,7 +695,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
