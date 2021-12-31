@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="这个可以看浏览器原理  micro-task和macro-task就是两种不同的任务队列   macro-task: script(script标签里面的整体代码)  setTimeout setInterval setImmediate MessageChannel（vue nextTick 以前应该是备选方案） I&#x2F;O UI rendering requestAnimationFrame">
+<meta name="description" content="这个可以看浏览器原理  micro-task和macro-task就是两种不同的任务队列  macro-task: script(script标签里面的整体代码) setTimeout setInterval setImmediate MessageChannel（vue nextTick 以前应该是备选方案） I&#x2F;O UI rendering requestAnimationFrame   m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MacroTask（宏任务）和MicroTask（微任务）">
 <meta property="og:url" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="这个可以看浏览器原理  micro-task和macro-task就是两种不同的任务队列   macro-task: script(script标签里面的整体代码)  setTimeout setInterval setImmediate MessageChannel（vue nextTick 以前应该是备选方案） I&#x2F;O UI rendering requestAnimationFrame">
+<meta property="og:description" content="这个可以看浏览器原理  micro-task和macro-task就是两种不同的任务队列  macro-task: script(script标签里面的整体代码) setTimeout setInterval setImmediate MessageChannel（vue nextTick 以前应该是备选方案） I&#x2F;O UI rendering requestAnimationFrame   m">
 <meta property="og:image" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/MacroTask1.jpg">
 <meta property="article:published_time" content="2021-11-26T03:35:02.364Z">
-<meta property="article:modified_time" content="2021-12-24T08:50:09.298Z">
+<meta property="article:modified_time" content="2021-12-31T01:30:19.542Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="eventLoop">
 <meta name="twitter:card" content="summary">
@@ -390,10 +390,10 @@
         <blockquote>
 <p>这个可以看浏览器原理</p>
 </blockquote>
-<p>micro-task和macro-task就是两种不同的任务队列 </p>
+<p>micro-task和macro-task就是两种不同的任务队列</p>
 <ul>
 <li>macro-task:<ul>
-<li>script(script标签里面的整体代码) </li>
+<li>script(script标签里面的整体代码)</li>
 <li>setTimeout</li>
 <li>setInterval</li>
 <li>setImmediate</li>
@@ -416,8 +416,10 @@
 <p>管中窥豹，microTask调用优先级较高于macroTask.<br>先看一个demo</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#39;main start&#39;);</span><br><span class="line"></span><br><span class="line">setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;setTimeout&#39;);</span><br><span class="line">  process.nextTick(() &#x3D;&gt; console.log(&#39;process.nextTick 3&#39;));</span><br><span class="line">&#125;, 0);</span><br><span class="line"></span><br><span class="line">process.nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;process.nextTick 1&#39;);</span><br><span class="line">  process.nextTick(() &#x3D;&gt; console.log(&#39;process.nextTick 2&#39;));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(&#39;main end&#39;);</span><br></pre></td></tr></table></figure>
+
 <p>看看它们的执行顺序是怎么样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1   main start</span><br><span class="line">2   main end</span><br><span class="line">3   process.nextTick 1</span><br><span class="line">4   process.nextTick 2</span><br><span class="line">5   setTimeout</span><br><span class="line">6   process.nextTick 3</span><br></pre></td></tr></table></figure>
+
 <p>大致流程如下所示：</p>
 <ol>
 <li><p>先运行主程序（事实上主程序本身就是一个macroTask），主程序把setTimeout和process.nextTick分别放入MacroTask Queue和MicroTask Queue</p>
@@ -435,6 +437,7 @@
 </ol>
 <p><strong>下面也是一道经常考的面试题,可以更好的理解async await</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">async function async1() &#123;</span><br><span class="line">  console.log(&#39;async1 start&#39;); &#x2F;&#x2F; 2</span><br><span class="line">  await async2(); &#x2F;&#x2F; 微任务 1</span><br><span class="line">  console.log(&#39;async1 end&#39;); &#x2F;&#x2F; 微任务 1 6</span><br><span class="line">&#125;</span><br><span class="line">async function async2() &#123;</span><br><span class="line">  console.log(&#39;async2&#39;); &#x2F;&#x2F; 3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(&#39;script start&#39;);  &#x2F;&#x2F; 1</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">  console.log(&#39;setTimeout&#39;); &#x2F;&#x2F; 宏任务 1 8</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">async1(); </span><br><span class="line"></span><br><span class="line">new Promise(function(resolve) &#123;</span><br><span class="line">  console.log(&#39;promise1&#39;); &#x2F;&#x2F; 4</span><br><span class="line">  resolve(); &#x2F;&#x2F; 微任务 2</span><br><span class="line">&#125;).then(function() &#123;</span><br><span class="line">  console.log(&#39;promise2&#39;); &#x2F;&#x2F; 微任务 2 7</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&#39;script end&#39;); &#x2F;&#x2F; 5</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -464,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/promise/" rel="next" title="Promise详细介绍">
-                <i class="fa fa-chevron-left"></i> Promise详细介绍
+              <a href="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/" rel="next" title="工作中遇到的-小-问题记录">
+                <i class="fa fa-chevron-left"></i> 工作中遇到的-小-问题记录
               </a>
             
           </div>
@@ -474,8 +477,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" rel="prev" title="前端安全">
-                前端安全 <i class="fa fa-chevron-right"></i>
+              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="prev" title="事件循环及消息队列">
+                事件循环及消息队列 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -548,7 +551,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

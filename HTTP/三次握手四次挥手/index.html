@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://mst123.github.io/HTTP/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/%E5%9B%BE%E5%83%8F%203-8931236.jpeg">
 <meta property="og:image" content="https://mst123.github.io/HTTP/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/16da9fd28b1900f9~tplv-t2oaga2asx-watermark-20211207100719030.awebp">
 <meta property="article:published_time" content="2021-12-07T02:06:31.799Z">
-<meta property="article:modified_time" content="2021-12-08T02:41:18.940Z">
+<meta property="article:modified_time" content="2021-12-31T01:32:20.377Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="HTTP">
 <meta property="article:tag" content="TCP">
@@ -430,13 +430,13 @@
 <p><img src="/HTTP/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/16da9fd289836792~tplv-t2oaga2asx-watermark-20211207100719210.awebp" alt="三次握手和四次挥手.png"></p>
 <h3 id="tcp标志位含义"><a href="#tcp标志位含义" class="headerlink" title="tcp标志位含义"></a>tcp标志位含义</h3><p>搞懂位码含义，方便理解。位码即tcp标志位，有6种标示：</p>
 <ul>
-<li>SYN(synchronous建立联机) </li>
-<li>ACK(acknowledgement 确认) </li>
-<li>PSH(push传送) </li>
-<li>FIN(finish结束) </li>
-<li>RST(reset重置) </li>
+<li>SYN(synchronous建立联机)</li>
+<li>ACK(acknowledgement 确认)</li>
+<li>PSH(push传送)</li>
+<li>FIN(finish结束)</li>
+<li>RST(reset重置)</li>
 <li>URG(urgent紧急)</li>
-<li>seq Sequence number(顺序号码) </li>
+<li>seq Sequence number(顺序号码)</li>
 <li>ack Acknowledge number(确认号码)</li>
 </ul>
 <h2 id="1-三次握手"><a href="#1-三次握手" class="headerlink" title="1. 三次握手"></a>1. 三次握手</h2><p>三次握手（Three-way Handshake）其实就是指建立一个TCP连接时，需要客户端和服务器总共发送3个包。进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换<code>TCP窗口大小</code>信息。</p>
@@ -509,7 +509,7 @@
 <p><strong>MSL</strong>是Maximum Segment Lifetime的英文缩写，可译为“最长报文段寿命”，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</p>
 </blockquote>
 <p><strong>为了保证客户端发送的最后一个ACK报文段能够到达服务器。因为这个ACK有可能丢失，从而导致处在LAST-ACK状态的服务器收不到对FIN-ACK的确认报文。服务器会超时重传这个FIN-ACK，接着客户端再重传一次确认，重新启动时间等待计时器</strong>。最后客户端和服务器都能正常的关闭。假设客户端不等待2MSL，而是在发送完ACK之后直接释放关闭，一但这个ACK丢失的话，服务器就无法正常的进入关闭连接状态。</p>
-<h4 id="两个理由："><a href="#两个理由：" class="headerlink" title="两个理由："></a>两个理由：</h4><ol>
+<h4 id="两个理由"><a href="#两个理由" class="headerlink" title="两个理由"></a>两个理由</h4><ol>
 <li>保证客户端发送的最后一个ACK报文段能够到达服务端。 这个ACK报文段有可能丢失，使得处于LAST-ACK状态的B收不到对已发送的FIN+ACK报文段的确认，服务端超时重传FIN+ACK报文段，而客户端能在2MSL时间内收到这个重传的FIN+ACK报文段，接着客户端重传一次确认，重新启动2MSL计时器，最后客户端和服务端都进入到CLOSED状态，若客户端在TIME-WAIT状态不等待一段时间，而是发送完ACK报文段后立即释放连接，则无法收到服务端重传的FIN+ACK报文段，所以不会再发送一次确认报文段，则服务端无法正常进入到CLOSED状态。</li>
 <li>防止“已失效的连接请求报文段”出现在本连接中。 客户端在发送完最后一个ACK报文段后，再经过2MSL，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失，使下一个新的连接中不会出现这种旧的连接请求报文段。</li>
 </ol>
@@ -642,7 +642,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -697,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp标志位含义"><span class="nav-number">1.</span> <span class="nav-text">tcp标志位含义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-三次握手"><span class="nav-number"></span> <span class="nav-text">1. 三次握手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-为什么需要三次握手，两次不行吗？"><span class="nav-number">1.</span> <span class="nav-text">1.1 为什么需要三次握手，两次不行吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-什么是半连接队列？"><span class="nav-number">2.</span> <span class="nav-text">1.2 什么是半连接队列？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-ISN-Initial-Sequence-Number-是固定的吗？"><span class="nav-number">3.</span> <span class="nav-text">1.3 ISN(Initial Sequence Number)是固定的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-三次握手过程中可以携带数据吗？"><span class="nav-number">4.</span> <span class="nav-text">1.4 三次握手过程中可以携带数据吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-SYN攻击是什么？"><span class="nav-number">5.</span> <span class="nav-text">1.5 SYN攻击是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-四次挥手"><span class="nav-number"></span> <span class="nav-text">2. 四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-挥手为什么需要四次？"><span class="nav-number">1.</span> <span class="nav-text">2.1 挥手为什么需要四次？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2MSL等待状态"><span class="nav-number">2.</span> <span class="nav-text">2.2 2MSL等待状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-四次挥手释放连接时，等待2MSL的意义"><span class="nav-number">3.</span> <span class="nav-text">2.3 四次挥手释放连接时，等待2MSL的意义?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两个理由："><span class="nav-number">3.1.</span> <span class="nav-text">两个理由：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-为什么TIME-WAIT状态需要经过2MSL才能返回到CLOSE状态？"><span class="nav-number">4.</span> <span class="nav-text">2.4 为什么TIME_WAIT状态需要经过2MSL才能返回到CLOSE状态？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number"></span> <span class="nav-text">3. 总结</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp标志位含义"><span class="nav-number">1.</span> <span class="nav-text">tcp标志位含义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-三次握手"><span class="nav-number"></span> <span class="nav-text">1. 三次握手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-为什么需要三次握手，两次不行吗？"><span class="nav-number">1.</span> <span class="nav-text">1.1 为什么需要三次握手，两次不行吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-什么是半连接队列？"><span class="nav-number">2.</span> <span class="nav-text">1.2 什么是半连接队列？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-ISN-Initial-Sequence-Number-是固定的吗？"><span class="nav-number">3.</span> <span class="nav-text">1.3 ISN(Initial Sequence Number)是固定的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-三次握手过程中可以携带数据吗？"><span class="nav-number">4.</span> <span class="nav-text">1.4 三次握手过程中可以携带数据吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-SYN攻击是什么？"><span class="nav-number">5.</span> <span class="nav-text">1.5 SYN攻击是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-四次挥手"><span class="nav-number"></span> <span class="nav-text">2. 四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-挥手为什么需要四次？"><span class="nav-number">1.</span> <span class="nav-text">2.1 挥手为什么需要四次？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2MSL等待状态"><span class="nav-number">2.</span> <span class="nav-text">2.2 2MSL等待状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-四次挥手释放连接时，等待2MSL的意义"><span class="nav-number">3.</span> <span class="nav-text">2.3 四次挥手释放连接时，等待2MSL的意义?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两个理由"><span class="nav-number">3.1.</span> <span class="nav-text">两个理由</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-为什么TIME-WAIT状态需要经过2MSL才能返回到CLOSE状态？"><span class="nav-number">4.</span> <span class="nav-text">2.4 为什么TIME_WAIT状态需要经过2MSL才能返回到CLOSE状态？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-number"></span> <span class="nav-text">3. 总结</span></a></div>
             
 
           </div>

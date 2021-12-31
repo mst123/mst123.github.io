@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210825120626382.png">
 <meta property="og:image" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210726175413005.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.364Z">
-<meta property="article:modified_time" content="2021-12-27T01:46:20.224Z">
+<meta property="article:modified_time" content="2021-12-31T01:30:04.937Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="事件循环">
 <meta property="article:tag" content="消息队列">
@@ -401,17 +401,17 @@
 <li>消息队列</li>
 </ul>
 <p><img src="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705153141673.png" alt="image-20210705153141673"></p>
-<p>​    从上图可以看出，渲染主线程会频繁接收到来自于 IO 线程的一些任务，接收到这些任务之后，渲染进程就需要着手处理。那么如何设计好一个线程模型，能让其能够接收管理其他线程发送的消息呢？</p>
-<p>​    一个通用模式是使用<strong>消息队列</strong>。</p>
-<p>​    <strong>消息队列是一种数据结构，可以存放要执行的任务</strong>。它符合队列“<strong>先进先出</strong>”的特点，也就是说<strong>要添加任务的话，添加到队列的尾部；要取出任务的话，从队列头部去取</strong>。</p>
+<p>​ 从上图可以看出，渲染主线程会频繁接收到来自于 IO 线程的一些任务，接收到这些任务之后，渲染进程就需要着手处理。那么如何设计好一个线程模型，能让其能够接收管理其他线程发送的消息呢？</p>
+<p>​ 一个通用模式是使用<strong>消息队列</strong>。</p>
+<p>​ <strong>消息队列是一种数据结构，可以存放要执行的任务</strong>。它符合队列“<strong>先进先出</strong>”的特点，也就是说<strong>要添加任务的话，添加到队列的尾部；要取出任务的话，从队列头部去取</strong>。</p>
 <h3 id="事件循环及消息队列图示"><a href="#事件循环及消息队列图示" class="headerlink" title="事件循环及消息队列图示"></a>事件循环及消息队列图示</h3><p><img src="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705154145466.png" alt="image-20210705154145466"></p>
-<h3 id="消息队列中的任务类型"><a href="#消息队列中的任务类型" class="headerlink" title="消息队列中的任务类型"></a>消息队列中的任务类型</h3><p>​    输入事件（鼠标滚动、点击、移动）、微任务、文件读写、WebSocket、JavaScript 定时器等等。</p>
-<p>​    除此之外，消息队列中还包含了很多与页面相关的事件，如 JavaScript 执行、解析DOM、样式计算、布局计算、CSS 动画等。</p>
-<h4 id="微任务是为了解决什么问题？"><a href="#微任务是为了解决什么问题？" class="headerlink" title="微任务是为了解决什么问题？"></a>微任务是为了解决什么问题？</h4><p>​    页面线程所有执行的任务都来自于消息队列。消息队列是“先进先出”的属性，也就是说放入队列中的任务，需要等待前面的任务被执行完，才会被执行。鉴于这个属性，就有如下两个问题需要解决。</p>
-<p>​    微任务就是为了<strong>处理高优先级的任务而被创建的。</strong>每个宏任务中都包含了一个<strong>微任务队列</strong>，在执行宏任务的过程中，如果 有微任务产生，那么就会将该变化添加到对应的微任务列表中。当宏任务完成后，程序会直接进入当前宏任务对应的微任务列表中（此时当前的宏任务并没结束）。程序会将微任务队列中所有的微任务执行完毕后才会进入下一个宏任务，如果在微任务执行的过程中产生了新的微任务，仍会被放置进当前的微任务列表等待执行。</p>
+<h3 id="消息队列中的任务类型"><a href="#消息队列中的任务类型" class="headerlink" title="消息队列中的任务类型"></a>消息队列中的任务类型</h3><p>​ 输入事件（鼠标滚动、点击、移动）、微任务、文件读写、WebSocket、JavaScript 定时器等等。</p>
+<p>​ 除此之外，消息队列中还包含了很多与页面相关的事件，如 JavaScript 执行、解析DOM、样式计算、布局计算、CSS 动画等。</p>
+<h4 id="微任务是为了解决什么问题？"><a href="#微任务是为了解决什么问题？" class="headerlink" title="微任务是为了解决什么问题？"></a>微任务是为了解决什么问题？</h4><p>​ 页面线程所有执行的任务都来自于消息队列。消息队列是“先进先出”的属性，也就是说放入队列中的任务，需要等待前面的任务被执行完，才会被执行。鉴于这个属性，就有如下两个问题需要解决。</p>
+<p>​ 微任务就是为了<strong>处理高优先级的任务而被创建的。</strong>每个宏任务中都包含了一个<strong>微任务队列</strong>，在执行宏任务的过程中，如果 有微任务产生，那么就会将该变化添加到对应的微任务列表中。当宏任务完成后，程序会直接进入当前宏任务对应的微任务列表中（此时当前的宏任务并没结束）。程序会将微任务队列中所有的微任务执行完毕后才会进入下一个宏任务，如果在微任务执行的过程中产生了新的微任务，仍会被放置进当前的微任务列表等待执行。</p>
 <h4 id="微任务、宏任务常见类型"><a href="#微任务、宏任务常见类型" class="headerlink" title="微任务、宏任务常见类型"></a>微任务、宏任务常见类型</h4><ul>
 <li>macro-task:<ul>
-<li>script(script标签里面的整体代码) </li>
+<li>script(script标签里面的整体代码)</li>
 <li>setTimeout</li>
 <li>setInterval</li>
 <li>setImmediate(node环境才有)</li>
@@ -425,24 +425,22 @@
 <li>process.nextTick(node环境才有)</li>
 <li>Promise</li>
 <li>Object.observe(已废弃，被下边那个取代了)</li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver" target="_blank" rel="noopener">MutationObserver</a> (接口提供了监视对DOM树所做更改的能力) </li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver" target="_blank" rel="noopener">MutationObserver</a> (接口提供了监视对DOM树所做更改的能力)</li>
 </ul>
 </li>
 </ul>
-<h4 id="setTimeout是如何实现的"><a href="#setTimeout是如何实现的" class="headerlink" title="setTimeout是如何实现的"></a>setTimeout是如何实现的</h4><p>​    在 Chrome 中除了正常使用的消息队列之外，还有<strong>另外一个消息队列</strong>，这个队列中维护了需要延迟执行的任务列表，包括了定时器和 Chromium 内部一些需要延迟执行的任务。</p>
-<p>​    当通过 JavaScript 调用 setTimeout 设置回调函数的时候，渲染进程将会创建一个回调任务，包含了回调函数 showName、当前发起时间、延迟执行时间，其模拟代码如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct DelayTask&#123;</span><br><span class="line">	int64 id； </span><br><span class="line">	CallBackFunction cbf;</span><br><span class="line">	int start_time;</span><br><span class="line">	int delay_time;</span><br><span class="line">&#125;;</span><br><span class="line">DelayTask timerTask;</span><br><span class="line">timerTask.cbf &#x3D; callbackFnc;</span><br><span class="line">timerTask.start_time &#x3D; getCurrentTime(); &#x2F;&#x2F; 获取当前时间</span><br><span class="line">timerTask.delay_time &#x3D; 200;&#x2F;&#x2F; 设置延迟执行时间</span><br></pre></td></tr></table></figure>
+<h4 id="setTimeout是如何实现的"><a href="#setTimeout是如何实现的" class="headerlink" title="setTimeout是如何实现的"></a>setTimeout是如何实现的</h4><p>​ 在 Chrome 中除了正常使用的消息队列之外，还有<strong>另外一个消息队列</strong>，这个队列中维护了需要延迟执行的任务列表，包括了定时器和 Chromium 内部一些需要延迟执行的任务。</p>
+<p>​ 当通过 JavaScript 调用 setTimeout 设置回调函数的时候，渲染进程将会创建一个回调任务，包含了回调函数 showName、当前发起时间、延迟执行时间，其模拟代码如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct DelayTask&#123;</span><br><span class="line"> int64 id； </span><br><span class="line"> CallBackFunction cbf;</span><br><span class="line"> int start_time;</span><br><span class="line"> int delay_time;</span><br><span class="line">&#125;;</span><br><span class="line">DelayTask timerTask;</span><br><span class="line">timerTask.cbf &#x3D; callbackFnc;</span><br><span class="line">timerTask.start_time &#x3D; getCurrentTime(); &#x2F;&#x2F; 获取当前时间</span><br><span class="line">timerTask.delay_time &#x3D; 200;&#x2F;&#x2F; 设置延迟执行时间</span><br></pre></td></tr></table></figure>
 
-<p>​    创建好回调任务之后，再将该任务添加到延迟执行队列中。这里我们要重点关注它的执行时机，下面是一段模拟代码，我们可以看出<strong>每完成一个宏任务，程序就回去延迟队列中取出已经到期的定时器任务，执行完成后进行下一轮循环</strong>。</p>
+<p>​ 创建好回调任务之后，再将该任务添加到延迟执行队列中。这里我们要重点关注它的执行时机，下面是一段模拟代码，我们可以看出<strong>每完成一个宏任务，程序就回去延迟队列中取出已经到期的定时器任务，执行完成后进行下一轮循环</strong>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void ProcessTimerTask()&#123;</span><br><span class="line">&#x2F;&#x2F; 从 delayed_incoming_queue 中取出已经到期的定时器任务</span><br><span class="line">&#x2F;&#x2F; 依次执行这些任务</span><br><span class="line">&#125;</span><br><span class="line">TaskQueue task_queue；</span><br><span class="line">void ProcessTask();</span><br><span class="line">bool keep_running &#x3D; true;</span><br><span class="line">void MainTherad()&#123;</span><br><span class="line">  for (; ;) &#123;</span><br><span class="line">    &#x2F;&#x2F; 执行消息队列中的任务</span><br><span class="line">    Task task &#x3D; task_queue.takeTask();</span><br><span class="line">    ProcessTask(task);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 执行延迟队列中的任务</span><br><span class="line">    ProcessDelayTask()</span><br><span class="line"></span><br><span class="line">    if (!keep_running) &#x2F;&#x2F; 如果设置了退出标志，那么直接退出线程循环</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h4 id="pomise"><a href="#pomise" class="headerlink" title="pomise"></a>pomise</h4><p>在promise专题内详细介绍，在这里只需要<strong>记住<code>promise.resolve</code> <code>promise.reject</code>会产生微任务</strong>就可以了</p>
 <h4 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h4><p> async/await 使用了 <code>Generator</code> 和 <code>Promise</code> 两种技术</p>
 <h5 id="生成器和协程"><a href="#生成器和协程" class="headerlink" title="生成器和协程"></a>生成器和协程</h5><p>生成器函数是一个带星号函数，而且是可以暂停执行和恢复执行的</p>
-<p>​    要搞懂函数为何能暂停和恢复，那你首先要了解协程的概念。<strong>协程一种比线程更加轻量级的存在</strong>。你可以把协程看成是跑在线程上的任务，一个线程上可以存在多个协程，但是在线程上同时只能执行一个协程</p>
-<p>​    正如一个进程可以拥有多个线程一样，一个线程也可以拥有多个协程。最重要的是，协程不是被操作系统内核所管理，而完全是由程序所控制</p>
+<p>​ 要搞懂函数为何能暂停和恢复，那你首先要了解协程的概念。<strong>协程一种比线程更加轻量级的存在</strong>。你可以把协程看成是跑在线程上的任务，一个线程上可以存在多个协程，但是在线程上同时只能执行一个协程</p>
+<p>​ 正如一个进程可以拥有多个线程一样，一个线程也可以拥有多个协程。最重要的是，协程不是被操作系统内核所管理，而完全是由程序所控制</p>
 <p>看下面代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function* genDemo() &#123;</span><br><span class="line">    console.log(&quot; 开始执行第一段 &quot;)</span><br><span class="line">    yield &#39;generator 1&#39;</span><br><span class="line">    console.log(&quot; 开始执行第二段 &quot;)</span><br><span class="line">    yield &#39;generator 2&#39;</span><br><span class="line">    console.log(&quot; 开始执行第三段 &quot;)</span><br><span class="line">    yield &#39;generator 3&#39;</span><br><span class="line">    console.log(&quot; 执行结束 &quot;)</span><br><span class="line">    return &#39;generator 4&#39;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">console.log(&#39;main 0&#39;)</span><br><span class="line">let gen &#x3D; genDemo()</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#39;main 1&#39;)</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#39;main 2&#39;)</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#39;main 3&#39;)</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#39;main 4&#39;)</span><br></pre></td></tr></table></figure>
 
@@ -467,7 +465,7 @@
 <h6 id="tips-加深理解"><a href="#tips-加深理解" class="headerlink" title="tips 加深理解"></a><strong>tips</strong> 加深理解</h6><p>看一个面试题，可以考察对于切换调用栈的理解</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 0</span><br><span class="line">var b &#x3D; async () &#x3D;&gt; &#123;</span><br><span class="line">  a &#x3D; a + await 10</span><br><span class="line">  console.log(&#39;2&#39;, a) &#x2F;&#x2F; -&gt; &#39;2&#39; 10</span><br><span class="line">  a &#x3D; (await 10) + a</span><br><span class="line">  console.log(&#39;3&#39;, a) &#x2F;&#x2F; -&gt; &#39;3&#39; 20</span><br><span class="line">&#125;</span><br><span class="line">b()</span><br><span class="line">a++</span><br><span class="line">console.log(&#39;1&#39;, a) &#x2F;&#x2F; -&gt; &#39;1&#39; 1</span><br></pre></td></tr></table></figure>
 
-<p>输出 </p>
+<p>输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 1</span><br><span class="line">2 10</span><br><span class="line">3 20</span><br></pre></td></tr></table></figure>
 
 <p>对于以上代码你可能会有疑惑，这里说明下原理</p>
@@ -479,24 +477,22 @@
 </ul>
 <h6 id="加深印象的两个问题"><a href="#加深印象的两个问题" class="headerlink" title="加深印象的两个问题"></a>加深印象的两个问题</h6><ul>
 <li><p>generator 函数是如何暂停执行程序的？</p>
-<p>​    答案是通过协程来控制程序执行。</p>
-<p>​    generator 函数是一个生成器，执行它会返回一个迭代器，这个迭代器同时也是一个协程。一个线程中可以有多个协程，但是同时只能有一个协程在执行。线程的执行是在内核态，是由操作系统来控制；协程的执行是在用户态，是完全由程序来进行控制，通过调用生成器的next()方法可以让该协程执行，通过yield关键字可以让该协程暂停，交出主线程控制权，通过return 关键字可以让该协程结束。协程切换是在用户态执行，而线程切换时需要从用户态切换到内核态，在内核态进行调度，协程相对于线程来说更加轻量、高效。</p>
+<p>​ 答案是通过协程来控制程序执行。</p>
+<p>​ generator 函数是一个生成器，执行它会返回一个迭代器，这个迭代器同时也是一个协程。一个线程中可以有多个协程，但是同时只能有一个协程在执行。线程的执行是在内核态，是由操作系统来控制；协程的执行是在用户态，是完全由程序来进行控制，通过调用生成器的next()方法可以让该协程执行，通过yield关键字可以让该协程暂停，交出主线程控制权，通过return 关键字可以让该协程结束。协程切换是在用户态执行，而线程切换时需要从用户态切换到内核态，在内核态进行调度，协程相对于线程来说更加轻量、高效。</p>
 </li>
 <li><p>async function实现原理？</p>
-<p>​    async function 是通过 promise + generator 来实现的。</p>
-<p>​    generator 是通过协程来控制程序调度的。在协程中执行异步任务时，先用promise封装该异步任务，如果异步任务完成，会将其结果放入微任务队列中，然后通过yield 让出主线程执行权，继续执行主线程js，主线程js执行完毕后，会去扫描微任务队列，如果有任务则取出任务进行执行，这时通过调用迭代器的next(result)方法，并传入任务执行结果result，将主线程执行权转交给该协程继续执行，并且将result赋值给yield 表达式左边的变量，从而以同步的方式实现了异步编程。所以说到底async function 还是通过协程+微任务+浏览器事件循环机制来实现的。</p>
+<p>​ async function 是通过 promise + generator 来实现的。</p>
+<p>​ generator 是通过协程来控制程序调度的。在协程中执行异步任务时，先用promise封装该异步任务，如果异步任务完成，会将其结果放入微任务队列中，然后通过yield 让出主线程执行权，继续执行主线程js，主线程js执行完毕后，会去扫描微任务队列，如果有任务则取出任务进行执行，这时通过调用迭代器的next(result)方法，并传入任务执行结果result，将主线程执行权转交给该协程继续执行，并且将result赋值给yield 表达式左边的变量，从而以同步的方式实现了异步编程。所以说到底async function 还是通过协程+微任务+浏览器事件循环机制来实现的。</p>
 </li>
 </ul>
 <h5 id="async、await的等价表示"><a href="#async、await的等价表示" class="headerlink" title="async、await的等价表示"></a>async、await的等价表示</h5><p>写这个主要是帮助理解</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">   return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于:</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">   return Promise.resolve(1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">   await 1</span><br><span class="line">   xxxxxxx</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于:</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">   return Promise.resolve(1).then(() &#x3D;&gt; &#123;</span><br><span class="line">   		xxxxxxx</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">   await 1</span><br><span class="line">   xxxxxxx</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于:</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">   return Promise.resolve(1).then(() &#x3D;&gt; &#123;</span><br><span class="line">     xxxxxxx</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="async"><a href="#async" class="headerlink" title="async"></a>async</h5><p>async 是一个通过<strong>异步执行并隐式返回 Promise</strong> 作为结果的函数</p>
 <p>例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">	return 2</span><br><span class="line">&#125;</span><br><span class="line">console.log(foo()) </span><br><span class="line">&#x2F;&#x2F; Promise &#123;&lt;resolved&gt;: 2&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line"> return 2</span><br><span class="line">&#125;</span><br><span class="line">console.log(foo()) </span><br><span class="line">&#x2F;&#x2F; Promise &#123;&lt;resolved&gt;: 2&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="await"><a href="#await" class="headerlink" title="await"></a>await</h5><p>用代码来分析一下吧</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">  let a &#x3D; await 100</span><br><span class="line">  console.log(a)</span><br><span class="line">  console.log(2)</span><br><span class="line">&#125;</span><br><span class="line">console.log(0)</span><br><span class="line">foo()</span><br><span class="line">console.log(3)</span><br></pre></td></tr></table></figure>
@@ -510,7 +506,7 @@
 <p>首先，执行console.log(0)这个语句，打印出来 0。紧接着就是执行 foo 函数，由于 foo 函数是被 async 标记过的，所以当进入该函数的时候，JavaScript 引擎会保存当前的调用栈等信息，然后执行 foo 函数中<code>console.log(1)</code>语句，并打印出 1。</p>
 <p>接下来就执行到 foo 函数中的<code>await 100</code>这个语句了，这里是我们<strong>分析的重点</strong>，因为在执行await 100这个语句时，JavaScript 引擎在背后为我们默默做了太多的事情，那么下面我们就把这个语句拆开，来看看 JavaScript 到底都做了哪些事情。</p>
 <p><strong>当执行到await 100时，会默认创建一个 Promise 对象</strong>，代码如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let promise_ &#x3D; new Promise((resolve,reject)&#123;</span><br><span class="line">	resolve(100)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let promise_ &#x3D; new Promise((resolve,reject)&#123;</span><br><span class="line"> resolve(100)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>在这个 promise_ 对象创建的过程中，我们可以看到在 executor 函数中调用了 resolve 函数，JavaScript 引擎会将该任务提交给微任务队列。</p>
 <p>然后 JavaScript 引擎会暂停当前协程的执行，将主线程的控制权转交给父协程执行，同时会将 promise_ 对象返回给父协程。</p>
@@ -520,7 +516,7 @@
 
 <p>foo 协程激活之后，会把刚才的 value 值赋给了变量 a，然后 foo 协程继续执行后续语句，执行完成之后，将控制权归还给父协程。主线程的控制权已经交给父协程了，这时候父协程要做的一件事是调用 promise_.then 来监控 promise 状态的改变。</p>
 <p>接下来继续执行父协程的流程，这里我们执行console.log(3)，并打印出来 3。随后父协程将执行结束，在结束之前，会进入微任务的检查点，然后执行微任务队列，微任务队列中有resolve(100)的任务等待执行，执行到这里的时候，会触发 promise_.then 中的回调函数，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promise_.then((value)&#x3D;&gt;&#123;</span><br><span class="line">	&#x2F;&#x2F; 回调函数被激活后</span><br><span class="line">  &#x2F;&#x2F; 将主线程控制权交给 foo 协程，并将 vaule 值传给协程</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promise_.then((value)&#x3D;&gt;&#123;</span><br><span class="line"> &#x2F;&#x2F; 回调函数被激活后</span><br><span class="line">  &#x2F;&#x2F; 将主线程控制权交给 foo 协程，并将 vaule 值传给协程</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>该回调函数被激活以后，会将主线程的控制权交给 foo 函数的协程，并同时将 value 值传给该协程。</p>
 <p>foo 协程激活之后，会把刚才的 value 值赋给了变量 a，然后 foo 协程继续执行后续语句，执行完成之后，将控制权归还给父协程。</p>
@@ -557,8 +553,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/" rel="next" title="工作中遇到的-小-问题记录">
-                <i class="fa fa-chevron-left"></i> 工作中遇到的-小-问题记录
+              <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/" rel="next" title="MacroTask（宏任务）和MicroTask（微任务）">
+                <i class="fa fa-chevron-left"></i> MacroTask（宏任务）和MicroTask（微任务）
               </a>
             
           </div>
@@ -650,7 +646,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

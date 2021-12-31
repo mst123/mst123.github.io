@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="词法作用域词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变（大部分情况下是这样的）。 123456789function foo() &amp;#123;  console.log( a ); &#x2F;&#x2F; 2&amp;#125; function bar() &amp;#123;  var a &#x3D;">
 <meta property="article:published_time" content="2021-05-16T14:48:31.559Z">
-<meta property="article:modified_time" content="2021-05-20T11:29:27.197Z">
+<meta property="article:modified_time" content="2021-12-31T01:37:31.936Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="this">
 <meta property="article:tag" content="作用域">
@@ -399,6 +399,7 @@
       
         <h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变（大部分情况下是这样的）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); &#x2F;&#x2F; 2</span><br><span class="line">&#125; </span><br><span class="line">function bar() &#123;</span><br><span class="line">  var a &#x3D; 3;</span><br><span class="line">  foo(); </span><br><span class="line">&#125; </span><br><span class="line">var a &#x3D; 2; </span><br><span class="line">bar();</span><br></pre></td></tr></table></figure>
+
 <h2 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h2><p>动态作用域让作用域作为一个在运行时就被动态确定的形式，而不是在写代码时进行静态确定的形式</p>
 <blockquote>
 <p>需要明确的是，<strong>事实上 JavaScript 并不具有动态作用域</strong>。它只有词法作用域，简单明了。 但是 this 机制某种程度上很像动态作用域。<br>主要区别：词法作用域是在写代码或者说定义时确定的，而动态作用域是在运行时确定 的。（this 也是！）词法作用域关注函数在何处声明，而动态作用域关注函数从何处调用。</p>
@@ -528,7 +529,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

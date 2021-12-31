@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="记录一下需要记忆的点 finally的实现方式虽然看起来很简单，但是也值得思索 12345678910Promise.prototype.myFinally &#x3D; function (callback) &amp;#123;  其实这个P &#x3D;&#x3D;&#x3D; Promise &#x2F;&#x2F; true  let P &#x3D; this.constructor;  &amp;#">
 <meta property="article:published_time" content="2021-12-18T13:55:46.429Z">
-<meta property="article:modified_time" content="2021-12-19T10:24:24.572Z">
+<meta property="article:modified_time" content="2021-12-31T01:36:24.391Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="ES6">
 <meta property="article:tag" content="promise">
@@ -395,139 +395,23 @@
 <li><p>错误捕获到后，就不会继续冒泡了，也就是不会被后面的catch捕获，所以上边代码加了一个throw reson</p>
 </li>
 <li><p>从上面的实现还可以看到，<code>finally</code>方法总是会返回原来的值，注意下述代码</p>
-<ul>
-<li><pre><code>const p2 = new Promise(function (resolve, reject) {
-      setTimeout(() =&gt; resolve(&quot;11111&quot;), 1000)
-    })
-    Promise.prototype.myFinally = function (callback) {
-      let P = this.constructor;
-      return this.then(
-        value  =&gt; P.resolve(callback()).then(() =&gt; value),
-        reason =&gt; P.resolve(callback()).then(() =&gt; { throw reason })
-      );
-    };
-    p2.myFinally(() =&gt; {
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const p2 &#x3D; new Promise(function (resolve, reject) &#123;</span><br><span class="line">      setTimeout(() &#x3D;&gt; resolve(&quot;11111&quot;), 1000)</span><br><span class="line">    &#125;)</span><br><span class="line">    Promise.prototype.myFinally &#x3D; function (callback) &#123;</span><br><span class="line">      let P &#x3D; this.constructor;</span><br><span class="line">      return this.then(</span><br><span class="line">        value  &#x3D;&gt; P.resolve(callback()).then(() &#x3D;&gt; value),</span><br><span class="line">        reason &#x3D;&gt; P.resolve(callback()).then(() &#x3D;&gt; &#123; throw reason &#125;)</span><br><span class="line">      );</span><br><span class="line">    &#125;;</span><br><span class="line">    p2.myFinally(() &#x3D;&gt; &#123;</span><br><span class="line"></span><br><span class="line">    &#125;).then(res &#x3D;&gt; &#123;</span><br><span class="line">      console.log(res); &#x2F;&#x2F; 1111</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
 
-    }).then(res =&gt; {
-      console.log(res); // 1111
-    })
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    也就意味着在promise中穿插finally 并不会有副作用</span><br><span class="line"></span><br><span class="line">- &#x2F;&#x2F; TODO &#96;P.resolve(callback()).then(() &#x3D;&gt; value)&#96; 为什么需要这么长呢</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">## 面试手写promise</span><br><span class="line"></span><br><span class="line">### 面试够用版</span><br><span class="line"></span><br><span class="line">&gt; 没实现异步吧 我觉得</span><br><span class="line"></span><br><span class="line">&gt; 来源：[实现一个完美符合Promise&#x2F;A+规范的Promise](https:&#x2F;&#x2F;link.juejin.cn?target&#x3D;https%3A%2F%2Fgithub.com%2Fforthealllight%2Fblog%2Fissues%2F4)</span><br></pre></td></tr></table></figure>
-function myPromise(constructor){
-let self=this;
-self.status=&quot;pending&quot; //定义状态改变前的初始状态
-self.value=undefined;//定义状态为resolved的时候的状态
-self.reason=undefined;//定义状态为rejected的时候的状态
-function resolve(value){
-    //两个===&quot;pending&quot;，保证了状态的改变是不可逆的
-   if(self.status===&quot;pending&quot;){
-      self.value=value;
-      self.status=&quot;resolved&quot;;
-   }
-}
-function reject(reason){
-    //两个===&quot;pending&quot;，保证了状态的改变是不可逆的
-   if(self.status===&quot;pending&quot;){
-      self.reason=reason;
-      self.status=&quot;rejected&quot;;
-   }
-}
-//捕获构造异常
-try{
-   constructor(resolve,reject);
-}catch(e){
-   reject(e);
-}
-}
-myPromise.prototype.then=function(onFullfilled,onRejected){
-let self=this;
-switch(self.status){
-  case &quot;resolved&quot;:
-    onFullfilled(self.value);
-    break;
-  case &quot;rejected&quot;:
-    onRejected(self.reason);
-    break;
-  default:       
-}
-}
-</code></pre></li>
-</ul>
+<p>也就意味着在promise中穿插finally 并不会有副作用</p>
+</li>
+<li><p>// TODO <code>P.resolve(callback()).then(() =&gt; value)</code> 为什么需要这么长呢</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 大厂专供版</span><br><span class="line"></span><br><span class="line">直接贴出来吧，这个版本还算好理解</span><br></pre></td></tr></table></figure>
-<p>const PENDING = “pending”;<br>const FULFILLED = “fulfilled”;<br>const REJECTED = “rejected”;</p>
-<p>function Promise(excutor) {<br>    let that = this; // 缓存当前promise实例对象<br>    that.status = PENDING; // 初始状态<br>    that.value = undefined; // fulfilled状态时 返回的信息<br>    that.reason = undefined; // rejected状态时 拒绝的原因<br>    that.onFulfilledCallbacks = []; // 存储fulfilled状态对应的onFulfilled函数<br>    that.onRejectedCallbacks = []; // 存储rejected状态对应的onRejected函数</p>
-<pre><code>function resolve(value) { // value成功态时接收的终值
-    if(value instanceof Promise) {
-        return value.then(resolve, reject);
-    }
-    // 实践中要确保 onFulfilled 和 onRejected 方法异步执行，且应该在 then 方法被调用的那一轮事件循环之后的新执行栈中执行。
-    setTimeout(() =&gt; {
-        // 调用resolve 回调对应onFulfilled函数
-        if (that.status === PENDING) {
-            // 只能由pending状态 =&gt; fulfilled状态 (避免调用多次resolve reject)
-            that.status = FULFILLED;
-            that.value = value;
-            that.onFulfilledCallbacks.forEach(cb =&gt; cb(that.value));
-        }
-    });
-}
-function reject(reason) { // reason失败态时接收的拒因
-    setTimeout(() =&gt; {
-        // 调用reject 回调对应onRejected函数
-        if (that.status === PENDING) {
-            // 只能由pending状态 =&gt; rejected状态 (避免调用多次resolve reject)
-            that.status = REJECTED;
-            that.reason = reason;
-            that.onRejectedCallbacks.forEach(cb =&gt; cb(that.reason));
-        }
-    });
-}
+<h2 id="面试手写promise"><a href="#面试手写promise" class="headerlink" title="面试手写promise"></a>面试手写promise</h2><h3 id="面试够用版"><a href="#面试够用版" class="headerlink" title="面试够用版"></a>面试够用版</h3><blockquote>
+<p>没实现异步吧 我觉得</p>
+</blockquote>
+<blockquote>
+<p>来源：<a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fforthealllight%2Fblog%2Fissues%2F4">实现一个完美符合Promise/A+规范的Promise</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">function myPromise(constructor)&#123;</span><br><span class="line">    let self&#x3D;this;</span><br><span class="line">    self.status&#x3D;&quot;pending&quot; &#x2F;&#x2F;定义状态改变前的初始状态</span><br><span class="line">    self.value&#x3D;undefined;&#x2F;&#x2F;定义状态为resolved的时候的状态</span><br><span class="line">    self.reason&#x3D;undefined;&#x2F;&#x2F;定义状态为rejected的时候的状态</span><br><span class="line">    function resolve(value)&#123;</span><br><span class="line">        &#x2F;&#x2F;两个&#x3D;&#x3D;&#x3D;&quot;pending&quot;，保证了状态的改变是不可逆的</span><br><span class="line">       if(self.status&#x3D;&#x3D;&#x3D;&quot;pending&quot;)&#123;</span><br><span class="line">          self.value&#x3D;value;</span><br><span class="line">          self.status&#x3D;&quot;resolved&quot;;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function reject(reason)&#123;</span><br><span class="line">        &#x2F;&#x2F;两个&#x3D;&#x3D;&#x3D;&quot;pending&quot;，保证了状态的改变是不可逆的</span><br><span class="line">       if(self.status&#x3D;&#x3D;&#x3D;&quot;pending&quot;)&#123;</span><br><span class="line">          self.reason&#x3D;reason;</span><br><span class="line">          self.status&#x3D;&quot;rejected&quot;;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;捕获构造异常</span><br><span class="line">    try&#123;</span><br><span class="line">       constructor(resolve,reject);</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">       reject(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">myPromise.prototype.then&#x3D;function(onFullfilled,onRejected)&#123;</span><br><span class="line">   let self&#x3D;this;</span><br><span class="line">   switch(self.status)&#123;</span><br><span class="line">      case &quot;resolved&quot;:</span><br><span class="line">        onFullfilled(self.value);</span><br><span class="line">        break;</span><br><span class="line">      case &quot;rejected&quot;:</span><br><span class="line">        onRejected(self.reason);</span><br><span class="line">        break;</span><br><span class="line">      default:       </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-// 捕获在excutor执行器中抛出的异常
-// new Promise((resolve, reject) =&gt; {
-//     throw new Error(&apos;error in excutor&apos;)
-// })
-try {
-    excutor(resolve, reject);
-} catch (e) {
-    reject(e);
-}</code></pre><p>}</p>
-<p>Promise.prototype.then = function(onFulfilled, onRejected) {<br>    const that = this;<br>    let newPromise;<br>    // 处理参数默认值 保证参数后续能够继续执行<br>    onFulfilled =<br>        typeof onFulfilled === “function” ? onFulfilled : value =&gt; value;<br>    onRejected =<br>        typeof onRejected === “function” ? onRejected : reason =&gt; {<br>            throw reason;<br>        };<br>    if (that.status === FULFILLED) { // 成功态<br>        return newPromise = new Promise((resolve, reject) =&gt; {<br>            setTimeout(() =&gt; {<br>                try{<br>                    let x = onFulfilled(that.value);<br>                    resolvePromise(newPromise, x, resolve, reject); // 新的promise resolve 上一个onFulfilled的返回值<br>                } catch(e) {<br>                    reject(e); // 捕获前面onFulfilled中抛出的异常 then(onFulfilled, onRejected);<br>                }<br>            });<br>        })<br>    }</p>
-<pre><code>if (that.status === REJECTED) { // 失败态
-    return newPromise = new Promise((resolve, reject) =&gt; {
-        setTimeout(() =&gt; {
-            try {
-                let x = onRejected(that.reason);
-                resolvePromise(newPromise, x, resolve, reject);
-            } catch(e) {
-                reject(e);
-            }
-        });
-    });
-}
-
-if (that.status === PENDING) { // 等待态
-    // 当异步调用resolve/rejected时 将onFulfilled/onRejected收集暂存到集合中
-    return newPromise = new Promise((resolve, reject) =&gt; {
-        that.onFulfilledCallbacks.push((value) =&gt; {
-            try {
-                let x = onFulfilled(value);
-                resolvePromise(newPromise, x, resolve, reject);
-            } catch(e) {
-                reject(e);
-            }
-        });
-        that.onRejectedCallbacks.push((reason) =&gt; {
-            try {
-                let x = onRejected(reason);
-                resolvePromise(newPromise, x, resolve, reject);
-            } catch(e) {
-                reject(e);
-            }
-        });
-    });
-}</code></pre><p>};<br>```</p>
+<h3 id="大厂专供版"><a href="#大厂专供版" class="headerlink" title="大厂专供版"></a>大厂专供版</h3><p>直接贴出来吧，这个版本还算好理解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">const PENDING &#x3D; &quot;pending&quot;;</span><br><span class="line">const FULFILLED &#x3D; &quot;fulfilled&quot;;</span><br><span class="line">const REJECTED &#x3D; &quot;rejected&quot;;</span><br><span class="line"></span><br><span class="line">function Promise(excutor) &#123;</span><br><span class="line">    let that &#x3D; this; &#x2F;&#x2F; 缓存当前promise实例对象</span><br><span class="line">    that.status &#x3D; PENDING; &#x2F;&#x2F; 初始状态</span><br><span class="line">    that.value &#x3D; undefined; &#x2F;&#x2F; fulfilled状态时 返回的信息</span><br><span class="line">    that.reason &#x3D; undefined; &#x2F;&#x2F; rejected状态时 拒绝的原因</span><br><span class="line">    that.onFulfilledCallbacks &#x3D; []; &#x2F;&#x2F; 存储fulfilled状态对应的onFulfilled函数</span><br><span class="line">    that.onRejectedCallbacks &#x3D; []; &#x2F;&#x2F; 存储rejected状态对应的onRejected函数</span><br><span class="line"></span><br><span class="line">    function resolve(value) &#123; &#x2F;&#x2F; value成功态时接收的终值</span><br><span class="line">        if(value instanceof Promise) &#123;</span><br><span class="line">            return value.then(resolve, reject);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 实践中要确保 onFulfilled 和 onRejected 方法异步执行，且应该在 then 方法被调用的那一轮事件循环之后的新执行栈中执行。</span><br><span class="line">        setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; 调用resolve 回调对应onFulfilled函数</span><br><span class="line">            if (that.status &#x3D;&#x3D;&#x3D; PENDING) &#123;</span><br><span class="line">                &#x2F;&#x2F; 只能由pending状态 &#x3D;&gt; fulfilled状态 (避免调用多次resolve reject)</span><br><span class="line">                that.status &#x3D; FULFILLED;</span><br><span class="line">                that.value &#x3D; value;</span><br><span class="line">                that.onFulfilledCallbacks.forEach(cb &#x3D;&gt; cb(that.value));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    function reject(reason) &#123; &#x2F;&#x2F; reason失败态时接收的拒因</span><br><span class="line">        setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; 调用reject 回调对应onRejected函数</span><br><span class="line">            if (that.status &#x3D;&#x3D;&#x3D; PENDING) &#123;</span><br><span class="line">                &#x2F;&#x2F; 只能由pending状态 &#x3D;&gt; rejected状态 (避免调用多次resolve reject)</span><br><span class="line">                that.status &#x3D; REJECTED;</span><br><span class="line">                that.reason &#x3D; reason;</span><br><span class="line">                that.onRejectedCallbacks.forEach(cb &#x3D;&gt; cb(that.reason));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 捕获在excutor执行器中抛出的异常</span><br><span class="line">    &#x2F;&#x2F; new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;     throw new Error(&#39;error in excutor&#39;)</span><br><span class="line">    &#x2F;&#x2F; &#125;)</span><br><span class="line">    try &#123;</span><br><span class="line">        excutor(resolve, reject);</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">        reject(e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Promise.prototype.then &#x3D; function(onFulfilled, onRejected) &#123;</span><br><span class="line">    const that &#x3D; this;</span><br><span class="line">    let newPromise;</span><br><span class="line">    &#x2F;&#x2F; 处理参数默认值 保证参数后续能够继续执行</span><br><span class="line">    onFulfilled &#x3D;</span><br><span class="line">        typeof onFulfilled &#x3D;&#x3D;&#x3D; &quot;function&quot; ? onFulfilled : value &#x3D;&gt; value;</span><br><span class="line">    onRejected &#x3D;</span><br><span class="line">        typeof onRejected &#x3D;&#x3D;&#x3D; &quot;function&quot; ? onRejected : reason &#x3D;&gt; &#123;</span><br><span class="line">            throw reason;</span><br><span class="line">        &#125;;</span><br><span class="line">    if (that.status &#x3D;&#x3D;&#x3D; FULFILLED) &#123; &#x2F;&#x2F; 成功态</span><br><span class="line">        return newPromise &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">            setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">                try&#123;</span><br><span class="line">                    let x &#x3D; onFulfilled(that.value);</span><br><span class="line">                    resolvePromise(newPromise, x, resolve, reject); &#x2F;&#x2F; 新的promise resolve 上一个onFulfilled的返回值</span><br><span class="line">                &#125; catch(e) &#123;</span><br><span class="line">                    reject(e); &#x2F;&#x2F; 捕获前面onFulfilled中抛出的异常 then(onFulfilled, onRejected);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (that.status &#x3D;&#x3D;&#x3D; REJECTED) &#123; &#x2F;&#x2F; 失败态</span><br><span class="line">        return newPromise &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">            setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    let x &#x3D; onRejected(that.reason);</span><br><span class="line">                    resolvePromise(newPromise, x, resolve, reject);</span><br><span class="line">                &#125; catch(e) &#123;</span><br><span class="line">                    reject(e);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (that.status &#x3D;&#x3D;&#x3D; PENDING) &#123; &#x2F;&#x2F; 等待态</span><br><span class="line">        &#x2F;&#x2F; 当异步调用resolve&#x2F;rejected时 将onFulfilled&#x2F;onRejected收集暂存到集合中</span><br><span class="line">        return newPromise &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">            that.onFulfilledCallbacks.push((value) &#x3D;&gt; &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    let x &#x3D; onFulfilled(value);</span><br><span class="line">                    resolvePromise(newPromise, x, resolve, reject);</span><br><span class="line">                &#125; catch(e) &#123;</span><br><span class="line">                    reject(e);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            that.onRejectedCallbacks.push((reason) &#x3D;&gt; &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    let x &#x3D; onRejected(reason);</span><br><span class="line">                    resolvePromise(newPromise, x, resolve, reject);</span><br><span class="line">                &#125; catch(e) &#123;</span><br><span class="line">                    reject(e);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -653,7 +537,7 @@ if (that.status === PENDING) { // 等待态
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -708,7 +592,7 @@ if (that.status === PENDING) { // 等待态
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#finally的实现方式"><span class="nav-number">1.</span> <span class="nav-text">finally的实现方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#finally的实现方式"><span class="nav-number">1.</span> <span class="nav-text">finally的实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试手写promise"><span class="nav-number">2.</span> <span class="nav-text">面试手写promise</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面试够用版"><span class="nav-number">2.1.</span> <span class="nav-text">面试够用版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大厂专供版"><span class="nav-number">2.2.</span> <span class="nav-text">大厂专供版</span></a></li></ol></li></ol></div>
             
 
           </div>

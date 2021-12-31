@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="统计数组或字符串重复数字数量的时候使用哈希表 这种方法性能好，而且容易理解，且不易出错  不能用来统计连续出现的次数 1234567891011&#x2F;&#x2F; 相同牌出现次数Maplet timeMap &#x3D; new Map();&#x2F;&#x2F; 遍历牌deck.forEach(num &#x3D;&gt; &amp;#123;    &#x2F;&#x2F; 统计每张牌出现的次">
+<meta name="description" content="统计数组或字符串重复数字数量的时候使用哈希表 这种方法性能好，而且容易理解，且不易出错 不能用来统计连续出现的次数  1234567891011&#x2F;&#x2F; 相同牌出现次数Maplet timeMap &#x3D; new Map();&#x2F;&#x2F; 遍历牌deck.forEach(num &#x3D;&gt; &amp;#123;    &#x2F;&#x2F; 统计每张牌出现的次">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解题思路或方法">
 <meta property="og:url" content="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="统计数组或字符串重复数字数量的时候使用哈希表 这种方法性能好，而且容易理解，且不易出错  不能用来统计连续出现的次数 1234567891011&#x2F;&#x2F; 相同牌出现次数Maplet timeMap &#x3D; new Map();&#x2F;&#x2F; 遍历牌deck.forEach(num &#x3D;&gt; &amp;#123;    &#x2F;&#x2F; 统计每张牌出现的次">
+<meta property="og:description" content="统计数组或字符串重复数字数量的时候使用哈希表 这种方法性能好，而且容易理解，且不易出错 不能用来统计连续出现的次数  1234567891011&#x2F;&#x2F; 相同牌出现次数Maplet timeMap &#x3D; new Map();&#x2F;&#x2F; 遍历牌deck.forEach(num &#x3D;&gt; &amp;#123;    &#x2F;&#x2F; 统计每张牌出现的次">
 <meta property="article:published_time" content="2021-05-16T14:48:31.646Z">
-<meta property="article:modified_time" content="2021-05-17T07:49:13.783Z">
+<meta property="article:modified_time" content="2021-12-31T01:32:02.435Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -386,23 +386,25 @@
 
       
         <h2 id="统计数组或字符串重复数字数量的时候使用哈希表"><a href="#统计数组或字符串重复数字数量的时候使用哈希表" class="headerlink" title="统计数组或字符串重复数字数量的时候使用哈希表"></a>统计数组或字符串重复数字数量的时候使用哈希表</h2><ul>
-<li><p>这种方法性能好，而且容易理解，且不易出错</p>
-</li>
-<li><p>不能用来统计<strong>连续出现</strong>的次数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 相同牌出现次数Map</span><br><span class="line">let timeMap &#x3D; new Map();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 遍历牌</span><br><span class="line">deck.forEach(num &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; 统计每张牌出现的次数</span><br><span class="line">    timeMap.set(num, timeMap.has(num) ? timeMap.get(num) + 1 : 1);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Map.protype.values()返回的是一个新的Iterator对象，所以可以使用扩展运算符(...)来构造成数组</span><br><span class="line">let timeAry &#x3D; [...timeMap.values()];</span><br></pre></td></tr></table></figure>
+<li>这种方法性能好，而且容易理解，且不易出错</li>
+<li>不能用来统计<strong>连续出现</strong>的次数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 相同牌出现次数Map</span><br><span class="line">let timeMap &#x3D; new Map();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 遍历牌</span><br><span class="line">deck.forEach(num &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; 统计每张牌出现的次数</span><br><span class="line">    timeMap.set(num, timeMap.has(num) ? timeMap.get(num) + 1 : 1);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Map.prototype.values()返回的是一个新的Iterator对象，所以可以使用扩展运算符(...)来构造成数组</span><br><span class="line">let timeAry &#x3D; [...timeMap.values()];</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>相关题目 卡片分组 leetcode 914</p>
 </blockquote>
-</li>
-<li><p>计算<strong>连续出现</strong>次数的方法（自己写的，很垃圾，看见好的会更新）</p>
+<ul>
+<li>计算<strong>连续出现</strong>次数的方法（自己写的，很垃圾，看见好的会更新）</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&quot;1122233334444&quot;</span><br><span class="line">var arr &#x3D; s.split(&quot;&quot;);</span><br><span class="line">var arrSame &#x3D; [];</span><br><span class="line">var length &#x3D; 1</span><br><span class="line">for (var i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  if(arr[i]!&#x3D;&#x3D;arr[i+1]||(!arr[i+1]))&#123;</span><br><span class="line">    arrSame.push(length)</span><br><span class="line">    length &#x3D; 1</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    length++</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>相关题目 计数二进制子串 leetcode 696</p>
 </blockquote>
-</li>
-</ul>
-<p>##　辗转相除法 欧几里得算法<br>1997 / 615 = 3 (余 152)<br>615 / 152 = 4(余7)<br>152 / 7 = 21(余5)<br>7 / 5 = 1 (余2)<br>5 / 2 = 2 (余1)<br>2 / 1 = 2 (余0)</p>
+<h2 id="辗转相除法-欧几里得算法"><a href="#辗转相除法-欧几里得算法" class="headerlink" title="　辗转相除法 欧几里得算法"></a>　辗转相除法 欧几里得算法</h2><p>1997 / 615 = 3 (余 152)<br>615 / 152 = 4(余7)<br>152 / 7 = 21(余5)<br>7 / 5 = 1 (余2)<br>5 / 2 = 2 (余1)<br>2 / 1 = 2 (余0)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function ojld(chushu, yushu) &#123;</span><br><span class="line">  if(chushu % yushu &#x3D;&#x3D;&#x3D; 0)&#123;</span><br><span class="line">    return yushu</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return ojld(yushu, chushu % yushu)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="单调栈的讲解与应用"><a href="#单调栈的讲解与应用" class="headerlink" title="单调栈的讲解与应用"></a>单调栈的讲解与应用</h2>
       
     </div>
@@ -526,7 +528,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -581,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计数组或字符串重复数字数量的时候使用哈希表"><span class="nav-number">1.</span> <span class="nav-text">统计数组或字符串重复数字数量的时候使用哈希表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单调栈的讲解与应用"><span class="nav-number">2.</span> <span class="nav-text">单调栈的讲解与应用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计数组或字符串重复数字数量的时候使用哈希表"><span class="nav-number">1.</span> <span class="nav-text">统计数组或字符串重复数字数量的时候使用哈希表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#辗转相除法-欧几里得算法"><span class="nav-number">2.</span> <span class="nav-text">　辗转相除法 欧几里得算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单调栈的讲解与应用"><span class="nav-number">3.</span> <span class="nav-text">单调栈的讲解与应用</span></a></li></ol></div>
             
 
           </div>

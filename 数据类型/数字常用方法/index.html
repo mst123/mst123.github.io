@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="原型方法 Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。  Number.isNaN()用来检查一个值是否为NaN。  Number.parseInt()   Number.parseFloat()  ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。   Number.isIn">
+<meta name="description" content="原型方法 Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。  Number.isNaN()用来检查一个值是否为NaN。  Number.parseInt()  Number.parseFloat()  ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。   Number.isInt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字常用方法">
 <meta property="og:url" content="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="原型方法 Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。  Number.isNaN()用来检查一个值是否为NaN。  Number.parseInt()   Number.parseFloat()  ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。   Number.isIn">
+<meta property="og:description" content="原型方法 Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。  Number.isNaN()用来检查一个值是否为NaN。  Number.parseInt()  Number.parseFloat()  ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。   Number.isInt">
 <meta property="article:published_time" content="2021-11-26T03:35:02.290Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.291Z">
+<meta property="article:modified_time" content="2021-12-31T01:31:33.936Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="Number">
 <meta name="twitter:card" content="summary">
@@ -390,7 +390,7 @@
 </li>
 <li><p>Number.isNaN()<br>用来检查一个值是否为NaN。</p>
 </li>
-<li><p>Number.parseInt() </p>
+<li><p>Number.parseInt()</p>
 </li>
 <li><p>Number.parseFloat()</p>
 <blockquote>
@@ -410,9 +410,10 @@
 <h3 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h3><ul>
 <li>Math.trunc()</li>
 </ul>
-<p>​        <code>Math.trunc</code>方法用于去除一个数的小数部分，返回整数部分。</p>
-<p>​        对于没有部署这个方法的环境，可以用下面的代码模拟。</p>
+<p>​  <code>Math.trunc</code>方法用于去除一个数的小数部分，返回整数部分。</p>
+<p>​  对于没有部署这个方法的环境，可以用下面的代码模拟。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.trunc = <span class="built_in">Math</span>.trunc || <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x &lt; <span class="number">0</span> ? <span class="built_in">Math</span>.ceil(x) : <span class="built_in">Math</span>.floor(x);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -535,7 +536,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

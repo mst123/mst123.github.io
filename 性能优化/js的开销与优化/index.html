@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="JavaScript的开销js的开销主要在   加载  解析&amp;编译  执行   下图展示了浏览器处理同样大小的普通资源和 js 所需要的时间  Loding is a journey 减少主线程工作量（优化方案） 避免长任务 避免超过1kb的行间脚本（行内脚本，因为解析引擎无法进行优化） 使用rAF和rIC进行时间调度  V8 编译原理  一般引擎会被代码进行优化后转换为机械码，但是有些代">
+<meta name="description" content="JavaScript的开销js的开销主要在  加载  解析&amp;编译  执行   下图展示了浏览器处理同样大小的普通资源和 js 所需要的时间  Loding is a journey 减少主线程工作量（优化方案） 避免长任务 避免超过1kb的行间脚本（行内脚本，因为解析引擎无法进行优化） 使用rAF和rIC进行时间调度  V8 编译原理  一般引擎会被代码进行优化后转换为机械码，但是有些代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10.JavaScript的开销与优化">
 <meta property="og:url" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/js%E7%9A%84%E5%BC%80%E9%94%80%E4%B8%8E%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="JavaScript的开销js的开销主要在   加载  解析&amp;编译  执行   下图展示了浏览器处理同样大小的普通资源和 js 所需要的时间  Loding is a journey 减少主线程工作量（优化方案） 避免长任务 避免超过1kb的行间脚本（行内脚本，因为解析引擎无法进行优化） 使用rAF和rIC进行时间调度  V8 编译原理  一般引擎会被代码进行优化后转换为机械码，但是有些代">
+<meta property="og:description" content="JavaScript的开销js的开销主要在  加载  解析&amp;编译  执行   下图展示了浏览器处理同样大小的普通资源和 js 所需要的时间  Loding is a journey 减少主线程工作量（优化方案） 避免长任务 避免超过1kb的行间脚本（行内脚本，因为解析引擎无法进行优化） 使用rAF和rIC进行时间调度  V8 编译原理  一般引擎会被代码进行优化后转换为机械码，但是有些代码">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/js%E7%9A%84%E5%BC%80%E9%94%80%E4%B8%8E%E4%BC%98%E5%8C%96/image-20210122143240501.png">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/js%E7%9A%84%E5%BC%80%E9%94%80%E4%B8%8E%E4%BC%98%E5%8C%96/image-20210122164337959.png">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/js%E7%9A%84%E5%BC%80%E9%94%80%E4%B8%8E%E4%BC%98%E5%8C%96/image-20210122164634444.png">
 <meta property="article:published_time" content="2021-05-16T14:48:31.595Z">
-<meta property="article:modified_time" content="2021-11-30T12:31:36.109Z">
+<meta property="article:modified_time" content="2021-12-31T01:35:29.194Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="性能优化">
 <meta property="article:tag" content="JavaScript的开销与优化">
@@ -390,7 +390,7 @@
       
 
       
-        <h2 id="JavaScript的开销"><a href="#JavaScript的开销" class="headerlink" title="JavaScript的开销"></a>JavaScript的开销</h2><p>js的开销主要在 </p>
+        <h2 id="JavaScript的开销"><a href="#JavaScript的开销" class="headerlink" title="JavaScript的开销"></a>JavaScript的开销</h2><p>js的开销主要在</p>
 <ul>
 <li><p>加载</p>
 </li>
@@ -440,6 +440,7 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const array &#x3D; [3, 2, 1]; &#x2F;&#x2F; PACKED_SMI_ELEMENTS 满的-整型-元素</span><br><span class="line">array.push(4.4);  &#x2F;&#x2F; PACKED_DOUBLE_ELEMENTS</span><br><span class="line">&#x2F;&#x2F; 对编译器而言，需要更换类型，造成额外开销</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -471,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%89%B4%E6%9D%83/" rel="next" title="鉴权的几种方式介绍对比">
-                <i class="fa fa-chevron-left"></i> 鉴权的几种方式介绍对比
+              <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/html&css%E4%BC%98%E5%8C%96/" rel="next" title="11.html和css优化">
+                <i class="fa fa-chevron-left"></i> 11.html和css优化
               </a>
             
           </div>
@@ -481,8 +482,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/html&css%E4%BC%98%E5%8C%96/" rel="prev" title="11.html和css优化">
-                11.html和css优化 <i class="fa fa-chevron-right"></i>
+              <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/render/" rel="prev" title="4.浏览器渲染">
+                4.浏览器渲染 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -564,7 +565,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

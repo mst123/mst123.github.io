@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9B%9E%E6%B5%81%E9%87%8D%E7%BB%98%E4%B8%8E%E4%BC%98%E5%8C%96/1460000017329986.png">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9B%9E%E6%B5%81%E9%87%8D%E7%BB%98%E4%B8%8E%E4%BC%98%E5%8C%96/1460000017329987.png">
 <meta property="article:published_time" content="2021-05-16T14:48:31.610Z">
-<meta property="article:modified_time" content="2021-11-30T12:43:18.326Z">
+<meta property="article:modified_time" content="2021-12-31T01:33:14.034Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="浏览器渲染">
 <meta property="article:tag" content="性能优化">
@@ -435,16 +435,26 @@
 </ul>
 <p><strong>YaHoo!性能小组总结了一些导致<code>回流</code>发生的一些因素:</strong></p>
 <ol>
-<li>调整窗口大小</li>
-<li>改变字体</li>
-<li>增加或者移除样式表</li>
-<li>内容变化，比如用户在 input 框中输入文字, CSS3 动画等</li>
-<li>激活 <code>CSS</code> 伪类，比如 <code>:hover</code></li>
-<li>操作<code>class</code>属性 </li>
-<li>脚本操作<code>DOM</code></li>
-<li>计算<code>offsetWidth</code>和<code>offsetHeight</code>属性</li>
-<li>设置 style 属性的值</li>
-<li><strong>注意：回流一定会触发重绘，而重绘不一定会回流</strong></li>
+<li><p>调整窗口大小</p>
+</li>
+<li><p>改变字体</p>
+</li>
+<li><p>增加或者移除样式表</p>
+</li>
+<li><p>内容变化，比如用户在 input 框中输入文字, CSS3 动画等</p>
+</li>
+<li><p>激活 <code>CSS</code> 伪类，比如 <code>:hover</code></p>
+</li>
+<li><p>操作<code>class</code>属性</p>
+</li>
+<li><p>脚本操作<code>DOM</code></p>
+</li>
+<li><p>计算<code>offsetWidth</code>和<code>offsetHeight</code>属性</p>
+</li>
+<li><p>设置 style 属性的值</p>
+</li>
+<li><p><strong>注意：回流一定会触发重绘，而重绘不一定会回流</strong></p>
+</li>
 </ol>
 <p>根据改变的范围和程度，渲染树中或大或小的部分需要重新计算，有些改变会触发整个页面的重排，比如，滚动条出现的时候或者修改了根节点。</p>
 <h2 id="浏览器的优化机制"><a href="#浏览器的优化机制" class="headerlink" title="浏览器的优化机制"></a>浏览器的优化机制</h2><p>现代的浏览器都是很聪明的，由于每次重排都会造成额外的计算消耗，因此大多数浏览器都会通过队列化修改并批量执行来优化重排过程。浏览器会将修改操作放入到队列里，直到过了一段时间或者操作达到了一个阈值，才清空队列。但是！<strong>当你获取布局信息的操作的时候，会强制队列刷新</strong>，比如当你访问以下属性或者使用以下方法：</p>
@@ -663,7 +673,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

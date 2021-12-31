@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://mst123.github.io/CSS/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/TB1OE6uMXXXXXc8XFXXXXXXXXXX-1368-774.jpg_720x720.jpg">
 <meta property="og:image" content="https://mst123.github.io/CSS/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/TB1eYvqMXXXXXbJXVXXXXXXXXXX-936-480.jpg">
 <meta property="article:published_time" content="2021-11-26T03:35:02.226Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.227Z">
+<meta property="article:modified_time" content="2021-12-31T01:36:02.840Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="CSS">
 <meta property="article:tag" content="层叠上下文">
@@ -559,19 +559,13 @@
 <p>在本例中，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#overlap-child</span><br></pre></td></tr></table></figure>
 
+<p>同合成层重叠，如果进行压缩，会导致渲染顺序的改变，其父元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#ancestor</span><br></pre></td></tr></table></figure>
 
-
+<p>的 mask 属性将失效，因此类似这种情况下，是无法进行层压缩的。目前常见的产生这种原因的情况有两种，一种是上述的祖先元素使用 mask 属性的情况，另一种是祖先元素使用 filter 属性的情况（</p>
+<p>demo</p>
+<p>）。</p>
 </li>
-</ul>
-<p>  同合成层重叠，如果进行压缩，会导致渲染顺序的改变，其父元素</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#ancestor</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  的 mask 属性将失效，因此类似这种情况下，是无法进行层压缩的。目前常见的产生这种原因的情况有两种，一种是上述的祖先元素使用 mask 属性的情况，另一种是祖先元素使用 filter 属性的情况（</p>
-<p>  demo</p>
-<p>  ）。</p>
-<ul>
 <li><p>video 元素的渲染层无法被压缩同时也无法将别的渲染层压缩到 video 所在的合成层上（squashingVideoIsDisallowed）<a href="http://taobaofed.github.io/demo/performance-composite-demo/squash/video.html" target="_blank" rel="noopener">demo</a></p>
 </li>
 <li><p>iframe、plugin 的渲染层无法被压缩同时也无法将别的渲染层压缩到其所在的合成层上（squashingLayoutPartIsDisallowed）<a href="http://taobaofed.github.io/demo/performance-composite-demo/squash/layoutpart.html" target="_blank" rel="noopener">demo</a></p>
@@ -586,79 +580,51 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .clipping-container &#123;</span><br><span class="line"></span><br><span class="line">    overflow: hidden;</span><br><span class="line">    height: 10px; </span><br><span class="line">    background-color: blue;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .composited &#123;</span><br><span class="line"></span><br><span class="line">    transform: translateZ(0); </span><br><span class="line">    height: 10px; </span><br><span class="line">    background-color: red;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .target &#123;</span><br><span class="line"></span><br><span class="line">    position:absolute; </span><br><span class="line">    top: 0px; </span><br><span class="line">    height:100px; </span><br><span class="line">    width:100px; </span><br><span class="line">    background-color: green;</span><br><span class="line">    color: #fff;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;clipping-container&quot;&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;composited&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;target&quot;&gt;不会被压缩到 composited div 上&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
 
 <p>本例中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.target</span><br></pre></td></tr></table></figure>
+
+<p>同 合成层</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
+
+<p>重叠，但是由于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
+
+<p>在一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">overflow: hidden</span><br></pre></td></tr></table></figure>
+
+<p>的容器中，导致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.target</span><br></pre></td></tr></table></figure>
+
+<p>和合成层有不同的裁剪容器，从而</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.target</span><br></pre></td></tr></table></figure>
+
+<p>无法被压缩。</p>
 </li>
-</ul>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.target</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  同 合成层</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  重叠，但是由于</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  在一个</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">overflow: hidden</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  的容器中，导致</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.target</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  和合成层有不同的裁剪容器，从而</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.target</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  无法被压缩。</p>
-<ul>
 <li><p>相对于合成层滚动的渲染层无法被压缩（scrollsWithRespectToSquashingLayer）</p>
 <p>示例如下：</p>
 <p>demo</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  body &#123;</span><br><span class="line">    height: 1500px;</span><br><span class="line">    overflow-x: hidden;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .composited &#123;</span><br><span class="line"></span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    background-color: red;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left: 50px;</span><br><span class="line">    top: 400px;</span><br><span class="line">    transform: translateZ(0);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .overlap &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background-color: green;</span><br><span class="line">    position: fixed;</span><br><span class="line">    left: 0px;</span><br><span class="line">    top: 0px;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;composited&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;overlap&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
 
 <p>本例中，红色的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
+
+<p>提升为了合成层，绿色的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.overlap</span><br></pre></td></tr></table></figure>
+
+<p>fix 在页面顶部，一开始只有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
+
+<p>合成层。</p>
+<p>当滑动页面，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.overlap</span><br></pre></td></tr></table></figure>
+
+<p>重叠到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
+
+<p>上时，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.overlap</span><br></pre></td></tr></table></figure>
+
+<p>会因重叠原因提升为合成层，同时，因为相对于合成层滚动，因此无法被压缩。</p>
 </li>
-</ul>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  提升为了合成层，绿色的</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.overlap</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  fix 在页面顶部，一开始只有</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  合成层。</p>
-<p>  当滑动页面，</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.overlap</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  重叠到</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.composited</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  上时，</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.overlap</span><br></pre></td></tr></table></figure>
-
-
-
-<p>  会因重叠原因提升为合成层，同时，因为相对于合成层滚动，因此无法被压缩。</p>
-<ul>
 <li><p>当渲染层同合成层有不同的具有 opacity 的祖先层（一个设置了 opacity 且小于 1，一个没有设置 opacity，也算是不同）时，该渲染层无法压缩（squashingOpacityAncestorMismatch，同 squashingClippingContainerMismatch）<a href="http://taobaofed.github.io/demo/performance-composite-demo/squash/squashingOpacityAncestorMismatch.html" target="_blank" rel="noopener">demo</a></p>
 </li>
 <li><p>当渲染层同合成层有不同的具有 transform 的祖先层时，该渲染层无法压缩（squashingTransformAncestorMismatch，同上） <a href="http://taobaofed.github.io/demo/performance-composite-demo/squash/squashingTransformAncestorMismatch.html" target="_blank" rel="noopener">demo</a></p>
@@ -695,14 +661,10 @@
 <p>提升合成层的最好方式是使用 CSS 的 will-change 属性。从上一节合成层产生原因中，可以知道 will-change 设置为 opacity、transform、top、left、bottom、right 可以将元素提升为合成层。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#target &#123;</span><br><span class="line">  will-change: transform;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
 <p>其兼容如下所示：</p>
 <p><img src="/CSS/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/TB1_6P9LpXXXXblXXXXXXXXXXXX-1252-284.png_720x720.jpg" alt="img"></p>
 <p>对于那些目前还不支持 will-change 属性的浏览器，目前常用的是使用一个 3D transform 属性来强制提升为合成层：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#target &#123;</span><br><span class="line">  transform: translateZ(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <p>但需要注意的是，不要创建太多的渲染层。因为每创建一个新的渲染层，就意味着新的内存分配和更复杂的层的管理。之后我们会详细讨论。</p>
 <p>如果你已经把一个元素放到一个新的合成层里，那么可以使用 Timeline 来确认这么做是否真的改进了渲染性能。别盲目提升合成层，一定要分析其实际性能表现。</p>
@@ -728,15 +690,11 @@
 <h4 id="防止层爆炸"><a href="#防止层爆炸" class="headerlink" title="防止层爆炸"></a>防止层爆炸</h4><p>通过之前的介绍，我们知道同合成层重叠也会使元素提升为合成层，虽然有浏览器的层压缩机制，但是也有很多无法进行压缩的情况。也就是说除了我们显式的声明的合成层，还可能由于重叠原因不经意间产生一些不在预期的合成层，极端一点可能会产生大量的额外合成层，出现层爆炸的现象。我们简单写了一个极端点但其实在我们的页面中比较常见的 <a href="http://taobaofed.github.io/demo/performance-composite-demo/memory/layer-explode.html" target="_blank" rel="noopener">demo</a>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  @-webkit-keyframes slide &#123;</span><br><span class="line">    from &#123; transform: none; &#125;</span><br><span class="line">    to &#123; transform: translateX(100px); &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    .animating &#123;</span><br><span class="line">    </span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 30px;</span><br><span class="line">    background-color: orange;</span><br><span class="line">    color: #fff;</span><br><span class="line">      -webkit-animation: slide 5s alternate linear infinite;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  ul &#123;</span><br><span class="line"></span><br><span class="line">    padding: 5px;</span><br><span class="line">    border: 1px solid #000;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    .box &#123;</span><br><span class="line"></span><br><span class="line">    width: 600px;</span><br><span class="line">    height: 30px;</span><br><span class="line">    margin-bottom: 5px;</span><br><span class="line">    background-color: blue;</span><br><span class="line">    color: #fff;</span><br><span class="line">    position: relative;</span><br><span class="line">    &#x2F;* 会导致无法压缩：squashingClippingContainerMismatch *&#x2F;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .inner &#123;</span><br><span class="line">      position: absolute;</span><br><span class="line">      top: 2px;</span><br><span class="line">      left: 2px;</span><br><span class="line">      font-size: 16px;</span><br><span class="line">      line-height: 16px;</span><br><span class="line">      padding: 2px;</span><br><span class="line">      margin: 0;</span><br><span class="line">      background-color: green;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 动画合成层 --&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;animating&quot;&gt;composited animating&lt;&#x2F;div&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;!-- assume overlap --&gt;</span><br><span class="line">  &lt;li class&#x3D;&quot;box&quot;&gt;</span><br><span class="line">    &lt;!-- assume overlap --&gt;</span><br><span class="line">    &lt;p class&#x3D;&quot;inner&quot;&gt;asume overlap, 因为 squashingClippingContainerMismatch 无法压缩&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;&#x2F;li&gt;</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br></pre></td></tr></table></figure>
 
-
-
 <p><a href="http://taobaofed.github.io/demo/performance-composite-demo/memory/layer-explode.html" target="_blank" rel="noopener">demo</a> 中，<code>.animating</code> 的合成层在运行动画，会导致 <code>.inner</code> 元素因为上文介绍过的 assumedOverlap 的原因，而被提升为合成层，同时，<code>.inner</code> 的父元素 <code>.box</code> 设置了 <code>overflow: hidden</code>，导致 <code>.inner</code> 的合成层因为 squashingClippingContainerMismatch 的原因，无法压缩，就出现了层爆炸的问题。</p>
 <p><img src="/CSS/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/TB1E7PEMXXXXXbAXpXXXXXXXXXX-1390-778.jpg_720x720.jpg" alt="img"></p>
 <p>这种情况平时在我们的业务中还是很常见的，比如 slider + list 的结构，一旦满足了无法进行层压缩的情况，就很容易出现层爆炸的问题。</p>
 <p>解决层爆炸的问题，最佳方案是打破 overlap 的条件，也就是说让其他元素不要和合成层元素重叠。对于上述的示例，我们可以将 <code>.animation</code> 的 z-index 提高。修改后 <a href="http://taobaofed.github.io/demo/performance-composite-demo/memory/layer-explode-zIndex.html" target="_blank" rel="noopener">demo</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.animating &#123;</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  &#x2F;* 让其他元素不和合成层重叠 *&#x2F;</span><br><span class="line">  position: relative;</span><br><span class="line">  z-index: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <p>此时，就只有 <code>.animating</code> 提升为合成层，如下：</p>
 <p><img src="/CSS/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/TB1LxrnMXXXXXcIXVXXXXXXXXXX-1366-777.jpg_720x720.jpg" alt="img"></p>
@@ -880,7 +838,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

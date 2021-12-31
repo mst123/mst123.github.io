@@ -79,14 +79,14 @@
 
 
 
-<meta name="description" content="最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读） 数组的遍历方法for 循环 可以响应 break continue, return报错 改变原数组使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显123for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &amp;#123;  &amp;#125">
+<meta name="description" content="最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读） 数组的遍历方法for 循环 可以响应 break continue, return报错 改变原数组使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显  123for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &amp;#123;  &amp;#1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数组常用方法">
 <meta property="og:url" content="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读） 数组的遍历方法for 循环 可以响应 break continue, return报错 改变原数组使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显123for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &amp;#123;  &amp;#125">
+<meta property="og:description" content="最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读） 数组的遍历方法for 循环 可以响应 break continue, return报错 改变原数组使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显  123for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &amp;#123;  &amp;#1">
 <meta property="article:published_time" content="2021-11-26T03:35:02.291Z">
-<meta property="article:modified_time" content="2021-12-16T02:21:22.148Z">
+<meta property="article:modified_time" content="2021-12-31T01:31:37.199Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="Array">
 <meta name="twitter:card" content="summary">
@@ -388,18 +388,19 @@
         <p>最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读）</p>
 <h2 id="数组的遍历方法"><a href="#数组的遍历方法" class="headerlink" title="数组的遍历方法"></a>数组的遍历方法</h2><h3 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h3><ul>
 <li>可以响应 break continue, return报错</li>
-<li>改变原数组<br>使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>改变原数组<br>使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="for-in-循环-不建议用来遍历数组"><a href="#for-in-循环-不建议用来遍历数组" class="headerlink" title="for-in 循环(不建议用来遍历数组)"></a>for-in 循环(不建议用来遍历数组)</h3><ul>
 <li>可以响应 break continue, return报错</li>
 <li>改变原数组</li>
-<li>能遍历到实例的属性或者是原型上的属性(所以不推荐数组使用)<br>for-in循环是为了<strong>遍历对象</strong>而设计的，事实上for-in也能用来遍历数组，但<strong>定义的索引i是字符</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;for-in遍历数组</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;: &quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;for-in会遍历到数组的可枚举属性</span><br><span class="line">arrTmp.name&#x3D;&quot;myTest&quot;;</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;:&quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;输出 0:value1  1:value2  2:value3  name:myTest</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>能遍历到实例的属性或者是原型上的属性(所以不推荐数组使用)<br>for-in循环是为了<strong>遍历对象</strong>而设计的，事实上for-in也能用来遍历数组，但<strong>定义的索引i是字符</strong></li>
 </ul>
-<h3 id="for…of遍历-ES6语法，推荐使用-不能用于遍历对象，详细见-Iterator-和-for…of-循环"><a href="#for…of遍历-ES6语法，推荐使用-不能用于遍历对象，详细见-Iterator-和-for…of-循环" class="headerlink" title="for…of遍历(ES6语法，推荐使用) 不能用于遍历对象，详细见[Iterator 和 for…of 循环]"></a>for…of遍历(ES6语法，推荐使用) 不能用于遍历对象，详细见[Iterator 和 for…of 循环]</h3><ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;for-in遍历数组</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;: &quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;for-in会遍历到数组的可枚举属性</span><br><span class="line">arrTmp.name&#x3D;&quot;myTest&quot;;</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;:&quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;输出 0:value1  1:value2  2:value3  name:myTest</span><br></pre></td></tr></table></figure>
+
+<h3 id="for…of遍历"><a href="#for…of遍历" class="headerlink" title="for…of遍历"></a>for…of遍历</h3><p>(ES6语法，推荐使用) 不能用于遍历对象，详细见[Iterator 和 for…of 循环]</p>
+<ul>
 <li>可以正确响应break、continue和return语句</li>
 <li>改变原始数组</li>
 <li>只能读取<strong>键值</strong>item,如有需要可以使用索引index<ul>
@@ -407,40 +408,49 @@
 </ul>
 </li>
 </ul>
-<h4 id="数组的实例方法-entries-，keys-和-values-，经常和for…of-配合使用"><a href="#数组的实例方法-entries-，keys-和-values-，经常和for…of-配合使用" class="headerlink" title="数组的实例方法 entries()，keys()和 values()，经常和for…of 配合使用"></a>数组的实例方法 entries()，keys()和 values()，经常和for…of 配合使用</h4><p>它们都返回一个遍历器对象，可以用for…of循环进行遍历，<strong>唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历</strong></p>
+<h4 id="数组的实例方法"><a href="#数组的实例方法" class="headerlink" title="数组的实例方法"></a>数组的实例方法</h4><p>entries()，keys()和 values()，经常和for…of 配合使用</p>
+<p>它们都返回一个遍历器对象，可以用for…of循环进行遍历，<strong>唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">for (let index of [&#39;a&#39;, &#39;b&#39;].keys()) &#123;</span><br><span class="line">  console.log(index);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0</span><br><span class="line">&#x2F;&#x2F; 1</span><br><span class="line"></span><br><span class="line">for (let elem of [&#39;a&#39;, &#39;b&#39;].values()) &#123;</span><br><span class="line">  console.log(elem);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; &#39;a&#39;</span><br><span class="line">&#x2F;&#x2F; &#39;b&#39;</span><br><span class="line"></span><br><span class="line">for (let [index, elem] of [&#39;a&#39;, &#39;b&#39;].entries()) &#123;</span><br><span class="line">  console.log(index, elem);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 0 &quot;a&quot;</span><br><span class="line">&#x2F;&#x2F; 1 &quot;b&quot;</span><br></pre></td></tr></table></figure>
 
 <h3 id="foreach-循环"><a href="#foreach-循环" class="headerlink" title="foreach 循环"></a>foreach 循环</h3><ul>
 <li>不响应break、continue和return</li>
 <li>没有返回值</li>
-<li>改变原数组<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach((item,index,array)&#x3D;&gt;&#123;</span><br><span class="line">  &#x2F;&#x2F;执行代码</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;参数：item数组中的当前项, index当前项的索引, array原始数组；</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>改变原数组</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach((item,index,array)&#x3D;&gt;&#123;</span><br><span class="line">  &#x2F;&#x2F;执行代码</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F;参数：item数组中的当前项, index当前项的索引, array原始数组；</span><br></pre></td></tr></table></figure>
+
 <h3 id="map循环"><a href="#map循环" class="headerlink" title="map循环"></a>map循环</h3><p>映射，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。</p>
 <ul>
 <li>不响应break、continue</li>
 <li>返回经过处理的新数组</li>
-<li>不改变原始数组<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var ary &#x3D; [12,23,24,42,1]; </span><br><span class="line">var res &#x3D; ary.map(function (item,index,ary ) &#123; </span><br><span class="line">    return item*10; </span><br><span class="line">&#125;) </span><br><span class="line">console.log(res);&#x2F;&#x2F;--&gt;[120,230,240,420,10];  原数组拷贝了一份，并进行了修改</span><br><span class="line">console.log(ary);&#x2F;&#x2F;--&gt;[12,23,24,42,1]；  原数组并未发生变化</span><br></pre></td></tr></table></figure>
-<h3 id="filter循环"><a href="#filter循环" class="headerlink" title="filter循环"></a>filter循环</h3>过滤，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。</li>
+<li>不改变原始数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var ary &#x3D; [12,23,24,42,1]; </span><br><span class="line">var res &#x3D; ary.map(function (item,index,ary ) &#123; </span><br><span class="line">    return item*10; </span><br><span class="line">&#125;) </span><br><span class="line">console.log(res);&#x2F;&#x2F;--&gt;[120,230,240,420,10];  原数组拷贝了一份，并进行了修改</span><br><span class="line">console.log(ary);&#x2F;&#x2F;--&gt;[12,23,24,42,1]；  原数组并未发生变化</span><br></pre></td></tr></table></figure>
+
+<h3 id="filter循环"><a href="#filter循环" class="headerlink" title="filter循环"></a>filter循环</h3><p>过滤，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。</p>
+<ul>
 <li>不响应break、continue</li>
 <li>返回经过处理的新数组</li>
-<li>不改变原始数组<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;示例功能，筛选偶数</span><br><span class="line">const arr &#x3D; [1,2,3,4,5,6,7,8]</span><br><span class="line">const arrHandle1 &#x3D; arr.filter(item &#x3D;&gt; &#123;</span><br><span class="line">  if(item%2&#x3D;&#x3D;&#x3D;0)&#123;</span><br><span class="line">    return item</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">const arrHandle2 &#x3D; arr.filter(item &#x3D;&gt; &#123;</span><br><span class="line">  if(item%2&#x3D;&#x3D;&#x3D;0)&#123;</span><br><span class="line">    return item</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br><span class="line">const arrHandle3 &#x3D; arr.filter(item &#x3D;&gt; &#123;</span><br><span class="line">  if(item%2&#x3D;&#x3D;&#x3D;0)&#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arrHandle1); [ 2, 4, 6, 8 ]</span><br><span class="line">console.log(arrHandle2); [ 2, 4, 6, 8 ]</span><br><span class="line">console.log(arrHandle3); [ 2, 4, 6, 8 ]</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>不改变原始数组</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;示例功能，筛选偶数</span><br><span class="line">const arr &#x3D; [1,2,3,4,5,6,7,8]</span><br><span class="line">const arrHandle1 &#x3D; arr.filter(item &#x3D;&gt; &#123;</span><br><span class="line">  if(item%2&#x3D;&#x3D;&#x3D;0)&#123;</span><br><span class="line">    return item</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">const arrHandle2 &#x3D; arr.filter(item &#x3D;&gt; &#123;</span><br><span class="line">  if(item%2&#x3D;&#x3D;&#x3D;0)&#123;</span><br><span class="line">    return item</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br><span class="line">const arrHandle3 &#x3D; arr.filter(item &#x3D;&gt; &#123;</span><br><span class="line">  if(item%2&#x3D;&#x3D;&#x3D;0)&#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arrHandle1); [ 2, 4, 6, 8 ]</span><br><span class="line">console.log(arrHandle2); [ 2, 4, 6, 8 ]</span><br><span class="line">console.log(arrHandle3); [ 2, 4, 6, 8 ]</span><br></pre></td></tr></table></figure>
+
 <h3 id="every"><a href="#every" class="headerlink" title="every"></a>every</h3><p>判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true</p>
 <ul>
 <li>不响应break、continue</li>
 <li>不改变原始数组</li>
-<li>返回Boolean<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [1,2,3,1,6,4,6]</span><br><span class="line">var brr &#x3D; arr.every(item &#x3D;&gt; item%2&#x3D;&#x3D;0)</span><br><span class="line">console.log(arr) &#x2F;&#x2F;[1,2,3,1,6,4,6]</span><br><span class="line">console.log(brr) &#x2F;&#x2F;false</span><br></pre></td></tr></table></figure>
-<h3 id="some"><a href="#some" class="headerlink" title="some"></a>some</h3>判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true</li>
+<li>返回Boolean</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">var</span> brr = arr.every(<span class="function"><span class="params">item</span> =&gt;</span> item%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arr) <span class="comment">//[1,2,3,1,6,4,6]</span></span><br><span class="line"><span class="built_in">console</span>.log(brr) <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="some"><a href="#some" class="headerlink" title="some"></a>some</h3><p>判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true</p>
+<ul>
 <li>不响应break、continue</li>
 <li>不改变原始数组</li>
-<li>返回Boolean<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [1,2,3,1,6,4,6]</span><br><span class="line">var brr &#x3D; arr.some(item &#x3D;&gt; item%2&#x3D;&#x3D;0)</span><br><span class="line">console.log(arr) &#x2F;&#x2F;[1,2,3,1,6,4,6]</span><br><span class="line">console.log(brr) &#x2F;&#x2F;true</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>返回Boolean</li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">var</span> brr = arr.some(<span class="function"><span class="params">item</span> =&gt;</span> item%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arr) <span class="comment">//[1,2,3,1,6,4,6]</span></span><br><span class="line"><span class="built_in">console</span>.log(brr) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="reduce-reduceRight"><a href="#reduce-reduceRight" class="headerlink" title="reduce.reduceRight"></a>reduce.reduceRight</h3><p>这两个方法都会迭代数 组的所有项，并在此基础上构建一个终返回值</p>
 <h2 id="数组的操作方法"><a href="#数组的操作方法" class="headerlink" title="数组的操作方法"></a>数组的操作方法</h2><h3 id="改变原始数组的方法"><a href="#改变原始数组的方法" class="headerlink" title="改变原始数组的方法"></a>改变原始数组的方法</h3><ul>
 <li>pop(): 删除 array 的最后一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 pop() 不改变数组，并返回 undefined 值。<ul>
@@ -448,7 +458,7 @@
 </ul>
 </li>
 <li>push(): 可以接收<strong>任意数量</strong>的参数，把它们逐个添加到数组末尾，并返回修改后数组的长度。<ul>
-<li>返回修改后数组的长度 </li>
+<li>返回修改后数组的长度</li>
 </ul>
 </li>
 <li>unshift(): 将参数添加到原数组开头，并返回数组的长度<ul>
@@ -456,19 +466,17 @@
 </ul>
 </li>
 <li>shift(): 数组的第一个元素从其中删除，并返回第一个元素的值,如果数组是空的，那么 shift() 方法将不进行任何操作，并返回 undefined 值。<ul>
-<li>返回第一个元素的值 </li>
+<li>返回第一个元素的值</li>
 </ul>
 </li>
 <li>reverse(): 用于颠倒数组中元素的顺序。<ul>
-<li>返回原数组 </li>
+<li>返回原数组</li>
 </ul>
 </li>
-<li>sort(): 排序，默认为升序排列，如果想按照其他标准进行排序，sort()方法是可以传入一个函数，函数通过返回一个值来决定<ul>
-<li>返回原数组 </li>
-</ul>
-</li>
-<li>splice(): <strong>功能强大</strong>的数组方法，向从数组中添加/删除项目，然后返回被删除的项目<ul>
-<li>返回被删除的项目 </li>
+<li>sort(): 排序，默认为升序排列，如果想按照其他标准进行排序，sort()方法是可以传入一个函数，函数通过返回一个值来决定</li>
+<li>返回原数组</li>
+<li>splice(): <strong>功能强大</strong>的数组方法，向从数组中添加删除项目，然后返回被删除的项目<ul>
+<li>返回被删除的项目</li>
 <li>语法 <code>arrayObject.splice(index,howmany,item1,.....,itemX)</code><ul>
 <li>index    必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。</li>
 <li>howmany  必需。要删除的项目数量。如果设置为 0，则不会删除项目。</li>
@@ -478,13 +486,14 @@
 </ul>
 </li>
 <li><a href="https://es6.ruanyifeng.com/#docs/array#数组实例的-copyWithin" target="_blank" rel="noopener">copyWithin()</a>  在当前数组内部，将指定位置的成员复制到其他位置（会覆盖原有成员），然后返回当前数组</li>
-<li><a href="https://es6.ruanyifeng.com/#docs/array#数组实例的-fill" target="_blank" rel="noopener">fill()</a> <ul>
-<li>fill方法使用给定值，填充一个数组,fill方法还可以接受第二个和第三个参数，用于指定填充的起始位置和结束位置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].fill(7)</span><br><span class="line">&#x2F;&#x2F; [7, 7, 7]</span><br><span class="line"></span><br><span class="line">new Array(3).fill(7)</span><br><span class="line">&#x2F;&#x2F; [7, 7, 7]</span><br><span class="line"></span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].fill(7, 1, 2)</span><br><span class="line">&#x2F;&#x2F; [&#39;a&#39;, 7, &#39;c&#39;]</span><br></pre></td></tr></table></figure>
-<h3 id="不改变原始数组的方法"><a href="#不改变原始数组的方法" class="headerlink" title="不改变原始数组的方法"></a>不改变原始数组的方法</h3></li>
+<li><a href="https://es6.ruanyifeng.com/#docs/array#数组实例的-fill" target="_blank" rel="noopener">fill()</a><ul>
+<li>fill方法使用给定值，填充一个数组,fill方法还可以接受第二个和第三个参数，用于指定填充的起始位置和结束位置</li>
 </ul>
 </li>
 </ul>
-<p>// TODO</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].fill(7)</span><br><span class="line">&#x2F;&#x2F; [7, 7, 7]</span><br><span class="line"></span><br><span class="line">new Array(3).fill(7)</span><br><span class="line">&#x2F;&#x2F; [7, 7, 7]</span><br><span class="line"></span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].fill(7, 1, 2)</span><br><span class="line">&#x2F;&#x2F; [&#39;a&#39;, 7, &#39;c&#39;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="不改变原始数组的方法"><a href="#不改变原始数组的方法" class="headerlink" title="不改变原始数组的方法"></a>不改变原始数组的方法</h3><p>// TODO</p>
 <ul>
 <li>join</li>
 <li>toLocalString</li>
@@ -504,24 +513,22 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arrayLike &#x3D; &#123;0: &#39;name&#39;, 1: &#39;age&#39;, 2: &#39;sex&#39;, length: 3 &#125;</span><br><span class="line">&#x2F;&#x2F; 1. slice</span><br><span class="line">Array.prototype.slice.call(arrayLike); &#x2F;&#x2F; [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span><br><span class="line">&#x2F;&#x2F; 2. splice</span><br><span class="line">Array.prototype.splice.call(arrayLike, 0); &#x2F;&#x2F; [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span><br><span class="line">&#x2F;&#x2F; 3. ES6 Array.from</span><br><span class="line">Array.from(arrayLike); &#x2F;&#x2F; [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span><br><span class="line">&#x2F;&#x2F; 4. apply</span><br><span class="line">Array.prototype.concat.apply([], arrayLike)</span><br></pre></td></tr></table></figure>
 
 <p>如果是有iterator接口的类数组，还可以用扩展运算符进行转换</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...NodeList]</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...NodeList]</span><br></pre></td></tr></table></figure>
 
 <h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><blockquote>
 <p>数组的方法详细见js高程第四版6.2 Array</p>
 </blockquote>
 <h3 id="克隆一个数组-浅拷贝-不会改变原始数组"><a href="#克隆一个数组-浅拷贝-不会改变原始数组" class="headerlink" title="克隆一个数组(浅拷贝),不会改变原始数组"></a>克隆一个数组(浅拷贝),不会改变原始数组</h3><ul>
 <li>concat()<ul>
-<li><code>array.concat()</code> </li>
+<li><code>array.concat()</code></li>
 </ul>
 </li>
 <li>slice() 另一个常用方法:<code>Array.prototype.slice.call(arguments,0?)</code>能将具有length属性的对象转成数组,功能类似于<code>Array.from()</code><ul>
 <li><code>array.slice(0?)</code></li>
 </ul>
 </li>
-<li>Array.from() 将两类对象转为真正的数组：类似数组的对象（array-like object）和可遍历（iterable）的对象（包括 ES6 新增的数据结构 Set 和 Map）</li>
-<li>扩展运算符 … <ul>
+<li>Array.from() 将两类对象转为真正的数组：类似数组的对象（array-like object 有length属性就可以）和可遍历（iterable）的对象（包括 ES6 新增的数据结构 Set 和 Map）</li>
+<li>扩展运算符 …<ul>
 <li><code>[...array]</code></li>
 </ul>
 </li>
@@ -530,8 +537,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [&#123; b: 1 &#125;,&#123; c: 1 &#125;,&#123; d: 1 &#125;,&#123; e: 1 &#125;]</span><br><span class="line">let brr &#x3D; arr.concat([])</span><br><span class="line">brr[0].b &#x3D; 2</span><br><span class="line">let crr &#x3D; arr.slice()</span><br><span class="line">crr[1].c &#x3D; 2</span><br><span class="line">let drr &#x3D; [...arr]</span><br><span class="line">drr[2].d &#x3D; 2</span><br><span class="line">let err &#x3D; Object.assign([],arr)</span><br><span class="line">err[3].e &#x3D; 2</span><br><span class="line">console.log(arr) &#x2F;&#x2F;[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span><br><span class="line">console.log(brr) &#x2F;&#x2F;[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span><br><span class="line">console.log(crr) &#x2F;&#x2F;[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span><br><span class="line">console.log(drr) &#x2F;&#x2F;[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span><br><span class="line">console.log(err) &#x2F;&#x2F;[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">b</span>: <span class="number">1</span> &#125;,&#123; <span class="attr">c</span>: <span class="number">1</span> &#125;,&#123; <span class="attr">d</span>: <span class="number">1</span> &#125;,&#123; <span class="attr">e</span>: <span class="number">1</span> &#125;]</span><br><span class="line"><span class="keyword">let</span> brr = arr.concat([])</span><br><span class="line">brr[<span class="number">0</span>].b = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> crr = arr.slice()</span><br><span class="line">crr[<span class="number">1</span>].c = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> drr = [...arr]</span><br><span class="line">drr[<span class="number">2</span>].d = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> err = <span class="built_in">Object</span>.assign([],arr)</span><br><span class="line">err[<span class="number">3</span>].e = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(arr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="built_in">console</span>.log(brr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="built_in">console</span>.log(crr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="built_in">console</span>.log(drr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="built_in">console</span>.log(err) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -655,7 +661,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -710,7 +716,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的遍历方法"><span class="nav-number">1.</span> <span class="nav-text">数组的遍历方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-循环"><span class="nav-number">1.1.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-in-循环-不建议用来遍历数组"><span class="nav-number">1.2.</span> <span class="nav-text">for-in 循环(不建议用来遍历数组)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for…of遍历-ES6语法，推荐使用-不能用于遍历对象，详细见-Iterator-和-for…of-循环"><span class="nav-number">1.3.</span> <span class="nav-text">for…of遍历(ES6语法，推荐使用) 不能用于遍历对象，详细见[Iterator 和 for…of 循环]</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的实例方法-entries-，keys-和-values-，经常和for…of-配合使用"><span class="nav-number">1.3.1.</span> <span class="nav-text">数组的实例方法 entries()，keys()和 values()，经常和for…of 配合使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach-循环"><span class="nav-number">1.4.</span> <span class="nav-text">foreach 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map循环"><span class="nav-number">1.5.</span> <span class="nav-text">map循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter循环"><span class="nav-number">1.6.</span> <span class="nav-text">filter循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#every"><span class="nav-number">1.7.</span> <span class="nav-text">every</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some"><span class="nav-number">1.8.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-reduceRight"><span class="nav-number">1.9.</span> <span class="nav-text">reduce.reduceRight</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的操作方法"><span class="nav-number">2.</span> <span class="nav-text">数组的操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变原始数组的方法"><span class="nav-number">2.1.</span> <span class="nav-text">改变原始数组的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不改变原始数组的方法"><span class="nav-number">2.2.</span> <span class="nav-text">不改变原始数组的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类数组转换为数组"><span class="nav-number">3.</span> <span class="nav-text">类数组转换为数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他方法"><span class="nav-number">4.</span> <span class="nav-text">其他方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆一个数组-浅拷贝-不会改变原始数组"><span class="nav-number">4.1.</span> <span class="nav-text">克隆一个数组(浅拷贝),不会改变原始数组</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的遍历方法"><span class="nav-number">1.</span> <span class="nav-text">数组的遍历方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-循环"><span class="nav-number">1.1.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-in-循环-不建议用来遍历数组"><span class="nav-number">1.2.</span> <span class="nav-text">for-in 循环(不建议用来遍历数组)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for…of遍历"><span class="nav-number">1.3.</span> <span class="nav-text">for…of遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的实例方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">数组的实例方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach-循环"><span class="nav-number">1.4.</span> <span class="nav-text">foreach 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map循环"><span class="nav-number">1.5.</span> <span class="nav-text">map循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter循环"><span class="nav-number">1.6.</span> <span class="nav-text">filter循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#every"><span class="nav-number">1.7.</span> <span class="nav-text">every</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some"><span class="nav-number">1.8.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-reduceRight"><span class="nav-number">1.9.</span> <span class="nav-text">reduce.reduceRight</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的操作方法"><span class="nav-number">2.</span> <span class="nav-text">数组的操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变原始数组的方法"><span class="nav-number">2.1.</span> <span class="nav-text">改变原始数组的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不改变原始数组的方法"><span class="nav-number">2.2.</span> <span class="nav-text">不改变原始数组的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类数组转换为数组"><span class="nav-number">3.</span> <span class="nav-text">类数组转换为数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他方法"><span class="nav-number">4.</span> <span class="nav-text">其他方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆一个数组-浅拷贝-不会改变原始数组"><span class="nav-number">4.1.</span> <span class="nav-text">克隆一个数组(浅拷贝),不会改变原始数组</span></a></li></ol></li></ol></div>
             
 
           </div>

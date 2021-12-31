@@ -129,7 +129,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042">
 <meta property="article:published_time" content="2021-12-09T03:45:25.532Z">
-<meta property="article:modified_time" content="2021-12-09T08:55:57.249Z">
+<meta property="article:modified_time" content="2021-12-31T01:35:13.482Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="性能优化案例">
 <meta property="article:tag" content="性能指标">
@@ -476,7 +476,7 @@
 <h2 id="二、性能分析及环境准备"><a href="#二、性能分析及环境准备" class="headerlink" title="二、性能分析及环境准备"></a>二、性能分析及环境准备</h2><p>现网页面情况：</p>
 <p><img src="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif" alt="图片"></p>
 <p><strong>可以看到进度条在页面已经展示后还在持续 loading，加载时间长达十几秒，比较影响了用户体验。</strong></p>
-<p>根据<a href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864" target="_blank" rel="noopener"> Google 开发文档 </a>对浏览器架构的解释：</p>
+<p>根据<a href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864" target="_blank" rel="noopener">Google 开发文档</a>对浏览器架构的解释：</p>
 <blockquote>
 <p>当导航提交完成后，渲染进程开始着手加载资源以及渲染页面。一旦渲染进程“完成”（finished）渲染，它会通过 IPC 告知浏览器进程（注意这发生在页面上所有帧(frames) 的 <strong>onload</strong> 事件都已经被触发了而且对应的处理函数已经执行完成了的时候），然后 UI 线程就会停止导航栏上旋转的圈圈。</p>
 </blockquote>
@@ -918,7 +918,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

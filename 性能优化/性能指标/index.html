@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/640">
 <meta property="og:image" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/640-20211209094756888">
 <meta property="article:published_time" content="2021-11-26T03:35:02.289Z">
-<meta property="article:modified_time" content="2021-12-09T02:54:45.287Z">
+<meta property="article:modified_time" content="2021-12-31T01:35:09.154Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="传输优化">
 <meta property="article:tag" content="性能指标">
@@ -496,7 +496,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="built_in">document</span>.body.innerHTML = <span class="string">'&lt;img src="a.png"&gt; .... &lt;img src="z.png"&gt;'</span>;</span><br><span class="line">    &#125;, <span class="number">10</span>)</span><br><span class="line">    alert(<span class="string">'onload'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这时就会发现，onload 马上就触发了，不必等待图片加载完成。</p>
-<h3 id="4、再讲一个更实际的例子："><a href="#4、再讲一个更实际的例子：" class="headerlink" title="4、再讲一个更实际的例子："></a>4、再讲一个更实际的例子：</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"aaa.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">    alert(<span class="string">'onload'</span>);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="javascript">$.ajax(&#123;</span></span><br><span class="line">    url: imgList,</span><br><span class="line"><span class="actionscript">  	success: <span class="function"><span class="keyword">function</span><span class="params">(arr)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">        arr.forEach(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">'body'</span>).append(<span class="string">'&lt;img src="'</span> + arr.imgUrl + <span class="string">'"&gt;'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4、再讲一个更实际的例子"><a href="#4、再讲一个更实际的例子" class="headerlink" title="4、再讲一个更实际的例子"></a>4、再讲一个更实际的例子</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"aaa.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">    alert(<span class="string">'onload'</span>);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="javascript">$.ajax(&#123;</span></span><br><span class="line">    url: imgList,</span><br><span class="line"><span class="actionscript">   success: <span class="function"><span class="keyword">function</span><span class="params">(arr)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">        arr.forEach(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">'body'</span>).append(<span class="string">'&lt;img src="'</span> + arr.imgUrl + <span class="string">'"&gt;'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>假设 aaa.png 加载时间为 100ms，ajax 接口返回时间为 50ms，那么假设 imgList 中有 100 张图片，那么 onload 的时间就会被推迟到这 100 张图片都加载完成之后。</p>
 <p>而如果 aaa.png 加载时间为 50ms，接口请求为 100ms 的时候，就不会有这个问题。但是我们没法保证接口请求一定慢于图片请求。</p>
@@ -520,8 +520,8 @@
 <table>
 <thead>
 <tr>
-<th>*<em>值 *</em></th>
-<th>*<em>描述 *</em></th>
+<th><strong>值</strong></th>
+<th><strong>描述</strong></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -542,7 +542,8 @@
 </tr>
 </tbody></table>
 <p><img src="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/640-20211209094756888" alt="图片"></p>
-<h1 id><a href="#" class="headerlink" title></a></h1>
+<p>#</p>
+
       
     </div>
     
@@ -667,7 +668,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -722,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">1.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LCP"><span class="nav-number">2.</span> <span class="nav-text">LCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL"><span class="nav-number">3.</span> <span class="nav-text">DCL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOAD"><span class="nav-number">4.</span> <span class="nav-text">LOAD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、onload不是立即触发的"><span class="nav-number">4.1.</span> <span class="nav-text">1、onload不是立即触发的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、JS的执行对onload有影响"><span class="nav-number">4.2.</span> <span class="nav-text">2、JS的执行对onload有影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、动态加载的资源可能对onload产生影响"><span class="nav-number">4.3.</span> <span class="nav-text">3、动态加载的资源可能对onload产生影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、再讲一个更实际的例子："><span class="nav-number">4.4.</span> <span class="nav-text">4、再讲一个更实际的例子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#google性能模型RAIL"><span class="nav-number">5.</span> <span class="nav-text">google性能模型RAIL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#performance介绍"><span class="nav-number">6.</span> <span class="nav-text">performance介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number"></span> <span class="nav-text"></span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">1.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LCP"><span class="nav-number">2.</span> <span class="nav-text">LCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL"><span class="nav-number">3.</span> <span class="nav-text">DCL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LOAD"><span class="nav-number">4.</span> <span class="nav-text">LOAD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、onload不是立即触发的"><span class="nav-number">4.1.</span> <span class="nav-text">1、onload不是立即触发的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、JS的执行对onload有影响"><span class="nav-number">4.2.</span> <span class="nav-text">2、JS的执行对onload有影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、动态加载的资源可能对onload产生影响"><span class="nav-number">4.3.</span> <span class="nav-text">3、动态加载的资源可能对onload产生影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、再讲一个更实际的例子"><span class="nav-number">4.4.</span> <span class="nav-text">4、再讲一个更实际的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#google性能模型RAIL"><span class="nav-number">5.</span> <span class="nav-text">google性能模型RAIL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#performance介绍"><span class="nav-number">6.</span> <span class="nav-text">performance介绍</span></a></li></ol></div>
             
 
           </div>

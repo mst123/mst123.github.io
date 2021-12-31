@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器 创建秘钥对，然后绑定到实例 运行长命令 ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400">
+<meta name="description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器  创建秘钥对，然后绑定到实例  运行长命令  ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 4">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阿里云服务器配置">
 <meta property="og:url" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器 创建秘钥对，然后绑定到实例 运行长命令 ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400">
+<meta property="og:description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器  创建秘钥对，然后绑定到实例  运行长命令  ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 4">
 <meta property="og:image" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png">
 <meta property="og:image" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/20190407133555456.png">
 <meta property="og:image" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70.png">
 <meta property="og:image" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70-20210421214616330.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.289Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.289Z">
+<meta property="article:modified_time" content="2021-12-31T01:28:00.110Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="ssh">
 <meta property="article:tag" content="阿里云">
@@ -393,19 +393,27 @@
       
         <p>解决方案最好去官网查看</p>
 <h2 id="简短的记录一下步骤"><a href="#简短的记录一下步骤" class="headerlink" title="简短的记录一下步骤"></a>简短的记录一下步骤</h2><ul>
-<li>申请阿里云服务器</li>
-<li>创建秘钥对，然后绑定到实例</li>
-<li>运行长命令<ul>
+<li><p>申请阿里云服务器</p>
+</li>
+<li><p>创建秘钥对，然后绑定到实例</p>
+</li>
+<li><p>运行长命令</p>
+<ul>
 <li>ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~/.ssh/alien-linux.pem} {root}@{39.106.100.189}</li>
 <li>应该会出现权限问题</li>
 </ul>
 </li>
-<li>运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400 ~/.ssh/alien-linux.pem</li>
-<li>配置config文件 vim ~/.ssh/config<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host Aliyun #自定义别名</span><br><span class="line">HostName 39.106.100.189 #ssh服务器公网IP</span><br><span class="line">Port 22 #ssh服务器端口，默认22</span><br><span class="line">User root #ssh服务器用户名，默认root</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;alien-linux.pem #秘钥文件路径</span><br></pre></td></tr></table></figure></li>
-<li>这样差不多就ok了</li>
+<li><p>运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400 ~/.ssh/alien-linux.pem</p>
+</li>
+<li><p>配置config文件 vim ~/.ssh/config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host Aliyun #自定义别名</span><br><span class="line">HostName 39.106.100.189 #ssh服务器公网IP</span><br><span class="line">Port 22 #ssh服务器端口，默认22</span><br><span class="line">User root #ssh服务器用户名，默认root</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;alien-linux.pem #秘钥文件路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样差不多就ok了</p>
+</li>
 </ul>
 <h2 id="在阿里云安装docker"><a href="#在阿里云安装docker" class="headerlink" title="在阿里云安装docker"></a>在阿里云安装docker</h2><p><a href="https://github.com/docker/docker-install" target="_blank" rel="noopener">docker-install</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https:&#x2F;&#x2F;get.docker.com -o get-docker.sh</span><br><span class="line">sh get-docker.sh</span><br></pre></td></tr></table></figure>
+
 <p>然后 需要安装 docker-compose 查找linux安装方法,mac docker客户端集成了docker-compose<br><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">compose</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.29.1&#x2F;docker-compose-$(uname -s)-$(uname -m)&quot; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
 
@@ -413,8 +421,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装mongo"><a href="#安装mongo" class="headerlink" title="安装mongo"></a>安装mongo</h2><h3 id="下载mongo"><a href="#下载mongo" class="headerlink" title="下载mongo"></a>下载mongo</h3><p>docker pull mongo</p>
-<p>如果失败的话，可以配置中国镜像, 编写<code>/etc/docker/daemon.json</code> </p>
+<p>如果失败的话，可以配置中国镜像, 编写<code>/etc/docker/daemon.json</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;&lt;my-docker-mirror-host&gt;&quot;]</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line"> &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;registry.docker-cn.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>然后重启docker  <code>systemctl restart docker.service</code></p>
 <h3 id="运行mongo"><a href="#运行mongo" class="headerlink" title="运行mongo"></a>运行mongo</h3><p><code>docker run -d --name some-mongo -p 10050:27017 mongo</code></p>
 <ul>
@@ -577,7 +586,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
