@@ -88,7 +88,7 @@
 <meta property="og:image" content="https://mst123.github.io/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210121155711009.png">
 <meta property="og:image" content="https://mst123.github.io/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/Snipaste_2021-09-06_20-27-19.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.279Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.279Z">
+<meta property="article:modified_time" content="2022-01-10T07:55:23.417Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary">
@@ -389,7 +389,7 @@
 
       
         <h2 id="v-model-的修饰符"><a href="#v-model-的修饰符" class="headerlink" title="v-model 的修饰符"></a>v-model 的修饰符</h2><h3 id="prop"><a href="#prop" class="headerlink" title=".prop"></a>.prop</h3><p>将属性绑定至dom的原生properties,看下边例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div v-bind.prop:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">ceshiProp: &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  b:2	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div v-bind.prop:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">ceshiProp: &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  b:2 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>渲染结果如下：</p>
 <p><img src="/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210121155711009.png" alt="image-20210121155711009"></p>
@@ -449,18 +449,16 @@
 <p>只是拓展了数组原型链还不够，还需要将数组的<code>__proto__</code>指向拓展后的类，这段代码在vue源码中Observe类中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">if (Array.isArray(value)) &#123;</span><br><span class="line">     if (hasProto) &#123;</span><br><span class="line">       protoAugment(value, arrayMethods)</span><br><span class="line">     &#125; else &#123;</span><br><span class="line">       copyAugment(value, arrayMethods, arrayKeys)</span><br><span class="line">     &#125;</span><br><span class="line">     this.observeArray(value)</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">     this.walk(value)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-
-
 <h2 id="获取初始data"><a href="#获取初始data" class="headerlink" title="获取初始data"></a>获取初始data</h2><p>在某些情况我们可能要重置data上面的某些属性，比如在表单提交后需要清空form</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">this.$data &#x2F;&#x2F; 组件当前data对象</span><br><span class="line">this.$options.data() &#x2F;&#x2F; 组件初始化状态下的data对象</span><br><span class="line"></span><br><span class="line">Object.assign(this.$data, this.$options.data()) &#x2F;&#x2F; 重置data对象到初始化状态</span><br></pre></td></tr></table></figure>
 
 <h2 id="在不刷新页面的情况下，更新页面"><a href="#在不刷新页面的情况下，更新页面" class="headerlink" title="在不刷新页面的情况下，更新页面"></a>在不刷新页面的情况下，更新页面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 先注册一个名为 &#96;redirect&#96; 的路由</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  beforeCreate() &#123;</span><br><span class="line">    const &#123; params, query &#125; &#x3D; this.$route</span><br><span class="line">    const &#123; path &#125; &#x3D; params</span><br><span class="line">    this.$router.replace(&#123; path: &#39;&#x2F;&#39; + path, query &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  render: function(h) &#123;</span><br><span class="line">    return h() &#x2F;&#x2F; avoid warning message</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 手动重定向页面到 &#39;&#x2F;redirect&#39; 页面 实现更新页面</span><br><span class="line">const &#123; fullPath &#125; &#x3D; this.$route</span><br><span class="line">this.$router.replace(&#123;</span><br><span class="line">  path: &#39;&#x2F;redirect&#39; + fullPath</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>当遇到你需要刷新页面的情况，你就手动重定向页面到<code>redirect</code>页面，它会将页面重新<code>redirect</code>重定向回来，由于页面的 key 发生了变化，从而间接实现了刷新页面组件的效果。</p>
-<h2 id="动态清除注册的路由"><a href="#动态清除注册的路由" class="headerlink" title="动态清除注册的路由"></a>动态清除注册的路由</h2><p>​    那就是动态添加的路由，并不能动态的删除。这就是导致一个问题，当用户权限发生变化的时候，或者说用户登出的时候，我们只能通过刷新页面的方式，才能清空我们之前注册的路由。</p>
+<h2 id="动态清除注册的路由"><a href="#动态清除注册的路由" class="headerlink" title="动态清除注册的路由"></a>动态清除注册的路由</h2><p>​ 那就是动态添加的路由，并不能动态的删除。这就是导致一个问题，当用户权限发生变化的时候，或者说用户登出的时候，我们只能通过刷新页面的方式，才能清空我们之前注册的路由。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function resetRouter() &#123;</span><br><span class="line"> const newRouter &#x3D; createRouter()</span><br><span class="line"> router.matcher &#x3D; newRouter.matcher &#x2F;&#x2F; reset router</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>​    它的原理其实很简单，所有的 vue-router 注册的路由信息都是存放在<code>matcher</code>之中的，所以当我们想清空路由的时候，我们只要新建一个空的<code>Router实例</code>，将它的<code>matcher</code>重新赋值给我们之前定义的路由就可以了。巧妙的实现了动态路由的清除。 现在我们只需要调用<code>resetRouter</code>，就能得到一个空的路有实例，之后你就可以重新<code>addRoutes</code>你想要的路由了</p>
+<p>​ 它的原理其实很简单，所有的 vue-router 注册的路由信息都是存放在<code>matcher</code>之中的，所以当我们想清空路由的时候，我们只要新建一个空的<code>Router实例</code>，将它的<code>matcher</code>重新赋值给我们之前定义的路由就可以了。巧妙的实现了动态路由的清除。 现在我们只需要调用<code>resetRouter</code>，就能得到一个空的路有实例，之后你就可以重新<code>addRoutes</code>你想要的路由了</p>
 
       
     </div>
@@ -501,8 +499,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/vue/vue-router/" rel="prev" title="vue-router源码分析-简易流程">
-                vue-router源码分析-简易流程 <i class="fa fa-chevron-right"></i>
+              <a href="/vue/vuex/" rel="prev" title="vuex源码分析-简易流程">
+                vuex源码分析-简易流程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -595,7 +593,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -606,7 +604,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-count">115</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
