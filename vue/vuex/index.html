@@ -79,23 +79,24 @@
 
 
 
-<meta name="description" content="先放一张store的代码结构图  vuex初始化Vuex 存在一个静态的 install 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑 123456789101112function vuexInit () &amp;#123;    const options &#x3D; this.$options    &#x2F;&#x2F; store injection    if">
+<meta name="description" content="先放一张store的代码结构图  vuex初始化Vuex 存在一个静态的 install 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑 123456789101112function vuexInit () &amp;#123;    const options &#x3D; this.$options    &#x2F;&#x2F; store injection    i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vuex源码分析-简易流程">
 <meta property="og:url" content="https://mst123.github.io/vue/vuex/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="先放一张store的代码结构图  vuex初始化Vuex 存在一个静态的 install 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑 123456789101112function vuexInit () &amp;#123;    const options &#x3D; this.$options    &#x2F;&#x2F; store injection    if">
+<meta property="og:description" content="先放一张store的代码结构图  vuex初始化Vuex 存在一个静态的 install 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑 123456789101112function vuexInit () &amp;#123;    const options &#x3D; this.$options    &#x2F;&#x2F; store injection    i">
+<meta property="og:image" content="https://mst123.github.io/vue/vuex/image-20220214140159456.png">
 <meta property="og:image" content="https://mst123.github.io/vue/vuex/image-20210929161132720.png">
 <meta property="og:image" content="https://mst123.github.io/vue/vuex/image-20210929161649181.png">
 <meta property="og:image" content="https://mst123.github.io/vue/vuex/image-20210929171104463.png">
 <meta property="og:image" content="https://mst123.github.io/vue/vuex/image-20210929172730903.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.281Z">
-<meta property="article:modified_time" content="2021-11-26T03:35:02.281Z">
+<meta property="article:modified_time" content="2022-02-14T06:02:03.240Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="vuex源码分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/vue/vuex/image-20210929161132720.png">
+<meta name="twitter:image" content="https://mst123.github.io/vue/vuex/image-20220214140159456.png">
 
 
 
@@ -391,7 +392,8 @@
       
 
       
-        <p>先放一张store的代码结构图</p>
+        <p><img src="/vue/vuex/image-20220214140159456.png" alt="image-20220214140159456"></p>
+<p>先放一张store的代码结构图</p>
 <p><img src="/vue/vuex/image-20210929161132720.png" alt="image-20210929161132720"></p>
 <h2 id="vuex初始化"><a href="#vuex初始化" class="headerlink" title="vuex初始化"></a>vuex初始化</h2><p>Vuex 存在一个静态的 <code>install</code> 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function vuexInit () &#123;</span><br><span class="line">    const options &#x3D; this.$options</span><br><span class="line">    &#x2F;&#x2F; store injection</span><br><span class="line">    if (options.store) &#123;</span><br><span class="line">      this.$store &#x3D; typeof options.store &#x3D;&#x3D;&#x3D; &#39;function&#39;</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store</span><br><span class="line">    &#125; else if (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">      this.$store &#x3D; options.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
@@ -474,8 +476,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="next" title="vue问题记录">
-                <i class="fa fa-chevron-left"></i> vue问题记录
+              <a href="/vue/vue-router/" rel="next" title="vue-router源码分析-简易流程">
+                <i class="fa fa-chevron-left"></i> vue-router源码分析-简易流程
               </a>
             
           </div>
@@ -484,8 +486,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/vue/vue-router/" rel="prev" title="vue-router源码分析-简易流程">
-                vue-router源码分析-简易流程 <i class="fa fa-chevron-right"></i>
+              <a href="/vue/vue%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90/" rel="prev" title="vue初始化流程简单分析">
+                vue初始化流程简单分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +569,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
