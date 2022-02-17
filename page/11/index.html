@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/CSS/%E8%9D%89%E5%8E%9F%E5%88%99/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/ES6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="马农">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/CSS/%E8%9D%89%E5%8E%9F%E5%88%99/" itemprop="url">蝉原则</a></h1>
+                <a class="post-title-link" href="/ES6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/" itemprop="url">对象的新增方法</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-12T00:00:00+08:00">
+                2020-05-12
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
                   </a>
                 </span>
 
@@ -387,164 +387,15 @@
       
         
           
-          “蝉原则”与CSS3随机多背景随机圆角等效果什么是“蝉原则”？“蝉原则”，英文称作“cicada principle”，是一种让事物的重复出现符合“自然随机性”的规则，为什么这么说呢？  
-“蝉原则”源自于北美，中国似乎并未有这样的说法，这背后是有有故事的：  
-北美和东亚蝉的种群是不一样的，在东亚
+          对象的详细方法见js高程第四版第八章
+对象ES6之后方法的简单总结本章介绍 Object 对象的新增方法。
+Object.is()它用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。
+不同之处只有两个：一是+0不等于-0，二是NaN等于自身。
+12345+0 === -0 //t
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/CSS/%E8%9D%89%E5%8E%9F%E5%88%99/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/CSS/css%E5%8F%98%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="马农">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/luopo.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/CSS/css%E5%8F%98%E9%87%8F/" itemprop="url">CSS变量</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T22:48:31+08:00">
-                2021-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          变量的声明声明变量的时候，变量名前面要加两根连词线（–）。
-1234body &#123;  --foo: #7F583F;  --bar: #F7EFD2;&#125;
-
-上面代码中，body选择器里面声明了两个变量：--foo和--bar。它们与color、font-size等正式属性没有什么不
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/CSS/css%E5%8F%98%E9%87%8F/#more" rel="contents">
+            <a class="btn" href="/ES6/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -789,7 +640,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
