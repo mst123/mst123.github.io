@@ -87,7 +87,7 @@
 <meta property="og:description" content="call函数123456789101112Function.prototype.selfCall &#x3D; function(context) &amp;#123;  const ctx &#x3D; context || window;  &#x2F;&#x2F; 去除第一个参数  const arg &#x3D; [...arguments].slice(1);  &#x2F;&#x2F; con">
 <meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/selfFuc/write1.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.290Z">
-<meta property="article:modified_time" content="2022-02-17T07:33:46.021Z">
+<meta property="article:modified_time" content="2022-02-28T05:34:28.266Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="手写函数">
@@ -507,16 +507,16 @@
 <p>关于节流的实现，有两种主流的实现方式，一种是使用时间戳，一种是设置定时器。</p>
 <h3 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, wait) &#123;</span><br><span class="line">  const previous &#x3D; 0;</span><br><span class="line">  return function () &#123;</span><br><span class="line">    const now &#x3D; new Date().getTime()</span><br><span class="line">    if (now - previous &gt; wait) &#123;</span><br><span class="line">      previous &#x3D; now</span><br><span class="line">    &#125;</span><br><span class="line">    fn.apply(this, arguments)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, wait) &#123;</span><br><span class="line">     let flag &#x3D; true</span><br><span class="line">     return function () &#123;</span><br><span class="line">       if (flag) &#123;</span><br><span class="line">         flag &#x3D; false</span><br><span class="line">         fn.apply(this, arguments)</span><br><span class="line">         setTimeout(function () &#123;</span><br><span class="line">           flag &#x3D; true</span><br><span class="line">         &#125;,wait)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, wait) &#123;</span><br><span class="line">     let flag &#x3D; true</span><br><span class="line">     return function () &#123;</span><br><span class="line">       if (flag) &#123;</span><br><span class="line">         flag &#x3D; false</span><br><span class="line">         fn.apply(this, arguments)</span><br><span class="line">         setTimeouto&#x3D;(function () &#123;</span><br><span class="line">           flag &#x3D; true</span><br><span class="line">         &#125;,wait)</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="deepclone"><a href="#deepclone" class="headerlink" title="deepclone"></a>deepclone</h2><p>首先实现一个简单clone，包括对象 数组和基本类型的clone</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function deepClone(targer) &#123;</span><br><span class="line">  if (typeof targer !&#x3D;&#x3D; &quot;object&quot;) &#123;</span><br><span class="line">    return targer</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    const copy &#x3D; Array.isArray(targer) ? [] : &#123;&#125;</span><br><span class="line">    for (const key in targer) &#123;</span><br><span class="line">      copy[key] &#x3D; deepClone(targer[key])</span><br><span class="line">    &#125;</span><br><span class="line">    return copy</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function deepClone(target) &#123;</span><br><span class="line">  if (typeof target !&#x3D;&#x3D; &quot;object&quot;) &#123;</span><br><span class="line">    return target</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    const copy &#x3D; Array.isArray(target) ? [] : &#123;&#125;</span><br><span class="line">    for (const key in target) &#123;</span><br><span class="line">      copy[key] &#x3D; deepClone(target[key])</span><br><span class="line">    &#125;</span><br><span class="line">    return copy</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果出现循环引用，就会栈溢出，如何解决这个问题呢，需要借助map数据结构</p>
 <p>解决循环引用问题，我们可以额外开辟一个存储空间，来存储当前对象和拷贝对象的对应关系，当需要拷贝当前对象时，先去存储空间中找，有没有拷贝过这个对象，如果有的话直接返回，如果没有的话继续拷贝，这样就巧妙化解的循环引用的问题。</p>
 <p>这个存储空间，需要可以存储<code>key-value</code>形式的数据，且<code>key</code>可以是一个引用类型，我们可以选择<code>Map</code>这种数据结构：</p>
 <ul>
-<li>检查<code>map</code>中有无克隆过的对象</li>
+<li>检查<code>map</code>中有无克隆过的对象</li>
 <li>有 - 直接返回</li>
 <li>没有 - 将当前对象作为<code>key</code>，克隆对象作为<code>value</code>进行存储</li>
 <li>继续克隆</li>
@@ -652,7 +652,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -674,7 +674,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

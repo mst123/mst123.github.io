@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="在看阮一峰大佬的ES6时，看到一个关于箭头函数和this的例子 12345678910function foo() &amp;#123;  setTimeout(() &#x3D;&gt; &amp;#123;    console.log(&#39;id:&#39;, this.id);  &amp;#125;, 100);&amp;#125;var id &#x3D; 21;foo.call(&amp;#123; id: 42 &amp;#">
 <meta property="article:published_time" content="2020-11-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-17T07:37:55.456Z">
+<meta property="article:modified_time" content="2022-02-25T04:13:34.806Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="this">
 <meta property="article:tag" content="箭头函数">
@@ -401,6 +401,10 @@
 <blockquote>
 <p>看到闭包以后，我觉得箭头函数既然没有自己的this，是不是相当于普通函数获取上一级的变量一样。。。？</p>
 </blockquote>
+<p><strong>再看一下这个例子</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var myObj &#x3D; &#123;</span><br><span class="line">  name : &quot;myObj&quot;, </span><br><span class="line">  showThis: function()&#123;</span><br><span class="line">    return () &#x3D;&gt; &#123;</span><br><span class="line">      console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var obj &#x3D; &#123;</span><br><span class="line">  name: &quot;obj&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fnc1 &#x3D; myObj.showThis()</span><br><span class="line">fnc1.call(obj)</span><br><span class="line">fnc1()</span><br><span class="line"></span><br><span class="line">var fnc2 &#x3D; myObj.showThis.call(obj)</span><br><span class="line">fnc2()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; myObj</span><br><span class="line">&#x2F;&#x2F; myObj</span><br><span class="line">&#x2F;&#x2F; obj</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 call apply 和bind 也无法改变箭头函数的this，始终取决于上层上下文的this</p>
 
       
     </div>
@@ -517,7 +521,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +543,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

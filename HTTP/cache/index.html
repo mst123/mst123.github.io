@@ -89,6 +89,8 @@
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/2.png">
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/3.png">
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/4.png">
+<meta property="og:image" content="https://mst123.github.io/HTTP/cache/1642834020024-2f112f4b-df67-4094-856c-04d71c79360d.png">
+<meta property="og:image" content="https://mst123.github.io/HTTP/cache/1642835507632-481e335e-b8ee-44e0-ae15-a738503d3776.png">
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/5.png">
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/6.png">
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/7.png">
@@ -104,7 +106,7 @@
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/17.png">
 <meta property="og:image" content="https://poetries1.gitee.io/img-repo/2019/10/18.png">
 <meta property="article:published_time" content="2021-08-23T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-17T08:17:10.411Z">
+<meta property="article:modified_time" content="2022-03-01T09:29:56.390Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="HTTP">
 <meta property="article:tag" content="cache">
@@ -449,6 +451,8 @@
 <li>这两个<code>header</code>可以只启用一个，也可以同时启用，当<code>response header</code>中，<code>Expires</code>和<code>Cache-Control</code>同时存在时，<code>Cache-Control</code>优先级高于<code>Expires</code>：</li>
 </ul>
 <p><img src="https://poetries1.gitee.io/img-repo/2019/10/4.png" alt="img"></p>
+<h2 id="2-4-cache-control-补充"><a href="#2-4-cache-control-补充" class="headerlink" title="2.4 cache-control 补充"></a>2.4 cache-control 补充</h2><p><img src="/HTTP/cache/1642834020024-2f112f4b-df67-4094-856c-04d71c79360d.png" alt="img"></p>
+<p><img src="/HTTP/cache/1642835507632-481e335e-b8ee-44e0-ae15-a738503d3776.png" alt="img"></p>
 <h1 id="三、强缓存的管理"><a href="#三、强缓存的管理" class="headerlink" title="三、强缓存的管理"></a>三、强缓存的管理</h1><blockquote>
 <p>前面介绍的是强缓存的原理，在实际应用中我们会碰到需要强缓存的场景和不需要强缓存的场景，通常有2种方式来设置是否启用强缓存</p>
 </blockquote>
@@ -495,7 +499,7 @@
 <blockquote>
 <p>然而这种缓存配置方式会带来一个新的问题，就是发布时资源更新的问题，比如某一张图片，在用户访问第一个版本的时候已经缓存到了用户的电脑上，当网站发布新版本，替换了这个图片时，已经访问过第一个版本的用户由于缓存的设置，导致在默认的情况下不会请求服务器最新的图片资源，除非他清掉或禁用缓存或者强制刷新，否则就看不到最新的图片效果</p>
 </blockquote>
-<p>这个问题已经有成熟的解决方案，具体内容可阅读知乎这篇文章详细了解：<a href="http://www.zhihu.com/question/20790576" target="_blank" rel="noopener">http://www.zhihu.com/question/20790576</a></p>
+<p>这个问题已经有成熟的解决方案，具体内容可阅读知乎这篇文章详细了解：&lt;<a href="http://ww" target="_blank" rel="noopener">http://ww</a> w.zhihu.com/question/20790576&gt;</p>
 <p>文章提到的东西都属于理论上的解决方案，不过现在已经有很多前端工具能够实际地解决这个问题，由于每个工具涉及到的内容细节都有很多，本文没有办法一一深入介绍。有兴趣的可以去了解下<code>grunt</code> <code>gulp</code> <code>webpack</code> <code>fis</code> 还有edp这几个工具，基于这几个工具都能解决这个问题，尤其是<code>fis</code>和<code>edp</code>是百度推出的前端开发平台，有现成的文档可以参考：</p>
 <p><a href="http://fis.baidu.com/fis3/api/index.html" target="_blank" rel="noopener">http://fis.baidu.com/fis3/api/index.html</a></p>
 <p><a href="http://ecomfe.github.io/edp/doc/initialization/install/" target="_blank" rel="noopener">http://ecomfe.github.io/edp/doc/initialization/install/</a></p>
@@ -557,7 +561,7 @@
 <p><strong>有一种场景需要注意</strong></p>
 <ul>
 <li>分布式系统里多台机器间文件的<code>Last-Modified</code>必须保持一致，以免负载均衡到不同机器导致比对失败；</li>
-<li>分布式系统尽量关闭掉<code>ETag</code>(每台机器生成的<code>ETag</code>都会不一样）；</li>
+<li>分布式系统尽量关闭掉<code>ETag</code>(<strong>每台机器生成的<code>ETag</code>都会不一样</strong>）；</li>
 <li>京东页面的资源请求，返回的<code>repsones header</code>就只有<code>Last-Modified</code>，没有<code>ETag</code>：</li>
 </ul>
 <p><img src="https://poetries1.gitee.io/img-repo/2019/10/18.png" alt="img"></p>
@@ -696,7 +700,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">104</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -718,7 +722,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -751,7 +755,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、浏览器缓存基本认识"><span class="nav-number">1.</span> <span class="nav-text">一、浏览器缓存基本认识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、强缓存的原理"><span class="nav-number">2.</span> <span class="nav-text">二、强缓存的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-介绍"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Expires缓存原理"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Expires缓存原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Cache-Control缓存原理"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Cache-Control缓存原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、强缓存的管理"><span class="nav-number">3.</span> <span class="nav-text">三、强缓存的管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、强缓存的应用"><span class="nav-number">4.</span> <span class="nav-text">四、强缓存的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、协商缓存的原理"><span class="nav-number">5.</span> <span class="nav-text">五、协商缓存的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-介绍"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-Last-Modified，If-Modified-Since控制协商缓存"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Last-Modified，If-Modified-Since控制协商缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-ETag、If-None-Match控制协商缓存"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 ETag、If-None-Match控制协商缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、协商缓存的管理"><span class="nav-number">6.</span> <span class="nav-text">六、协商缓存的管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、相关浏览器行为对缓存的影响"><span class="nav-number">7.</span> <span class="nav-text">七、相关浏览器行为对缓存的影响</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、浏览器缓存基本认识"><span class="nav-number">1.</span> <span class="nav-text">一、浏览器缓存基本认识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、强缓存的原理"><span class="nav-number">2.</span> <span class="nav-text">二、强缓存的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-介绍"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Expires缓存原理"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Expires缓存原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Cache-Control缓存原理"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 Cache-Control缓存原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-cache-control-补充"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 cache-control 补充</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、强缓存的管理"><span class="nav-number">3.</span> <span class="nav-text">三、强缓存的管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、强缓存的应用"><span class="nav-number">4.</span> <span class="nav-text">四、强缓存的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、协商缓存的原理"><span class="nav-number">5.</span> <span class="nav-text">五、协商缓存的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-介绍"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-Last-Modified，If-Modified-Since控制协商缓存"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Last-Modified，If-Modified-Since控制协商缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-ETag、If-None-Match控制协商缓存"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 ETag、If-None-Match控制协商缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、协商缓存的管理"><span class="nav-number">6.</span> <span class="nav-text">六、协商缓存的管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、相关浏览器行为对缓存的影响"><span class="nav-number">7.</span> <span class="nav-text">七、相关浏览器行为对缓存的影响</span></a></li></ol></div>
             
 
           </div>
