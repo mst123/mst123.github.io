@@ -87,7 +87,7 @@
 <meta property="og:description" content="简易流程vue-router的整体流程不难理解，难点在于一些功能的实现。  首先初始化vue-router实例，然后vue.use，再然后根vue初始化，作为配置传入  vue.use vue-router  Vue-router install  混入，根组件保存router和route属性，通过混入beforeCreated 子组件递归持有根组件(Vue)  Object.defineProp">
 <meta property="og:image" content="https://mst123.github.io/vue/vue-router/image-20220213105205628.png">
 <meta property="article:published_time" content="2021-01-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-17T08:06:33.898Z">
+<meta property="article:modified_time" content="2022-03-21T10:19:01.222Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="vue-router源码分析">
@@ -398,60 +398,61 @@
 <ul>
 <li><p>混入，根组件保存router和route属性，通过混入<code>beforeCreated</code> 子组件递归持有根组件(Vue)</p>
 <ul>
-<li><pre><code>Object.defineProperty(Vue.prototype, &apos;$route&apos;, {
-  // 混入beforeCreated 保证所有组件都能访问到 _routerRoot vue根实例
-  get () { return this._routerRoot._route }
+<li><pre><code class="javascript"><span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$route'</span>, {
+  <span class="comment">// 混入beforeCreated 保证所有组件都能访问到 _routerRoot vue根实例</span>
+  <span class="keyword">get</span> () { <span class="keyword">return</span> <span class="keyword">this</span>._routerRoot._route }
 })
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">-</span><br></pre></td></tr></table></figure>
-// 非根组件递归持有根组件Vue
-this._routerRoot = (this.$parent &amp;&amp; this.$parent._routerRoot) || this
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">      &gt; 所有的组件都持有_RouterRoot属性(Vue)，Vue根实例持有_route和router属性</span><br><span class="line">  </span><br><span class="line">  - vue-router 初始化</span><br><span class="line">    - 首先生成实例，执行constructor</span><br><span class="line">      - 生成matcher，createMatcher</span><br><span class="line">        - 根据routes创建一个路由映射表 &#123;pathList, pathMap, nameMap&#125;</span><br><span class="line">        - 提供match方法</span><br><span class="line">      - 根据mode，初始化相应history</span><br><span class="line">    - 执行init方法-vue根实例初始化的时候执行</span><br><span class="line">      - history.transitionTo 根据当前路径渲染组件</span><br><span class="line">        - const route &#x3D; this.router.match(location, this.current) 匹配路由</span><br><span class="line">      - History.listen 定义 history.cb  在多种情况下更新 vue._route，保证其正确性，方便被watch</span><br><span class="line">  </span><br><span class="line">  - Vue.util.defineReactive(this, &#96;_route&#96;, this._router.history.current) 定义响应式</span><br><span class="line">  </span><br><span class="line">  - registerInstance router-view相关 主要是在route.instance保存当前rv实例</span><br><span class="line">  </span><br><span class="line">  - Object.defineProperty(Vue.prototype, &#96;$router&#96;和&#96;$route&#96;）方便组件内使用</span><br><span class="line">  </span><br><span class="line">  - Vue.component &#96;RouterView&#96;, &#96;RouterLink&#96;</span><br><span class="line">  </span><br><span class="line">  - 定义合并策略</span><br><span class="line"></span><br><span class="line">### 重要部分介绍</span><br><span class="line"></span><br><span class="line">#### mather介绍</span><br></pre></td></tr></table></figure>
-function createMatcher (
-routes: Array&lt;RouteConfig&gt;,
-router: VueRouter
-): Matcher
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- createRouteMap 根据传入的routes配置，创建一个路由映射表 &#123;pathList, pathMap, nameMap&#125;</span><br><span class="line"></span><br><span class="line">  &gt; &#96;pathList&#96; 存储所有的 &#96;path&#96;</span><br><span class="line">  &gt;</span><br><span class="line">  &gt; &#96;pathMap&#96; 表示一个 &#96;path&#96; 到 &#96;RouteRecord&#96; 的映射关系</span><br><span class="line">  &gt;</span><br><span class="line">  &gt; &#96;nameMap&#96; 表示 &#96;name&#96; 到 &#96;RouteRecord&#96; 的映射关系</span><br><span class="line"></span><br><span class="line">  - 遍历routes数组，调用addRouteRecord</span><br><span class="line"></span><br><span class="line">    - 根据routes创建相关映射表,如果存在children，则递归处理，保证每一个路由地址都有一个与之对应的routeRecord，这条记录还会包含子路由所有层级的父record记录</span><br><span class="line"></span><br><span class="line">    -</span><br></pre></td></tr></table></figure>
-RouteRecord
-const record: RouteRecord = {
+&lt;!--￼<span class="number">0</span>--&gt;
+<span class="comment">// 非根组件递归持有根组件Vue</span>
+<span class="keyword">this</span>._routerRoot = (<span class="keyword">this</span>.$parent &amp;&amp; <span class="keyword">this</span>.$parent._routerRoot) || <span class="keyword">this</span>
+&lt;!--￼<span class="number">1</span>--&gt;
+<span class="function"><span class="keyword">function</span> <span class="title">createMatcher</span> (<span class="params"></span></span>
+<span class="function"><span class="params">routes: Array&lt;RouteConfig&gt;,</span></span>
+<span class="function"><span class="params">router: VueRouter</span></span>
+<span class="function"><span class="params"></span>): <span class="title">Matcher</span></span>
+<span class="function"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- createRouteMap 根据传入的routes配置，创建一个路由映射表 &#123;pathList, pathMap, nameMap&#125;</span><br><span class="line"></span><br><span class="line">  &gt; &#96;pathList&#96; 存储所有的 &#96;path&#96;</span><br><span class="line">  &gt;</span><br><span class="line">  &gt; &#96;pathMap&#96; 表示一个 &#96;path&#96; 到 &#96;RouteRecord&#96; 的映射关系</span><br><span class="line">  &gt;</span><br><span class="line">  &gt; &#96;nameMap&#96; 表示 &#96;name&#96; 到 &#96;RouteRecord&#96; 的映射关系</span><br><span class="line"></span><br><span class="line">  - 遍历routes数组，调用addRouteRecord</span><br><span class="line"></span><br><span class="line">    - 根据routes创建相关映射表,如果存在children，则递归处理，保证每一个路由地址都有一个与之对应的routeRecord，这条记录还会包含子路由所有层级的父record记录</span><br><span class="line"></span><br><span class="line">    -</span><br></pre></td></tr></table></figure></span>
+<span class="function"><span class="title">RouteRecord</span></span>
+<span class="function"><span class="title">const</span> <span class="title">record</span>: <span class="title">RouteRecord</span> = </span>{
     path: normalizedPath,
-    // path 解析成一个正则表达式
+    <span class="comment">// path 解析成一个正则表达式</span>
     regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
-    components: route.components || { default: route.component },
+    components: route.components || { <span class="attr">default</span>: route.component },
     alias: route.alias
-      ? typeof route.alias === &apos;string&apos;
+      ? <span class="keyword">typeof</span> route.alias === <span class="string">'string'</span>
         ? [route.alias]
         : route.alias
       : [],
-    instances: {}, // 表示rv组件的实例
+    instances: {}, <span class="comment">// 表示rv组件的实例</span>
     enteredCbs: {},
     name,
-    parent, // 表示父的 RouteRecord 只能向上寻找
+    parent, <span class="comment">// 表示父的 RouteRecord 只能向上寻找</span>
     matchAs,
     redirect: route.redirect,
     beforeEnter: route.beforeEnter,
     meta: route.meta || {},
     props:
-      route.props == null
+      route.props == <span class="literal">null</span>
         ? {}
         : route.components
           ? route.props
-          : { default: route.props }
+          : { <span class="attr">default</span>: route.props }
   }
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - 保证*匹配符保持在最后</span><br><span class="line"></span><br><span class="line">- match方法解析 匹配出对应的record，然后通过&#96;createRoute&#96;创建&#96;Route&#96;</span><br></pre></td></tr></table></figure>
-function match (
-raw: RawLocation(string | location),
-currentRoute?: Route,
-redirectedFrom?: Location
-): Route
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- createRoute函数, &#96;createRoute&#96; 可以根据 &#96;record&#96; 和 &#96;location&#96; 创建出来，最终返回的是一条 &#96;Route&#96; 路径</span><br></pre></td></tr></table></figure>
-export function createRoute (
-record: ?RouteRecord,
-location: Location,
-redirectedFrom?: ?Location,
-router?: VueRouter
-): Route {
-const stringifyQuery = router &amp;&amp; router.options.stringifyQuery
-</code></pre></li>
+&lt;!--￼<span class="number">3</span>--&gt;
+<span class="function"><span class="keyword">function</span> <span class="title">match</span> (<span class="params"></span></span>
+<span class="function"><span class="params">raw: RawLocation(string | location</span>),</span>
+<span class="function"><span class="title">currentRoute</span>?: <span class="title">Route</span>,</span>
+<span class="function"><span class="title">redirectedFrom</span>?: <span class="title">Location</span></span>
+<span class="function">): <span class="title">Route</span></span>
+<span class="function"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- createRoute函数, &#96;createRoute&#96; 可以根据 &#96;record&#96; 和 &#96;location&#96; 创建出来，最终返回的是一条 &#96;Route&#96; 路径</span><br></pre></td></tr></table></figure></span>
+<span class="function"><span class="title">export</span> <span class="title">function</span> <span class="title">createRoute</span> (<span class="params"></span></span>
+<span class="function"><span class="params">record: ?RouteRecord,</span></span>
+<span class="function"><span class="params">location: Location,</span></span>
+<span class="function"><span class="params">redirectedFrom?: ?Location,</span></span>
+<span class="function"><span class="params">router?: VueRouter</span></span>
+<span class="function"><span class="params"></span>): <span class="title">Route</span> </span>{
+<span class="keyword">const</span> stringifyQuery = router &amp;&amp; router.options.stringifyQuery
+</code></pre>
+</li>
 </ul>
 <p>let query: any = location.query || {}<br>try {<br>  query = clone(query)<br>} catch (e) {}</p>
 <p>const route: Route = {<br>  name: location.name || (record &amp;&amp; record.name),<br>  meta: (record &amp;&amp; record.meta) || {},<br>  path: location.path || ‘/‘,<br>  hash: location.hash || ‘’,<br>  query,<br>  params: location.params || {},<br>  fullPath: getFullPath(location, stringifyQuery),<br>  matched: record ? formatMatch(record) : []<br>}<br>if (redirectedFrom) {<br>  route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery)<br>}<br>return Object.freeze(route)<br>}</p>
@@ -519,8 +520,6 @@ record = record.parent</code></pre><p>  }<br>  return res<br>}</p>
 </li>
 <li><p>非常经典的异步函数队列化执行的模式，这也就是为什么官方文档会说只有执行 <code>next</code> 方法来 <code>resolve</code> 这个钩子函数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function runQueue (queue, fn, cb) &#123;</span><br><span class="line">  const step &#x3D; index &#x3D;&gt; &#123;</span><br><span class="line">    if (index &gt;&#x3D; queue.length) &#123;</span><br><span class="line">      cb()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      if (queue[index]) &#123;</span><br><span class="line">        fn(queue[index], () &#x3D;&gt; &#123;</span><br><span class="line">          step(index + 1)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        step(index + 1)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  step(0)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 代表一个个hooks函数</span><br><span class="line">const arr &#x3D; [1, 2, 3, 4, 5, 6, 7, 8, 9]</span><br><span class="line"></span><br><span class="line">const iterator &#x3D; (hook, next) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(hook);</span><br><span class="line">  next()</span><br><span class="line">&#125;</span><br><span class="line">runQueue(arr, iterator, () &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&quot;遍历完了&quot;);</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; 1 2 3 4 5 6 7 8 9 遍历完了</span><br></pre></td></tr></table></figure>
-
-
 </li>
 </ul>
 
@@ -648,7 +647,7 @@ record = record.parent</code></pre><p>  }<br>  return res<br>}</p>
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
