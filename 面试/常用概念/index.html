@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png">
 <meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png">
 <meta property="article:published_time" content="2021-12-07T08:08:23.054Z">
-<meta property="article:modified_time" content="2022-03-17T10:26:43.895Z">
+<meta property="article:modified_time" content="2022-07-22T05:31:34.507Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="常用概念">
@@ -454,7 +454,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id&#x3D;a3fWa; Expires&#x3D;Wed, 21 Oct 2015 07:28:00 GMT;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
 <p>当 Expires 属性缺省时，表示是会话性 Cookie，像上图 Expires 的值为 Session，表示的就是会话性 Cookie。当为会话性 Cookie 的时候，值保存在客户端内存中，并在用户关闭浏览器时失效。需要注意的是，有些浏览器提供了会话恢复功能，这种情况下即使关闭了浏览器，会话期 Cookie 也会被保留下来，就好像浏览器从来没有关闭一样。</p>
-<p>与会话性 Cookie 相对的是持久性 Cookie，持久性 Cookies 会保存在用户的硬盘中，直至过期或者清除 Cookie。这里值得注意的是，设定的日期和时间只与客户端相关，而不是服务端。</p>
+<p>与会话性 Cookie 相对的是持久性 Cookie，持久性 Cookies 会保存在用户的硬盘中，直至过期或者清除 Cookie。这里值得注意的是，设定的日期和时间<strong>只与客户端相关，而不是服务端</strong>。</p>
 <h3 id="Max-Age"><a href="#Max-Age" class="headerlink" title="Max-Age"></a>Max-Age</h3><p>Max-Age 用于设置在 Cookie 失效之前需要经过的秒数。比如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id&#x3D;a3fWa; Max-Age&#x3D;604800;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
@@ -472,18 +472,86 @@
 <p><strong>Domain 和 Path 标识共同定义了 Cookie 的作用域：即 Cookie 应该发送给哪些 URL</strong>。</p>
 <h3 id="Secure属性"><a href="#Secure属性" class="headerlink" title="Secure属性"></a>Secure属性</h3><p>标记为 Secure 的 Cookie 只应通过被HTTPS协议加密过的请求发送给服务端。使用 HTTPS 安全协议，可以保护 Cookie 在浏览器和 Web 服务器间的传输过程中不被窃取和篡改。</p>
 <h3 id="HTTPOnly"><a href="#HTTPOnly" class="headerlink" title="HTTPOnly"></a>HTTPOnly</h3><p>设置 HTTPOnly 属性可以防止客户端脚本通过 document.cookie 等方式访问 Cookie，有助于避免 XSS 攻击。</p>
-<h3 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h3><p>SameSite 是最近非常值得一提的内容，因为 2 月份发布的 Chrome80 版本中默认屏蔽了第三方的 Cookie，这会导致阿里系的很多应用都产生问题，为此还专门成立了问题小组，推动各 BU 进行改造。</p>
-<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><p>我们先来看看这个属性的作用：</p>
-<p>SameSite 属性可以让 Cookie 在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）。</p>
-<h4 id="属性值"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h4><p>SameSite 可以有下面三种值：</p>
-<ol>
-<li><strong>Strict</strong> 仅允许一方请求携带 Cookie，即浏览器将只发送相同站点请求的 Cookie，即当前网页 URL 与请求目标 URL 完全一致。</li>
-<li><strong>Lax</strong> 允许部分第三方请求携带 Cookie</li>
-<li><strong>None</strong> 无论是否跨站都会发送 Cookie</li>
-</ol>
-<p>之前默认是 None 的，Chrome80 后默认是 Lax。</p>
+<h3 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h3><p>Cookie 的<code>SameSite</code>属性用来限制第三方 Cookie，从而减少安全风险。</p>
+<p>它可以设置三个值。</p>
+<ul>
+<li>Strict</li>
+<li>Lax</li>
+<li>None</li>
+</ul>
+<h4 id="Strict"><a href="#Strict" class="headerlink" title="Strict"></a>Strict</h4><p><code>Strict</code>最为严格，完全禁止第三方 Cookie，跨站点时，任何情况下都不会发送 Cookie。换言之，只有当前网页的 URL 与请求目标一致，才会带上 Cookie。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: CookieName=CookieValue; SameSite=Strict;</span><br></pre></td></tr></table></figure>
+
+<p>这个规则过于严格，可能造成非常不好的用户体验。比如，当前网页有一个 GitHub 链接，用户点击跳转就不会带有 GitHub 的 Cookie，跳转过去总是未登陆状态。</p>
+<h4 id="Lax"><a href="#Lax" class="headerlink" title="Lax"></a>Lax</h4><p><code>Lax</code>规则稍稍放宽，大多数情况也是不发送第三方 Cookie，但是导航到目标网址的 Get 请求除外。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: CookieName&#x3D;CookieValue; SameSite&#x3D;Lax;</span><br></pre></td></tr></table></figure>
+
+<p>导航到目标网址的 GET 请求，只包括三种情况：链接，预加载请求，GET 表单。详见下表。</p>
+<table>
+<thead>
+<tr>
+<th align="left">请求类型</th>
+<th align="center">示例</th>
+<th align="right">正常情况</th>
+<th align="left">Lax</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">链接</td>
+<td align="center"><code>&lt;a href=&quot;...&quot;&gt;&lt;/a&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">发送 Cookie</td>
+</tr>
+<tr>
+<td align="left">预加载</td>
+<td align="center"><code>&lt;link rel=&quot;prerender&quot; href=&quot;...&quot;/&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">发送 Cookie</td>
+</tr>
+<tr>
+<td align="left">GET 表单</td>
+<td align="center"><code>&lt;form method=&quot;GET&quot; action=&quot;...&quot;&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">发送 Cookie</td>
+</tr>
+<tr>
+<td align="left">POST 表单</td>
+<td align="center"><code>&lt;form method=&quot;POST&quot; action=&quot;...&quot;&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+<tr>
+<td align="left">iframe</td>
+<td align="center"><code>&lt;iframe src=&quot;...&quot;&gt;&lt;/iframe&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+<tr>
+<td align="left">AJAX</td>
+<td align="center"><code>$.get(&quot;...&quot;)</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+<tr>
+<td align="left">Image</td>
+<td align="center"><code>&lt;img src=&quot;...&quot;&gt;</code></td>
+<td align="right">发送 Cookie</td>
+<td align="left">不发送</td>
+</tr>
+</tbody></table>
+<p>设置了<code>Strict</code>或<code>Lax</code>以后，基本就杜绝了 CSRF 攻击。当然，前提是用户浏览器支持 SameSite 属性。</p>
+<h4 id="None"><a href="#None" class="headerlink" title="None"></a>None</h4><p>Chrome 计划将<code>Lax</code>变为默认设置。这时，网站可以选择显式关闭<code>SameSite</code>属性，将其设为<code>None</code>。不过，前提是必须同时设置<code>Secure</code>属性（Cookie 只能通过 HTTPS 协议发送），否则无效。</p>
+<p>下面的设置无效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: widget_session=abc123; SameSite=None</span><br></pre></td></tr></table></figure>
+
+<p>下面的设置有效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: widget_session=abc123; SameSite=None; Secure</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>作者：冴羽<br>链接：<a href="https://juejin.cn/post/6844904095711494151" target="_blank" rel="noopener">https://juejin.cn/post/6844904095711494151</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>cookie作者：冴羽</p>
+<p>链接：<a href="https://juejin.cn/post/6844904095711494151" target="_blank" rel="noopener">https://juejin.cn/post/6844904095711494151</a></p>
+<p>samesite作者：阮一峰</p>
+<p>链接：<a href="https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html" target="_blank" rel="noopener">https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html</a></p>
 </blockquote>
 <h2 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a>层叠上下文</h2><ul>
 <li>文档根元素（<code>&lt;html&gt;</code>）；</li>
@@ -585,6 +653,9 @@
 <blockquote>
 <p>Cookie中的「同站」判断就比较宽松：只要两个 URL 的 eTLD+1 相同即可，不需要考虑协议和端口。其中，eTLD 表示有效顶级域名，注册于 Mozilla 维护的公共后缀列表（Public Suffix List）中，例如，.com、.co.uk、.github.io 等。eTLD+1 则表示，有效顶级域名+二级域名，例如 taobao.com 等。</p>
 </blockquote>
+<h2 id="withCredentials"><a href="#withCredentials" class="headerlink" title="withCredentials"></a>withCredentials</h2><p><code>withCredentials</code>是<code>XMLHttpRequest</code>的一个属性，表示跨域请求是否提供凭据信息(cookie、HTTP认证及客户端SSL证明等)</p>
+<p>实际中用途就是跨域请求是要不要携带cookie</p>
+<p>在<code>samesite</code>默认为<code>lax</code>的<code>chrome</code>80+，只设置<code>withCredentials</code>已经没用了</p>
 <h2 id="位-bit-amp-字节-Byte"><a href="#位-bit-amp-字节-Byte" class="headerlink" title="位(bit) &amp; 字节(Byte)"></a>位(bit) &amp; 字节(Byte)</h2><p><a href="https://juejin.cn/post/7002088412903637022#heading-2" target="_blank" rel="noopener">详细</a></p>
 <h3 id="bit"><a href="#bit" class="headerlink" title="bit"></a>bit</h3><p>1位二进制数，也就是1bit，有2种可能，可以表示数0,1 <strong>也就是开关状态 是计算机的存储基础</strong></p>
 <p>2位二进制数，2bit，有4种可能(2x2)，可以表示数0,1,2,3</p>
@@ -596,10 +667,10 @@
 <h3 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h3><p>UTF-8（<strong>8-bit Unicode Transformation Format</strong>）是一种针对Unicode的可变长度字符编码，又称万国码。UTF-8 <strong>用1到6个字节编码Unicode字符</strong>。用在网页上可以统一页面显示中文简体繁体及其它语言（如英文，日文，韩文）。</p>
 <blockquote>
 <p>UTF-8是一种非常通用的<strong>可变长</strong>字符编码方式</p>
-<p>像UTF-8里面，ASCII所表示的字符集就是用1 Byte来表示，而大部分汉字则是用3 Byte来表示。</p>
+<p>像UTF-8里面，<a href="http://ascii.wjccx.com/" target="_blank" rel="noopener">ASCII</a>所表示的字符集就是用1 Byte来表示，而大部分汉字则是用3 Byte来表示。</p>
 </blockquote>
 <h3 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h3><blockquote>
-<p>UTF-16 Unicode字符编码五层次模型的第三层：字符编码表（Character Encoding Form，也称为 “storage format”）的一种实现方式。即把Unicode字符集的抽象码位映射为16位长的二进制整数（即码元， 长度为2 Byte）的序列，用于数据存储或传递。Unicode字符的码位，需要1个或者2个16位长的码元来表示，因此这是一个变长表示。</p>
+<p>UTF-16 Unicode字符编码五层次模型的第三层：字符编码表（Character Encoding Form，也称为 “storage format”）的一种实现方式。即把Unicode字符集的抽象码位映射为16位长的二进制整数（即码元， 长度为2 Byte）的序列，用于数据存储或传递。Unicode字符的码位，需要1个或者2个16位长的码元(2字节或者4字节)来表示，因此这是一个变长表示。</p>
 </blockquote>
 <p>引用维基百科中对于UTF-16编码的解释我们可以知道，UTF-16最少也会用2 Byte来表示一个字符，因此没有办法兼容ASCII编码（ASCII编码使用1 Byte来进行存储）。</p>
 <h3 id="JS中的string"><a href="#JS中的string" class="headerlink" title="JS中的string"></a>JS中的string</h3><p>在JavaScript中，所有的string类型（或者被称为DOMString）都是使用UTF-16编码的。</p>
@@ -610,7 +681,7 @@
 <li><p>DCL (DOMContentLoaded Event)</p>
 <ul>
 <li>当初始的 <strong>HTML</strong> 文档被完全加载和解析完成之后，<strong><code>DOMContentLoaded</code></strong> 事件被触发，而无需等待样式表、图像和子框架的完全加载。(MDN的概念)</li>
-<li>更加清晰的结论是，DOMContentLoaded 事件在 html文档加载完毕，并且 html 所引用的内联 js、以及外链 js 的同步代码都执行完毕后触发。</li>
+<li>更加清晰的结论是，DOMContentLoaded 事件在 html文档加载完毕，并且 html 所引用的内联 js、以及外链 js 的<strong>同步</strong>代码都执行完毕后触发。</li>
 </ul>
 </li>
 <li><p>L (Onload Event)</p>
@@ -792,8 +863,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" rel="prev" title="字符串常用方法">
-                字符串常用方法 <i class="fa fa-chevron-right"></i>
+              <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" rel="prev" title="腾讯企鹅辅导 H5 性能极致优化案例">
+                腾讯企鹅辅导 H5 性能极致优化案例 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -930,7 +1001,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见网页协议"><span class="nav-number">2.1.</span> <span class="nav-text">常见网页协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-的分层管理"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookies-的属性"><span class="nav-number">3.</span> <span class="nav-text">Cookies 的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Name-Value"><span class="nav-number">3.1.</span> <span class="nav-text">Name&#x2F;Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Max-Age"><span class="nav-number">3.3.</span> <span class="nav-text">Max-Age</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain"><span class="nav-number">3.4.</span> <span class="nav-text">Domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path"><span class="nav-number">3.5.</span> <span class="nav-text">Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secure属性"><span class="nav-number">3.6.</span> <span class="nav-text">Secure属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPOnly"><span class="nav-number">3.7.</span> <span class="nav-text">HTTPOnly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SameSite"><span class="nav-number">3.8.</span> <span class="nav-text">SameSite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作用"><span class="nav-number">3.8.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性值"><span class="nav-number">3.8.2.</span> <span class="nav-text">属性值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#层叠上下文"><span class="nav-number">4.</span> <span class="nav-text">层叠上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC"><span class="nav-number">5.</span> <span class="nav-text">BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同源的定义"><span class="nav-number">6.</span> <span class="nav-text">同源的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位-bit-amp-字节-Byte"><span class="nav-number">7.</span> <span class="nav-text">位(bit) &amp; 字节(Byte)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bit"><span class="nav-number">7.1.</span> <span class="nav-text">bit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Byte"><span class="nav-number">7.2.</span> <span class="nav-text">Byte</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode编码"><span class="nav-number">8.</span> <span class="nav-text">Unicode编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-8"><span class="nav-number">8.1.</span> <span class="nav-text">UTF-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-16"><span class="nav-number">8.2.</span> <span class="nav-text">UTF-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS中的string"><span class="nav-number">8.3.</span> <span class="nav-text">JS中的string</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">9.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象获取属性的方法"><span class="nav-number">10.</span> <span class="nav-text">对象获取属性的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生组合继承"><span class="nav-number">11.</span> <span class="nav-text">寄生组合继承</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见网页协议"><span class="nav-number">2.1.</span> <span class="nav-text">常见网页协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-的分层管理"><span class="nav-number">2.2.</span> <span class="nav-text">TCP&#x2F;IP 的分层管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookies-的属性"><span class="nav-number">3.</span> <span class="nav-text">Cookies 的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Name-Value"><span class="nav-number">3.1.</span> <span class="nav-text">Name&#x2F;Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Max-Age"><span class="nav-number">3.3.</span> <span class="nav-text">Max-Age</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain"><span class="nav-number">3.4.</span> <span class="nav-text">Domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path"><span class="nav-number">3.5.</span> <span class="nav-text">Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Secure属性"><span class="nav-number">3.6.</span> <span class="nav-text">Secure属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPOnly"><span class="nav-number">3.7.</span> <span class="nav-text">HTTPOnly</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SameSite"><span class="nav-number">3.8.</span> <span class="nav-text">SameSite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Strict"><span class="nav-number">3.8.1.</span> <span class="nav-text">Strict</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lax"><span class="nav-number">3.8.2.</span> <span class="nav-text">Lax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#None"><span class="nav-number">3.8.3.</span> <span class="nav-text">None</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#层叠上下文"><span class="nav-number">4.</span> <span class="nav-text">层叠上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC"><span class="nav-number">5.</span> <span class="nav-text">BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同源的定义"><span class="nav-number">6.</span> <span class="nav-text">同源的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#withCredentials"><span class="nav-number">7.</span> <span class="nav-text">withCredentials</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位-bit-amp-字节-Byte"><span class="nav-number">8.</span> <span class="nav-text">位(bit) &amp; 字节(Byte)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bit"><span class="nav-number">8.1.</span> <span class="nav-text">bit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Byte"><span class="nav-number">8.2.</span> <span class="nav-text">Byte</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode编码"><span class="nav-number">9.</span> <span class="nav-text">Unicode编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-8"><span class="nav-number">9.1.</span> <span class="nav-text">UTF-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-16"><span class="nav-number">9.2.</span> <span class="nav-text">UTF-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS中的string"><span class="nav-number">9.3.</span> <span class="nav-text">JS中的string</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能指标"><span class="nav-number">10.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象获取属性的方法"><span class="nav-number">11.</span> <span class="nav-text">对象获取属性的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生组合继承"><span class="nav-number">12.</span> <span class="nav-text">寄生组合继承</span></a></li></ol></div>
             
 
           </div>

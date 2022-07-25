@@ -87,7 +87,7 @@
 <meta property="og:description" content="call函数123456789101112Function.prototype.selfCall &#x3D; function(context) &amp;#123;  const ctx &#x3D; context || window;  &#x2F;&#x2F; 去除第一个参数  const arg &#x3D; [...arguments].slice(1);  &#x2F;&#x2F; con">
 <meta property="og:image" content="https://mst123.github.io/%E9%9D%A2%E8%AF%95/selfFuc/write1.png">
 <meta property="article:published_time" content="2021-11-26T03:35:02.290Z">
-<meta property="article:modified_time" content="2022-03-24T05:27:26.703Z">
+<meta property="article:modified_time" content="2022-03-26T03:13:35.447Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="手写函数">
@@ -414,7 +414,7 @@
 <p>从结果分析</p>
 <ul>
 <li>返回了一个对象，其实例属性是通过构造函数(Student)生成的</li>
-<li>对象的<code>__proto__</code>指向Student.prototype<br>从过程分析</li>
+<li>对象的<code>__proto__</code>指向Student.prototype</li>
 <li>创建一个空对象obj（{}）</li>
 <li>将obj的[[prototype]]属性指向构造函数constrc的原型（即obj.[[prototype]] = constrc.prototype）。</li>
 <li>将构造函数constrc内部的this绑定到新建的对象obj，执行constrc（也就是跟调用普通函数一样，只是此时函数的this为新创建的对象obj而已，就好像执行obj.constrc()一样）；</li>
