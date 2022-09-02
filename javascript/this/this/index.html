@@ -87,7 +87,7 @@
 <meta property="og:description" content="this的由来看下述一段代码 123456789101112131415var bar &#x3D; &amp;#123;    myName:&quot;time.geekbang.com&quot;,    printName: function () &amp;#123;        console.log(myName)    &amp;#125;    &amp;#125;function foo() &amp;#123;">
 <meta property="og:image" content="https://mst123.github.io/javascript/this/this/image-20210720111215903.png">
 <meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-17T08:04:26.332Z">
+<meta property="article:modified_time" content="2022-07-28T07:05:51.319Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="this">
 <meta name="twitter:card" content="summary">
@@ -418,7 +418,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;      </span><br><span class="line">  console.log( this.a ); </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line">var obj &#x3D; &#123;</span><br><span class="line">  a: 2,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line">obj.foo(); &#x2F;&#x2F; 2</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>对象属性引用链中只有最顶层或者说最后一层会影响调用位置,看下例</li>
+<li>对象属性引用链中只有最顶层或者说<strong>最后一层会影响调用结果</strong>,看下例</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;      </span><br><span class="line">  console.log( this.a ); </span><br><span class="line">&#125; </span><br><span class="line">var obj2 &#x3D; &#123;      </span><br><span class="line">  a: 42,     </span><br><span class="line">  foo: foo  </span><br><span class="line">&#125;; </span><br><span class="line">var obj1 &#x3D; &#123;      </span><br><span class="line">  a: 2,     </span><br><span class="line">  obj2: obj2  </span><br><span class="line">&#125;; </span><br><span class="line">obj1.obj2.foo(); &#x2F;&#x2F; 42</span><br></pre></td></tr></table></figure>
 

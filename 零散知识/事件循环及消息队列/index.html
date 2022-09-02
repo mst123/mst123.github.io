@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220722141448815.png">
 <meta property="og:image" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20211231142902981.png">
 <meta property="article:published_time" content="2021-07-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-22T06:23:59.853Z">
+<meta property="article:modified_time" content="2022-07-25T06:50:32.253Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="事件循环">
 <meta property="article:tag" content="消息队列">
@@ -532,12 +532,12 @@
 <li>close callbacks: 执行比如socket.on(‘close’, …)的回调。</li>
 </ol>
 <blockquote>
-<p>我们只需要关注timer poll check 这三个阶段即可</p>
+<p>我们只需要关注<strong>timer poll check</strong> 这三个阶段即可</p>
 </blockquote>
 <h4 id="每个阶段的详情"><a href="#每个阶段的详情" class="headerlink" title="每个阶段的详情"></a>每个阶段的详情</h4><h5 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h5><p>一个timer指定一个下限时间而不是准确时间，在达到这个下限时间后执行回调。在指定时间过后，timers会尽可能早地执行回调，但系统调度或者其它回调的执行可能会延迟它们。</p>
-<p>据我观察。timer阶段应该会向某个队列放入到时间的定时器，以便poll阶段调用</p>
+<p>据我观察。<strong>timer阶段应该会向某个队列放入到时间的定时器，以便poll阶段调用</strong></p>
 <blockquote>
-<p>注意：技术上来说，poll 阶段控制 timers 什么时候执行。</p>
+<p>注意：<strong>技术上来说，poll 阶段控制 timers 什么时候执行</strong>。</p>
 </blockquote>
 <h5 id="Pending-callbacks"><a href="#Pending-callbacks" class="headerlink" title="Pending callbacks"></a>Pending callbacks</h5><p>执行延迟到下一个循环迭代的 I/O 回调。此阶段对某些系统操作（如 TCP 错误类型）执行回调。例如，如果 TCP 套接字在尝试连接时接收到 <code>ECONNREFUSED</code>，则某些 *nix 的系统希望等待报告错误。这将被排队以在挂起的回调阶段执行。</p>
 <h5 id="poll-重点分析"><a href="#poll-重点分析" class="headerlink" title="poll 重点分析"></a>poll 重点分析</h5><p>poll 阶段的功能有两个</p>
@@ -550,22 +550,14 @@
 <li>如果 poll 队列不为空的话，会执行 poll 队列直到清空或者系统回调数达到了与系统相关的硬性限制</li>
 <li>如果 poll 队列为空<ul>
 <li>如果设定了 setImmediate 回调，会直接跳到 check 阶段。</li>
-<li>如果没有设定 setImmediate 回调，会阻塞住进程，并等待新的 poll 任务（有哪些呢？）加入并立即执行。</li>
+<li>如果没有设定 setImmediate 回调，会阻塞住进程，并等待新的 poll 任务（<strong>定时器或者新的I/O事件</strong>）加入并立即执行。</li>
 </ul>
 </li>
 </ul>
 <p><strong>如果有计时器则会先调用计时器</strong></p>
 <blockquote>
-<p>poll阶段的另一个说法 </p>
-<p>轮询 阶段有两个重要的功能：</p>
-<p>​    1    计算应该阻塞和轮询 I/O 的时间。</p>
-<p>​    2    然后，处理 轮询 队列里的事件。</p>
-<p>当事件循环进入 轮询 阶段且 没有被调度的计时器时 ，将发生以下两种情况之一：</p>
-<p>​    •    如果 轮询 队列 不是空的 ，事件循环将循环访问回调队列并同步执行它们，直到队列已用尽，或者达到了与系统相关的硬性限制。</p>
-<p>​    •    如果 轮询 队列 是空的 ，还有两件事发生：</p>
-<p>​    ◦    如果脚本被 setImmediate() 调度，则事件循环将结束 轮询 阶段，并继续 检查 阶段以执行那些被调度的脚本。</p>
-<p>​    ◦    如果脚本 未被 setImmediate()调度，则事件循环将等待回调被添加到队列中，然后立即执行。（感觉和下边有点矛盾）</p>
-<p>一旦 轮询 队列为空，事件循环将检查 _已达到时间阈值的计时器_。如果一个或多个计时器已准备就绪，则事件循环将绕回计时器阶段以执行这些计时器的回调。</p>
+<p>ndoejs官网描述</p>
+<p>一旦 <strong>轮询</strong>(poll) 队列为空，事件循环将检查 _已达到时间阈值的计时器_。如果一个或多个计时器已准备就绪，则事件循环将绕回计时器阶段以执行这些计时器的回调。</p>
 </blockquote>
 <h5 id="check"><a href="#check" class="headerlink" title="check"></a>check</h5><p>这个阶段在 poll 结束后立即执行，setImmediate 的回调会在这里执行。</p>
 <p>一般来说，event loop 肯定会进入 poll 阶段，当没有 poll 任务时，会等待新的任务出现，但如果设定了 setImmediate，会直接执行进入下个阶段而不是继续等。</p>
@@ -594,7 +586,7 @@
 <h4 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h4><p><strong>由于node版本更新到11，Event Loop运行原理发生了变化，一旦执行一个阶段里的一个宏任务(setTimeout,setInterval和setImmediate)就立刻执行微任务队列，这点就跟浏览器端一致</strong></p>
 <h4 id="简单的总结"><a href="#简单的总结" class="headerlink" title="简单的总结"></a>简单的总结</h4><p>timer阶段设置到期的定时器到poll队列</p>
 <p>poll队列首先执行到期的定时器，然后执行poll阶段的回调函数（比如读取文件）</p>
-<p>如果poll队列没有任务了，有setimmedialy就执行setimmediately（check阶段），没有则会等待定时器 或者io回调</p>
+<p>如果poll队列没有任务了，有setimmedialy就执行setimmediately（check阶段），没有则会等待定时器 或者 io回调</p>
 <p>参考：</p>
 <p><a href="https://juejin.cn/post/6844903685936381959#heading-8" target="_blank" rel="noopener">腾讯</a></p>
 <p><a href="https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener">node官网</a></p>

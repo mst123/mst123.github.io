@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="层叠上下文文档中的层叠上下文由满足以下任意一个条件的元素形成：  文档根元素（&lt;html&gt;）；  position 值为 absolute（绝对定位）或 relative（相对定位）且 z-index 值不为 auto的元素；  position 值为 fixed（固定定位）或 sticky（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；  flex">
+<meta name="description" content="层叠上下文文档中的层叠上下文由满足以下任意一个条件的元素形成： 小总结 z-index相关：  z-index不为auto position 为absolute relative fixed sticky（后两种z-index无限制） flex grid容器的子元素   新属性css3相关 transform 变换 filter 过滤器   和性能方面有关系 will-change contain">
 <meta property="og:type" content="article">
 <meta property="og:title" content="css中重要的概念">
 <meta property="og:url" content="https://mst123.github.io/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="层叠上下文文档中的层叠上下文由满足以下任意一个条件的元素形成：  文档根元素（&lt;html&gt;）；  position 值为 absolute（绝对定位）或 relative（相对定位）且 z-index 值不为 auto的元素；  position 值为 fixed（固定定位）或 sticky（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；  flex">
+<meta property="og:description" content="层叠上下文文档中的层叠上下文由满足以下任意一个条件的元素形成： 小总结 z-index相关：  z-index不为auto position 为absolute relative fixed sticky（后两种z-index无限制） flex grid容器的子元素   新属性css3相关 transform 变换 filter 过滤器   和性能方面有关系 will-change contain">
 <meta property="og:image" content="https://mst123.github.io/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/2016-01-09_211116.png">
 <meta property="og:image" content="https://mst123.github.io/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w-20211213143017754.png">
 <meta property="article:published_time" content="2021-05-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-02-17T07:34:26.362Z">
+<meta property="article:modified_time" content="2022-07-28T07:53:12.466Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="CSS">
 <meta property="article:tag" content="层叠上下文">
@@ -391,40 +391,47 @@
 
       
         <h3 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context" target="_blank" rel="noopener">层叠上下文</a></h3><p>文档中的层叠上下文由满足以下任意一个条件的元素形成：</p>
+<p><strong>小总结</strong></p>
+<p>z-index相关：</p>
 <ul>
-<li><p>文档根元素（<code>&lt;html&gt;</code>）；</p>
+<li>z-index不为auto<ul>
+<li>position 为absolute relative fixed sticky（后两种z-index无限制）</li>
+<li>flex grid容器的子元素</li>
+</ul>
 </li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 值为 <code>absolute</code>（绝对定位）或 <code>relative</code>（相对定位）且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>的元素；</p>
+<li>新属性css3相关<ul>
+<li>transform 变换</li>
+<li>filter 过滤器</li>
+</ul>
 </li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 值为 <code>fixed</code>（固定定位）或 <code>sticky</code>（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；</p>
+<li>和性能方面有关系<ul>
+<li>will-change</li>
+<li>contain</li>
+</ul>
 </li>
-<li><p>flex (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox" target="_blank" rel="noopener"><code>flexbox</code> (en-US)</a>) 容器的子元素，且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>；</p>
-</li>
-<li><p>grid (<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid" target="_blank" rel="noopener"><code>grid</code></a>) 容器的子元素，且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>；</p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity" target="_blank" rel="noopener"><code>opacity</code></a> 属性值小于 <code>1</code> 的元素（参见 <a href="https://www.w3.org/TR/css3-color/#transparency" target="_blank" rel="noopener">the specification for opacity</a>）；</p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode" target="_blank" rel="noopener"><code>mix-blend-mode</code></a> 属性值不为 <code>normal</code> 的元素；</p>
-</li>
-<li><p>以下任意属性值不为<code>none</code>的元素：</p>
+</ul>
+<p><strong>详细介绍</strong></p>
 <ul>
+<li>文档根元素（<code>&lt;html&gt;</code>）；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 值为 <code>absolute</code>（绝对定位）或 <code>relative</code>（相对定位）且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code> 的元素；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener"><code>position</code></a> 值为 <code>fixed</code>（固定定位）或 <code>sticky</code>（粘滞定位）的元素（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）；</li>
+<li>flex (<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex" target="_blank" rel="noopener"><code>flex</code></a>) 容器的子元素，且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>；</li>
+<li>grid (<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid" target="_blank" rel="noopener"><code>grid</code></a>) 容器的子元素，且 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/z-index" target="_blank" rel="noopener"><code>z-index</code></a> 值不为 <code>auto</code>；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity" target="_blank" rel="noopener"><code>opacity</code></a> 属性值小于 <code>1</code> 的元素（参见 <a href="https://www.w3.org/TR/css3-color/#transparency" target="_blank" rel="noopener">the specification for opacity</a>）；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode" target="_blank" rel="noopener"><code>mix-blend-mode</code></a> 属性值不为 <code>normal</code> 的元素；</li>
+<li>以下任意属性值不为<code>none</code>的元素：<ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform" target="_blank" rel="noopener"><code>transform</code></a></li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter" target="_blank" rel="noopener"><code>filter</code></a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/backdrop-filter" target="_blank" rel="noopener"><code>backdrop-filter</code></a></li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective" target="_blank" rel="noopener"><code>perspective</code></a></li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path" target="_blank" rel="noopener"><code>clip-path</code></a></li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask" target="_blank" rel="noopener"><code>mask</code></a> / <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask-image" target="_blank" rel="noopener"><code>mask-image</code></a> / <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/mask-border" target="_blank" rel="noopener"><code>mask-border</code></a></li>
 </ul>
 </li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation" target="_blank" rel="noopener"><code>isolation</code></a> 属性值为 <code>isolate</code> 的元素；</p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling" target="_blank" rel="noopener"><code>-webkit-overflow-scrolling</code></a> 属性值为 <code>touch</code> 的元素；</p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change" target="_blank" rel="noopener"><code>will-change</code></a> 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考<a href="https://dev.opera.com/articles/css-will-change-property/" target="_blank" rel="noopener">这篇文章</a>）；</p>
-</li>
-<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain" target="_blank" rel="noopener"><code>contain</code></a> 属性值为 <code>layout</code>、<code>paint</code> 或包含它们其中之一的合成值（比如 <code>contain: strict</code>、<code>contain: content</code>）的元素。</p>
-</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation" target="_blank" rel="noopener"><code>isolation</code></a> 属性值为 <code>isolate</code> 的元素；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change" target="_blank" rel="noopener"><code>will-change</code></a> 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考<a href="https://dev.opera.com/articles/css-will-change-property/" target="_blank" rel="noopener">这篇文章</a>）；</li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain" target="_blank" rel="noopener"><code>contain</code></a> 属性值为 <code>layout</code>、<code>paint</code> 或包含它们其中之一的合成值（比如 <code>contain: strict</code>、<code>contain: content</code>）的元素。在层叠上下文中，子元素同样也按照上面解释的规则进行层叠。 重要的是，其子级层叠上下文的 <code>z-index</code>值只在父级中才有意义。子级层叠上下文被自动视为父级层叠上下文的一个独立单元。</li>
 </ul>
-<p>在层叠上下文中，子元素同样也按照上面解释的规则进行层叠。 重要的是，其子级层叠上下文的 <code>z-index</code>值只在父级中才有意义。子级层叠上下文被自动视为父级层叠上下文的一个独立单元。</p>
 <p>总结:</p>
 <ul>
 <li>层叠上下文可以包含在其他层叠上下文中，并且一起创建一个层叠上下文的层级。</li>
@@ -455,10 +462,13 @@
 <p>块格式化上下文对浮动定位（参见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/float" target="_blank" rel="noopener"><code>float</code></a>）与清除浮动（参见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clear" target="_blank" rel="noopener"><code>clear</code></a>）都很重要。浮动定位和清除浮动时只会应用于同一个BFC内的元素。浮动不会影响其它BFC中元素的布局，而清除浮动只能清除同一BFC中在它前面的元素的浮动。外边距折叠（<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing" target="_blank" rel="noopener">Margin collapsing</a>）也只会发生在属于同一BFC的块级元素之间。</p>
 <p>几个重要的应用:</p>
 <ul>
-<li>BFC 可以包含浮动的元素（清除浮动）</li>
-<li>同一个 BFC 下外边距会发生折叠</li>
-<li>BFC 可以阻止元素被浮动元素覆盖(左侧固定，右侧自适应布局)  </li>
-<li><img src="/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w-20211213143017754.png" alt="img"></li>
+<li><p>BFC 可以包含浮动的元素（清除浮动，防止高度塌陷）</p>
+</li>
+<li><p>同一个 BFC 下外边距会发生折叠</p>
+</li>
+<li><p>BFC 可以阻止元素被浮动元素覆盖(左侧固定，右侧自适应布局)  </p>
+<p><img src="/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w-20211213143017754.png" alt="img"></p>
+</li>
 </ul>
 <p>可以参考<a href="https://zhuanlan.zhihu.com/p/25321647" target="_blank" rel="noopener">知乎</a></p>
 
