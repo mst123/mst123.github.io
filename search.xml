@@ -8396,7 +8396,8 @@ let num4 = Number(true); // 1
 <h4 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h4><p>两种方式，一种利用merge，一种利用rebase</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git merge branch</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 git checkout branch1</span><br><span class="line">2 git rebase master</span><br><span class="line">3 git checkout master</span><br><span class="line">4 git merge(rebase) branch1</span><br><span class="line"></span><br><span class="line">下图1 描述1-2 下图2 描述3-4</span><br></pre></td></tr></table></figure>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/git/git/15fdea7b6646a1f3~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 git checkout branch1</span><br><span class="line">2 git rebase master</span><br><span class="line">在 rebase 之后，记得切回 master 再 merge 一下，把 master 移到最新的 commit</span><br><span class="line">3 git checkout master</span><br><span class="line">4 git merge(rebase) branch1</span><br></pre></td></tr></table></figure>
 
 <p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/git/git/1600abd620a8e28c~tplv-t2oaga2asx-watermark.awebp" alt="img"></p>
 <p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/git/git/160149e054fe485c~tplv-t2oaga2asx-watermark.awebp" alt="img"></p>
