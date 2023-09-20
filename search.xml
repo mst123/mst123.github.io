@@ -5852,7 +5852,8 @@ let num6 = parseFloat(&quot;3.125e7&quot;); // 31250000
     <url>/nodejs/circle-load/</url>
     <content><![CDATA[<h2 id="介绍一下commonjs循环加载的处理方式"><a href="#介绍一下commonjs循环加载的处理方式" class="headerlink" title="介绍一下commonjs循环加载的处理方式"></a>介绍一下commonjs循环加载的处理方式</h2><p><a href="https://juejin.cn/post/6994224541312483336#heading-3" target="_blank" rel="noopener">有循环加载的原理解释，理解起来更加清晰</a></p>
 <p>先介绍下require的特性</p>
-<pre><code>1 module 被加载的时候执行，模块的所有语句都会被执行</code></pre><p>​        2 module 加载后缓存，以后使用会在内存中寻找，不会二次加载</p>
+<p>​        1 module 被加载的时候执行，模块的所有语句都会被执行</p>
+<p>​        2 module 加载后缓存，以后使用会在内存中寻找，不会二次加载</p>
 <p>​        3 一旦出现某个模块被循环加载，就只输出已经执行的部分，还未执行的部分不会输出（下方解释）</p>
 <p>脚本文件<code>a.js</code>代码如下。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.done = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'./b.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'在 a.js 之中，b.done = %j'</span>, b.done);</span><br><span class="line">exports.done = <span class="literal">true</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'a.js 执行完毕'</span>);</span><br></pre></td></tr></table></figure>
