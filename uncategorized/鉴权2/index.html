@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="前言大家好，我是易师傅，还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，Token、Cookie、Session、JWT、单点登录是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 它 的安全的呢？ 一顿连问下来，我是焦头又烂额，欲言而又止……. 其实鉴权的方法有很多，下面我总结了常用的 10种鉴权方法，那么哪一种是最适合你的系统呢？哪一种又最安全呢？ 那就">
+<meta name="description" content="前言还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，Token、Cookie、Session、JWT、单点登录是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 它 的安全的呢？ 一顿连问下来，我是焦头又烂额，欲言而又止……. 其实鉴权的方法有很多，下面我总结了常用的 10种鉴权方法，那么哪一种是最适合你的系统呢？哪一种又最安全呢？ 那就让我们从下文慢慢探索">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络&#x2F;鉴权2">
 <meta property="og:url" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="前言大家好，我是易师傅，还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，Token、Cookie、Session、JWT、单点登录是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 它 的安全的呢？ 一顿连问下来，我是焦头又烂额，欲言而又止……. 其实鉴权的方法有很多，下面我总结了常用的 10种鉴权方法，那么哪一种是最适合你的系统呢？哪一种又最安全呢？ 那就">
+<meta property="og:description" content="前言还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，Token、Cookie、Session、JWT、单点登录是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 它 的安全的呢？ 一顿连问下来，我是焦头又烂额，欲言而又止……. 其实鉴权的方法有很多，下面我总结了常用的 10种鉴权方法，那么哪一种是最适合你的系统呢？哪一种又最安全呢？ 那就让我们从下文慢慢探索">
 <meta property="og:image" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/22d959e4f1cd4cda8af6debbc030f65c~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
 <meta property="og:image" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/05c04ab8635340eab46f98585527c79d~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
 <meta property="og:image" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/d577adb5dd164d7880f711c2ec579827~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
@@ -103,7 +103,7 @@
 <meta property="og:image" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/2980c555405f42b68801d7525c0e0d63~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
 <meta property="og:image" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/c09b580d15ae46c1add78f0a754acd0e~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
 <meta property="article:published_time" content="2023-02-20T03:29:26.761Z">
-<meta property="article:modified_time" content="2023-03-14T02:03:04.740Z">
+<meta property="article:modified_time" content="2023-08-17T06:30:42.972Z">
 <meta property="article:author" content="马农">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mst123.github.io/uncategorized/%E9%89%B4%E6%9D%832/22d959e4f1cd4cda8af6debbc030f65c~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp">
@@ -380,7 +380,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大家好，我是<a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fjeddygong">易师傅</a>，还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，<code>Token、Cookie、Session、JWT、单点登录</code>是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 <code>它</code> 的安全的呢？</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，<code>Token、Cookie、Session、JWT、单点登录</code>是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 <code>它</code> 的安全的呢？</p>
 <p>一顿连问下来，我是焦头又烂额，欲言而又止…….</p>
 <p>其实鉴权的方法有很多，下面我总结了常用的 <code>10种鉴权方法</code>，那么哪一种是最适合你的系统呢？哪一种又最安全呢？</p>
 <p>那就让我们从下文慢慢探索寻找答案吧 ~</p>

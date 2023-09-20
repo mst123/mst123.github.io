@@ -365,9 +365,9 @@
       
         
           
-          前言大家好，我是易师傅，还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，Token、Cookie、Session、JWT、单点登录是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 它 的安全的呢？
+          前言还记得之前在面试的时候，有一位面试官就问了，关于前端鉴权这块，Token、Cookie、Session、JWT、单点登录是什么？有什么作用？你一般是怎么做的？以及你是怎么存储的呢？那你又是怎么保证 它 的安全的呢？
 一顿连问下来，我是焦头又烂额，欲言而又止…….
-其实鉴权的方
+其实鉴权的方法有很多，下面我总结
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -837,8 +837,9 @@ add
         
           
           介绍一下commonjs循环加载的处理方式有循环加载的原理解释，理解起来更加清晰
-脚本文件a.js代码如下。
-12345exports.done = false;var b = require('./b.js');console.log('在 a.js 之中，b.done = %j', b.done
+先介绍下require的特性
+1 module 被加载的时候执行，模块的所有语句都会被执行​        2 module 加载后缓存，以后使用会在内存中寻找，不会二次加载
+​        3 一旦出现某个模块被循
           ...
           <!--noindex-->
           <div class="post-button text-center">
