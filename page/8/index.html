@@ -152,13 +152,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -180,6 +180,138 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">类的继承</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-17T00:00:00+08:00">2021-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 14:30:36" itemprop="dateModified" datetime="2024-07-13T14:30:36+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" itemprop="url" rel="index"><span itemprop="name">面向对象</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="ES5的继承"><a href="#ES5的继承" class="headerlink" title="ES5的继承"></a>ES5的继承</h2><p>首先我们创建一个简单的父类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.say = function()&#123;</span><br><span class="line">  return &#x27;hi&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继承父类<br><strong>首先有一点需要说明，constructor属于不可枚举的属性</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor:</span><br><span class="line">  configurable: true</span><br><span class="line">  enumerable: false  // 不可枚举</span><br><span class="line">  value: ƒ Student(name, age)</span><br><span class="line">  writable: true</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>组合继承 最常用的继承</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  //拓展一个实例属性 </span><br><span class="line">  Person.call(this, name); //其实很简单直接，就是调用一遍父类的this.x = x</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">//将子类的原型对象指向Person的实例</span><br><span class="line">Student.prototype = new Person(); </span><br><span class="line">//将子类的原型对象的构造函数正确指回</span><br><span class="line">Student.prototype.constructor = Student;</span><br><span class="line">//新增一个实例方法</span><br><span class="line">Student.prototype.sayAge = function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>寄生组合继承  完美的继承</li>
+</ul>
+<p>JavaScript高程里的写法，<strong>需要借助两个辅助函数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function inheritPrototype(subType, superType) &#123;</span><br><span class="line">    let prototype = object(superType.prototype); // 创建对象</span><br><span class="line">    prototype.constructor = subType; // 增强对象 </span><br><span class="line">    subType.prototype = prototype; // 赋值对象</span><br><span class="line">  &#125;</span><br><span class="line">  function object(o) &#123; </span><br><span class="line">    function F() &#123;&#125; </span><br><span class="line">    F.prototype = o; </span><br><span class="line">    return new F(); </span><br><span class="line">  &#125;</span><br><span class="line">  function SuperType(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">  SuperType.prototype.sayName = function () &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">  &#125;;</span><br><span class="line">  function SubType(name, age) &#123;</span><br><span class="line">    SuperType.call(this, name);</span><br><span class="line">    this.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">  inheritPrototype(SubType, SuperType);</span><br><span class="line">  SubType.prototype.sayAge = function () &#123;</span><br><span class="line">    console.log(this.age);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>下边是网上的变种（倒是能用）</p>
+<p>第一种方式，感觉不太好</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  Person.call(this, name);</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">// Object.assign 无法复制继承属性及不可枚举的数据 以及get set函数</span><br><span class="line">Student.prototype = Object.assign(Object.create(Person.prototype), Student.prototype)</span><br><span class="line">// 所以需要重新赋值constructor,但是用这种方法constructor属性就变为可枚举属性了</span><br><span class="line">Student.prototype.constructor = Student;</span><br><span class="line">Student.prototype.sayAge = function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const student = new Student(&#x27;lucy&#x27;,30)</span><br><span class="line">console.log(student);</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式,可以解决枚举属性的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype = Object.create(Person.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: Student,</span><br><span class="line">    enumerable: false,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true</span><br><span class="line">  &#125; </span><br><span class="line">&#125;) </span><br></pre></td></tr></table></figure>
+
+<p>第三种方式是我自己想的，结合<code>Object.getOwnPropertyDescriptors()</code><br>该函数的参数是<strong>Student.prototype</strong>，第一次写的时候忘了写<code>.prototype</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype = Object.create(</span><br><span class="line">  Person.prototype, </span><br><span class="line">  Object.getOwnPropertyDescriptors(Student.prototype)</span><br><span class="line">) </span><br></pre></td></tr></table></figure>
+
+<p>下图是控制台输出，左边是组合继承，右边是寄生组合继承<br><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg2.png" alt="控制台输出">  </p>
+<hr>
+<blockquote>
+<p>我们为什么要把子类的prototype<strong>指向父类的实例而不是父类的prototype</strong>呢<br>如果我们把子类的原型对象直接指向父类的原型对象，扩展子类会影响到父类  </p>
+</blockquote>
+<p>将子类的原型对象直接指向父类的原型对象，给子类添加额外的原型方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  Person.call(this, name); </span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">Student.prototype = Person.prototype; </span><br><span class="line">Student.prototype.constructor = Student;</span><br><span class="line"></span><br><span class="line">Student.prototype.sayAge = function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br><span class="line">console.log(Person.prototype);</span><br><span class="line">console.log(Student.prototype);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg1.png" alt="控制台结果"><br>我们可以看到父类的prototype已经被子类改变了，这明显不符合我们的目的</p>
+<h2 id="ES5继承的帮助记忆"><a href="#ES5继承的帮助记忆" class="headerlink" title="ES5继承的帮助记忆"></a>ES5继承的帮助记忆</h2><p>子类的prototype必须是某个对象(这个对象的__proto__必须指向父类的prototype)  </p>
+<p>满足这个条件的某个对象：</p>
+<ul>
+<li>父类的实例  组合继承</li>
+<li>Object.create(父类.prototype) 寄生组合继承</li>
+</ul>
+<p>满足条件后子类的实例可以通过两个__proto__查找，访问到父类原型对象，即  </p>
+<p><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg4.png" alt="控制台输出"></p>
+<h2 id="ES6的继承"><a href="#ES6的继承" class="headerlink" title="ES6的继承"></a>ES6的继承</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name //实例属性</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; //原型方法</span><br><span class="line">    return &#x27;hi&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Student extends Person&#123;</span><br><span class="line">  constructor(name, age)&#123;</span><br><span class="line">    super(name) </span><br><span class="line">    this.age = age</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const student = new Student(&#x27;lucy&#x27;,30)</span><br><span class="line">console.log(student);</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出与ES5寄生组合继承一致  </p>
+<p><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg3.png" alt="控制台结果">  </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -357,6 +489,111 @@ let num4 = Number(true); // 1
 <blockquote>
 <p>详细见js高程第四版 5.3.3</p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/" class="post-title-link" itemprop="url">get post</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-17 00:00:00" itemprop="dateCreated datePublished" datetime="2021-03-17T00:00:00+08:00">2021-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-17 10:47:32" itemprop="dateModified" datetime="2024-07-17T10:47:32+08:00">2024-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">零散知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="POST提交数据时四种常见的数据格式"><a href="#POST提交数据时四种常见的数据格式" class="headerlink" title="POST提交数据时四种常见的数据格式"></a>POST提交数据时四种常见的数据格式</h2><ul>
+<li><p>application&#x2F;x-www-form-urlencoded<br> 浏览器的原生 表单，如果不设置 enctype 属性，那么最终就会以 application&#x2F;x-www-form-urlencoded方式提交数据。</p>
+</li>
+<li><p>multipart&#x2F;form-data<br> 我们使用表单上传文件时，必须让 表单的 enctype 等于 multipart&#x2F;form-data</p>
+</li>
+<li><p>application&#x2F;json<br>JSON 格式支持比键值对复杂得多的结构化数据</p>
+</li>
+<li><p>text&#x2F;xml<br>XML-RPC（XML Remote Procedure Call）,它是一种使用 HTTP 作为传输协议，XML 作为编码方式的远程调用规范。</p>
+</li>
+</ul>
+<hr>
+<h2 id="get的编码类型-仅有-application-x-www-form-urlencoded"><a href="#get的编码类型-仅有-application-x-www-form-urlencoded" class="headerlink" title="get的编码类型 仅有 application&#x2F;x-www-form-urlencoded"></a>get的编码类型 仅有 application&#x2F;x-www-form-urlencoded</h2><h2 id="W3C列出的HTTP方法-POST和GET的区别"><a href="#W3C列出的HTTP方法-POST和GET的区别" class="headerlink" title="W3C列出的HTTP方法 POST和GET的区别"></a>W3C列出的HTTP方法 POST和GET的区别</h2><p><img src="/md-images/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/get&post/post-bg1.png" alt="区别">  </p>
+<h2 id="常见解答-get-post的区别"><a href="#常见解答-get-post的区别" class="headerlink" title="常见解答 get post的区别"></a>常见解答 get post的区别</h2><ul>
+<li>1.GET请求的数据会附在URL之后，以?分割URL和传输数据，参数之间以&amp;相连，POST把提交的数据则放置在是HTTP包的包体中。</li>
+<li>2.GET的长度受限于url的长度，而url的长度限制是特定的浏览器和服务器设置的，理论上GET的长度可以无限长。</li>
+<li>3.POST是没有大小限制的，HTTP协议规范也没有进行大小限制，起限制作用的是服务器的处理程序的处理能力</li>
+<li>4.在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。</li>
+<li>5.POST的安全性要比GET的安全性高application json 与form表单的区别?瀏覽器默認的提交方式就是表單。首先，Content-Type 被指定为 application&#x2F;x-www-form-urlencoded，jQuery的Ajax请求默认方式，其次，数据以键值对形式？key1&#x3D;value1&amp;key2&#x3D;value2的方式发送到服务器</li>
+<li>6.就是语义上的区别，get用于获取数据，post用于提交数据</li>
+</ul>
+<h3 id="post和get的选择？"><a href="#post和get的选择？" class="headerlink" title="post和get的选择？"></a>post和get的选择？</h3><p>私密性的信息请求使用post。查询信息和可以想要通过url分享的信息使用get。</p>
 
       
     </div>
@@ -581,111 +818,6 @@ let num4 = Number(true); // 1
 <li><p><strong>注6</strong> 实现不应该对 <em>thenable</em> 链的深度设限，并假定超出本限制的递归就是无限循环。只有真正的循环递归才应能导致 <code>TypeError</code> 异常；如果一条无限长的链上 <em>thenable</em> 均不相同，那么递归下去永远是正确的行为。</p>
 </li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/" class="post-title-link" itemprop="url">get post</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-17 00:00:00" itemprop="dateCreated datePublished" datetime="2021-03-17T00:00:00+08:00">2021-03-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-17 10:47:32" itemprop="dateModified" datetime="2024-07-17T10:47:32+08:00">2024-07-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">零散知识</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="POST提交数据时四种常见的数据格式"><a href="#POST提交数据时四种常见的数据格式" class="headerlink" title="POST提交数据时四种常见的数据格式"></a>POST提交数据时四种常见的数据格式</h2><ul>
-<li><p>application&#x2F;x-www-form-urlencoded<br> 浏览器的原生 表单，如果不设置 enctype 属性，那么最终就会以 application&#x2F;x-www-form-urlencoded方式提交数据。</p>
-</li>
-<li><p>multipart&#x2F;form-data<br> 我们使用表单上传文件时，必须让 表单的 enctype 等于 multipart&#x2F;form-data</p>
-</li>
-<li><p>application&#x2F;json<br>JSON 格式支持比键值对复杂得多的结构化数据</p>
-</li>
-<li><p>text&#x2F;xml<br>XML-RPC（XML Remote Procedure Call）,它是一种使用 HTTP 作为传输协议，XML 作为编码方式的远程调用规范。</p>
-</li>
-</ul>
-<hr>
-<h2 id="get的编码类型-仅有-application-x-www-form-urlencoded"><a href="#get的编码类型-仅有-application-x-www-form-urlencoded" class="headerlink" title="get的编码类型 仅有 application&#x2F;x-www-form-urlencoded"></a>get的编码类型 仅有 application&#x2F;x-www-form-urlencoded</h2><h2 id="W3C列出的HTTP方法-POST和GET的区别"><a href="#W3C列出的HTTP方法-POST和GET的区别" class="headerlink" title="W3C列出的HTTP方法 POST和GET的区别"></a>W3C列出的HTTP方法 POST和GET的区别</h2><p><img src="/md-images/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/get&post/post-bg1.png" alt="区别">  </p>
-<h2 id="常见解答-get-post的区别"><a href="#常见解答-get-post的区别" class="headerlink" title="常见解答 get post的区别"></a>常见解答 get post的区别</h2><ul>
-<li>1.GET请求的数据会附在URL之后，以?分割URL和传输数据，参数之间以&amp;相连，POST把提交的数据则放置在是HTTP包的包体中。</li>
-<li>2.GET的长度受限于url的长度，而url的长度限制是特定的浏览器和服务器设置的，理论上GET的长度可以无限长。</li>
-<li>3.POST是没有大小限制的，HTTP协议规范也没有进行大小限制，起限制作用的是服务器的处理程序的处理能力</li>
-<li>4.在ASP中，服务端获取GET请求参数用Request.QueryString，获取POST请求参数用Request.Form。</li>
-<li>5.POST的安全性要比GET的安全性高application json 与form表单的区别?瀏覽器默認的提交方式就是表單。首先，Content-Type 被指定为 application&#x2F;x-www-form-urlencoded，jQuery的Ajax请求默认方式，其次，数据以键值对形式？key1&#x3D;value1&amp;key2&#x3D;value2的方式发送到服务器</li>
-<li>6.就是语义上的区别，get用于获取数据，post用于提交数据</li>
-</ul>
-<h3 id="post和get的选择？"><a href="#post和get的选择？" class="headerlink" title="post和get的选择？"></a>post和get的选择？</h3><p>私密性的信息请求使用post。查询信息和可以想要通过url分享的信息使用get。</p>
 
       
     </div>
@@ -2045,145 +2177,6 @@ let num4 = Number(true); // 1
 <li>SAMEORIGIN: 允许同源域下加载</li>
 <li>ALLOW-FROM: 可以定义允许frame加载的页面地址</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vuex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vuex/" class="post-title-link" itemprop="url">vuex源码分析-简易流程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-02-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-02-09T00:00:00+08:00">2021-02-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-18 16:48:41" itemprop="dateModified" datetime="2024-07-18T16:48:41+08:00">2024-07-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20220214140159456.png" alt="image-20220214140159456"></p>
-<p>先放一张store的代码结构图</p>
-<p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161132720.png" alt="image-20210929161132720"></p>
-<h2 id="vuex初始化"><a href="#vuex初始化" class="headerlink" title="vuex初始化"></a>vuex初始化</h2><p>Vuex 存在一个静态的 <code>install</code> 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function vuexInit () &#123;</span><br><span class="line">    const options = this.$options</span><br><span class="line">    // store injection</span><br><span class="line">    if (options.store) &#123;</span><br><span class="line">      this.$store = typeof options.store === &#x27;function&#x27;</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store</span><br><span class="line">    &#125; else if (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">      this.$store = options.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过声明周期函数，将store挂载到每一个组件上</p>
-<h2 id="Store实例化"><a href="#Store实例化" class="headerlink" title="Store实例化"></a>Store实例化</h2><p>我们把 <code>Store</code> 的实例化过程拆成 3 个部分，分别是</p>
-<ul>
-<li>初始化模块</li>
-<li>安装模块</li>
-<li>初始化 <code>store._vm</code></li>
-</ul>
-<h3 id="初始化模块"><a href="#初始化模块" class="headerlink" title="初始化模块"></a>初始化模块</h3><h4 id="构建module树"><a href="#构建module树" class="headerlink" title="构建module树"></a>构建module树</h4><p>其实就是处理用户输入的配置，重点在于通过module层级建立联系，如下图所示</p>
-<p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161649181.png" alt="image-20210929161649181"></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_modules</span> = <span class="keyword">new</span> <span class="title class_">ModuleCollection</span>(options)</span><br></pre></td></tr></table></figure>
-
-<p><code>ModuleCollection</code> 实例化的过程就是执行了 <code>register</code> 方法，register方法递归遍历所有module，生成<code>module</code>实例，并通过<code>_children</code>属性与path和建立下级关系</p>
-<blockquote>
-<p>建立关联的代码很精妙，建议结合源码回忆</p>
-</blockquote>
-<h3 id="安装模块"><a href="#安装模块" class="headerlink" title="安装模块"></a>安装模块</h3><pre><code>installModule(this, state, [], this._modules.root)
-</code></pre>
-<p>递归执行，它的目标就是对各个模块中的 state、getters、mutations、actions 做初始化工作</p>
-<p><strong>installModule</strong>函数主要做了下述几个事情：</p>
-<h4 id="挂载子module-state到rootState"><a href="#挂载子module-state到rootState" class="headerlink" title="挂载子module state到rootState"></a>挂载子module state到rootState</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f (!isRoot &amp;&amp; !hot) &#123;</span><br><span class="line">    const parentState = getNestedState(rootState, path.slice(0, -1))</span><br><span class="line">    const moduleName = path[path.length - 1]</span><br><span class="line">    store._withCommit(() =&gt; &#123;</span><br><span class="line">      Vue.set(parentState, moduleName, module.state)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="根据namespace配置构建module映射"><a href="#根据namespace配置构建module映射" class="headerlink" title="根据namespace配置构建module映射"></a>根据namespace配置构建module映射</h4><p>为了根据命名空间快速查找到对应的module</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (module.namespaced) &#123;</span><br><span class="line">    store._modulesNamespaceMap[namespace] = module</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="构造模块上下文环境"><a href="#构造模块上下文环境" class="headerlink" title="构造模块上下文环境"></a>构造模块上下文环境</h4><p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929171104463.png" alt="image-20210929171104463"></p>
-<p>构造了一个模块上下文环境：保证模块内两种方法的正确运行和两种数据的正常访问</p>
-<blockquote>
-<p>例如 模块内的dispatch(“B”) 会映射到 rootStore.dispatch(“A&#x2F;B”)</p>
-</blockquote>
-<h4 id="注册mutation-action-getter"><a href="#注册mutation-action-getter" class="headerlink" title="注册mutation action getter"></a>注册mutation action getter</h4><p>其实就是把三个属性对应用户输入挂载到rootStore上去，这里也用到了<strong>模块上下文</strong></p>
-<p>举一个mutation的例子</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> module.forEachMutation((mutation, key) =&gt; &#123;</span><br><span class="line">    const namespacedType = namespace + key</span><br><span class="line">    // 在root module下 注册了 命名空间 mutation 下同</span><br><span class="line">    registerMutation(store, namespacedType, mutation, local)</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  function registerMutation (store, type, handler, local) &#123;</span><br><span class="line">    const entry = store._mutations[type] || (store._mutations[type] = [])</span><br><span class="line">    // 数组  说明 同一 type 的 _mutations 可以对应多个方法</span><br><span class="line">    entry.push(function wrappedMutationHandler(payload) &#123;</span><br><span class="line">      // store 对应模块的store  </span><br><span class="line">    handler.call(store, local.state, payload)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>从这里就可以看出，所有的mutations都是挂载在根store的_mutations中，并且同名mutation不会覆盖，而且推入一个队列，顺序执行，下图是实际的代码</p>
-<p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929172730903.png" alt="image-20210929172730903"></p>
-<p>可以看出来，开启命名空间实际上就是在mutation事件名前拼接了一个路径</p>
-<p>这个地方也解除了我对vuex官方文档一段话的不解：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认情况下，模块内部的 action、mutation 和 getter 是注册在**全局命名空间**的——这样使得多个模块能够对同一 mutation 或 action 作出响应。</span><br><span class="line"></span><br><span class="line">如果希望你的模块具有更高的封装度和复用性，你可以通过添加 `namespaced: true` 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：</span><br></pre></td></tr></table></figure>
-
-<h3 id="初始化-store-vm"><a href="#初始化-store-vm" class="headerlink" title="初始化 store._vm"></a>初始化 <code>store._vm</code></h3><p><code>Store</code> 实例化的最后一步，就是执行初始化 <code>store._vm</code> 的逻辑，它的入口代码是：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">resetStoreVM</span>(<span class="variable language_">this</span>, state)</span><br></pre></td></tr></table></figure>
-
-<p><strong><code>resetStoreVM</code> 的作用实际上是想建立 <code>getters</code> 和 <code>state</code> 的联系</strong></p>
-<p>利用vue的data和computed机制实现联系，关键代码如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const wrappedGetters = store._wrappedGetters</span><br><span class="line"> const computed = &#123;&#125;</span><br><span class="line"> forEachValue(wrappedGetters, (fn, key) =&gt; &#123;</span><br><span class="line">   // use computed to leverage its lazy-caching mechanism</span><br><span class="line">   computed[key] = () =&gt; fn(store)</span><br><span class="line">   Object.defineProperty(store.getters, key, &#123;</span><br><span class="line">     get: () =&gt; store._vm[key],</span><br><span class="line">     enumerable: true // for local getters</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line"> // use a Vue instance to store the state tree</span><br><span class="line"> // suppress warnings just in case the user has added</span><br><span class="line"> // some funky global mixins</span><br><span class="line"> const silent = Vue.config.silent</span><br><span class="line"> Vue.config.silent = true</span><br><span class="line"> store._vm = new Vue(&#123;</span><br><span class="line">   data: &#123;</span><br><span class="line">     $$state: state</span><br><span class="line">   &#125;,</span><br><span class="line">   computed</span><br><span class="line"> &#125;)</span><br><span class="line"> Vue.config.silent = silent</span><br></pre></td></tr></table></figure>
 
       
     </div>

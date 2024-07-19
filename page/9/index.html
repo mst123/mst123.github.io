@@ -152,13 +152,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -180,6 +180,145 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vuex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vuex/" class="post-title-link" itemprop="url">vuex源码分析-简易流程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-09 00:00:00" itemprop="dateCreated datePublished" datetime="2021-02-09T00:00:00+08:00">2021-02-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-18 16:48:41" itemprop="dateModified" datetime="2024-07-18T16:48:41+08:00">2024-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20220214140159456.png" alt="image-20220214140159456"></p>
+<p>先放一张store的代码结构图</p>
+<p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161132720.png" alt="image-20210929161132720"></p>
+<h2 id="vuex初始化"><a href="#vuex初始化" class="headerlink" title="vuex初始化"></a>vuex初始化</h2><p>Vuex 存在一个静态的 <code>install</code> 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function vuexInit () &#123;</span><br><span class="line">    const options = this.$options</span><br><span class="line">    // store injection</span><br><span class="line">    if (options.store) &#123;</span><br><span class="line">      this.$store = typeof options.store === &#x27;function&#x27;</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store</span><br><span class="line">    &#125; else if (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">      this.$store = options.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过声明周期函数，将store挂载到每一个组件上</p>
+<h2 id="Store实例化"><a href="#Store实例化" class="headerlink" title="Store实例化"></a>Store实例化</h2><p>我们把 <code>Store</code> 的实例化过程拆成 3 个部分，分别是</p>
+<ul>
+<li>初始化模块</li>
+<li>安装模块</li>
+<li>初始化 <code>store._vm</code></li>
+</ul>
+<h3 id="初始化模块"><a href="#初始化模块" class="headerlink" title="初始化模块"></a>初始化模块</h3><h4 id="构建module树"><a href="#构建module树" class="headerlink" title="构建module树"></a>构建module树</h4><p>其实就是处理用户输入的配置，重点在于通过module层级建立联系，如下图所示</p>
+<p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161649181.png" alt="image-20210929161649181"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_modules</span> = <span class="keyword">new</span> <span class="title class_">ModuleCollection</span>(options)</span><br></pre></td></tr></table></figure>
+
+<p><code>ModuleCollection</code> 实例化的过程就是执行了 <code>register</code> 方法，register方法递归遍历所有module，生成<code>module</code>实例，并通过<code>_children</code>属性与path和建立下级关系</p>
+<blockquote>
+<p>建立关联的代码很精妙，建议结合源码回忆</p>
+</blockquote>
+<h3 id="安装模块"><a href="#安装模块" class="headerlink" title="安装模块"></a>安装模块</h3><pre><code>installModule(this, state, [], this._modules.root)
+</code></pre>
+<p>递归执行，它的目标就是对各个模块中的 state、getters、mutations、actions 做初始化工作</p>
+<p><strong>installModule</strong>函数主要做了下述几个事情：</p>
+<h4 id="挂载子module-state到rootState"><a href="#挂载子module-state到rootState" class="headerlink" title="挂载子module state到rootState"></a>挂载子module state到rootState</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f (!isRoot &amp;&amp; !hot) &#123;</span><br><span class="line">    const parentState = getNestedState(rootState, path.slice(0, -1))</span><br><span class="line">    const moduleName = path[path.length - 1]</span><br><span class="line">    store._withCommit(() =&gt; &#123;</span><br><span class="line">      Vue.set(parentState, moduleName, module.state)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="根据namespace配置构建module映射"><a href="#根据namespace配置构建module映射" class="headerlink" title="根据namespace配置构建module映射"></a>根据namespace配置构建module映射</h4><p>为了根据命名空间快速查找到对应的module</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (module.namespaced) &#123;</span><br><span class="line">    store._modulesNamespaceMap[namespace] = module</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="构造模块上下文环境"><a href="#构造模块上下文环境" class="headerlink" title="构造模块上下文环境"></a>构造模块上下文环境</h4><p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929171104463.png" alt="image-20210929171104463"></p>
+<p>构造了一个模块上下文环境：保证模块内两种方法的正确运行和两种数据的正常访问</p>
+<blockquote>
+<p>例如 模块内的dispatch(“B”) 会映射到 rootStore.dispatch(“A&#x2F;B”)</p>
+</blockquote>
+<h4 id="注册mutation-action-getter"><a href="#注册mutation-action-getter" class="headerlink" title="注册mutation action getter"></a>注册mutation action getter</h4><p>其实就是把三个属性对应用户输入挂载到rootStore上去，这里也用到了<strong>模块上下文</strong></p>
+<p>举一个mutation的例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> module.forEachMutation((mutation, key) =&gt; &#123;</span><br><span class="line">    const namespacedType = namespace + key</span><br><span class="line">    // 在root module下 注册了 命名空间 mutation 下同</span><br><span class="line">    registerMutation(store, namespacedType, mutation, local)</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  function registerMutation (store, type, handler, local) &#123;</span><br><span class="line">    const entry = store._mutations[type] || (store._mutations[type] = [])</span><br><span class="line">    // 数组  说明 同一 type 的 _mutations 可以对应多个方法</span><br><span class="line">    entry.push(function wrappedMutationHandler(payload) &#123;</span><br><span class="line">      // store 对应模块的store  </span><br><span class="line">    handler.call(store, local.state, payload)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从这里就可以看出，所有的mutations都是挂载在根store的_mutations中，并且同名mutation不会覆盖，而且推入一个队列，顺序执行，下图是实际的代码</p>
+<p><img src="/md-images/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929172730903.png" alt="image-20210929172730903"></p>
+<p>可以看出来，开启命名空间实际上就是在mutation事件名前拼接了一个路径</p>
+<p>这个地方也解除了我对vuex官方文档一段话的不解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认情况下，模块内部的 action、mutation 和 getter 是注册在**全局命名空间**的——这样使得多个模块能够对同一 mutation 或 action 作出响应。</span><br><span class="line"></span><br><span class="line">如果希望你的模块具有更高的封装度和复用性，你可以通过添加 `namespaced: true` 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化-store-vm"><a href="#初始化-store-vm" class="headerlink" title="初始化 store._vm"></a>初始化 <code>store._vm</code></h3><p><code>Store</code> 实例化的最后一步，就是执行初始化 <code>store._vm</code> 的逻辑，它的入口代码是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">resetStoreVM</span>(<span class="variable language_">this</span>, state)</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>resetStoreVM</code> 的作用实际上是想建立 <code>getters</code> 和 <code>state</code> 的联系</strong></p>
+<p>利用vue的data和computed机制实现联系，关键代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const wrappedGetters = store._wrappedGetters</span><br><span class="line"> const computed = &#123;&#125;</span><br><span class="line"> forEachValue(wrappedGetters, (fn, key) =&gt; &#123;</span><br><span class="line">   // use computed to leverage its lazy-caching mechanism</span><br><span class="line">   computed[key] = () =&gt; fn(store)</span><br><span class="line">   Object.defineProperty(store.getters, key, &#123;</span><br><span class="line">     get: () =&gt; store._vm[key],</span><br><span class="line">     enumerable: true // for local getters</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;)</span><br><span class="line"></span><br><span class="line"> // use a Vue instance to store the state tree</span><br><span class="line"> // suppress warnings just in case the user has added</span><br><span class="line"> // some funky global mixins</span><br><span class="line"> const silent = Vue.config.silent</span><br><span class="line"> Vue.config.silent = true</span><br><span class="line"> store._vm = new Vue(&#123;</span><br><span class="line">   data: &#123;</span><br><span class="line">     $$state: state</span><br><span class="line">   &#125;,</span><br><span class="line">   computed</span><br><span class="line"> &#125;)</span><br><span class="line"> Vue.config.silent = silent</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1623,90 +1762,6 @@ const record: RouteRecord = &#123;
 
 <h3 id="属于位运算符"><a href="#属于位运算符" class="headerlink" title="| &amp;属于位运算符"></a><code>|</code> <code>&amp;</code>属于位运算符</h3><p>此处不深究</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/ES6/%E5%A3%B0%E6%98%8E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/ES6/%E5%A3%B0%E6%98%8E/" class="post-title-link" itemprop="url">ES6详细内容参照 阮一峰的ES6深入浅出</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-11-12 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-12T00:00:00+08:00">2020-11-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-17 15:58:52" itemprop="dateModified" datetime="2022-02-17T15:58:52+08:00">2022-02-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
       
     </div>
 

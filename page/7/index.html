@@ -152,13 +152,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -327,6 +327,137 @@
 <blockquote>
 <p>还有一个<code>systemtcl</code>命令</p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">排序算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-10T00:00:00+08:00">2021-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:13:43" itemprop="dateModified" datetime="2024-07-13T13:13:43+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>简单记录学习极客时间-数据与结构之美-排序相关的知识记录</p>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><p>排序动画演示 可用手机app</p>
+<h2 id="时间复杂度-On2"><a href="#时间复杂度-On2" class="headerlink" title="时间复杂度 On2"></a>时间复杂度 On2</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否 满足大小关系要求。如果不满足就让它俩互换。一次冒泡会让至少一个元素移动到它应该在 的位置，重复 n 次，就完成了 n 个数据的排序工作。</p>
+<p>冒泡排序最不容易出错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const arr = [4,5,2,3,8,7,6,1,10]</span><br><span class="line">function bubble(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">    // 没有交换发生 其实代表数组已经是有序的了</span><br><span class="line">    let flag = true;</span><br><span class="line">    for (let j = i + 1; j &lt; arr.length; j++) &#123;</span><br><span class="line">      if (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        const temp = arr[i]</span><br><span class="line">        arr[i] = arr[j]</span><br><span class="line">        arr[j] = temp</span><br><span class="line">        // 有交换发生</span><br><span class="line">        flag = false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">bubble(arr)</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>首先，我们将数组中的数据分为两个区间，已排序区间和未排序区间。初始已排序区间只有 一个元素，就是数组的第一个元素。插入算法的核心思想是取未排序区间中的元素，在已排 序区间中找到合适的插入位置将其插入，并保证已排序区间数据一直有序。重复这个过程， 直到未排序区间中元素为空，算法结束。</p>
+<p><strong>插入排序写起来比较费劲，要注意的地方比较多</strong></p>
+<p>我自己的写的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function insert(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">    let j = i + 1</span><br><span class="line">    while (arr[j-1] &gt; arr[j] &amp;&amp; j&gt;=0) &#123;</span><br><span class="line">      const temp = arr[j]</span><br><span class="line">      arr[j] = arr[j-1]</span><br><span class="line">      arr[j-1] = temp</span><br><span class="line">      j--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">insert(arr)</span><br></pre></td></tr></table></figure>
+
+<p>教程写的，已经换成JavaScript，并加了注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function insert2(arr) &#123;</span><br><span class="line">  const l = arr.length;</span><br><span class="line">  for (let i = 1; i &lt; l; ++i) &#123;</span><br><span class="line">    // 缓存当前处理的元素，减少交换次数 </span><br><span class="line">    let value = arr[i];</span><br><span class="line">    // 对比前方排序区，查找插入的位置</span><br><span class="line">    let j = i - 1;</span><br><span class="line">    for ( ; j &gt;= 0; --j) &#123;</span><br><span class="line">      if (arr[j] &gt; value) &#123;</span><br><span class="line">        // 相当于把arr[j]向右移一位</span><br><span class="line">        // 第一次被覆盖掉的元素是当前处理元素，已在顶部缓存</span><br><span class="line">        // 第一次以后被覆盖的元素，实际上已经保存在右侧了</span><br><span class="line">        arr[j + 1] = arr[j]; // 数据移动</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 当前元素已经满足条件，不需要交换</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 只在最后交换 j+1 </span><br><span class="line">    arr[j + 1] = value; // 插入数据</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function select(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  let min, minIndex</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">   // 起始位置</span><br><span class="line">    min = arr[i]</span><br><span class="line">    minIndex = i</span><br><span class="line">    for (let j = i+1; j &lt; l; j++) &#123;</span><br><span class="line">      if (arr[j] &lt; min) &#123;</span><br><span class="line">        min = arr[j]</span><br><span class="line">        minIndex = j</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    const temp = arr[i]</span><br><span class="line">    arr[i] = min</span><br><span class="line">    arr[minIndex] = temp</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// select(arr)</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-O-nlogn"><a href="#时间复杂度-O-nlogn" class="headerlink" title="时间复杂度 O nlogn"></a>时间复杂度 O nlogn</h2><h3 id="归并排序-稳定"><a href="#归并排序-稳定" class="headerlink" title="归并排序(稳定)"></a>归并排序(稳定)</h3><p>自己的代码，未优化的版本，找了好久的错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// 归并排序</span><br><span class="line">function merginInto(arr, l, r) &#123;</span><br><span class="line">  if (l === r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const m = (l + r) &gt;&gt; 1 // 相当于除以2 取整</span><br><span class="line">  const left = arr.slice(l, m + 1)</span><br><span class="line">  const right = arr.slice(m + 1, r + 1)</span><br><span class="line">  return sortOrderArr(</span><br><span class="line">    left.length &lt;= 1 ? left: merginInto(</span><br><span class="line">     // 忘了把边界改成新数组的了</span><br><span class="line">      left, 0, m</span><br><span class="line">    ),</span><br><span class="line">    right.length &lt;= 1 ? right : merginInto(</span><br><span class="line">      // 忘了把边界改成新数组的了</span><br><span class="line">      right, 0, r - (m + 1)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line">// 将两个有序数组合并</span><br><span class="line">function sortOrderArr(arr1, arr2) &#123;</span><br><span class="line">  const res = []</span><br><span class="line">  let i1 = i2 = 0, l1 = arr1.length, l2 = arr2.length</span><br><span class="line">  while (i1&lt;l1 || i2&lt;l2) &#123;</span><br><span class="line">    if (i1 === l1) &#123;</span><br><span class="line">      res.push(arr2[i2++])</span><br><span class="line">    &#125; else if(i2===l2) &#123;</span><br><span class="line">      res.push(arr1[i1++])</span><br><span class="line">    &#125;else if (arr1[i1] &lt;= arr2[i2]) &#123;</span><br><span class="line">      res.push(arr1[i1++])</span><br><span class="line">    &#125;else(</span><br><span class="line">      res.push(arr2[i2++])</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  return res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较大众的写法，<strong>这个类似于二叉树的后续遍历</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function mergeInto(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const m = (l + r) &gt;&gt; 1;</span><br><span class="line">  // 原地排序 不需要返回</span><br><span class="line">  mergeInto(arr, l, m)</span><br><span class="line">  mergeInto(arr, m + 1, r)</span><br><span class="line">  // 两个已经拍好序的数组</span><br><span class="line">  mergeArr(arr, l, m, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function mergeArr(arr, l, m, r) &#123;</span><br><span class="line">  const res = []</span><br><span class="line">  let i1 = l, i2 = m + 1, l1 = m+1, l2 = r+1</span><br><span class="line">  while (i1&lt;l1 || i2&lt;l2) &#123;</span><br><span class="line">    if (i1 === l1) &#123;</span><br><span class="line">      res.push(arr[i2++])</span><br><span class="line">    &#125; else if(i2===l2) &#123;</span><br><span class="line">      res.push(arr[i1++])</span><br><span class="line">    &#125;else if (arr[i1] &lt;= arr[i2]) &#123;</span><br><span class="line">      res.push(arr[i1++])</span><br><span class="line">    &#125;else(</span><br><span class="line">      res.push(arr[i2++])</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = l,j=0; i &lt; r+1; i++,j++) &#123;</span><br><span class="line">    arr[i] = res[j]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速排序-不稳定"><a href="#快速排序-不稳定" class="headerlink" title="快速排序(不稳定)"></a>快速排序(不稳定)</h3><p><strong>把比参考位置小的数移到左侧，大的移到右侧，如果不额外占用空间的话，比较难写</strong></p>
+<p>空间复杂度 O n 比较容易写出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">// 快排辅助函数 分区 排序</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line"> // 占用了 On的空间</span><br><span class="line">  const res = []</span><br><span class="line">  //随机会好一点</span><br><span class="line">  const rdm = Math.floor(Math.random()*(r-l+1)+l)</span><br><span class="line">  const ref = arr[rdm]</span><br><span class="line">  let li = l, ri = r</span><br><span class="line">  for (let i = l; i &lt; r + 1; i++) &#123;</span><br><span class="line">    if (i === rdm) &#123;</span><br><span class="line">      continue</span><br><span class="line">    &#125;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      res[li] = arr[i]</span><br><span class="line">      li++</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      res[ri] = arr[i]</span><br><span class="line">      ri--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  res[ri] = ref</span><br><span class="line">  for (let i = l; i &lt; r+1; i++) &#123;</span><br><span class="line">    arr[i] = res[i]</span><br><span class="line">  &#125;</span><br><span class="line">  return ri</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="O1空间复杂度左右归类的算法解释"><a href="#O1空间复杂度左右归类的算法解释" class="headerlink" title="O1空间复杂度左右归类的算法解释"></a>O1空间复杂度左右归类的算法解释</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  // const rdm = Math.floor(Math.random()*(r-l+1)+l)</span><br><span class="line">  const rdm = 1</span><br><span class="line">  const ref = arr[rdm]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r + 1; i++) &#123;</span><br><span class="line">    // 跳过</span><br><span class="line">    if (i === rdm) &#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    // 跳过</span><br><span class="line">    if (j === rdm) &#123;</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      [arr[i], arr[j]] = [arr[j], arr[i]]</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当选择一个随机数N，下标INDEX作为参照点的话，程序运行到关键点的情况应该如下图所示</p>
+<p>左侧是小于等于N的数，右侧是大于N的数，但是N可能在左侧或者右侧</p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png" alt="image-20211112105742642"></p>
+<p>最好的情况就是 把N的位置放进 j-1 和 j之间，但是这样<strong>时间复杂度较高，采取交换替代</strong></p>
+<p>如果N在左侧就和<code>J-1</code>交换，N在右侧就和<code>J</code>置换，如果不需要随机选择位置的话，N取最右侧元素，就不需要判断了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br></pre></td></tr></table></figure>
+
+<h4 id="更好的随机数左右归类"><a href="#更好的随机数左右归类" class="headerlink" title="更好的随机数左右归类"></a>更好的随机数左右归类</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-an-array/solution/pai-xu-shu-zu-by-leetcode-solution/">力扣官方</a>采取先用随机数与最后一位交换位置在进行常规方法，方法容易理解，也不容易出错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int pivot = nums[r];</span><br><span class="line">      int i = l - 1;</span><br><span class="line">      for (int j = l; j &lt;= r - 1; ++j) &#123;</span><br><span class="line">          if (nums[j] &lt;= pivot) &#123;</span><br><span class="line">              i = i + 1;</span><br><span class="line">              swap(nums[i], nums[j]);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      swap(nums[i + 1], nums[r]);</span><br><span class="line">      return i + 1;</span><br><span class="line">  &#125;</span><br><span class="line">  int randomized_partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int i = rand() % (r - l + 1) + l; // 随机选一个作为我们的主元</span><br><span class="line">      swap(nums[r], nums[i]);</span><br><span class="line">      return partition(nums, l, r);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后总结出JavaScript版本的快速排序</p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png" alt="image-20211112112025117"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  // -1 +1 可别忘 会死循环的</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  const rdm = Math.floor(Math.random() * (r - l + 1) + l)</span><br><span class="line">  // 与最后元素交换</span><br><span class="line">  swap(arr, rdm, r)</span><br><span class="line"></span><br><span class="line">  const ref = arr[r]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r; i++) &#123;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      swap(arr, i, j)</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr, r, j)</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br><span class="line">function swap(arr, p, q) &#123;</span><br><span class="line">  const temp = arr[p]</span><br><span class="line">  arr[p] = arr[q]</span><br><span class="line">  arr[q] = temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="归并排序和快速排序的区别与联系"><a href="#归并排序和快速排序的区别与联系" class="headerlink" title="归并排序和快速排序的区别与联系"></a>归并排序和快速排序的区别与联系</h3><p><img src="/md-images/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png" alt="image-20211112112920927"></p>
+<p>快排和归并用的都是分治思想，递推公式和递归代码也非常相似，那它们的区别在哪里呢?</p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png" alt="image-20211112113107064">可以发现，归并排序的处理过程是由下到上的，先处理子问题，然后再合并。</p>
+<p>而快排正好相反，它的处理过程是由上到下的，先分区，然后再处理子问题。</p>
+<p>归并排序虽然是稳定的、时 间复杂度为 O(nlogn) 的排序算法，但是它是非原地排序算法。我们前面讲过，归并之所以 是非原地排序算法，主要原因是合并函数无法在原地执行。快速排序通过设计巧妙的原地分区函数，可以实现原地排序，解决了归并排序占用太多内存的问题。</p>
 
       
     </div>
@@ -1623,138 +1754,6 @@ width: 15%;
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function ojld(chushu, yushu) &#123;</span><br><span class="line">  if(chushu % yushu === 0)&#123;</span><br><span class="line">    return yushu</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return ojld(yushu, chushu % yushu)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="单调栈的讲解与应用"><a href="#单调栈的讲解与应用" class="headerlink" title="单调栈的讲解与应用"></a>单调栈的讲解与应用</h2>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">类的继承</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-17 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-17T00:00:00+08:00">2021-04-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-13 14:30:36" itemprop="dateModified" datetime="2024-07-13T14:30:36+08:00">2024-07-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" itemprop="url" rel="index"><span itemprop="name">面向对象</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="ES5的继承"><a href="#ES5的继承" class="headerlink" title="ES5的继承"></a>ES5的继承</h2><p>首先我们创建一个简单的父类</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">  this.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.say = function()&#123;</span><br><span class="line">  return &#x27;hi&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>继承父类<br><strong>首先有一点需要说明，constructor属于不可枚举的属性</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">constructor:</span><br><span class="line">  configurable: true</span><br><span class="line">  enumerable: false  // 不可枚举</span><br><span class="line">  value: ƒ Student(name, age)</span><br><span class="line">  writable: true</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>组合继承 最常用的继承</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  //拓展一个实例属性 </span><br><span class="line">  Person.call(this, name); //其实很简单直接，就是调用一遍父类的this.x = x</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">//将子类的原型对象指向Person的实例</span><br><span class="line">Student.prototype = new Person(); </span><br><span class="line">//将子类的原型对象的构造函数正确指回</span><br><span class="line">Student.prototype.constructor = Student;</span><br><span class="line">//新增一个实例方法</span><br><span class="line">Student.prototype.sayAge = function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>寄生组合继承  完美的继承</li>
-</ul>
-<p>JavaScript高程里的写法，<strong>需要借助两个辅助函数</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function inheritPrototype(subType, superType) &#123;</span><br><span class="line">    let prototype = object(superType.prototype); // 创建对象</span><br><span class="line">    prototype.constructor = subType; // 增强对象 </span><br><span class="line">    subType.prototype = prototype; // 赋值对象</span><br><span class="line">  &#125;</span><br><span class="line">  function object(o) &#123; </span><br><span class="line">    function F() &#123;&#125; </span><br><span class="line">    F.prototype = o; </span><br><span class="line">    return new F(); </span><br><span class="line">  &#125;</span><br><span class="line">  function SuperType(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">  SuperType.prototype.sayName = function () &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">  &#125;;</span><br><span class="line">  function SubType(name, age) &#123;</span><br><span class="line">    SuperType.call(this, name);</span><br><span class="line">    this.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">  inheritPrototype(SubType, SuperType);</span><br><span class="line">  SubType.prototype.sayAge = function () &#123;</span><br><span class="line">    console.log(this.age);</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>下边是网上的变种（倒是能用）</p>
-<p>第一种方式，感觉不太好</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  Person.call(this, name);</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">// Object.assign 无法复制继承属性及不可枚举的数据 以及get set函数</span><br><span class="line">Student.prototype = Object.assign(Object.create(Person.prototype), Student.prototype)</span><br><span class="line">// 所以需要重新赋值constructor,但是用这种方法constructor属性就变为可枚举属性了</span><br><span class="line">Student.prototype.constructor = Student;</span><br><span class="line">Student.prototype.sayAge = function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const student = new Student(&#x27;lucy&#x27;,30)</span><br><span class="line">console.log(student);</span><br></pre></td></tr></table></figure>
-
-<p>第二种方式,可以解决枚举属性的问题</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype = Object.create(Person.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: Student,</span><br><span class="line">    enumerable: false,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true</span><br><span class="line">  &#125; </span><br><span class="line">&#125;) </span><br></pre></td></tr></table></figure>
-
-<p>第三种方式是我自己想的，结合<code>Object.getOwnPropertyDescriptors()</code><br>该函数的参数是<strong>Student.prototype</strong>，第一次写的时候忘了写<code>.prototype</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Student.prototype = Object.create(</span><br><span class="line">  Person.prototype, </span><br><span class="line">  Object.getOwnPropertyDescriptors(Student.prototype)</span><br><span class="line">) </span><br></pre></td></tr></table></figure>
-
-<p>下图是控制台输出，左边是组合继承，右边是寄生组合继承<br><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg2.png" alt="控制台输出">  </p>
-<hr>
-<blockquote>
-<p>我们为什么要把子类的prototype<strong>指向父类的实例而不是父类的prototype</strong>呢<br>如果我们把子类的原型对象直接指向父类的原型对象，扩展子类会影响到父类  </p>
-</blockquote>
-<p>将子类的原型对象直接指向父类的原型对象，给子类添加额外的原型方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Student(name, age)&#123;</span><br><span class="line">  Person.call(this, name); </span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">Student.prototype = Person.prototype; </span><br><span class="line">Student.prototype.constructor = Student;</span><br><span class="line"></span><br><span class="line">Student.prototype.sayAge = function()&#123;</span><br><span class="line">  return this.age</span><br><span class="line">&#125;;</span><br><span class="line">console.log(Person.prototype);</span><br><span class="line">console.log(Student.prototype);</span><br></pre></td></tr></table></figure>
-
-<p><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg1.png" alt="控制台结果"><br>我们可以看到父类的prototype已经被子类改变了，这明显不符合我们的目的</p>
-<h2 id="ES5继承的帮助记忆"><a href="#ES5继承的帮助记忆" class="headerlink" title="ES5继承的帮助记忆"></a>ES5继承的帮助记忆</h2><p>子类的prototype必须是某个对象(这个对象的__proto__必须指向父类的prototype)  </p>
-<p>满足这个条件的某个对象：</p>
-<ul>
-<li>父类的实例  组合继承</li>
-<li>Object.create(父类.prototype) 寄生组合继承</li>
-</ul>
-<p>满足条件后子类的实例可以通过两个__proto__查找，访问到父类原型对象，即  </p>
-<p><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg4.png" alt="控制台输出"></p>
-<h2 id="ES6的继承"><a href="#ES6的继承" class="headerlink" title="ES6的继承"></a>ES6的继承</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name //实例属性</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; //原型方法</span><br><span class="line">    return &#x27;hi&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Student extends Person&#123;</span><br><span class="line">  constructor(name, age)&#123;</span><br><span class="line">    super(name) </span><br><span class="line">    this.age = age</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const student = new Student(&#x27;lucy&#x27;,30)</span><br><span class="line">console.log(student);</span><br></pre></td></tr></table></figure>
-
-<p>控制台输出与ES5寄生组合继承一致  </p>
-<p><img src="/md-images/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/assets/%E7%BB%A7%E6%89%BF/bg3.png" alt="控制台结果">  </p>
-
       
     </div>
 
