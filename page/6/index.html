@@ -1661,7 +1661,7 @@ brian = &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/luopo.gif">
@@ -1679,7 +1679,7 @@ brian = &#123;
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">linux基本命令</a>
+          <a href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">排序算法</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1697,7 +1697,7 @@ brian = &#123;
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-13 13:13:23" itemprop="dateModified" datetime="2024-07-13T13:13:23+08:00">2024-07-13</time>
+      <time title="修改时间：2024-07-13 13:13:43" itemprop="dateModified" datetime="2024-07-13T13:13:43+08:00">2024-07-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1705,7 +1705,7 @@ brian = &#123;
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">大前端</span></a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
         </span>
     </span>
 
@@ -1719,86 +1719,53 @@ brian = &#123;
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="linux基本命令"><a href="#linux基本命令" class="headerlink" title="linux基本命令"></a>linux基本命令</h1><h2 id="查看版本、内核"><a href="#查看版本、内核" class="headerlink" title="查看版本、内核"></a>查看版本、内核</h2><p>查看系统版本<code>lsp_release -a</code><br>查看内核版本<code>uname -a</code></p>
-<h2 id="磁盘命令"><a href="#磁盘命令" class="headerlink" title="磁盘命令"></a>磁盘命令</h2><p>查看磁盘空间 <code>df -Th</code> 以G为单位</p>
-<h2 id="linux目录-文件权限"><a href="#linux目录-文件权限" class="headerlink" title="linux目录&amp;文件权限"></a>linux目录&amp;文件权限</h2><p>进入根目录 <code>cd /</code><br>文件目录及权限查看 <code>ls -la</code></p>
-<p><img src="/assets/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/Snipaste_2021-04-20_15-10-14.png" alt="Snipaste_2021-04-20_15-10-14"></p>
-<ul>
-<li>第一列代码文件的各种quanxian r-read w-write x-执行 r-remove</li>
-<li>home目录相当于个人目录</li>
-<li>etc 存放软件配置文件</li>
-<li>sys 系统目录</li>
-<li>usr 存放着系统的可执行文件</li>
-<li>var 日志文件</li>
-</ul>
-<h2 id="CPU-内存-进程"><a href="#CPU-内存-进程" class="headerlink" title="CPU&#x2F;内存&#x2F;进程"></a>CPU&#x2F;内存&#x2F;进程</h2><p>查看运行中的进程<code>top</code>  可以按M看详细内存</p>
-<p><img src="/assets/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/Snipaste_2021-04-20_15-18-17-8903123.png" alt="Snipaste_2021-04-20_15-18-17"></p>
-<h2 id="文档相关"><a href="#文档相关" class="headerlink" title="文档相关"></a>文档相关</h2><ul>
-<li>进入文件夹 cd 路径</li>
-<li>pwd 显示当前文件夹</li>
-<li>ls 查看文件下所有文件夹及文件</li>
-<li>mkdir 新建文件夹</li>
-<li>touch 新建文件</li>
-<li>vi 文件名 使用vim编辑器打开文件<ul>
-<li>输入 i 进入编辑-insert–模式</li>
-<li>按esc，然后输入:wq 保存退出<ul>
-<li>:q! 不对其进行保存</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>echo ‘1111’  &gt;&gt;  test.txt</code> 向文件内添加内容 1111<ul>
-<li><code>&gt;</code>单箭头是覆盖内容  <code>&gt;&gt;</code> 是添加内容</li>
-</ul>
-</li>
-<li><code>rm demo.txt</code>  删除文件 提示是否删除 输入Y回车确认删除</li>
-<li><code>rm -r demo/</code>  删除目录 提示是否删除 输入Y回车确认删除</li>
-<li><code>rm -rf</code> 强制删除 尽量不要使用</li>
-</ul>
-<h2 id="下载-解压-安装命令"><a href="#下载-解压-安装命令" class="headerlink" title="下载&#x2F;解压&#x2F;安装命令"></a>下载&#x2F;解压&#x2F;安装命令</h2><p>以nodejs作为例子</p>
-<ul>
-<li>下载资源 <code>wget https://cdn.npm.taobao.org/dist/node/v14.16.1/node-v14.16.1.tar.gz</code><ul>
-<li>下载完成后，用ls查看</li>
-</ul>
-</li>
-<li>解压资源，tar格式<ul>
-<li><code>tar zxvf node-v14.16.1.tar.gz</code><ul>
-<li>z 是.gz结尾的压缩文件</li>
-<li>x 解压</li>
-<li>v 显示所有解压过程</li>
-<li>f 使用归档的名字</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>压缩文件 <code>tar zcvf 文件名 文件目录</code></li>
-</ul>
-<h2 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h2><ul>
-<li>查看进程 <code>ps -ef | grep docker</code> grep 相当于搜索，限定docker程序<ul>
-<li>root 后面跟着的数值是进程的id，杀死进程可以用 <code>kill -9 id</code> - 9表示强制终止</li>
-</ul>
-</li>
-</ul>
-<h2 id="查看服务的命令"><a href="#查看服务的命令" class="headerlink" title="查看服务的命令"></a>查看服务的命令</h2><ul>
-<li><p>查看服务状态</p>
-<ul>
-<li>例如查看ssh的运行状态,可以看到客户端通过ssh连接到服务器的记录 <code>service sshd status</code></li>
-</ul>
-</li>
-<li><p>停止服务</p>
-<ul>
-<li>例如停止ssh <code>service sshd stop</code></li>
-</ul>
-</li>
-<li><p>重启服务</p>
-<ul>
-<li>例如重启ssh <code>service sshd restart</code></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>还有一个<code>systemtcl</code>命令</p>
-</blockquote>
+          <p>简单记录学习极客时间-数据与结构之美-排序相关的知识记录</p>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><p>排序动画演示 可用手机app</p>
+<h2 id="时间复杂度-On2"><a href="#时间复杂度-On2" class="headerlink" title="时间复杂度 On2"></a>时间复杂度 On2</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否 满足大小关系要求。如果不满足就让它俩互换。一次冒泡会让至少一个元素移动到它应该在 的位置，重复 n 次，就完成了 n 个数据的排序工作。</p>
+<p>冒泡排序最不容易出错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const arr = [4,5,2,3,8,7,6,1,10]</span><br><span class="line">function bubble(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">    // 没有交换发生 其实代表数组已经是有序的了</span><br><span class="line">    let flag = true;</span><br><span class="line">    for (let j = i + 1; j &lt; arr.length; j++) &#123;</span><br><span class="line">      if (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        const temp = arr[i]</span><br><span class="line">        arr[i] = arr[j]</span><br><span class="line">        arr[j] = temp</span><br><span class="line">        // 有交换发生</span><br><span class="line">        flag = false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">bubble(arr)</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>首先，我们将数组中的数据分为两个区间，已排序区间和未排序区间。初始已排序区间只有 一个元素，就是数组的第一个元素。插入算法的核心思想是取未排序区间中的元素，在已排 序区间中找到合适的插入位置将其插入，并保证已排序区间数据一直有序。重复这个过程， 直到未排序区间中元素为空，算法结束。</p>
+<p><strong>插入排序写起来比较费劲，要注意的地方比较多</strong></p>
+<p>我自己的写的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function insert(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">    let j = i + 1</span><br><span class="line">    while (arr[j-1] &gt; arr[j] &amp;&amp; j&gt;=0) &#123;</span><br><span class="line">      const temp = arr[j]</span><br><span class="line">      arr[j] = arr[j-1]</span><br><span class="line">      arr[j-1] = temp</span><br><span class="line">      j--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">insert(arr)</span><br></pre></td></tr></table></figure>
+
+<p>教程写的，已经换成JavaScript，并加了注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function insert2(arr) &#123;</span><br><span class="line">  const l = arr.length;</span><br><span class="line">  for (let i = 1; i &lt; l; ++i) &#123;</span><br><span class="line">    // 缓存当前处理的元素，减少交换次数 </span><br><span class="line">    let value = arr[i];</span><br><span class="line">    // 对比前方排序区，查找插入的位置</span><br><span class="line">    let j = i - 1;</span><br><span class="line">    for ( ; j &gt;= 0; --j) &#123;</span><br><span class="line">      if (arr[j] &gt; value) &#123;</span><br><span class="line">        // 相当于把arr[j]向右移一位</span><br><span class="line">        // 第一次被覆盖掉的元素是当前处理元素，已在顶部缓存</span><br><span class="line">        // 第一次以后被覆盖的元素，实际上已经保存在右侧了</span><br><span class="line">        arr[j + 1] = arr[j]; // 数据移动</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 当前元素已经满足条件，不需要交换</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 只在最后交换 j+1 </span><br><span class="line">    arr[j + 1] = value; // 插入数据</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function select(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  let min, minIndex</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">   // 起始位置</span><br><span class="line">    min = arr[i]</span><br><span class="line">    minIndex = i</span><br><span class="line">    for (let j = i+1; j &lt; l; j++) &#123;</span><br><span class="line">      if (arr[j] &lt; min) &#123;</span><br><span class="line">        min = arr[j]</span><br><span class="line">        minIndex = j</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    const temp = arr[i]</span><br><span class="line">    arr[i] = min</span><br><span class="line">    arr[minIndex] = temp</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// select(arr)</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
+
+<h2 id="时间复杂度-O-nlogn"><a href="#时间复杂度-O-nlogn" class="headerlink" title="时间复杂度 O nlogn"></a>时间复杂度 O nlogn</h2><h3 id="归并排序-稳定"><a href="#归并排序-稳定" class="headerlink" title="归并排序(稳定)"></a>归并排序(稳定)</h3><p>自己的代码，未优化的版本，找了好久的错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// 归并排序</span><br><span class="line">function merginInto(arr, l, r) &#123;</span><br><span class="line">  if (l === r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const m = (l + r) &gt;&gt; 1 // 相当于除以2 取整</span><br><span class="line">  const left = arr.slice(l, m + 1)</span><br><span class="line">  const right = arr.slice(m + 1, r + 1)</span><br><span class="line">  return sortOrderArr(</span><br><span class="line">    left.length &lt;= 1 ? left: merginInto(</span><br><span class="line">     // 忘了把边界改成新数组的了</span><br><span class="line">      left, 0, m</span><br><span class="line">    ),</span><br><span class="line">    right.length &lt;= 1 ? right : merginInto(</span><br><span class="line">      // 忘了把边界改成新数组的了</span><br><span class="line">      right, 0, r - (m + 1)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line">// 将两个有序数组合并</span><br><span class="line">function sortOrderArr(arr1, arr2) &#123;</span><br><span class="line">  const res = []</span><br><span class="line">  let i1 = i2 = 0, l1 = arr1.length, l2 = arr2.length</span><br><span class="line">  while (i1&lt;l1 || i2&lt;l2) &#123;</span><br><span class="line">    if (i1 === l1) &#123;</span><br><span class="line">      res.push(arr2[i2++])</span><br><span class="line">    &#125; else if(i2===l2) &#123;</span><br><span class="line">      res.push(arr1[i1++])</span><br><span class="line">    &#125;else if (arr1[i1] &lt;= arr2[i2]) &#123;</span><br><span class="line">      res.push(arr1[i1++])</span><br><span class="line">    &#125;else(</span><br><span class="line">      res.push(arr2[i2++])</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  return res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较大众的写法，<strong>这个类似于二叉树的后续遍历</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function mergeInto(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const m = (l + r) &gt;&gt; 1;</span><br><span class="line">  // 原地排序 不需要返回</span><br><span class="line">  mergeInto(arr, l, m)</span><br><span class="line">  mergeInto(arr, m + 1, r)</span><br><span class="line">  // 两个已经拍好序的数组</span><br><span class="line">  mergeArr(arr, l, m, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function mergeArr(arr, l, m, r) &#123;</span><br><span class="line">  const res = []</span><br><span class="line">  let i1 = l, i2 = m + 1, l1 = m+1, l2 = r+1</span><br><span class="line">  while (i1&lt;l1 || i2&lt;l2) &#123;</span><br><span class="line">    if (i1 === l1) &#123;</span><br><span class="line">      res.push(arr[i2++])</span><br><span class="line">    &#125; else if(i2===l2) &#123;</span><br><span class="line">      res.push(arr[i1++])</span><br><span class="line">    &#125;else if (arr[i1] &lt;= arr[i2]) &#123;</span><br><span class="line">      res.push(arr[i1++])</span><br><span class="line">    &#125;else(</span><br><span class="line">      res.push(arr[i2++])</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = l,j=0; i &lt; r+1; i++,j++) &#123;</span><br><span class="line">    arr[i] = res[j]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速排序-不稳定"><a href="#快速排序-不稳定" class="headerlink" title="快速排序(不稳定)"></a>快速排序(不稳定)</h3><p><strong>把比参考位置小的数移到左侧，大的移到右侧，如果不额外占用空间的话，比较难写</strong></p>
+<p>空间复杂度 O n 比较容易写出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">// 快排辅助函数 分区 排序</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line"> // 占用了 On的空间</span><br><span class="line">  const res = []</span><br><span class="line">  //随机会好一点</span><br><span class="line">  const rdm = Math.floor(Math.random()*(r-l+1)+l)</span><br><span class="line">  const ref = arr[rdm]</span><br><span class="line">  let li = l, ri = r</span><br><span class="line">  for (let i = l; i &lt; r + 1; i++) &#123;</span><br><span class="line">    if (i === rdm) &#123;</span><br><span class="line">      continue</span><br><span class="line">    &#125;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      res[li] = arr[i]</span><br><span class="line">      li++</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      res[ri] = arr[i]</span><br><span class="line">      ri--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  res[ri] = ref</span><br><span class="line">  for (let i = l; i &lt; r+1; i++) &#123;</span><br><span class="line">    arr[i] = res[i]</span><br><span class="line">  &#125;</span><br><span class="line">  return ri</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="O1空间复杂度左右归类的算法解释"><a href="#O1空间复杂度左右归类的算法解释" class="headerlink" title="O1空间复杂度左右归类的算法解释"></a>O1空间复杂度左右归类的算法解释</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  // const rdm = Math.floor(Math.random()*(r-l+1)+l)</span><br><span class="line">  const rdm = 1</span><br><span class="line">  const ref = arr[rdm]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r + 1; i++) &#123;</span><br><span class="line">    // 跳过</span><br><span class="line">    if (i === rdm) &#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    // 跳过</span><br><span class="line">    if (j === rdm) &#123;</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      [arr[i], arr[j]] = [arr[j], arr[i]]</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当选择一个随机数N，下标INDEX作为参照点的话，程序运行到关键点的情况应该如下图所示</p>
+<p>左侧是小于等于N的数，右侧是大于N的数，但是N可能在左侧或者右侧</p>
+<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png" alt="image-20211112105742642"></p>
+<p>最好的情况就是 把N的位置放进 j-1 和 j之间，但是这样<strong>时间复杂度较高，采取交换替代</strong></p>
+<p>如果N在左侧就和<code>J-1</code>交换，N在右侧就和<code>J</code>置换，如果不需要随机选择位置的话，N取最右侧元素，就不需要判断了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br></pre></td></tr></table></figure>
+
+<h4 id="更好的随机数左右归类"><a href="#更好的随机数左右归类" class="headerlink" title="更好的随机数左右归类"></a>更好的随机数左右归类</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-an-array/solution/pai-xu-shu-zu-by-leetcode-solution/">力扣官方</a>采取先用随机数与最后一位交换位置在进行常规方法，方法容易理解，也不容易出错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int pivot = nums[r];</span><br><span class="line">      int i = l - 1;</span><br><span class="line">      for (int j = l; j &lt;= r - 1; ++j) &#123;</span><br><span class="line">          if (nums[j] &lt;= pivot) &#123;</span><br><span class="line">              i = i + 1;</span><br><span class="line">              swap(nums[i], nums[j]);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      swap(nums[i + 1], nums[r]);</span><br><span class="line">      return i + 1;</span><br><span class="line">  &#125;</span><br><span class="line">  int randomized_partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int i = rand() % (r - l + 1) + l; // 随机选一个作为我们的主元</span><br><span class="line">      swap(nums[r], nums[i]);</span><br><span class="line">      return partition(nums, l, r);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后总结出JavaScript版本的快速排序</p>
+<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png" alt="image-20211112112025117"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  // -1 +1 可别忘 会死循环的</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  const rdm = Math.floor(Math.random() * (r - l + 1) + l)</span><br><span class="line">  // 与最后元素交换</span><br><span class="line">  swap(arr, rdm, r)</span><br><span class="line"></span><br><span class="line">  const ref = arr[r]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r; i++) &#123;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      swap(arr, i, j)</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr, r, j)</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br><span class="line">function swap(arr, p, q) &#123;</span><br><span class="line">  const temp = arr[p]</span><br><span class="line">  arr[p] = arr[q]</span><br><span class="line">  arr[q] = temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="归并排序和快速排序的区别与联系"><a href="#归并排序和快速排序的区别与联系" class="headerlink" title="归并排序和快速排序的区别与联系"></a>归并排序和快速排序的区别与联系</h3><p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png" alt="image-20211112112920927"></p>
+<p>快排和归并用的都是分治思想，递推公式和递归代码也非常相似，那它们的区别在哪里呢?</p>
+<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png" alt="image-20211112113107064">可以发现，归并排序的处理过程是由下到上的，先处理子问题，然后再合并。</p>
+<p>而快排正好相反，它的处理过程是由上到下的，先分区，然后再处理子问题。</p>
+<p>归并排序虽然是稳定的、时 间复杂度为 O(nlogn) 的排序算法，但是它是非原地排序算法。我们前面讲过，归并之所以 是非原地排序算法，主要原因是合并函数无法在原地执行。快速排序通过设计巧妙的原地分区函数，可以实现原地排序，解决了归并排序占用太多内存的问题。</p>
 
       
     </div>
