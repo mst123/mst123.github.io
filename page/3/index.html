@@ -425,6 +425,118 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">数字常用方法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-24 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-24T00:00:00+08:00">2021-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-17 15:45:13" itemprop="dateModified" datetime="2022-02-17T15:45:13+08:00">2022-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">数据类型</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="原型方法"><a href="#原型方法" class="headerlink" title="原型方法"></a>原型方法</h2><ul>
+<li><p>Number.isFinite()<br>用来检查一个数值是否为有限的（finite），即不是Infinity。</p>
+</li>
+<li><p>Number.isNaN()<br>用来检查一个值是否为NaN。</p>
+</li>
+<li><p>Number.parseInt()</p>
+</li>
+<li><p>Number.parseFloat()</p>
+<blockquote>
+<p>ES6 将全局方法<code>parseInt()</code>和<code>parseFloat()</code>，移植到<code>Number</code>对象上面，行为完全保持不变。</p>
+</blockquote>
+</li>
+<li><p><code>Number.isInteger()</code></p>
+<p>用来判断一个数值是否为整数。</p>
+<p>JavaScript 内部，整数和浮点数采用的是同样的储存方法，所以 25 和 25.0 被视为同一个值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Number</span>.<span class="title function_">isInteger</span>(<span class="number">25</span>) <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="title function_">isInteger</span>(<span class="number">25.0</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Number.isSafeInteger()</p>
+<p>JavaScript 能够准确表示的整数范围在<code>-2^53</code>到<code>2^53</code>之间（不含两个端点），超过这个范围，无法精确表示这个值。ES6 引入了<code>Number.MAX_SAFE_INTEGER</code>和<code>Number.MIN_SAFE_INTEGER</code>这两个常量，用来表示这个范围的上下限。</p>
+<p><code>Number.isSafeInteger()</code>则是用来判断一个整数是否落在这个范围之内。</p>
+</li>
+</ul>
+<h3 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h3><ul>
+<li>Math.trunc()</li>
+</ul>
+<p>​  <code>Math.trunc</code>方法用于去除一个数的小数部分，返回整数部分。</p>
+<p>​  对于没有部署这个方法的环境，可以用下面的代码模拟。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Math</span>.<span class="property">trunc</span> = <span class="title class_">Math</span>.<span class="property">trunc</span> || <span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x &lt; <span class="number">0</span> ? <span class="title class_">Math</span>.<span class="title function_">ceil</span>(x) : <span class="title class_">Math</span>.<span class="title function_">floor</span>(x);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%BD%91%E7%BB%9C/https%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -549,7 +661,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/luopo.gif">
@@ -567,7 +679,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">数字常用方法</a>
+          <a href="/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/" class="post-title-link" itemprop="url">递归链表翻转</a>
         </h2>
 
         <div class="post-meta-container">
@@ -578,14 +690,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-11-24 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-24T00:00:00+08:00">2021-11-24</time>
+      <time title="创建时间：2021-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-24T00:00:00+08:00">2021-10-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-17 15:45:13" itemprop="dateModified" datetime="2022-02-17T15:45:13+08:00">2022-02-17</time>
+      <time title="修改时间：2024-07-13 13:13:42" itemprop="dateModified" datetime="2024-07-13T13:13:42+08:00">2024-07-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -593,7 +705,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">数据类型</span></a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
         </span>
     </span>
 
@@ -607,34 +719,38 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="原型方法"><a href="#原型方法" class="headerlink" title="原型方法"></a>原型方法</h2><ul>
-<li><p>Number.isFinite()<br>用来检查一个数值是否为有限的（finite），即不是Infinity。</p>
-</li>
-<li><p>Number.isNaN()<br>用来检查一个值是否为NaN。</p>
-</li>
-<li><p>Number.parseInt()</p>
-</li>
-<li><p>Number.parseFloat()</p>
-<blockquote>
-<p>ES6 将全局方法<code>parseInt()</code>和<code>parseFloat()</code>，移植到<code>Number</code>对象上面，行为完全保持不变。</p>
-</blockquote>
-</li>
-<li><p><code>Number.isInteger()</code></p>
-<p>用来判断一个数值是否为整数。</p>
-<p>JavaScript 内部，整数和浮点数采用的是同样的储存方法，所以 25 和 25.0 被视为同一个值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Number</span>.<span class="title function_">isInteger</span>(<span class="number">25</span>) <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="title function_">isInteger</span>(<span class="number">25.0</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Number.isSafeInteger()</p>
-<p>JavaScript 能够准确表示的整数范围在<code>-2^53</code>到<code>2^53</code>之间（不含两个端点），超过这个范围，无法精确表示这个值。ES6 引入了<code>Number.MAX_SAFE_INTEGER</code>和<code>Number.MIN_SAFE_INTEGER</code>这两个常量，用来表示这个范围的上下限。</p>
-<p><code>Number.isSafeInteger()</code>则是用来判断一个整数是否落在这个范围之内。</p>
-</li>
-</ul>
-<h3 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h3><ul>
-<li>Math.trunc()</li>
-</ul>
-<p>​  <code>Math.trunc</code>方法用于去除一个数的小数部分，返回整数部分。</p>
-<p>​  对于没有部署这个方法的环境，可以用下面的代码模拟。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Math</span>.<span class="property">trunc</span> = <span class="title class_">Math</span>.<span class="property">trunc</span> || <span class="keyword">function</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x &lt; <span class="number">0</span> ? <span class="title class_">Math</span>.<span class="title function_">ceil</span>(x) : <span class="title class_">Math</span>.<span class="title function_">floor</span>(x);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <h2 id="递归链表翻转"><a href="#递归链表翻转" class="headerlink" title="递归链表翻转"></a>递归链表翻转</h2><p>给定单链表的头节点 head ，请反转链表，并返回反转后的链表的头节点。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2,3,4,5]</span><br><span class="line">输出：[5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2]</span><br><span class="line">输出：[2,1]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
+
+<p><strong>基础递归公式如下</strong></p>
+<h3 id="前置递归"><a href="#前置递归" class="headerlink" title="前置递归"></a>前置递归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function reverse(head)&#123;</span><br><span class="line">      if(!head || head.next === null)&#123;</span><br><span class="line">          console.log(&quot;last--&quot;, head)</span><br><span class="line">          return head;</span><br><span class="line">      &#125;</span><br><span class="line">      const last = reverse(head.next)</span><br><span class="line">      console.log(&quot;head--&quot;, head)</span><br><span class="line">      head.next.next = head</span><br><span class="line">      head.next = null</span><br><span class="line">      </span><br><span class="line">      console.log(&quot;last--&quot;, last)</span><br><span class="line">      return last</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用[1,2,3,4,5]作为测试用例</strong>，输出结果如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">last--  [5]</span><br><span class="line">head--  [4,5]</span><br><span class="line">last--  [5,4]</span><br><span class="line">head--  [3,4]</span><br><span class="line">last--  [5,4,3]</span><br><span class="line">head--  [2,3]</span><br><span class="line">last--  [5,4,3,2]</span><br><span class="line">head--  [1,2]</span><br><span class="line">last--  [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
+
+<p>做一个灵魂画手，帮助记忆。</p>
+<p><img src="/assets/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/%E5%9B%BE%E5%83%8F2.jpeg" alt="图像2"></p>
+<p>由于是前置递归，代码由下而上进行运行，每一步都会将head节点与上一个节点进行翻转，并将head节点指向null</p>
+<p>head节点信息由调用栈的函数持有</p>
+<h3 id="后置递归"><a href="#后置递归" class="headerlink" title="后置递归"></a>后置递归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 后置递归</span><br><span class="line">  function df(pre, cur) &#123;</span><br><span class="line">    if (cur === null) &#123;</span><br><span class="line">      return pre;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      var temp = cur.next;</span><br><span class="line">      cur.next = pre;</span><br><span class="line">      return df(cur, temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return df(null, head);</span><br></pre></td></tr></table></figure>
+
+<p>灵魂画手又来了</p>
+<p><img src="/assets/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/%E5%9B%BE%E5%83%8F3.jpeg" alt="图像3"></p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 迭代</span><br><span class="line">var reverseList = function (head) &#123;</span><br><span class="line">  var pre = null, cur = head, next;</span><br><span class="line">  while (cur) &#123;</span><br><span class="line">    next = cur.next;</span><br><span class="line">    cur.next = pre;</span><br><span class="line">    pre = cur;</span><br><span class="line">    cur = next;</span><br><span class="line">  &#125;</span><br><span class="line">  return pre;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="翻转链表前N个节点"><a href="#翻转链表前N个节点" class="headerlink" title="翻转链表前N个节点"></a>翻转链表前N个节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入 [1,2,3,4,5] 3</span><br><span class="line">输出 [3,2,1,4,5]</span><br></pre></td></tr></table></figure>
+
+<h3 id="前置递归-1"><a href="#前置递归-1" class="headerlink" title="前置递归"></a>前置递归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function ListNode(val, next) &#123;</span><br><span class="line">  this.val = (val===undefined ? 0 : val)</span><br><span class="line">  this.next = (next===undefined ? null : next)</span><br><span class="line">&#125;</span><br><span class="line">const list = new ListNode(1)</span><br><span class="line">list.next = new ListNode(2)</span><br><span class="line">list.next.next = new ListNode(3)</span><br><span class="line">list.next.next.next = new ListNode(4)</span><br><span class="line">list.next.next.next.next = new ListNode(5)</span><br><span class="line">list.next.next.next.next.next = null</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let middleHead = null</span><br><span class="line">function reverseN(head, n) &#123;</span><br><span class="line">  if (n === 1) &#123;</span><br><span class="line">    middleHead = head.next </span><br><span class="line">    return head</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  const last = reverseN(head.next, n - 1)</span><br><span class="line">  head.next.next = head</span><br><span class="line">  head.next = middleHead</span><br><span class="line">  return last</span><br><span class="line">&#125;</span><br><span class="line">console.log(reverseN(list, 3))</span><br></pre></td></tr></table></figure>
+
+<p>灵魂画图，有点难以理解啊</p>
+<p><img src="/assets/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/%E5%9B%BE%E5%83%8F4.jpeg" alt="图像4"></p>
 
       
     </div>
@@ -842,122 +958,6 @@
 <p><img src="/assets/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/16da9fd28b1900f9~tplv-t2oaga2asx-watermark-20211207100719030.gif" alt="TCP状态变迁图.jpg"></p>
 <p><strong>以后面试官再问你三次握手和四次挥手，直接把这一篇文章丢给他就可以了，他想问的都在这里。</strong></p>
 <h3 id="https交换证书"><a href="#https交换证书" class="headerlink" title="https交换证书"></a>https交换证书</h3><p><a href="/%E7%BD%91%E7%BB%9C/https%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B">https握手</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/" class="post-title-link" itemprop="url">递归链表翻转</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-24T00:00:00+08:00">2021-10-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-13 13:13:42" itemprop="dateModified" datetime="2024-07-13T13:13:42+08:00">2024-07-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="递归链表翻转"><a href="#递归链表翻转" class="headerlink" title="递归链表翻转"></a>递归链表翻转</h2><p>给定单链表的头节点 head ，请反转链表，并返回反转后的链表的头节点。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2,3,4,5]</span><br><span class="line">输出：[5,4,3,2,1]</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2]</span><br><span class="line">输出：[2,1]</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
-
-<p><strong>基础递归公式如下</strong></p>
-<h3 id="前置递归"><a href="#前置递归" class="headerlink" title="前置递归"></a>前置递归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function reverse(head)&#123;</span><br><span class="line">      if(!head || head.next === null)&#123;</span><br><span class="line">          console.log(&quot;last--&quot;, head)</span><br><span class="line">          return head;</span><br><span class="line">      &#125;</span><br><span class="line">      const last = reverse(head.next)</span><br><span class="line">      console.log(&quot;head--&quot;, head)</span><br><span class="line">      head.next.next = head</span><br><span class="line">      head.next = null</span><br><span class="line">      </span><br><span class="line">      console.log(&quot;last--&quot;, last)</span><br><span class="line">      return last</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用[1,2,3,4,5]作为测试用例</strong>，输出结果如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">last--  [5]</span><br><span class="line">head--  [4,5]</span><br><span class="line">last--  [5,4]</span><br><span class="line">head--  [3,4]</span><br><span class="line">last--  [5,4,3]</span><br><span class="line">head--  [2,3]</span><br><span class="line">last--  [5,4,3,2]</span><br><span class="line">head--  [1,2]</span><br><span class="line">last--  [5,4,3,2,1]</span><br></pre></td></tr></table></figure>
-
-<p>做一个灵魂画手，帮助记忆。</p>
-<p><img src="/assets/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/%E5%9B%BE%E5%83%8F2.jpeg" alt="图像2"></p>
-<p>由于是前置递归，代码由下而上进行运行，每一步都会将head节点与上一个节点进行翻转，并将head节点指向null</p>
-<p>head节点信息由调用栈的函数持有</p>
-<h3 id="后置递归"><a href="#后置递归" class="headerlink" title="后置递归"></a>后置递归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 后置递归</span><br><span class="line">  function df(pre, cur) &#123;</span><br><span class="line">    if (cur === null) &#123;</span><br><span class="line">      return pre;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      var temp = cur.next;</span><br><span class="line">      cur.next = pre;</span><br><span class="line">      return df(cur, temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return df(null, head);</span><br></pre></td></tr></table></figure>
-
-<p>灵魂画手又来了</p>
-<p><img src="/assets/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/%E5%9B%BE%E5%83%8F3.jpeg" alt="图像3"></p>
-<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 迭代</span><br><span class="line">var reverseList = function (head) &#123;</span><br><span class="line">  var pre = null, cur = head, next;</span><br><span class="line">  while (cur) &#123;</span><br><span class="line">    next = cur.next;</span><br><span class="line">    cur.next = pre;</span><br><span class="line">    pre = cur;</span><br><span class="line">    cur = next;</span><br><span class="line">  &#125;</span><br><span class="line">  return pre;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="翻转链表前N个节点"><a href="#翻转链表前N个节点" class="headerlink" title="翻转链表前N个节点"></a>翻转链表前N个节点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入 [1,2,3,4,5] 3</span><br><span class="line">输出 [3,2,1,4,5]</span><br></pre></td></tr></table></figure>
-
-<h3 id="前置递归-1"><a href="#前置递归-1" class="headerlink" title="前置递归"></a>前置递归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function ListNode(val, next) &#123;</span><br><span class="line">  this.val = (val===undefined ? 0 : val)</span><br><span class="line">  this.next = (next===undefined ? null : next)</span><br><span class="line">&#125;</span><br><span class="line">const list = new ListNode(1)</span><br><span class="line">list.next = new ListNode(2)</span><br><span class="line">list.next.next = new ListNode(3)</span><br><span class="line">list.next.next.next = new ListNode(4)</span><br><span class="line">list.next.next.next.next = new ListNode(5)</span><br><span class="line">list.next.next.next.next.next = null</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let middleHead = null</span><br><span class="line">function reverseN(head, n) &#123;</span><br><span class="line">  if (n === 1) &#123;</span><br><span class="line">    middleHead = head.next </span><br><span class="line">    return head</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  const last = reverseN(head.next, n - 1)</span><br><span class="line">  head.next.next = head</span><br><span class="line">  head.next = middleHead</span><br><span class="line">  return last</span><br><span class="line">&#125;</span><br><span class="line">console.log(reverseN(list, 3))</span><br></pre></td></tr></table></figure>
-
-<p>灵魂画图，有点难以理解啊</p>
-<p><img src="/assets/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/%E5%9B%BE%E5%83%8F4.jpeg" alt="图像4"></p>
 
       
     </div>
@@ -1439,176 +1439,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/" class="post-title-link" itemprop="url">性能指标</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-09-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-20T00:00:00+08:00">2021-09-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-05 14:12:25" itemprop="dateModified" datetime="2022-03-05T14:12:25+08:00">2022-03-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="CLS"><a href="#CLS" class="headerlink" title="CLS"></a>CLS</h2><p>Cumulative Layout Shift 累积布局偏移</p>
-<p>最常见的影响CLS的分数的有：</p>
-<ul>
-<li><p>未指定尺寸的图片</p>
-</li>
-<li><p>未指定尺寸的广告、嵌入元素、iframe</p>
-</li>
-<li><p>动态插入内容</p>
-</li>
-<li><p>自定义字体（引发FOIT&#x2F;FOUT）</p>
-</li>
-<li><p>在更新DOM之前等待网络响应的操作</p>
-</li>
-</ul>
-<h3 id="未指定尺寸的图片"><a href="#未指定尺寸的图片" class="headerlink" title="未指定尺寸的图片"></a>未指定尺寸的图片</h3><p>总而言之：在 <img> 和 <video> 标签上始终加上 width 和 height 属性。或者，使用 CSS aspect ratio boxes 来占据空间。这种方法可以确保在图片加载过程中，浏览器可以分配足够的空间。</p>
-<p>历史<br>在web的早期，开发者会给 <img> 标签加上 width 和 height 属性，以确保浏览器开始获取图片之前可以分配好空间，这样可以减少 reflow 和 re-layout。</p>
-<p>你也许会注意到这两个属性没有带单位。这些像素尺寸会确保保留640 * 360的区域。图片最终会平铺在这个区域，不管原始尺寸是否一致。</p>
-<p>当响应式设计来临的时候，开发者开始忽略 width 和 height，开始使用css来调整图片大小。</p>
-<p>这种方法的缺点是，只有图片下载的时候，浏览器才知道图片的宽高并且分配好空间。图片下载完了，每张图片出现在屏幕上的时候，页面都会 reflow 一次，会导致页面频繁的往下弹。这对于用户体验来说非常不友好。</p>
-<p>因此而诞生了 aspect ratio。aspect ratio 是图片的宽高比。比如，x:y的宽高比，指的是宽度x单位，高度y单位。</p>
-<p>这也意味着只要我们知道宽高之一，就能计算出另一个属性。对于一个16:9的宽高比而言:</p>
-<p>如果图片有360px的高度，则宽度为 360 x (16 &#x2F; 9) &#x3D; 640px</p>
-<p>如果图片有640px的宽度，则高度为 640 x (9 &#x2F; 16) &#x3D; 360px</p>
-<p>现代浏览器最佳体验<br>现代浏览器可以基于 width 和 height 属性设定默认宽高比，这样就能避免布局偏移。开发者只需要如下设置:</p>
-<p>这样一来，图片加载之前，浏览器就可以根据宽高属性分配好空间。图片加载之后，就可以根据宽度或者高度属性，按照宽高比来分配实际空间。</p>
-<p>图片的 aspect-ratio 属性在chrome和firefox上已经可以使用了，safari也快支持了。</p>
-<p>如果图片位于容器内，可以设置宽度为容器宽度，高度为auto，避免高度被固定位360px。</p>
-<p>响应式图片<br>在使用响应式图片的时候，srcset 定义了图片可以供浏览器选择的尺寸。为了确保图片 width 和 height 可以被设置，每张图片的宽高比必须一致。</p>
-<p>有时候我们希望展示图片的剪切部分，比如长图的中间正方形区域，为了视觉好看。</p>
-<p>这样一来图片宽高比就不一致了，浏览器可能更需要针对每一个资源设置特定宽高比。但目前还没有好的解决方案，re-layout 依然存在。</p>
-<p>未指定尺寸的广告、嵌入元素、iframe<br>广告<br>广告是造成布局偏移的罪魁祸首之一。经常性，这些广告会有动态尺寸，这样会导致糟糕的用户体验，当你在往下浏览页面的时候，广告突然插入一些可见内容。</p>
-<p>在广告的生命周期里，很多点可以导致布局偏移:</p>
-<p>广告容器插入到dom的时候</p>
-<p>本站代码调整广告容器尺寸的时候</p>
-<p>广告代码库加载的时候（导致容器尺寸改变）</p>
-<p>广告内容填充容器的时候（如果最终广告的尺寸不一样，导致容器尺寸变化）</p>
-<p>好消息是网站可以采用最佳体验，来减少布局偏移。</p>
-<p>为广告位静态保留空间。</p>
-<p>换句话说，在广告代码库加载之前，就给容器加好样式。</p>
-<p>如果要在内容流中插入广告，在插入之前确保通过保留尺寸来消除布局偏移。如果这些广告在屏幕外加载，则没有这个问题。</p>
-<p>在视图顶部插入非粘性广告的时候要特别注意。</p>
-<p>避免折叠预留的空间，如果广告没有返回，可以在该空间展示占位符。</p>
-<p>通过预留广告所需最大尺寸，来避免布局偏移。</p>
-<p>这很有效，不过如果广告很小，可能会有大片空白。</p>
-<p>根据历史数据，给广告加上合适的尺寸。</p>
-<p>如果广告不太可能填满，一些网站会发现在初始的时候折叠广告位可以减少布局偏移。很难做到每一次都能给广告位精准的尺寸，除非这个广告是你自己提供的。</p>
-<p>为广告位静态保留空间<br>给广告容器设置固定的样式，避免代码库加载的时候，重新调整广告的尺寸。</p>
-<p>要额外注意一下小尺寸的广告，如果预留很大的空间，会导致大片空白。</p>
-<p>避免在视图顶部插入广告<br>根据CLS的计算规则，在顶部插入广告比在中间插入，造成的影响更大。</p>
-<p>嵌入元素和iframe<br>可嵌入的挂件可以允许你在页面上嵌入web内容（例如，youtube视频、谷歌地图、社交媒体的帖子等）。这些嵌入元素可以采用多种形式。</p>
-<p>html fallback，然后js将该fallback转换成嵌入元素</p>
-<p>内联html代码块</p>
-<p>iframe嵌入</p>
-<p>这些嵌入通常不会事先知道嵌入的大小（例如，社交媒体帖子，是否包含图片？视频？或者多行文本？）。结果就是提供嵌入元素的平台经常无法保证预留足够的空间，导致布局偏移。</p>
-<p>为了应对这种情况，你可以通过提前计算嵌入元素的足够空间，以最小化CLS。以下工作流可以参考:</p>
-<p>使用开发者工具检查最终嵌入的高度</p>
-<p>一旦嵌入元素加载，iframe容器根据内容重新调整尺寸。</p>
-<p>记下尺寸，并相应设置嵌入元素占位符的样式。你可能还会用到媒体查询来考虑不同的因素。</p>
-<p>动态内容<br>总而言之，避免在已存在的内容上方插入新内容，除非为了响应用户交互。这样可以保证任何布局偏移都是可预期的。</p>
-<p>你可能经常会遇到从顶部或者底部弹出的一些内容。这经常发生在banner或者表单的地方，让页面的剩余内容产生偏移。</p>
-<p>“注册即可领取会员大礼包!”</p>
-<p>“最近发表的文章”</p>
-<p>“安装我们的APP”</p>
-<p>“我们还在接受订单”</p>
-<p>“GDPR提示，是否允许使用cookie”</p>
-<p>如果你需要展示以上的UI内容，请提前预留好空间，避免产生布局偏移。</p>
-<p>自定义字体（引发FOIT&#x2F;FOUT）<br>下载并渲染自定义字体会引发布局偏移，通过以下两种方式:</p>
-<p>fallback字体切换到新字体（FOUT - flash of unstyled text）</p>
-<p>从不可见变成可见，因为新字体的渲染缘故（FOIT - flash of invisible text）</p>
-<p>以下工具可以帮你最小化影响:</p>
-<p>font-display 属性可以让你修改自定义字体的渲染表现，通过使用可选值：auto, swap, block, fallback 和 optional。不幸的是，除了 optional 之外的属性都会引发 re-layout，通过以上的其中一种方式。</p>
-<p>Font Loading API 可以减少获取必要字体的时间。</p>
-<p>Chrome 83版本之后，可以采取以下方案：</p>
-<p>针对关键字体使用 <link rel=preload> ，提高优先级，让字体下载有更高概率赶在fcp之前，这样就能避免布局偏移。</p>
-<link rel=preload> 和 font-display: optional 结合使用。
-
-<p>动画<br>总而言之，优先考虑 transform，而非会影响布局改变的属性。</p>
-<p>在更新DOM之前等待网络响应的操作<br>尽可能的在网络请求时，给一个loading，或者占位符提示，避免用户在这段时间内进行操作。</p>
-<p>开发者工具<br>可以使用lighthouse和performce检测CLS。</p>
-<p>总结</p>
-<p>图片的尺寸，以及其他嵌入元素的尺寸，最开始就设定好，或者预留足够空间，这样可以有效避免布局偏移。</p>
-<p>利用图片宽高比的属性，可以在优化CLS的同时，做响应式布局。</p>
-<p>尽可能不要往已存在内容上方添加新内容。</p>
-<p>web字体尽可能早的加载，避免产生FOIT和FOUT</p>
-<p>与UI同事配合在交互上避免布局偏移</p>
-<p>参考<br><a target="_blank" rel="noopener" href="https://web.dev/optimize-cls/">https://web.dev/optimize-cls/</a> </p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1819,6 +1649,176 @@
 </tr>
 </tbody></table>
 <p><img src="/assets/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/640-20211209094756888" alt="图片"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/" class="post-title-link" itemprop="url">性能指标</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-20T00:00:00+08:00">2021-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-05 14:12:25" itemprop="dateModified" datetime="2022-03-05T14:12:25+08:00">2022-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="CLS"><a href="#CLS" class="headerlink" title="CLS"></a>CLS</h2><p>Cumulative Layout Shift 累积布局偏移</p>
+<p>最常见的影响CLS的分数的有：</p>
+<ul>
+<li><p>未指定尺寸的图片</p>
+</li>
+<li><p>未指定尺寸的广告、嵌入元素、iframe</p>
+</li>
+<li><p>动态插入内容</p>
+</li>
+<li><p>自定义字体（引发FOIT&#x2F;FOUT）</p>
+</li>
+<li><p>在更新DOM之前等待网络响应的操作</p>
+</li>
+</ul>
+<h3 id="未指定尺寸的图片"><a href="#未指定尺寸的图片" class="headerlink" title="未指定尺寸的图片"></a>未指定尺寸的图片</h3><p>总而言之：在 <img> 和 <video> 标签上始终加上 width 和 height 属性。或者，使用 CSS aspect ratio boxes 来占据空间。这种方法可以确保在图片加载过程中，浏览器可以分配足够的空间。</p>
+<p>历史<br>在web的早期，开发者会给 <img> 标签加上 width 和 height 属性，以确保浏览器开始获取图片之前可以分配好空间，这样可以减少 reflow 和 re-layout。</p>
+<p>你也许会注意到这两个属性没有带单位。这些像素尺寸会确保保留640 * 360的区域。图片最终会平铺在这个区域，不管原始尺寸是否一致。</p>
+<p>当响应式设计来临的时候，开发者开始忽略 width 和 height，开始使用css来调整图片大小。</p>
+<p>这种方法的缺点是，只有图片下载的时候，浏览器才知道图片的宽高并且分配好空间。图片下载完了，每张图片出现在屏幕上的时候，页面都会 reflow 一次，会导致页面频繁的往下弹。这对于用户体验来说非常不友好。</p>
+<p>因此而诞生了 aspect ratio。aspect ratio 是图片的宽高比。比如，x:y的宽高比，指的是宽度x单位，高度y单位。</p>
+<p>这也意味着只要我们知道宽高之一，就能计算出另一个属性。对于一个16:9的宽高比而言:</p>
+<p>如果图片有360px的高度，则宽度为 360 x (16 &#x2F; 9) &#x3D; 640px</p>
+<p>如果图片有640px的宽度，则高度为 640 x (9 &#x2F; 16) &#x3D; 360px</p>
+<p>现代浏览器最佳体验<br>现代浏览器可以基于 width 和 height 属性设定默认宽高比，这样就能避免布局偏移。开发者只需要如下设置:</p>
+<p>这样一来，图片加载之前，浏览器就可以根据宽高属性分配好空间。图片加载之后，就可以根据宽度或者高度属性，按照宽高比来分配实际空间。</p>
+<p>图片的 aspect-ratio 属性在chrome和firefox上已经可以使用了，safari也快支持了。</p>
+<p>如果图片位于容器内，可以设置宽度为容器宽度，高度为auto，避免高度被固定位360px。</p>
+<p>响应式图片<br>在使用响应式图片的时候，srcset 定义了图片可以供浏览器选择的尺寸。为了确保图片 width 和 height 可以被设置，每张图片的宽高比必须一致。</p>
+<p>有时候我们希望展示图片的剪切部分，比如长图的中间正方形区域，为了视觉好看。</p>
+<p>这样一来图片宽高比就不一致了，浏览器可能更需要针对每一个资源设置特定宽高比。但目前还没有好的解决方案，re-layout 依然存在。</p>
+<p>未指定尺寸的广告、嵌入元素、iframe<br>广告<br>广告是造成布局偏移的罪魁祸首之一。经常性，这些广告会有动态尺寸，这样会导致糟糕的用户体验，当你在往下浏览页面的时候，广告突然插入一些可见内容。</p>
+<p>在广告的生命周期里，很多点可以导致布局偏移:</p>
+<p>广告容器插入到dom的时候</p>
+<p>本站代码调整广告容器尺寸的时候</p>
+<p>广告代码库加载的时候（导致容器尺寸改变）</p>
+<p>广告内容填充容器的时候（如果最终广告的尺寸不一样，导致容器尺寸变化）</p>
+<p>好消息是网站可以采用最佳体验，来减少布局偏移。</p>
+<p>为广告位静态保留空间。</p>
+<p>换句话说，在广告代码库加载之前，就给容器加好样式。</p>
+<p>如果要在内容流中插入广告，在插入之前确保通过保留尺寸来消除布局偏移。如果这些广告在屏幕外加载，则没有这个问题。</p>
+<p>在视图顶部插入非粘性广告的时候要特别注意。</p>
+<p>避免折叠预留的空间，如果广告没有返回，可以在该空间展示占位符。</p>
+<p>通过预留广告所需最大尺寸，来避免布局偏移。</p>
+<p>这很有效，不过如果广告很小，可能会有大片空白。</p>
+<p>根据历史数据，给广告加上合适的尺寸。</p>
+<p>如果广告不太可能填满，一些网站会发现在初始的时候折叠广告位可以减少布局偏移。很难做到每一次都能给广告位精准的尺寸，除非这个广告是你自己提供的。</p>
+<p>为广告位静态保留空间<br>给广告容器设置固定的样式，避免代码库加载的时候，重新调整广告的尺寸。</p>
+<p>要额外注意一下小尺寸的广告，如果预留很大的空间，会导致大片空白。</p>
+<p>避免在视图顶部插入广告<br>根据CLS的计算规则，在顶部插入广告比在中间插入，造成的影响更大。</p>
+<p>嵌入元素和iframe<br>可嵌入的挂件可以允许你在页面上嵌入web内容（例如，youtube视频、谷歌地图、社交媒体的帖子等）。这些嵌入元素可以采用多种形式。</p>
+<p>html fallback，然后js将该fallback转换成嵌入元素</p>
+<p>内联html代码块</p>
+<p>iframe嵌入</p>
+<p>这些嵌入通常不会事先知道嵌入的大小（例如，社交媒体帖子，是否包含图片？视频？或者多行文本？）。结果就是提供嵌入元素的平台经常无法保证预留足够的空间，导致布局偏移。</p>
+<p>为了应对这种情况，你可以通过提前计算嵌入元素的足够空间，以最小化CLS。以下工作流可以参考:</p>
+<p>使用开发者工具检查最终嵌入的高度</p>
+<p>一旦嵌入元素加载，iframe容器根据内容重新调整尺寸。</p>
+<p>记下尺寸，并相应设置嵌入元素占位符的样式。你可能还会用到媒体查询来考虑不同的因素。</p>
+<p>动态内容<br>总而言之，避免在已存在的内容上方插入新内容，除非为了响应用户交互。这样可以保证任何布局偏移都是可预期的。</p>
+<p>你可能经常会遇到从顶部或者底部弹出的一些内容。这经常发生在banner或者表单的地方，让页面的剩余内容产生偏移。</p>
+<p>“注册即可领取会员大礼包!”</p>
+<p>“最近发表的文章”</p>
+<p>“安装我们的APP”</p>
+<p>“我们还在接受订单”</p>
+<p>“GDPR提示，是否允许使用cookie”</p>
+<p>如果你需要展示以上的UI内容，请提前预留好空间，避免产生布局偏移。</p>
+<p>自定义字体（引发FOIT&#x2F;FOUT）<br>下载并渲染自定义字体会引发布局偏移，通过以下两种方式:</p>
+<p>fallback字体切换到新字体（FOUT - flash of unstyled text）</p>
+<p>从不可见变成可见，因为新字体的渲染缘故（FOIT - flash of invisible text）</p>
+<p>以下工具可以帮你最小化影响:</p>
+<p>font-display 属性可以让你修改自定义字体的渲染表现，通过使用可选值：auto, swap, block, fallback 和 optional。不幸的是，除了 optional 之外的属性都会引发 re-layout，通过以上的其中一种方式。</p>
+<p>Font Loading API 可以减少获取必要字体的时间。</p>
+<p>Chrome 83版本之后，可以采取以下方案：</p>
+<p>针对关键字体使用 <link rel=preload> ，提高优先级，让字体下载有更高概率赶在fcp之前，这样就能避免布局偏移。</p>
+<link rel=preload> 和 font-display: optional 结合使用。
+
+<p>动画<br>总而言之，优先考虑 transform，而非会影响布局改变的属性。</p>
+<p>在更新DOM之前等待网络响应的操作<br>尽可能的在网络请求时，给一个loading，或者占位符提示，避免用户在这段时间内进行操作。</p>
+<p>开发者工具<br>可以使用lighthouse和performce检测CLS。</p>
+<p>总结</p>
+<p>图片的尺寸，以及其他嵌入元素的尺寸，最开始就设定好，或者预留足够空间，这样可以有效避免布局偏移。</p>
+<p>利用图片宽高比的属性，可以在优化CLS的同时，做响应式布局。</p>
+<p>尽可能不要往已存在内容上方添加新内容。</p>
+<p>web字体尽可能早的加载，避免产生FOIT和FOUT</p>
+<p>与UI同事配合在交互上避免布局偏移</p>
+<p>参考<br><a target="_blank" rel="noopener" href="https://web.dev/optimize-cls/">https://web.dev/optimize-cls/</a> </p>
 
       
     </div>
