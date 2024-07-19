@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="call函数123456789101112Function.prototype.selfCall &#x3D; function(context) &#123;  const ctx &#x3D; context || window;  &#x2F;&#x2F; 去除第一个参数  const arg &#x3D; [...arguments].slice(1);  &#x2F;&#x2F; const arg &#x3D; Array.slice.call(arguments">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/selfFuc/write1.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/selfFuc/write1.png">
 <meta property="article:published_time" content="2024-07-16T06:02:12.000Z">
 <meta property="article:modified_time" content="2024-07-16T06:02:12.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="手写函数">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/selfFuc/write1.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/selfFuc/write1.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E9%9D%A2%E8%AF%95/selfFuc/">
@@ -302,7 +302,7 @@
 <h2 id="create函数"><a href="#create函数" class="headerlink" title="create函数"></a>create函数</h2><p>很多框架源码作者使用它来初始化一个新的对象，难道是最佳实践？<br>原因有二  </p>
 <ul>
 <li>通过Object.create(null)创建出来的对象，没有任何属性，显示No properties。我们可以将其当成一个干净的 map 来使用，自主定义 toString,hasOwnProperty等方法，并且不必担心将原型链上的同名方法被覆盖。</li>
-<li>{…}创建的对象，使用for in遍历对象的时候，会遍历原型链上的属性，带来性能上的损耗。使用Object.create(null)则不必再对其进行遍历了。<br><img src="/assets/selfFuc/write1.png" alt="两种方式的比较"></li>
+<li>{…}创建的对象，使用for in遍历对象的时候，会遍历原型链上的属性，带来性能上的损耗。使用Object.create(null)则不必再对其进行遍历了。<br><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/selfFuc/write1.png" alt="两种方式的比较"></li>
 </ul>
 <p>手写Object.create</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function ObjCreate(proto, properties) &#123;</span><br><span class="line">  // 判断类型，第一个参数传入的必须是 object, function</span><br><span class="line">  if (typeof proto !== &quot;object&quot; &amp;&amp; typeof proto !== &quot;function&quot;) &#123;</span><br><span class="line">    throw new TypeError(&quot;Object prototype may only be an Object: &quot; + proto);</span><br><span class="line">  &#125; </span><br><span class="line">  // 简单的实现的过程，忽略了properties</span><br><span class="line">  var func = function() &#123;&#125;;</span><br><span class="line">  func.prototype = proto; // 将fn的原型指向传入的proto</span><br><span class="line">  return new func();  // 返回创建的新对象，这里思考下，new func() 又做了什么事情呢？且往下看！</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>

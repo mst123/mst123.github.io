@@ -27,19 +27,19 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="chrome 浏览器调试工具的使用network性能测试 打开调试工具 -&gt; network 注意打钩选项 然后按住刷新，选择清空缓存并硬性重新加载   network底部有 transferred over network和 resources loaded by the page. 这两个大小有何区别？后边那个指的是解压后的大小，前边那个指的是源文件  下面重点研究瀑布图    瀑布图由">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104323123.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104749352.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118105340061.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110952135.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110414575.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104323123.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104749352.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118105340061.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110952135.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110414575.png">
 <meta property="article:published_time" content="2021-05-31T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T06:30:32.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="性能优化">
 <meta property="article:tag" content="调试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/">
@@ -259,25 +259,25 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="chrome-浏览器调试工具的使用"><a href="#chrome-浏览器调试工具的使用" class="headerlink" title="chrome 浏览器调试工具的使用"></a>chrome 浏览器调试工具的使用</h2><h3 id="network性能测试"><a href="#network性能测试" class="headerlink" title="network性能测试"></a>network性能测试</h3><p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png" alt="image-20210118103539289"></p>
+    <div class="post-body" itemprop="articleBody"><h2 id="chrome-浏览器调试工具的使用"><a href="#chrome-浏览器调试工具的使用" class="headerlink" title="chrome 浏览器调试工具的使用"></a>chrome 浏览器调试工具的使用</h2><h3 id="network性能测试"><a href="#network性能测试" class="headerlink" title="network性能测试"></a>network性能测试</h3><p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png" alt="image-20210118103539289"></p>
 <p>打开调试工具 -&gt; network 注意打钩选项 然后按住刷新，选择清空缓存并硬性重新加载</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104323123.png" alt="image-20210118104323123"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104323123.png" alt="image-20210118104323123"></p>
 <blockquote>
 <p>network底部有 transferred over network和 resources loaded by the page. 这两个大小有何区别？后边那个指的是解压后的大小，前边那个指的是源文件</p>
 </blockquote>
 <p>下面重点研究瀑布图</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104749352.png" alt="image-20210118104749352"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104749352.png" alt="image-20210118104749352"></p>
 <p>  瀑布图由长短不一的条状图构成，处于同一竖线起点的请求，就是并行请求，并行请求数量浏览器有上限，其他的请求必须等上一个请求完成后，才可以发出，瀑布图上可以看到</p>
 <p>​ 瀑布图上蓝色竖线表示dom加载完成的时间，红色表示所有资源加载完成的时间。</p>
 <p>​ 把鼠标放在到瀑布图上，还可以展示具体的时间构成</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118105340061.png" alt="image-20210118105340061"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118105340061.png" alt="image-20210118105340061"></p>
 <blockquote>
 <p>TTFB(Time To First Byte)</p>
 </blockquote>
 <p>可以把结果保存至本地</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110952135.png" alt="image-20210118110952135"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110952135.png" alt="image-20210118110952135"></p>
 <h3 id="lighthouse"><a href="#lighthouse" class="headerlink" title="lighthouse"></a>lighthouse</h3><p>主要看两个属性</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110414575.png" alt="image-20210118110414575"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110414575.png" alt="image-20210118110414575"></p>
 <h3 id="帧数"><a href="#帧数" class="headerlink" title="帧数"></a>帧数</h3><p><code>command</code>+<code>shift</code>+<code>p</code>  输入frame 选择展示帧数</p>
 
     </div>

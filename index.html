@@ -255,7 +255,7 @@
 <li><strong>UDP</strong>（User Data Protocol，<strong>用户数据报协议</strong>）一个非连接的协议，传输数据之前源端和终端不建立连接， 当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上</li>
 </ul>
 <h3 id="TCP-IP-的分层管理"><a href="#TCP-IP-的分层管理" class="headerlink" title="TCP&#x2F;IP 的分层管理"></a><strong>TCP&#x2F;IP</strong> 的分层管理</h3><p><strong>利用 TCP&#x2F;IP 协议族进行网络通信时，会通过分层顺序与对方进行通信</strong></p>
-<p><img src="/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/image-20210714152647756.png" alt="image-20210714152647756"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/image-20210714152647756.png" alt="image-20210714152647756"></p>
 <p>这些层基本上被分为4层：</p>
 <ul>
 <li><p>应用层</p>
@@ -286,17 +286,17 @@
 <blockquote>
 <p>OSI 七层模型</p>
 </blockquote>
-<p><img src="/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/6b87668471004dffbe71ee14b7bd8c8d~tplv-k3u1fbpfcp-watermark.gif" alt="img"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/6b87668471004dffbe71ee14b7bd8c8d~tplv-k3u1fbpfcp-watermark.gif" alt="img"></p>
 <blockquote>
 <p>附图 tcp段，IP分段 HTTP权威指南80页</p>
 </blockquote>
-<p><img src="/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E7%AC%AC%E5%85%AD%E7%AB%A0IP%E5%88%86%E7%BB%84.jpeg" alt="HTTP权威指南第六章IP分组"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E7%AC%AC%E5%85%AD%E7%AB%A0IP%E5%88%86%E7%BB%84.jpeg" alt="HTTP权威指南第六章IP分组"></p>
 </li>
 </ul>
 <h3 id="TCP-IP-通信传输流"><a href="#TCP-IP-通信传输流" class="headerlink" title="TCP&#x2F;IP 通信传输流"></a><strong>TCP&#x2F;IP</strong> 通信传输流</h3><p> 利用 TCP&#x2F;IP 协议族进行网络通信时，会通过分层顺序与对方进行通信。发送端从应用层往下走，接收端则往应用层往上走。 发送端在层与层之间传输数据时，每经过一层时必定会被打上一个该层所属的首部信息。反之，接收端在层与层传输数据时，每经过一层时会把对应的首部消去。</p>
 <p> 这种把数据信息包装起来的做法称为<strong>封装</strong>（encapsulate），如下图所示</p>
-<p><img src="/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/image-20210714153451934.png" alt="image-20210714153451934"></p>
-<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p><img src="/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/170723f106ff0306~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/image-20210714153451934.png" alt="image-20210714153451934"></p>
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/170723f106ff0306~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p> 头部至少20个字节</p>
 <p>待整理</p>
 <h4 id="TCP协议的特点"><a href="#TCP协议的特点" class="headerlink" title="TCP协议的特点"></a>TCP协议的特点</h4><h5 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h5><p>  面向连接，是指发送数据之前必须在两端建立连接。建立连接的方法是“三次握手”，这样能建立可靠的连接。建立连接，是为数据的可靠传输打下了基础。</p>
@@ -318,9 +318,9 @@
 <h4 id="4-不可靠性"><a href="#4-不可靠性" class="headerlink" title="4. 不可靠性"></a>4. 不可靠性</h4><p>首先不可靠性体现在无连接上，通信都不需要建立连接，想发就发，这样的情况肯定不可靠。</p>
 <p>并且收到什么数据就传递什么数据，并且也不会备份数据，发送数据也不会关心对方是否已经正确接收到数据了。</p>
 <p>再者网络环境时好时坏，但是 UDP 因为没有拥塞控制，一直会以恒定的速度发送数据。即使网络条件不好，也不会对发送速率进行调整。这样实现的弊端就是在网络条件不好的情况下可能会导致丢包，但是优点也很明显，在某些实时性要求高的场景（比如电话会议）就需要使用 UDP 而不是 TCP。</p>
-<p><img src="/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/b20e3fe2fd2a486498a8683ff92fb69d~tplv-k3u1fbpfcp-watermark-20211220150615293.gif" alt="img"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/b20e3fe2fd2a486498a8683ff92fb69d~tplv-k3u1fbpfcp-watermark-20211220150615293.gif" alt="img"></p>
 <p>从上面的动态图可以得知，UDP只会把想发的数据报文一股脑的丢给对方，并不在意数据有无安全完整到达。</p>
-<h4 id="5-头部开销小，传输数据报文时是很高效的"><a href="#5-头部开销小，传输数据报文时是很高效的" class="headerlink" title="5. 头部开销小，传输数据报文时是很高效的"></a>5. 头部开销小，传输数据报文时是很高效的</h4><p><img src="/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/49fcab711e4f43beb72f1b2d297bbf0f~tplv-k3u1fbpfcp-watermark-20211220150611420.gif" alt="img"></p>
+<h4 id="5-头部开销小，传输数据报文时是很高效的"><a href="#5-头部开销小，传输数据报文时是很高效的" class="headerlink" title="5. 头部开销小，传输数据报文时是很高效的"></a>5. 头部开销小，传输数据报文时是很高效的</h4><p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/49fcab711e4f43beb72f1b2d297bbf0f~tplv-k3u1fbpfcp-watermark-20211220150611420.gif" alt="img"></p>
 <p>UDP 头部包含了以下几个数据：</p>
 <ul>
 <li>两个十六位的端口号，分别为源端口（可选字段）和目标端口 （4字节？）</li>
@@ -524,8 +524,8 @@
 <h3 id="http-2-0"><a href="#http-2-0" class="headerlink" title="http 2.0"></a>http 2.0</h3><h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a><strong>多路复用</strong></h4><p> 前面我们分析了 HTTP&#x2F;1.1 所存在的一些主要问题：慢启动和 TCP 连接之间相互竞争带宽是由于 TCP 本身的机制导致的，而队头阻塞是由于 HTTP&#x2F;1.1 的机制导致的。</p>
 <p> HTTP&#x2F;2 的思路就是<strong>一个域名只使用一个 TCP 长连接来传输数据</strong>，这样整个页面资源的下载过程只需要一次慢启动，同时也避免了多个 TCP 连接竞争带宽所带来的问题</p>
 <p> 另一个问题就是队头阻塞的问题，等待请求完成后才能去请求下一个资源，这种方式无疑是最慢的，所以 <strong>HTTP&#x2F;2 需要实现资源的并行请求</strong>，解决了<strong>应用层面的队头阻塞</strong>，也就是任何时候都可以将请求发送给服务器，而并不需要等待其他请求的完成，然后服务器也可以随时返回处理好的请求资源给浏览器</p>
-<p><img src="/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210803172922718.png" alt="image-20210803172922718"></p>
-<p><img src="/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210803173309562.png" alt="image-20210803173309562"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210803172922718.png" alt="image-20210803172922718"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210803173309562.png" alt="image-20210803173309562"></p>
 <h4 id="http2分帧"><a href="#http2分帧" class="headerlink" title="http2分帧"></a>http2分帧</h4><p>帧是数据传输的最小单位，以二进制传输代替原本的明文传输，原本的报文消息被划分为更小的数据帧</p>
 <h5 id="帧结构"><a href="#帧结构" class="headerlink" title="帧结构"></a>帧结构</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> +-----------------------------------------------+</span><br><span class="line"> |                 Length (24)                   |</span><br><span class="line"> +---------------+---------------+---------------+</span><br><span class="line"> |   Type (8)    |   Flags (8)   |</span><br><span class="line"> +-+-------------+---------------+-------------------------------+</span><br><span class="line"> |R|                 Stream Identifier (31)                      |</span><br><span class="line"> +=+=============================================================+</span><br><span class="line"> |                   Frame Payload (0...)                      ...</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
@@ -635,13 +635,13 @@
 </ul>
 <h3 id="队头阻塞"><a href="#队头阻塞" class="headerlink" title="队头阻塞"></a>队头阻塞</h3><h4 id="应用层面"><a href="#应用层面" class="headerlink" title="应用层面"></a>应用层面</h4><p>在 <strong>HTTP&#x2F;1.1</strong> 中使用持久连接时，虽然能公用一个 TCP 管道，但是在一个管道中同一时刻只能处理一个请求，在当前的请求没有结束之前，其他的请求只能处于阻塞状态。</p>
 <p>http 2通过对请求和响应进行编号的方式，实现资源并行请求解决了这个问题</p>
-<h4 id="TCP层面"><a href="#TCP层面" class="headerlink" title="TCP层面"></a>TCP层面</h4><h5 id="http-1-1-1"><a href="#http-1-1-1" class="headerlink" title="http 1.1"></a>http 1.1</h5><p><img src="/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210805145222668.png" alt="image-20210805145222668"></p>
+<h4 id="TCP层面"><a href="#TCP层面" class="headerlink" title="TCP层面"></a>TCP层面</h4><h5 id="http-1-1-1"><a href="#http-1-1-1" class="headerlink" title="http 1.1"></a>http 1.1</h5><p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210805145222668.png" alt="image-20210805145222668"></p>
 <p>通过上图你会发现，从一端发送给另外一端的数据会被拆分为一个个按照顺序排列的数据包，这些数据包通过网络传输到了接收端，接收端再按照顺序将这些数据包组合成原始数据，这样就完成了数据传输。</p>
 <p>不过，如果在数据传输的过程中，有一个数据因为网络故障或者其他原因而丢包了，那么整个 TCP 的连接就会处于暂停状态，需要等待丢失的数据包被重新传输过来。你可以把 TCP连接看成是一个按照顺序传输数据的管道，管道中的任意一个数据丢失了，那之后的数据都需要等待该数据的重新传输。为了直观理解，你可以参考下图：</p>
-<p><img src="/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210805145256682.png" alt="image-20210805145256682"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20210805145256682.png" alt="image-20210805145256682"></p>
 <p>我们就把<strong>在 TCP 传输过程中，由于单个数据包的丢失而造成的阻塞称为 TCP 上的队头阻塞</strong>。</p>
 <h5 id="http-2-0-1"><a href="#http-2-0-1" class="headerlink" title="http 2.0"></a>http 2.0</h5><p>那队头阻塞是怎么影响 HTTP&#x2F;2 传输的呢？首先我们来看正常情况下 HTTP&#x2F;2 是怎么传输多路请求的，为了直观理解，你可以参考下图：</p>
-<p><img src="/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20230216173807167.png" alt="image-20230216173807167"></p>
+<p><img src="/md-images/%E7%BD%91%E7%BB%9C/assets/http%E7%9A%84%E5%8F%91%E5%B1%95%E5%8F%B2/image-20230216173807167.png" alt="image-20230216173807167"></p>
 <p><strong>通过该图，我们知道在 HTTP&#x2F;2 中，多个请求是跑在一个 TCP 管道中的，如果其中任意一路数据流中出现了丢包的情况，那么就会阻塞该 TCP 连接中的所有请求。这不同于HTTP&#x2F;1.1，使用 HTTP&#x2F;1.1 时，浏览器为每个域名开启了 6 个 TCP 连接，如果其中的 1个 TCP 连接发生了队头阻塞，那么其他的 5 个连接依然可以继续传输数据。</strong></p>
 <p>所以随着丢包率的增加，HTTP&#x2F;2 的传输效率也会越来越差。有测试数据表明，当系统达到了 2% 的丢包率时，HTTP&#x2F;1.1 的传输效率反而比 HTTP&#x2F;2 表现得更好。</p>
 <p>HTTP&#x2F;2 是通过分帧并且给每个帧打上流的 ID 去避免依次响应的问题，对方接收到帧之后根据 ID 拼接出流，这样就可以做到乱序响应从而避免请求时的队首阻塞问题。但是 TCP 层面的队首阻塞是 HTTP&#x2F;2 无法解决的（HTTP 只是应用层协议，TCP 是传输层协议），<strong>TCP 的阻塞问题是因为传输阶段可能会丢包，一旦丢包就会等待重新发包，阻塞后续传输，这个问题虽然有滑动窗口（Sliding Window）这个方案，但是只能增强抗干扰，并没有彻底解决。</strong></p>
@@ -723,14 +723,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="chrome架构"><a href="#chrome架构" class="headerlink" title="chrome架构"></a>chrome架构</h2><p>打开一个chrome网页，如图所示会出现很多线程</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712221958756.png" alt="image-20210712221958756"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712221958756.png" alt="image-20210712221958756"></p>
 <p>首先需要讲解一下 进程和线程</p>
 <h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
 <li><strong>一个进程就是一个程序的运行实例</strong></li>
 <li><strong>线程是不能单独存在的，它是由进程来启动和管理的</strong></li>
 <li><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></li>
 </ul>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222146731.png" alt="image-20210712222146731"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222146731.png" alt="image-20210712222146731"></p>
 <p>总结来说，进程和线程之间的关系有以下 4 个特点。</p>
 <ul>
 <li><strong>1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。</strong></li>
@@ -739,7 +739,7 @@
 <li><strong>4. 进程之间的内容相互隔离。(通信依靠IPC进程间通信)</strong></li>
 </ul>
 <h3 id="浏览器架构发展史"><a href="#浏览器架构发展史" class="headerlink" title="浏览器架构发展史"></a>浏览器架构发展史</h3><h4 id="单进程浏览器"><a href="#单进程浏览器" class="headerlink" title="单进程浏览器"></a>单进程浏览器</h4><p><strong>单进程浏览器是指浏览器的所有功能模块都是运行在同一个进程里</strong></p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222743496.png" alt="image-20210712222743496"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712222743496.png" alt="image-20210712222743496"></p>
 <p>缺点很明显</p>
 <ul>
 <li><p>不稳定</p>
@@ -767,7 +767,7 @@
 <p>经很难适应新的需求了。</p>
 </li>
 </ul>
-<p>多进程浏览器包括（浏览器架构持续优化中，仅供参考）:<br><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712223130924.png" alt="image-20210712223130924"></p>
+<p>多进程浏览器包括（浏览器架构持续优化中，仅供参考）:<br><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210712223130924.png" alt="image-20210712223130924"></p>
 <ul>
 <li><p><strong>浏览器进程</strong>。主要负责界面显示、用户交互、子进程管理，同时提供存储等功能。</p>
 </li>
@@ -794,7 +794,7 @@
 <li><p><strong>插件进程</strong></p>
 </li>
 </ul>
-<h2 id="从输入URL到页面展示，这中间发生了什么"><a href="#从输入URL到页面展示，这中间发生了什么" class="headerlink" title="从输入URL到页面展示，这中间发生了什么"></a>从输入URL到页面展示，这中间发生了什么</h2><p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714180345180.png" alt="image-20210714180345180"></p>
+<h2 id="从输入URL到页面展示，这中间发生了什么"><a href="#从输入URL到页面展示，这中间发生了什么" class="headerlink" title="从输入URL到页面展示，这中间发生了什么"></a>从输入URL到页面展示，这中间发生了什么</h2><p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210714180345180.png" alt="image-20210714180345180"></p>
 <p>从图中可以看出，<strong>整个过程需要各个进程之间的配合</strong>，首先介绍一下各进程的主要职责</p>
 <ul>
 <li><p>浏览器进程主要负责用户交互、子进程管理和文件储存等功能。</p>
@@ -820,9 +820,9 @@
 </li>
 </ul>
 <h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>美团文章的图</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/1671b9d4d735398e~tplv-t2oaga2asx-watermark-20220303151906096.gif" alt="img"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/1671b9d4d735398e~tplv-t2oaga2asx-watermark-20220303151906096.gif" alt="img"></p>
 <p> 按照渲染的时间顺序，流水线可分为如下几个子阶段：</p>
-<h4 id="构建-DOM-树"><a href="#构建-DOM-树" class="headerlink" title="构建 DOM 树"></a>构建 DOM 树</h4><p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143236150.png" alt="image-20210715143236150"></p>
+<h4 id="构建-DOM-树"><a href="#构建-DOM-树" class="headerlink" title="构建 DOM 树"></a>构建 DOM 树</h4><p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143236150.png" alt="image-20210715143236150"></p>
 <p> 构建 DOM 树的<strong>输入内容</strong>是一个非常简单的 HTML 文件，然后经由HTML 解析器解析，最终输出树状结构的 DOM</p>
 <h4 id="样式计算"><a href="#样式计算" class="headerlink" title="样式计算"></a>样式计算</h4><p> 样式计算的目的是为了计算出 DOM 节点中每个元素的具体样式，这个阶段大体可分为三步来完成：</p>
 <ol>
@@ -834,7 +834,7 @@
 </blockquote>
 </li>
 <li><p>转换样式表中的属性值，使其标准化</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143850698.png" alt="image-20210715143850698"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715143850698.png" alt="image-20210715143850698"></p>
 <blockquote>
 <p><strong>需要将所有值转换为渲染引擎容易理解的、标准化的计算值</strong></p>
 </blockquote>
@@ -845,14 +845,14 @@
 <h4 id="布局阶段"><a href="#布局阶段" class="headerlink" title="布局阶段"></a>布局阶段</h4><p> 我们有 DOM 树和 DOM 树中元素的样式，但这还不足以显示页面，因为我们还不知道 DOM 元素的几何位置信息。<strong>那么接下来就需要计算出 DOM 树中可见元素的几何位置，我们把这个计算过程叫做布局</strong>。</p>
 <p>​    Chrome 在布局阶段需要完成两个任务：创建布局树和布局计算。</p>
 <h5 id="创建布局树"><a href="#创建布局树" class="headerlink" title="创建布局树"></a>创建布局树</h5><p> 在显示之前，我们还要额外地构建一棵只包含可见元素布局树。</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715165934972.png" alt="image-20210715165934972"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715165934972.png" alt="image-20210715165934972"></p>
 <h5 id="布局计算"><a href="#布局计算" class="headerlink" title="布局计算"></a>布局计算</h5><p> <strong>在执行布局操作的时候，会把布局运算的结果重新写回布局树中</strong>，所以布局树既是输入内容也是输出内容，这是布局阶段一个不合理的地方</p>
 <blockquote>
 <p>所以在调试台中 经常看到layout之后 在再次update layer tree</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20211223095237296.png" alt="image-20211223095237296"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20211223095237296.png" alt="image-20211223095237296"></p>
 </blockquote>
 <h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p> 渲染引擎还需要为特定的节点生成专用的图层，并生成一棵对应的<strong>图层树（LayerTree）</strong></p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715170447195.png" alt="image-20210715170447195"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715170447195.png" alt="image-20210715170447195"></p>
 <p> 那么需要满足什么条件，渲染引擎才会为特定的节点创建新的层呢？</p>
 <ul>
 <li><p>拥有<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context">层叠上下文</a>属性的元素会被提升为单独的一层</p>
@@ -864,16 +864,16 @@
 </li>
 </ul>
 <h4 id="图层绘制"><a href="#图层绘制" class="headerlink" title="图层绘制"></a>图层绘制</h4><h5 id="分析出绘制列表"><a href="#分析出绘制列表" class="headerlink" title="分析出绘制列表"></a>分析出绘制列表</h5><p> 在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进行绘制。渲染引擎会把一个图层的绘制拆分成很多小的<strong>绘制指令</strong>，然后再把这些指令按照顺序组成一个待绘制列表，如下图所示：</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715172527999.png" alt="image-20210715172527TCP协议的特点999"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715172527999.png" alt="image-20210715172527TCP协议的特点999"></p>
 <p> 绘制列表只是用来记录绘制顺序和绘制指令的列表，而实际上绘制操作是由渲染引擎中的<strong>合成线程</strong>来完成的。当图层的绘制列表准备好之后，主线程会把该绘制列表<strong>提交（commit）</strong>给合成线程</p>
 <h5 id="分块"><a href="#分块" class="headerlink" title="分块"></a>分块</h5><p> 通常一个页面可能很大，但是用户只能看到其中的一部分，我们把用户可以看到的这个部分叫做<strong>视口</strong>（viewport）。通过视口，用户只能看到页面的很小一部分，所以在这种情况下，要绘制出所有图层内容的话，就会产生太大的开销，而且也没有必要。</p>
 <p> 基于这个原因，<strong>合成线程会将图层划分为图块（tile）</strong>，这些图块的大小通常是 <strong>256x256</strong> 或者 <strong>512x512</strong></p>
 <h5 id="光栅化raster"><a href="#光栅化raster" class="headerlink" title="光栅化raster"></a>光栅化raster</h5><p> 合成线程会按照视口附近的图块来优先生成位图，实际生成位图的操作是由栅格化来执行的。所谓<strong>栅格化，是指将图块转换为位图</strong>。</p>
 <p> 而图块是栅格化执行的最小单位。渲染进程维护了一个栅格化的线程池，所有的图块栅格化都是在线程池内执行的</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173725392.png" alt="image-20210715173725392"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173725392.png" alt="image-20210715173725392"></p>
 <h5 id="合成和显示"><a href="#合成和显示" class="headerlink" title="合成和显示"></a>合成和显示</h5><p> 一旦所有图块都被光栅化，合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程。</p>
 <p> 浏览器进程里面有一个叫 viz 的组件，用来接收合成线程发过来的 DrawQuad 命令，然后根据 DrawQuad 命令，将其页面内容绘制到内存中，最后再将内存显示在屏幕上。</p>
-<h4 id="渲染流水线大总结"><a href="#渲染流水线大总结" class="headerlink" title="渲染流水线大总结"></a>渲染流水线大总结</h4><p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173820255.png" alt="image-20210715173820255"></p>
+<h4 id="渲染流水线大总结"><a href="#渲染流水线大总结" class="headerlink" title="渲染流水线大总结"></a>渲染流水线大总结</h4><p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210715173820255.png" alt="image-20210715173820255"></p>
 <p>结合上图，一个完整的渲染流程大致可总结为如下：</p>
 <ul>
 <li>渲染进程将 HTML 内容转换为能够读懂的<strong>DOM 树</strong>结构。</li>
@@ -921,7 +921,7 @@
 <h3 id="web页面安全"><a href="#web页面安全" class="headerlink" title="web页面安全"></a>web页面安全</h3><p>在没有安全保障的 Web 世界中，我们是没有隐私的，因此需要安全策略来保障我们的隐私和数据的安全。</p>
 <h4 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h4><p>在页面中最基础、最核心的安全策略：**<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">同源策略</a>（Same-origin policy），<strong>如果两个 URL 的协议、域名和端口都相同，我们就称这两个 URL 同源，两个不同的源之间若想要</strong>相互访问资源或者操作 DOM**，那么会有一套基础的安全策略的制约，我们把这称为同源策略。</p>
 <p>下表给出了与 URL <code>http://store.company.com/dir/page.html</code> 的源进行对比的示例:</p>
-<p><img src="/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210805172753684.png" alt="image-20210805172753684"></p>
+<p><img src="/md-images/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/assets/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/image-20210805172753684.png" alt="image-20210805172753684"></p>
 <p>具体来讲，同源策略主要表现在 DOM、Web 数据和网络这三个层面：</p>
 <ul>
 <li><p><strong>DOM 层面</strong>。同源策略限制了来自不同源的 JavaScript 脚本对当前 DOM 对象读和写的操作。</p>
@@ -1074,7 +1074,7 @@
 <h2 id="create函数"><a href="#create函数" class="headerlink" title="create函数"></a>create函数</h2><p>很多框架源码作者使用它来初始化一个新的对象，难道是最佳实践？<br>原因有二  </p>
 <ul>
 <li>通过Object.create(null)创建出来的对象，没有任何属性，显示No properties。我们可以将其当成一个干净的 map 来使用，自主定义 toString,hasOwnProperty等方法，并且不必担心将原型链上的同名方法被覆盖。</li>
-<li>{…}创建的对象，使用for in遍历对象的时候，会遍历原型链上的属性，带来性能上的损耗。使用Object.create(null)则不必再对其进行遍历了。<br><img src="/assets/selfFuc/write1.png" alt="两种方式的比较"></li>
+<li>{…}创建的对象，使用for in遍历对象的时候，会遍历原型链上的属性，带来性能上的损耗。使用Object.create(null)则不必再对其进行遍历了。<br><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/selfFuc/write1.png" alt="两种方式的比较"></li>
 </ul>
 <p>手写Object.create</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function ObjCreate(proto, properties) &#123;</span><br><span class="line">  // 判断类型，第一个参数传入的必须是 object, function</span><br><span class="line">  if (typeof proto !== &quot;object&quot; &amp;&amp; typeof proto !== &quot;function&quot;) &#123;</span><br><span class="line">    throw new TypeError(&quot;Object prototype may only be an Object: &quot; + proto);</span><br><span class="line">  &#125; </span><br><span class="line">  // 简单的实现的过程，忽略了properties</span><br><span class="line">  var func = function() &#123;&#125;;</span><br><span class="line">  func.prototype = proto; // 将fn的原型指向传入的proto</span><br><span class="line">  return new func();  // 返回创建的新对象，这里思考下，new func() 又做了什么事情呢？且往下看！</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -1318,11 +1318,11 @@
 
 <h2 id="加深对二叉树递归的理解"><a href="#加深对二叉树递归的理解" class="headerlink" title="加深对二叉树递归的理解"></a>加深对二叉树递归的理解</h2><h3 id="230-二叉搜索树中第K小的元素-labuladong-题解-思路"><a href="#230-二叉搜索树中第K小的元素-labuladong-题解-思路" class="headerlink" title="230. 二叉搜索树中第K小的元素 labuladong 题解 思路"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/">230. 二叉搜索树中第K小的元素</a> <a target="_blank" rel="noopener" href="https://labuladong.gitee.io/plugin-v2/?qno=230">labuladong 题解</a> <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/#">思路</a></h3><p>给定一个二叉搜索树的根节点 <code>root</code> ，和一个整数 <code>k</code> ，请你设计一个算法查找其中第 <code>k</code> 个最小元素（从 1 开始计数）。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="/assets/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/kthtree1.jpg" alt="img"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/kthtree1.jpg" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [3,1,4,null,2], k = 1</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
 
 <p><strong>示例 2：</strong></p>
-<p><img src="/assets/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/kthtree2.jpg" alt="img"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/kthtree2.jpg" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：root = [5,3,6,2,4,null,null,1], k = 3</span><br><span class="line">输出：3</span><br></pre></td></tr></table></figure>
 
 <h4 id="对递归理解不深的解法，没错-我写的"><a href="#对递归理解不深的解法，没错-我写的" class="headerlink" title="对递归理解不深的解法，没错 我写的"></a>对递归理解不深的解法，没错 我写的</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var kthSmallest = function(root, k) &#123;</span><br><span class="line">  let res</span><br><span class="line">  function handle(root, count, k)&#123;</span><br><span class="line">    if(!root)&#123;</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line">    handle(root.left, count, k)</span><br><span class="line">    if(count === k)&#123;</span><br><span class="line">      res = root.val</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line">    count++</span><br><span class="line">    handle(root.right, count, k)</span><br><span class="line">  &#125;</span><br><span class="line">  handle(root, 1, k)</span><br><span class="line">  return res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -1338,7 +1338,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">var deleteNode = function(root, key) &#123;</span><br><span class="line">  if(!root)&#123;</span><br><span class="line">    return root</span><br><span class="line">  &#125;</span><br><span class="line">  if(root.val === key)&#123;</span><br><span class="line">    if(!root.left)&#123;</span><br><span class="line">      // 如果root.right 也不存在 就是null</span><br><span class="line">      return root.right</span><br><span class="line">    &#125;</span><br><span class="line">    if(!root.right)&#123;</span><br><span class="line">      return root.left</span><br><span class="line">    &#125;</span><br><span class="line">    const minVal = getRightMin(root.right)</span><br><span class="line">    root.val = minVal.val</span><br><span class="line">    root.right = deleteNode(root.right, minVal.val)</span><br><span class="line">  &#125;else if(key &lt; root.val)&#123;</span><br><span class="line">    root.left = deleteNode(root.left, key)</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    root.right = deleteNode(root.right, key)</span><br><span class="line">  &#125;</span><br><span class="line">  return root</span><br><span class="line">&#125;;</span><br><span class="line">function getRightMin(root)&#123;</span><br><span class="line">  while(root.left)&#123;</span><br><span class="line">    root = root.left</span><br><span class="line">  &#125;</span><br><span class="line">  return root</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="95-不同的二叉搜索树-II"><a href="#95-不同的二叉搜索树-II" class="headerlink" title="95. 不同的二叉搜索树 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/">95. 不同的二叉搜索树 II</a></h3><p>给你一个整数 n ，请你生成并返回所有由 n 个节点组成且节点值从 1 到 n 互不相同的不同 二叉搜索树 。可以按 任意顺序 返回答案。</p>
-<p> <img src="/assets/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/uniquebstn3.jpg" alt="img"></p>
+<p> <img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/uniquebstn3.jpg" alt="img"></p>
 <p>示例 1：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 3</span><br><span class="line">输出：[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]</span><br><span class="line">示例 2：</span><br></pre></td></tr></table></figure>
 
@@ -1574,23 +1574,23 @@
 <p>具体来说，我们的<code>reverse</code>函数定义是这样的：</p>
 <p><strong>输入一个节点<code>head</code>，将「以<code>head</code>为起点」的链表反转，并返回反转之后的头结点</strong>。</p>
 <p>明白了函数的定义，再来看这个问题。比如说我们想反转这个链表：</p>
-<p><img src="/assets/%E9%93%BE%E8%A1%A8/640-20211019112839879.png" alt="图片"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839879.png" alt="图片"></p>
 <p>那么输入<code>reverse(head)</code>后，会在这里进行递归：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ListNode last = reverse(head.next);</span><br></pre></td></tr></table></figure>
 
 <p>不要跳进递归（你的脑袋能压几个栈呀？），而是要根据刚才的函数定义，来弄清楚这段代码会产生什么结果：</p>
-<p><img src="/assets/%E9%93%BE%E8%A1%A8/640-20211019112840006.png" alt="图片"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112840006.png" alt="图片"></p>
 <p>按照定义，这个<code>reverse(head.next)</code>执行完成后，整个链表应该变成了这样：</p>
-<p><img src="/assets/%E9%93%BE%E8%A1%A8/640.png" alt="图片"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640.png" alt="图片"></p>
 <p>并且根据函数定义，<code>reverse</code>函数会返回反转之后的头结点，我们用变量<code>last</code>接收了。</p>
 <p>现在再来看下面的代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head.next.next = head;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/assets/%E9%93%BE%E8%A1%A8/640-20211019112839982.png" alt="图片"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839982.png" alt="图片"></p>
 <p>接下来进行的操作：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head.next = null;</span><br><span class="line">return last;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/assets/%E9%93%BE%E8%A1%A8/640-20211019112839935.png" alt="图片"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839935.png" alt="图片"></p>
 <p>神不神奇，这样整个链表就反转过来了！递归代码就是这么简洁优雅，不过其中有两个地方需要注意：</p>
 <p><strong>1、递归函数要有 base case</strong>，也就是这句：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (head.next == null) return head;</span><br></pre></td></tr></table></figure>
@@ -1840,12 +1840,12 @@
 <h4 id="正序"><a href="#正序" class="headerlink" title="正序"></a>正序</h4><p>建议自己再画一遍示意图，根据代码画，还是比较容易理解的</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const arr1 = [2, 1, 5, 6, 2, 3];</span><br><span class="line">function countSteps(arr) &#123;</span><br><span class="line">  // 用栈存储下标</span><br><span class="line">  const stack = [];</span><br><span class="line">  const result = Array(arr.length).fill(-1);</span><br><span class="line">  for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">    while (stack.length &amp;&amp; arr[i] &gt; arr[stack[stack.length - 1]]) &#123;</span><br><span class="line">      result[stack.pop()] = arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">    stack.push(i);</span><br><span class="line">  &#125;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(countSteps(arr1));</span><br><span class="line">[ 5, 5, 6, -1, 3, -1 ]</span><br></pre></td></tr></table></figure>
 
-<p><img src="/assets/%E5%8D%95%E8%B0%83%E6%A0%88/151635833917_.pic_%E5%89%AF%E6%9C%AC.jpg" alt="151635833917_.pic_副本"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E5%8D%95%E8%B0%83%E6%A0%88/151635833917_.pic_%E5%89%AF%E6%9C%AC.jpg" alt="151635833917_.pic_副本"></p>
 <h4 id="倒叙"><a href="#倒叙" class="headerlink" title="倒叙"></a>倒叙</h4><p>这个讲的比较好，<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484525&idx=1&sn=3d2e63694607fec72455a52d9b15d4e5&chksm=9bd7fa65aca073734df90b45054448e09c14e6e35ad7b778bff62f9bd6c2b4f6e1ca7bc4f844&scene=21#wechat_redirect">labuladong</a></p>
 <p>倒叙好像是不用记录下标，因为倒叙处理，每到一个元素，<strong>它的结果都会在此轮遍历中确定，和正序不同</strong>，再多理解理解</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const arr2 = [2, 1, 2, 4, 3];</span><br><span class="line">function nextBigElement(arr) &#123;</span><br><span class="line">  const stack = []</span><br><span class="line">  const result = []</span><br><span class="line">  for (let i = arr.length-1; i &gt;=0; i--) &#123;</span><br><span class="line">    while (stack.length &amp;&amp; arr[i] &gt;= stack[stack.length-1]) &#123;</span><br><span class="line">      stack.pop()</span><br><span class="line">    &#125;</span><br><span class="line">    result[i] = stack.length ? stack[stack.length - 1] : -1</span><br><span class="line">    stack.push(arr[i])</span><br><span class="line">  &#125;</span><br><span class="line">  return result</span><br><span class="line">&#125;</span><br><span class="line">console.log(nextBigElement(arr2));</span><br></pre></td></tr></table></figure>
 
-<p><img src="/assets/%E5%8D%95%E8%B0%83%E6%A0%88/%E5%9B%BE%E5%83%8F.jpeg" alt="图像"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E5%8D%95%E8%B0%83%E6%A0%88/%E5%9B%BE%E5%83%8F.jpeg" alt="图像"></p>
 <h4 id="正序和倒序的一些区别"><a href="#正序和倒序的一些区别" class="headerlink" title="正序和倒序的一些区别"></a>正序和倒序的一些区别</h4><ul>
 <li>确定值的时机不同<ul>
 <li>倒序在每一轮循环中都可以确认</li>
@@ -1994,7 +1994,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">class ListNode&#123;</span><br><span class="line">  constructor(index, value, pre, next) &#123;</span><br><span class="line">    this.index = index;</span><br><span class="line">    this.value = value;</span><br><span class="line">    this.pre = pre || null;</span><br><span class="line">    this.next = next || null;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var maxSlidingWindow = function(nums, k) &#123;</span><br><span class="line">  const sw = new SliderWindow()</span><br><span class="line">  const rs = []</span><br><span class="line">  for(let i=0;i&lt;k;i++)&#123;</span><br><span class="line">    sw.push(i, nums[i])</span><br><span class="line">  &#125;</span><br><span class="line">  rs.push(sw.max())</span><br><span class="line">  for(let i=k,j=0;i&lt;nums.length;i++,j++)&#123;</span><br><span class="line">    sw.push(i, nums[i])</span><br><span class="line">    sw.shift(j)</span><br><span class="line">    rs.push(sw.max())</span><br><span class="line">  &#125;</span><br><span class="line">  return rs</span><br><span class="line">&#125;;</span><br><span class="line">class SliderWindow&#123;</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    this.dummyHead = new ListNode(-1, -1)</span><br><span class="line">    this.dummyTail = new ListNode(-1, -1)</span><br><span class="line">    this.dummyTail.pre = this.dummyHead</span><br><span class="line">    this.dummyHead.next = this.dummyTail</span><br><span class="line">  &#125;</span><br><span class="line">  max()&#123;</span><br><span class="line">    return this.dummyHead.next.value</span><br><span class="line">  &#125;</span><br><span class="line">  shift(index)&#123;</span><br><span class="line">    if(index === this.dummyHead.next.index)&#123;</span><br><span class="line">      this.dummyHead.next = this.dummyHead.next.next</span><br><span class="line">      this.dummyHead.next.pre = this.dummyHead</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  push(index, value)&#123;</span><br><span class="line">    while(this.dummyHead.next !== this.dummyTail  &amp;&amp; value &gt; this.dummyTail.pre.value)&#123;</span><br><span class="line">      this.dummyTail.pre.pre.next = this.dummyTail</span><br><span class="line">      this.dummyTail.pre = this.dummyTail.pre.pre</span><br><span class="line">    &#125;</span><br><span class="line">    const newListNode = new ListNode(index, value)</span><br><span class="line">    this.dummyTail.pre.next = newListNode</span><br><span class="line">    newListNode.pre = this.dummyTail.pre</span><br><span class="line">    this.dummyTail.pre = newListNode</span><br><span class="line">    newListNode.next = this.dummyTail</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>改成链表以后，速度快了非常多，思路还是一样的，就是单调队列用双向链表来实现</p>
-<p><img src="/assets/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/image-20211109113118826.png" alt="image-20211109113118826"></p>
+<p><img src="/md-images/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/image-20211109113118826.png" alt="image-20211109113118826"></p>
 <h3 id="76-最小覆盖子串"><a href="#76-最小覆盖子串" class="headerlink" title="76. 最小覆盖子串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-window-substring/">76. 最小覆盖子串</a></h3><p>自己的代码，根据<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485141&idx=1&sn=0e4583ad935e76e9a3f6793792e60734&chksm=9bd7f8ddaca071cbb7570b2433290e5e2628d20473022a5517271de6d6e50783961bebc3dd3b&scene=21#wechat_redirect">labuladong</a>这个思路书写的代码，倒数第二个测试用例超时了，原因应该是符合条件的函数需要优化吧</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">var minWindow = function(s, t) &#123;</span><br><span class="line">  let min = Number.MAX_SAFE_INTEGER;</span><br><span class="line">  let left = right = 0;</span><br><span class="line">  let res = &quot;&quot;</span><br><span class="line">  const need = t.split(&quot;&quot;).reduce((pre, cur) =&gt; &#123;</span><br><span class="line">    pre[cur] ? pre[cur]++ : pre[cur]=1</span><br><span class="line">    return pre</span><br><span class="line">  &#125;, &#123;&#125;)</span><br><span class="line">  const sw = new SliderWindow()</span><br><span class="line">  while (right &lt; s.length) &#123;</span><br><span class="line">    let flag = false</span><br><span class="line">    sw.push(s[right++])</span><br><span class="line">    </span><br><span class="line">    while (sw.isAccord(need)) &#123;</span><br><span class="line">      sw.shift(s[left++])</span><br><span class="line">      flag = true</span><br><span class="line">    &#125;</span><br><span class="line">    if (flag &amp;&amp; right - left + 1 &lt; min) &#123;</span><br><span class="line">      min = right - left + 1</span><br><span class="line">      res = s.substring(left-1, right)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return res</span><br><span class="line">&#125;;</span><br><span class="line">class SliderWindow&#123;</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    this.window = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  push(s)&#123;</span><br><span class="line">    this.window[s] ? this.window[s]++ : this.window[s] = 1</span><br><span class="line">  &#125;</span><br><span class="line">  shift(s)&#123;</span><br><span class="line">    this.window[s] === 1 ? delete this.window[s] : this.window[s]--</span><br><span class="line">  &#125;</span><br><span class="line">  isAccord(need)&#123;</span><br><span class="line">    for(let [key, value] of Object.entries(need))&#123;</span><br><span class="line">      if(!this.window[key] || this.window[key] &lt; need[key])&#123;</span><br><span class="line">        return false</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="进程和线程 启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，我们把这样的一个运行环境叫进程  一个进程就是一个程序的运行实例 线程是不能单独存在的，它是由进程来启动和管理的 线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率   总结来说，进程和线程之间的关系有以下 4 个特点。  1. 进程中的任意一线程执行出错，都会导致整个进程的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.gif">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.gif">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png">
 <meta property="article:published_time" content="2024-07-13T05:25:31.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:25:31.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="常用概念">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/">
@@ -257,7 +257,7 @@
 <li><strong>线程是不能单独存在的，它是由进程来启动和管理的</strong></li>
 <li><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></li>
 </ul>
-<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png" alt="image-20210712222146731"></p>
+<p><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png" alt="image-20210712222146731"></p>
 <p>总结来说，进程和线程之间的关系有以下 4 个特点。</p>
 <ul>
 <li><strong>1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。</strong></li>
@@ -273,7 +273,7 @@
 <li><strong>UDP</strong>（User Data Protocol，用户数据报协议）一个非连接的协议，传输数据之前源端和终端不建立连接， 当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上</li>
 </ul>
 <h3 id="TCP-IP-的分层管理"><a href="#TCP-IP-的分层管理" class="headerlink" title="TCP&#x2F;IP 的分层管理"></a><strong>TCP&#x2F;IP</strong> 的分层管理</h3><p><strong>利用 TCP&#x2F;IP 协议族进行网络通信时，会通过分层顺序与对方进行通信</strong></p>
-<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png" alt="image-20210714152647756"></p>
+<p><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png" alt="image-20210714152647756"></p>
 <p>这些层基本上被分为4层：</p>
 <ul>
 <li><p>应用层</p>
@@ -304,7 +304,7 @@
 </li>
 </ul>
 <h2 id="Cookies-的属性"><a href="#Cookies-的属性" class="headerlink" title="Cookies 的属性"></a>Cookies 的属性</h2><p>在下面这张图里我们可以看到 Cookies 相关的一些属性：</p>
-<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p>这里主要说一些大家可能没有注意的点：</p>
 <h3 id="Name-Value"><a href="#Name-Value" class="headerlink" title="Name&#x2F;Value"></a>Name&#x2F;Value</h3><p>用 JavaScript 操作 Cookie 的时候注意对 Value 进行编码处理。</p>
 <h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>Expires 用于设置 Cookie 的过期时间。比如：</p>
@@ -435,7 +435,7 @@
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change"><code>will-change</code></a> 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考<a target="_blank" rel="noopener" href="https://dev.opera.com/articles/css-will-change-property/">这篇文章</a>）；</li>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain"><code>contain</code></a> 属性值为 <code>layout</code>、<code>paint</code> 或包含它们其中之一的合成值（比如 <code>contain: strict</code>、<code>contain: content</code>）的元素。</li>
 </ul>
-<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png" alt="image-20211213143326679"></p>
+<p><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png" alt="image-20211213143326679"></p>
 <h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><p><strong>块格式化上下文（Block Formatting Context，BFC）</strong> 是Web页面的可视CSS渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。</p>
 <p>下列方式会创建<strong>块格式化上下文</strong>：</p>
 <ul>
@@ -463,7 +463,7 @@
 <li>属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠</li>
 <li>BFC 中子元素的 margin box 的左边， 与包含块 (BFC) border box的左边相接触 (子元素 absolute 除外)</li>
 <li>BFC 的区域不会与 float 的元素区域重叠 自适应两栏布局</li>
-<li><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png" alt="img"></li>
+<li><img src="/md-images/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png" alt="img"></li>
 <li>计算 BFC 的高度时，浮动子元素也参与计算</li>
 <li>文字层不会被浮动层覆盖，环绕于周围</li>
 </ul>

@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="五大设计原则js常用前两种原则，语言特性和后三种原则关联不大。  单一职责原则 一个程序只做好一件事 如果功能复杂就拆分开，每个部分保持独立   开放封闭原则 对扩展开放，对修改封闭 增加需求时，扩展新代码，而非修改已有代码 这是软件设计的终极目标   李氏置换原则 接口独立原则 依赖导致原则  设计模式的基本-面向对象为何使用面向对象  程序执行：顺序、判断、循环 —- 结构化 面对对象 —-">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png">
 <meta property="article:published_time" content="2021-05-13T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:26.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
@@ -335,7 +335,7 @@
 <li>为子系统中的一组接口提供了一个高层接口</li>
 <li>使用者使用这个高层接口</li>
 </ul>
-<p><img src="/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png" alt="外观模式"></p>
+<p><img src="/md-images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png" alt="外观模式"></p>
 <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>前端最常用、最重要的模式<br>代码示意</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">class Subject &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.state = 0;</span><br><span class="line">    this.observers = [];</span><br><span class="line">  &#125;</span><br><span class="line">  getState() &#123;</span><br><span class="line">    return this.state;</span><br><span class="line">  &#125;</span><br><span class="line">  setState(state) &#123;</span><br><span class="line">    this.state = state;</span><br><span class="line">    this.notifyAllObservers();</span><br><span class="line">  &#125;</span><br><span class="line">  notifyAllObservers() &#123;</span><br><span class="line">    this.observers.forEach(observer =&gt; &#123;</span><br><span class="line">      observer.update();</span><br><span class="line">      console.log(`$&#123;observer.name&#125; -- updata --- $&#123;this.getState()&#125;`);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  attach(observer) &#123;</span><br><span class="line">    this.observers.push(observer);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 观察者</span><br><span class="line">class Observer &#123;</span><br><span class="line">  constructor(name, subject) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.subject = subject;</span><br><span class="line">    this.subject.attach(this);</span><br><span class="line">  &#125;</span><br><span class="line">  update() &#123;</span><br><span class="line">    console.log(&#x27;更新&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const subject = new Subject();</span><br><span class="line">const ob1 = new Observer(&#x27;ob1&#x27;, subject);</span><br><span class="line">const ob2 = new Observer(&#x27;ob2&#x27;, subject);</span><br><span class="line">const ob3 = new Observer(&#x27;ob3&#x27;, subject);</span><br><span class="line">subject.setState(1);</span><br><span class="line">subject.setState(2);</span><br><span class="line">subject.setState(3);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -385,8 +385,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="prev" title="排序算法">
-                  <i class="fa fa-angle-left"></i> 排序算法
+                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" rel="prev" title="linux基本命令">
+                  <i class="fa fa-angle-left"></i> linux基本命令
                 </a>
             </div>
             <div class="post-nav-item">

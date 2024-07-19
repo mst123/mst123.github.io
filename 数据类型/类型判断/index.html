@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="前言JavaScript 是一种弱类型或者说动态类型，这就意味着你不需要提前声明变量的类型，在程序运行的过程中，类型会被自动确定。这就意味着你可以使用同一个变量保存不同类型的数据： 1234var data &#x3D; 5 &#x2F;&#x2F; data is Number nowdata &#x3D; &#x27;5&#x27; &#x2F;&#x2F; data is String nowdata &#x3D; true &#x2F;&#x2F; data is Boolea">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/17d691db030245548cd7859fb16123e7~tplv-k3u1fbpfcp-watermark.gif">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/17d691db030245548cd7859fb16123e7~tplv-k3u1fbpfcp-watermark.gif">
 <meta property="article:published_time" content="2021-06-23T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:37.000Z">
 <meta property="article:author" content="马农">
-<meta property="article:tag" content="数据类型">
 <meta property="article:tag" content="类型判断">
+<meta property="article:tag" content="数据类型">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/17d691db030245548cd7859fb16123e7~tplv-k3u1fbpfcp-watermark.gif">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/17d691db030245548cd7859fb16123e7~tplv-k3u1fbpfcp-watermark.gif">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">
@@ -336,7 +336,7 @@
 <li>基于原型链的原理：从实例对象的构造函数的原型开始向上寻找，构造函数的原型又有其原型，一直向上找，直到找到原型链的顶端Object.prototype为止。如果没有，则返回null</li>
 <li>可以看出，person和Object是属于原型链的关系，所以返回true</li>
 </ul>
-<p><img src="/assets/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/17d691db030245548cd7859fb16123e7~tplv-k3u1fbpfcp-watermark.gif" alt="img"></p>
+<p><img src="/md-images/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/17d691db030245548cd7859fb16123e7~tplv-k3u1fbpfcp-watermark.gif" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">注意：空对象&#123;&#125;的判断问题</span><br><span class="line">let obj1 = &#123;&#125;</span><br><span class="line">console.log(obj1 instanceof Object) // true</span><br><span class="line"></span><br><span class="line">let obj2 = Object.create(null)</span><br><span class="line">console.log(obj2 instanceof Object) // false</span><br><span class="line"></span><br><span class="line">let obj3 = Object.create(&#123;&#125;)</span><br><span class="line">console.log(obj3 instanceof Object) // true</span><br><span class="line"></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
 
 <h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>原理：<code>每一个实例对象都可通过constructor来访问它的构造函数</code>,其实也是根据原型链的原理来的。</p>
@@ -366,8 +366,8 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="tag"># 数据类型</a>
               <a href="/tags/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" rel="tag"># 类型判断</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="tag"># 数据类型</a>
           </div>
 
         

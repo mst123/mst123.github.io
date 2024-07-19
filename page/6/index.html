@@ -247,7 +247,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="浏览器渲染流程"><a href="#浏览器渲染流程" class="headerlink" title="浏览器渲染流程"></a>浏览器渲染流程</h3><p><img src="/assets/render/image-20210122101059973.png" alt="image-20210122101059973"></p>
+          <h3 id="浏览器渲染流程"><a href="#浏览器渲染流程" class="headerlink" title="浏览器渲染流程"></a>浏览器渲染流程</h3><p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/render/image-20210122101059973.png" alt="image-20210122101059973"></p>
 <ol>
 <li>触发视觉变化（不仅仅是js控制还有可能是css）</li>
 <li>浏览器对样式进行重新计算</li>
@@ -301,14 +301,14 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">opacity: 1;</span><br><span class="line">transform: translate3d(0px, 0px, 0px);</span><br><span class="line">transition: none 0s ease 0s;</span><br></pre></td></tr></table></figure>
 
 <h3 id="优化相关的函数"><a href="#优化相关的函数" class="headerlink" title="优化相关的函数"></a>优化相关的函数</h3><p>一帧的声明周期</p>
-<p><img src="/assets/render/image-20210122121308752.png" alt="image-20210122121308752"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/render/image-20210122121308752.png" alt="image-20210122121308752"></p>
 <h4 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h4><p>防抖应用，按照实际帧数触发</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let flag = false;</span><br><span class="line">window.addEventListener(&quot;pointermove&quot;, () =&gt; &#123;</span><br><span class="line">  if (flag) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  flag = true;</span><br><span class="line">  window.requestAnimationFrame(() =&gt; &#123;</span><br><span class="line">    /* </span><br><span class="line">     * 处理事件</span><br><span class="line">    */</span><br><span class="line">    flag = false;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h4 id="requestIdleCallback"><a href="#requestIdleCallback" class="headerlink" title="requestIdleCallback"></a>requestIdleCallback</h4><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback#Browser_compatibility">mdn上的requestIdleCallback</a></p>
 <p>案例： react 16 通过rAF 模拟 rIF 进行事件调度  </p>
 <p>下图是rAF 和 rIF 的不同</p>
-<p><img src="/assets/render/image-20210122142533699.png" alt="image-20210122142533699"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/render/image-20210122142533699.png" alt="image-20210122142533699"></p>
 
       
     </div>
@@ -632,25 +632,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="chrome-浏览器调试工具的使用"><a href="#chrome-浏览器调试工具的使用" class="headerlink" title="chrome 浏览器调试工具的使用"></a>chrome 浏览器调试工具的使用</h2><h3 id="network性能测试"><a href="#network性能测试" class="headerlink" title="network性能测试"></a>network性能测试</h3><p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png" alt="image-20210118103539289"></p>
+          <h2 id="chrome-浏览器调试工具的使用"><a href="#chrome-浏览器调试工具的使用" class="headerlink" title="chrome 浏览器调试工具的使用"></a>chrome 浏览器调试工具的使用</h2><h3 id="network性能测试"><a href="#network性能测试" class="headerlink" title="network性能测试"></a>network性能测试</h3><p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118103539289.png" alt="image-20210118103539289"></p>
 <p>打开调试工具 -&gt; network 注意打钩选项 然后按住刷新，选择清空缓存并硬性重新加载</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104323123.png" alt="image-20210118104323123"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104323123.png" alt="image-20210118104323123"></p>
 <blockquote>
 <p>network底部有 transferred over network和 resources loaded by the page. 这两个大小有何区别？后边那个指的是解压后的大小，前边那个指的是源文件</p>
 </blockquote>
 <p>下面重点研究瀑布图</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104749352.png" alt="image-20210118104749352"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118104749352.png" alt="image-20210118104749352"></p>
 <p>  瀑布图由长短不一的条状图构成，处于同一竖线起点的请求，就是并行请求，并行请求数量浏览器有上限，其他的请求必须等上一个请求完成后，才可以发出，瀑布图上可以看到</p>
 <p>​ 瀑布图上蓝色竖线表示dom加载完成的时间，红色表示所有资源加载完成的时间。</p>
 <p>​ 把鼠标放在到瀑布图上，还可以展示具体的时间构成</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118105340061.png" alt="image-20210118105340061"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118105340061.png" alt="image-20210118105340061"></p>
 <blockquote>
 <p>TTFB(Time To First Byte)</p>
 </blockquote>
 <p>可以把结果保存至本地</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110952135.png" alt="image-20210118110952135"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110952135.png" alt="image-20210118110952135"></p>
 <h3 id="lighthouse"><a href="#lighthouse" class="headerlink" title="lighthouse"></a>lighthouse</h3><p>主要看两个属性</p>
-<p><img src="/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110414575.png" alt="image-20210118110414575"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/image-20210118110414575.png" alt="image-20210118110414575"></p>
 <h3 id="帧数"><a href="#帧数" class="headerlink" title="帧数"></a>帧数</h3><p><code>command</code>+<code>shift</code>+<code>p</code>  输入frame 选择展示帧数</p>
 
       
@@ -740,8 +740,8 @@
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>说起鉴权大家应该都很熟悉，不过作为前端开发来讲，鉴权的流程大头都在后端小哥那边，本文的目的就是为了让大家了解一下常见的鉴权的方式和原理。</p>
 <p>认知：HTTP 是一个无状态协议，所以客户端每次发出请求时，下一次请求无法得知上一次请求所包含的状态数据。</p>
 <h2 id="一、HTTP-Auth-Authentication"><a href="#一、HTTP-Auth-Authentication" class="headerlink" title="一、HTTP Auth Authentication"></a>一、HTTP Auth Authentication</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>HTTP 提供一个用于权限控制和认证的通用框架。最常用的HTTP认证方案是HTTP Basic Authentication</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg" alt="img"></p>
-<h3 id="鉴权流程"><a href="#鉴权流程" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/assets/%E9%89%B4%E6%9D%83/v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程"><a href="#鉴权流程" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg" alt="img"></p>
 <h3 id="加解密过程"><a href="#加解密过程" class="headerlink" title="加解密过程"></a>加解密过程</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Authorization 加密过程</span></span><br><span class="line"><span class="keyword">let</span> email = <span class="string">&quot;postmail@test.com&quot;</span></span><br><span class="line"><span class="keyword">let</span> password = <span class="string">&quot;12345678&quot;</span></span><br><span class="line"><span class="keyword">let</span> auth = <span class="string">`<span class="subst">$&#123;email&#125;</span>:<span class="subst">$&#123;password&#125;</span>`</span></span><br><span class="line"><span class="keyword">const</span> buf = <span class="title class_">Buffer</span>.<span class="title function_">from</span>(auth, <span class="string">&#x27;ascii&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">info</span>(buf.<span class="title function_">toString</span>(<span class="string">&#x27;base64&#x27;</span>)); <span class="comment">// cG9zdG1haWxAdGVzdC5jb206MTIzNDU2Nzg=</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Authorization 解密过程</span></span><br><span class="line"><span class="keyword">const</span> buf = <span class="title class_">Buffer</span>.<span class="title function_">from</span>(authorization.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>] || <span class="string">&#x27;&#x27;</span>),  <span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> user = buf.<span class="title function_">toString</span>(<span class="string">&#x27;ascii&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;:&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="其他-HTTP-认证"><a href="#其他-HTTP-认证" class="headerlink" title="其他 HTTP 认证"></a>其他 HTTP 认证</h3><p>通用 HTTP 身份验证框架有多个验证方案使用。不同的验证方案会在安全强度上有所不同。</p>
@@ -754,14 +754,14 @@
 <li>Mutual (查看 <a href="https://link.zhihu.com/?target=https://tools.ietf.org/html/draft-ietf-httpauth-mutual-11">draft-ietf-httpauth-mutual</a>),</li>
 <li>AWS4-HMAC-SHA256 (查看 <a href="https://link.zhihu.com/?target=http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html">AWS docs</a>)</li>
 </ul>
-<h2 id="二、Cookie-Session"><a href="#二、Cookie-Session" class="headerlink" title="二、Cookie + Session"></a>二、Cookie + Session</h2><h3 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h3><p><img src="/assets/%E9%89%B4%E6%9D%83/v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg" alt="img"></p>
+<h2 id="二、Cookie-Session"><a href="#二、Cookie-Session" class="headerlink" title="二、Cookie + Session"></a>二、Cookie + Session</h2><h3 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h3><p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg" alt="img"></p>
 <p><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/apolloren/p/11985083.html">思考：为什么要在密码里加点“盐”？</a></p>
-<h3 id="鉴权流程-1"><a href="#鉴权流程-1" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/assets/%E9%89%B4%E6%9D%83/v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程-1"><a href="#鉴权流程-1" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg" alt="img"></p>
 <h3 id="Session-存储"><a href="#Session-存储" class="headerlink" title="Session 存储"></a>Session 存储</h3><p>最常用的 Session 存储方式是 KV 存储，如Redis，在分布式、API 支持、性能方面都是比较好的，除此之外还有 mysql、file 存储。</p>
 <p>如果服务是分布式的，使用 file 存储，多个服务间存在同步 session 的问题；高并发情况下错误读写锁的控制。</p>
 <h3 id="Session-Refresh"><a href="#Session-Refresh" class="headerlink" title="Session Refresh"></a>Session Refresh</h3><p>我们上面提到的流程中，缺少 Session 的刷新的环节，我们不能在用户登录之后经过一个 expires 时间就把用户踢出去，如果在 Session 有效期间用户一直在操作，这时候 expires 时间就应该刷新。</p>
 <p>以 Koa 为例，刷新 Session 的机制也比较简单： 开发一个 middleware（默认情况下所有请求都会经过该 middleware），如果校验 Session 有效，就更新 Session 的 expires: 当前时间+过期时间。</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg" alt="img"></p>
 <p><strong>优化：</strong></p>
 <ol>
 <li>频繁更新 session 会影响性能，可以在 session 快过期的时候再更新过期时间。</li>
@@ -814,13 +814,13 @@
 <li>防CSRF（主要是伪造请求，带上cookie）</li>
 <li>适合移动应用 app</li>
 </ul>
-<h3 id="鉴权流程-2"><a href="#鉴权流程-2" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/assets/%E9%89%B4%E6%9D%83/v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程-2"><a href="#鉴权流程-2" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg" alt="img"></p>
 <h3 id="Token-校验"><a href="#Token-校验" class="headerlink" title="Token 校验"></a>Token 校验</h3><p>对于验证一个 JWT 是否有效也是比较简单的，服务端根据前面介绍的计算方法计算出 signature，和要校验的JWT中的 signature 部分进行对比就可以了，如果 signature 部分相等则是一个有效的 JWT。</p>
 <h3 id="Token-Refresh"><a href="#Token-Refresh" class="headerlink" title="Token Refresh"></a>Token Refresh</h3><p>为了减少 JWT Token 泄露风险，一般有效期会设置的比较短。 这样就会存在 JWT Token 过期的情况，我们不可能让用户频繁去登录获取新的 JWT Token。</p>
 <p><strong>解决方案：</strong></p>
 <p>可以同时生成 JWT Token 与 Refresh Token，其中 Refresh Roken 的有效时间长于 JWT Token，这样当 JWT Token 过期之后，使用 Refresh Token 获取新的 JWT Token 与 Refresh Token，<strong>其中 Refresh Token 只能使用一次</strong>。</p>
 <h2 id="四、OAuth"><a href="#四、OAuth" class="headerlink" title="四、OAuth"></a>四、OAuth</h2><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/04/oauth_design.html">阮一峰通俗介绍OAuth</a></p>
-<p><a href="https://link.zhihu.com/?target=http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html">OAuth 2.0 的四种方式 - 阮一峰的网络日志www.ruanyifeng.com<img src="/assets/https:/pic2.zhimg.com/v2-b80f9dfb7ec08c42b4563246d8d137d5_180x120.jpg" alt="图标"></a></p>
+<p><a href="https://link.zhihu.com/?target=http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html">OAuth 2.0 的四种方式 - 阮一峰的网络日志www.ruanyifeng.com<img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/https:/pic2.zhimg.com/v2-b80f9dfb7ec08c42b4563246d8d137d5_180x120.jpg" alt="图标"></a></p>
 <p>下面是转载，防止链接失效</p>
 <h3 id="RFC-6749"><a href="#RFC-6749" class="headerlink" title="RFC 6749"></a>RFC 6749</h3><p>OAuth 2.0 的标准是 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6749">RFC 6749</a> 文件。该文件先解释了 OAuth 是什么。</p>
 <p>OAuth 引入了一个授权层，用来分离两种不同的角色：客户端和资源所有者。……资源所有者同意以后，资源服务器可以向客户端颁发令牌。客户端通过令牌，去请求数据。</p>
@@ -841,22 +841,22 @@
 
 
 <p>上面 URL 中，<code>response_type</code>参数表示要求返回授权码（<code>code</code>），<code>client_id</code>参数让 B 知道是谁在请求，<code>redirect_uri</code>参数是 B 接受或拒绝请求后的跳转网址，<code>scope</code>参数表示要求的授权范围（这里是只读）。</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/bg2019040902.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040902.jpg" alt="img"></p>
 <p>第二步，用户跳转后，B 网站会要求用户登录，然后询问是否同意给予 A 网站授权。用户表示同意，这时 B 网站就会跳回<code>redirect_uri</code>参数指定的网址。跳转时，会传回一个授权码，就像下面这样。&#96;&#96;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//a.com/callback?code=AUTHORIZATION_CODE</span></span><br></pre></td></tr></table></figure>
 
 <p>上面 URL 中，<code>code</code>参数就是授权码。</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/bg2019040907.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040907.jpg" alt="img"></p>
 <p>第三步，A 网站拿到授权码以后，就可以在后端，向 B 网站请求令牌。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/token?</span></span><br><span class="line"> client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line"> client_secret=<span class="variable constant_">CLIENT_SECRET</span>&amp;</span><br><span class="line"> grant_type=authorization_code&amp;</span><br><span class="line"> code=<span class="variable constant_">AUTHORIZATION_CODE</span>&amp;</span><br><span class="line"> redirect_uri=<span class="variable constant_">CALLBACK_URL</span></span><br></pre></td></tr></table></figure>
 
 <p>上面 URL 中，<code>client_id</code>参数和<code>client_secret</code>参数用来让 B 确认 A 的身份（<code>client_secret</code>参数是保密的，因此只能在后端发请求），<code>grant_type</code>参数的值是<code>AUTHORIZATION_CODE</code>，表示采用的授权方式是授权码，<code>code</code>参数是上一步拿到的授权码，<code>redirect_uri</code>参数是令牌颁发后的回调网址。</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/bg2019040904.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040904.jpg" alt="img"></p>
 <p>第四步，B 网站收到请求以后，就会颁发令牌。具体做法是向<code>redirect_uri</code>指定的网址，发送一段 JSON 数据。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">  <span class="string">&quot;access_token&quot;</span>:<span class="string">&quot;ACCESS_TOKEN&quot;</span>,</span><br><span class="line">  <span class="string">&quot;token_type&quot;</span>:<span class="string">&quot;bearer&quot;</span>,</span><br><span class="line">  <span class="string">&quot;expires_in&quot;</span>:<span class="number">2592000</span>,</span><br><span class="line">  <span class="string">&quot;refresh_token&quot;</span>:<span class="string">&quot;REFRESH_TOKEN&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scope&quot;</span>:<span class="string">&quot;read&quot;</span>,</span><br><span class="line">  <span class="string">&quot;uid&quot;</span>:<span class="number">100101</span>,</span><br><span class="line">  <span class="string">&quot;info&quot;</span>:&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面 JSON 数据中，<code>access_token</code>字段就是令牌，A 网站在后端拿到了。</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/bg2019040905.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040905.jpg" alt="img"></p>
 <h3 id="第二种方式：隐藏式"><a href="#第二种方式：隐藏式" class="headerlink" title="第二种方式：隐藏式"></a>第二种方式：隐藏式</h3><p>有些 Web 应用是纯前端应用，没有后端。这时就不能用上面的方式了，必须将令牌储存在前端。<strong>RFC 6749 就规定了第二种方式，允许直接向前端颁发令牌。这种方式没有授权码这个中间步骤，所以称为（授权码）”隐藏式”（implicit）。</strong></p>
 <p>第一步，A 网站提供一个链接，要求用户跳转到 B 网站，授权用户数据给 A 网站使用。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/authorize?</span></span><br><span class="line">  response_type=token&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">  redirect_uri=<span class="variable constant_">CALLBACK_URL</span>&amp;</span><br><span class="line">  scope=read</span><br></pre></td></tr></table></figure>
@@ -867,7 +867,7 @@
 
 <p>上面 URL 中，<code>token</code>参数就是令牌，A 网站因此直接在前端拿到令牌。</p>
 <p>注意，令牌的位置是 URL 锚点（fragment），而不是查询字符串（querystring），这是因为 OAuth 2.0 允许跳转网址是 HTTP 协议，因此存在”中间人攻击”的风险，而浏览器跳转时，锚点不会发到服务器，就减少了泄漏令牌的风险。</p>
-<p><img src="/assets/%E9%89%B4%E6%9D%83/bg2019040906.jpg" alt="img"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040906.jpg" alt="img"></p>
 <p>这种方式把令牌直接传给前端，是很不安全的。因此，只能用于一些安全要求不高的场景，并且令牌的有效期必须非常短，通常就是会话期间（session）有效，浏览器关掉，令牌就失效了。</p>
 <h3 id="第三种方式：密码式"><a href="#第三种方式：密码式" class="headerlink" title="第三种方式：密码式"></a>第三种方式：密码式</h3><p><strong>如果你高度信任某个应用，RFC 6749 也允许用户把用户名和密码，直接告诉该应用。该应用就使用你的密码，申请令牌，这种方式称为”密码式”（password）。</strong></p>
 <p>第一步，A 网站要求用户提供 B 网站的用户名和密码。拿到以后，A 就直接向 B 请求令牌。</p>
@@ -1104,7 +1104,7 @@
 <li>每个层叠上下文都是自包含的：当一个元素的内容发生层叠后，该元素将被作为整体在父级层叠上下文中按顺序进行层叠。</li>
 </ul>
 <p>Tips:  层叠上下文顺序</p>
-<p><img src="/assets/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/2016-01-09_211116.png" alt="更完整的7阶层叠顺序图"></p>
+<p><img src="/md-images/css/assets/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/2016-01-09_211116.png" alt="更完整的7阶层叠顺序图"></p>
 <h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context">BFC</a></h3><p><strong>块格式化上下文（Block Formatting Context，BFC）</strong> 是Web页面的可视CSS渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。</p>
 <p>下列方式会创建<strong>块格式化上下文</strong>：</p>
 <ul>
@@ -1132,7 +1132,7 @@
 <li><p>同一个 BFC 下外边距会发生折叠</p>
 </li>
 <li><p>BFC 可以阻止元素被浮动元素覆盖(左侧固定，右侧自适应布局)  </p>
-<p><img src="/assets/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w-20211213143017754.png" alt="img"></p>
+<p><img src="/md-images/css/assets/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w-20211213143017754.png" alt="img"></p>
 </li>
 </ul>
 <p>可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25321647">知乎</a></p>
@@ -1220,7 +1220,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p><img src="/assets/redis/image-20210428205046181.png" alt="image-20210428205046181"></p>
+          <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/redis/image-20210428205046181.png" alt="image-20210428205046181"></p>
 <h3 id="redis特点"><a href="#redis特点" class="headerlink" title="redis特点"></a>redis特点</h3><ul>
 <li>高性能，可持久化</li>
 <li>key-value结构，支持多种数据类型</li>
@@ -1413,7 +1413,7 @@ brian = &#123;
 <h2 id="mongoose-基础用法记录"><a href="#mongoose-基础用法记录" class="headerlink" title="mongoose 基础用法记录"></a>mongoose 基础用法记录</h2><h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><ul>
 <li>首先在mongoDB里新建一个数据库，例如test1，借助Navicat工具</li>
 </ul>
-<p><img src="/assets/mongoose/image-20210428170647238.png" alt="image-20210428170647238"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170647238.png" alt="image-20210428170647238"></p>
 <ul>
 <li>然后书写test.js</li>
 </ul>
@@ -1422,9 +1422,9 @@ brian = &#123;
 <ul>
 <li>新增了一条fluffy数据，数据库显示如下</li>
 </ul>
-<p><img src="/assets/mongoose/image-20210428170922882.png" alt="image-20210428170922882"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170922882.png" alt="image-20210428170922882"></p>
 <h3 id="项目中按功能拆分"><a href="#项目中按功能拆分" class="headerlink" title="项目中按功能拆分"></a>项目中按功能拆分</h3><p>一般会把mongoose初始化，Schema，和操作表分离</p>
-<p><img src="/assets/mongoose/image-20210428181713717.png" alt="image-20210428181713717"></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428181713717.png" alt="image-20210428181713717"></p>
 <h4 id="mongoose初始化"><a href="#mongoose初始化" class="headerlink" title="mongoose初始化"></a>mongoose初始化</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">DBHelper.js</span><br><span class="line"></span><br><span class="line">import mongoose from &#x27;mongoose&#x27;;</span><br><span class="line">import config from &#x27;./index&#x27;;</span><br><span class="line"></span><br><span class="line">// 创建链接</span><br><span class="line">mongoose.connect(config.DB_URL, &#123;</span><br><span class="line">  useUnifiedTopology: true,</span><br><span class="line">  useNewUrlParser: true</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 连接成功</span><br><span class="line">mongoose.connection.on(&quot;connected&quot;, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;success&#x27; + config.DB_URL);</span><br><span class="line">&#125;)</span><br><span class="line">// 连接异常</span><br><span class="line">mongoose.connection.on(&quot;error&quot;, (error) =&gt; &#123;</span><br><span class="line">  console.log(&#x27;error&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 断开连接</span><br><span class="line">mongoose.connection.on(&quot;disconnected&quot;, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;断开连接&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default mongoose</span><br></pre></td></tr></table></figure>
 
 <h4 id="Schema文件"><a href="#Schema文件" class="headerlink" title="Schema文件"></a>Schema文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">model/User.js // 对应数据库 users表</span><br><span class="line"></span><br><span class="line">import mongoose from &#x27;../config/DBHelpler&#x27;;</span><br><span class="line">const Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line">const UserSchema = new Schema(&#123;</span><br><span class="line">  name: &#123;</span><br><span class="line">    type: String</span><br><span class="line">  &#125;,</span><br><span class="line">  age: &#123;</span><br><span class="line">    type: Number</span><br><span class="line">  &#125;,</span><br><span class="line">  email: &#123;</span><br><span class="line">    type: String</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const UserModel = mongoose.model(&#x27;User&#x27;, UserSchema)</span><br><span class="line"></span><br><span class="line">export default UserModel</span><br></pre></td></tr></table></figure>
@@ -1601,7 +1601,7 @@ brian = &#123;
 <li>为子系统中的一组接口提供了一个高层接口</li>
 <li>使用者使用这个高层接口</li>
 </ul>
-<p><img src="/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png" alt="外观模式"></p>
+<p><img src="/md-images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-7521436.png" alt="外观模式"></p>
 <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>前端最常用、最重要的模式<br>代码示意</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">class Subject &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.state = 0;</span><br><span class="line">    this.observers = [];</span><br><span class="line">  &#125;</span><br><span class="line">  getState() &#123;</span><br><span class="line">    return this.state;</span><br><span class="line">  &#125;</span><br><span class="line">  setState(state) &#123;</span><br><span class="line">    this.state = state;</span><br><span class="line">    this.notifyAllObservers();</span><br><span class="line">  &#125;</span><br><span class="line">  notifyAllObservers() &#123;</span><br><span class="line">    this.observers.forEach(observer =&gt; &#123;</span><br><span class="line">      observer.update();</span><br><span class="line">      console.log(`$&#123;observer.name&#125; -- updata --- $&#123;this.getState()&#125;`);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  attach(observer) &#123;</span><br><span class="line">    this.observers.push(observer);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 观察者</span><br><span class="line">class Observer &#123;</span><br><span class="line">  constructor(name, subject) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.subject = subject;</span><br><span class="line">    this.subject.attach(this);</span><br><span class="line">  &#125;</span><br><span class="line">  update() &#123;</span><br><span class="line">    console.log(&#x27;更新&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const subject = new Subject();</span><br><span class="line">const ob1 = new Observer(&#x27;ob1&#x27;, subject);</span><br><span class="line">const ob2 = new Observer(&#x27;ob2&#x27;, subject);</span><br><span class="line">const ob3 = new Observer(&#x27;ob3&#x27;, subject);</span><br><span class="line">subject.setState(1);</span><br><span class="line">subject.setState(2);</span><br><span class="line">subject.setState(3);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -1661,7 +1661,7 @@ brian = &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/luopo.gif">
@@ -1679,7 +1679,7 @@ brian = &#123;
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">排序算法</a>
+          <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">linux基本命令</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1697,7 +1697,7 @@ brian = &#123;
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-13 13:13:43" itemprop="dateModified" datetime="2024-07-13T13:13:43+08:00">2024-07-13</time>
+      <time title="修改时间：2024-07-13 13:13:23" itemprop="dateModified" datetime="2024-07-13T13:13:23+08:00">2024-07-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1705,7 +1705,7 @@ brian = &#123;
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+          <a href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">大前端</span></a>
         </span>
     </span>
 
@@ -1719,53 +1719,86 @@ brian = &#123;
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>简单记录学习极客时间-数据与结构之美-排序相关的知识记录</p>
-<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><p>排序动画演示 可用手机app</p>
-<h2 id="时间复杂度-On2"><a href="#时间复杂度-On2" class="headerlink" title="时间复杂度 On2"></a>时间复杂度 On2</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否 满足大小关系要求。如果不满足就让它俩互换。一次冒泡会让至少一个元素移动到它应该在 的位置，重复 n 次，就完成了 n 个数据的排序工作。</p>
-<p>冒泡排序最不容易出错。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const arr = [4,5,2,3,8,7,6,1,10]</span><br><span class="line">function bubble(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">    // 没有交换发生 其实代表数组已经是有序的了</span><br><span class="line">    let flag = true;</span><br><span class="line">    for (let j = i + 1; j &lt; arr.length; j++) &#123;</span><br><span class="line">      if (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        const temp = arr[i]</span><br><span class="line">        arr[i] = arr[j]</span><br><span class="line">        arr[j] = temp</span><br><span class="line">        // 有交换发生</span><br><span class="line">        flag = false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">bubble(arr)</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>首先，我们将数组中的数据分为两个区间，已排序区间和未排序区间。初始已排序区间只有 一个元素，就是数组的第一个元素。插入算法的核心思想是取未排序区间中的元素，在已排 序区间中找到合适的插入位置将其插入，并保证已排序区间数据一直有序。重复这个过程， 直到未排序区间中元素为空，算法结束。</p>
-<p><strong>插入排序写起来比较费劲，要注意的地方比较多</strong></p>
-<p>我自己的写的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function insert(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">    let j = i + 1</span><br><span class="line">    while (arr[j-1] &gt; arr[j] &amp;&amp; j&gt;=0) &#123;</span><br><span class="line">      const temp = arr[j]</span><br><span class="line">      arr[j] = arr[j-1]</span><br><span class="line">      arr[j-1] = temp</span><br><span class="line">      j--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">insert(arr)</span><br></pre></td></tr></table></figure>
-
-<p>教程写的，已经换成JavaScript，并加了注释</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function insert2(arr) &#123;</span><br><span class="line">  const l = arr.length;</span><br><span class="line">  for (let i = 1; i &lt; l; ++i) &#123;</span><br><span class="line">    // 缓存当前处理的元素，减少交换次数 </span><br><span class="line">    let value = arr[i];</span><br><span class="line">    // 对比前方排序区，查找插入的位置</span><br><span class="line">    let j = i - 1;</span><br><span class="line">    for ( ; j &gt;= 0; --j) &#123;</span><br><span class="line">      if (arr[j] &gt; value) &#123;</span><br><span class="line">        // 相当于把arr[j]向右移一位</span><br><span class="line">        // 第一次被覆盖掉的元素是当前处理元素，已在顶部缓存</span><br><span class="line">        // 第一次以后被覆盖的元素，实际上已经保存在右侧了</span><br><span class="line">        arr[j + 1] = arr[j]; // 数据移动</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 当前元素已经满足条件，不需要交换</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 只在最后交换 j+1 </span><br><span class="line">    arr[j + 1] = value; // 插入数据</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function select(arr) &#123;</span><br><span class="line">  const l = arr.length</span><br><span class="line">  let min, minIndex</span><br><span class="line">  for (let i = 0; i &lt; l - 1; i++) &#123;</span><br><span class="line">   // 起始位置</span><br><span class="line">    min = arr[i]</span><br><span class="line">    minIndex = i</span><br><span class="line">    for (let j = i+1; j &lt; l; j++) &#123;</span><br><span class="line">      if (arr[j] &lt; min) &#123;</span><br><span class="line">        min = arr[j]</span><br><span class="line">        minIndex = j</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    const temp = arr[i]</span><br><span class="line">    arr[i] = min</span><br><span class="line">    arr[minIndex] = temp</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// select(arr)</span><br><span class="line">console.log(arr);</span><br></pre></td></tr></table></figure>
-
-<h2 id="时间复杂度-O-nlogn"><a href="#时间复杂度-O-nlogn" class="headerlink" title="时间复杂度 O nlogn"></a>时间复杂度 O nlogn</h2><h3 id="归并排序-稳定"><a href="#归并排序-稳定" class="headerlink" title="归并排序(稳定)"></a>归并排序(稳定)</h3><p>自己的代码，未优化的版本，找了好久的错误</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// 归并排序</span><br><span class="line">function merginInto(arr, l, r) &#123;</span><br><span class="line">  if (l === r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const m = (l + r) &gt;&gt; 1 // 相当于除以2 取整</span><br><span class="line">  const left = arr.slice(l, m + 1)</span><br><span class="line">  const right = arr.slice(m + 1, r + 1)</span><br><span class="line">  return sortOrderArr(</span><br><span class="line">    left.length &lt;= 1 ? left: merginInto(</span><br><span class="line">     // 忘了把边界改成新数组的了</span><br><span class="line">      left, 0, m</span><br><span class="line">    ),</span><br><span class="line">    right.length &lt;= 1 ? right : merginInto(</span><br><span class="line">      // 忘了把边界改成新数组的了</span><br><span class="line">      right, 0, r - (m + 1)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line">// 将两个有序数组合并</span><br><span class="line">function sortOrderArr(arr1, arr2) &#123;</span><br><span class="line">  const res = []</span><br><span class="line">  let i1 = i2 = 0, l1 = arr1.length, l2 = arr2.length</span><br><span class="line">  while (i1&lt;l1 || i2&lt;l2) &#123;</span><br><span class="line">    if (i1 === l1) &#123;</span><br><span class="line">      res.push(arr2[i2++])</span><br><span class="line">    &#125; else if(i2===l2) &#123;</span><br><span class="line">      res.push(arr1[i1++])</span><br><span class="line">    &#125;else if (arr1[i1] &lt;= arr2[i2]) &#123;</span><br><span class="line">      res.push(arr1[i1++])</span><br><span class="line">    &#125;else(</span><br><span class="line">      res.push(arr2[i2++])</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  return res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>比较大众的写法，<strong>这个类似于二叉树的后续遍历</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function mergeInto(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const m = (l + r) &gt;&gt; 1;</span><br><span class="line">  // 原地排序 不需要返回</span><br><span class="line">  mergeInto(arr, l, m)</span><br><span class="line">  mergeInto(arr, m + 1, r)</span><br><span class="line">  // 两个已经拍好序的数组</span><br><span class="line">  mergeArr(arr, l, m, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function mergeArr(arr, l, m, r) &#123;</span><br><span class="line">  const res = []</span><br><span class="line">  let i1 = l, i2 = m + 1, l1 = m+1, l2 = r+1</span><br><span class="line">  while (i1&lt;l1 || i2&lt;l2) &#123;</span><br><span class="line">    if (i1 === l1) &#123;</span><br><span class="line">      res.push(arr[i2++])</span><br><span class="line">    &#125; else if(i2===l2) &#123;</span><br><span class="line">      res.push(arr[i1++])</span><br><span class="line">    &#125;else if (arr[i1] &lt;= arr[i2]) &#123;</span><br><span class="line">      res.push(arr[i1++])</span><br><span class="line">    &#125;else(</span><br><span class="line">      res.push(arr[i2++])</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = l,j=0; i &lt; r+1; i++,j++) &#123;</span><br><span class="line">    arr[i] = res[j]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="快速排序-不稳定"><a href="#快速排序-不稳定" class="headerlink" title="快速排序(不稳定)"></a>快速排序(不稳定)</h3><p><strong>把比参考位置小的数移到左侧，大的移到右侧，如果不额外占用空间的话，比较难写</strong></p>
-<p>空间复杂度 O n 比较容易写出来</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">// 快排辅助函数 分区 排序</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line"> // 占用了 On的空间</span><br><span class="line">  const res = []</span><br><span class="line">  //随机会好一点</span><br><span class="line">  const rdm = Math.floor(Math.random()*(r-l+1)+l)</span><br><span class="line">  const ref = arr[rdm]</span><br><span class="line">  let li = l, ri = r</span><br><span class="line">  for (let i = l; i &lt; r + 1; i++) &#123;</span><br><span class="line">    if (i === rdm) &#123;</span><br><span class="line">      continue</span><br><span class="line">    &#125;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      res[li] = arr[i]</span><br><span class="line">      li++</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      res[ri] = arr[i]</span><br><span class="line">      ri--</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  res[ri] = ref</span><br><span class="line">  for (let i = l; i &lt; r+1; i++) &#123;</span><br><span class="line">    arr[i] = res[i]</span><br><span class="line">  &#125;</span><br><span class="line">  return ri</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="O1空间复杂度左右归类的算法解释"><a href="#O1空间复杂度左右归类的算法解释" class="headerlink" title="O1空间复杂度左右归类的算法解释"></a>O1空间复杂度左右归类的算法解释</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  // const rdm = Math.floor(Math.random()*(r-l+1)+l)</span><br><span class="line">  const rdm = 1</span><br><span class="line">  const ref = arr[rdm]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r + 1; i++) &#123;</span><br><span class="line">    // 跳过</span><br><span class="line">    if (i === rdm) &#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    // 跳过</span><br><span class="line">    if (j === rdm) &#123;</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      [arr[i], arr[j]] = [arr[j], arr[i]]</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当选择一个随机数N，下标INDEX作为参照点的话，程序运行到关键点的情况应该如下图所示</p>
-<p>左侧是小于等于N的数，右侧是大于N的数，但是N可能在左侧或者右侧</p>
-<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png" alt="image-20211112105742642"></p>
-<p>最好的情况就是 把N的位置放进 j-1 和 j之间，但是这样<strong>时间复杂度较高，采取交换替代</strong></p>
-<p>如果N在左侧就和<code>J-1</code>交换，N在右侧就和<code>J</code>置换，如果不需要随机选择位置的话，N取最右侧元素，就不需要判断了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br></pre></td></tr></table></figure>
-
-<h4 id="更好的随机数左右归类"><a href="#更好的随机数左右归类" class="headerlink" title="更好的随机数左右归类"></a>更好的随机数左右归类</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/sort-an-array/solution/pai-xu-shu-zu-by-leetcode-solution/">力扣官方</a>采取先用随机数与最后一位交换位置在进行常规方法，方法容易理解，也不容易出错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int pivot = nums[r];</span><br><span class="line">      int i = l - 1;</span><br><span class="line">      for (int j = l; j &lt;= r - 1; ++j) &#123;</span><br><span class="line">          if (nums[j] &lt;= pivot) &#123;</span><br><span class="line">              i = i + 1;</span><br><span class="line">              swap(nums[i], nums[j]);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      swap(nums[i + 1], nums[r]);</span><br><span class="line">      return i + 1;</span><br><span class="line">  &#125;</span><br><span class="line">  int randomized_partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int i = rand() % (r - l + 1) + l; // 随机选一个作为我们的主元</span><br><span class="line">      swap(nums[r], nums[i]);</span><br><span class="line">      return partition(nums, l, r);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>最后总结出JavaScript版本的快速排序</p>
-<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png" alt="image-20211112112025117"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  // -1 +1 可别忘 会死循环的</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  const rdm = Math.floor(Math.random() * (r - l + 1) + l)</span><br><span class="line">  // 与最后元素交换</span><br><span class="line">  swap(arr, rdm, r)</span><br><span class="line"></span><br><span class="line">  const ref = arr[r]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r; i++) &#123;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      swap(arr, i, j)</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr, r, j)</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br><span class="line">function swap(arr, p, q) &#123;</span><br><span class="line">  const temp = arr[p]</span><br><span class="line">  arr[p] = arr[q]</span><br><span class="line">  arr[q] = temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="归并排序和快速排序的区别与联系"><a href="#归并排序和快速排序的区别与联系" class="headerlink" title="归并排序和快速排序的区别与联系"></a>归并排序和快速排序的区别与联系</h3><p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png" alt="image-20211112112920927"></p>
-<p>快排和归并用的都是分治思想，递推公式和递归代码也非常相似，那它们的区别在哪里呢?</p>
-<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png" alt="image-20211112113107064">可以发现，归并排序的处理过程是由下到上的，先处理子问题，然后再合并。</p>
-<p>而快排正好相反，它的处理过程是由上到下的，先分区，然后再处理子问题。</p>
-<p>归并排序虽然是稳定的、时 间复杂度为 O(nlogn) 的排序算法，但是它是非原地排序算法。我们前面讲过，归并之所以 是非原地排序算法，主要原因是合并函数无法在原地执行。快速排序通过设计巧妙的原地分区函数，可以实现原地排序，解决了归并排序占用太多内存的问题。</p>
+          <h1 id="linux基本命令"><a href="#linux基本命令" class="headerlink" title="linux基本命令"></a>linux基本命令</h1><h2 id="查看版本、内核"><a href="#查看版本、内核" class="headerlink" title="查看版本、内核"></a>查看版本、内核</h2><p>查看系统版本<code>lsp_release -a</code><br>查看内核版本<code>uname -a</code></p>
+<h2 id="磁盘命令"><a href="#磁盘命令" class="headerlink" title="磁盘命令"></a>磁盘命令</h2><p>查看磁盘空间 <code>df -Th</code> 以G为单位</p>
+<h2 id="linux目录-文件权限"><a href="#linux目录-文件权限" class="headerlink" title="linux目录&amp;文件权限"></a>linux目录&amp;文件权限</h2><p>进入根目录 <code>cd /</code><br>文件目录及权限查看 <code>ls -la</code></p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/Snipaste_2021-04-20_15-10-14.png" alt="Snipaste_2021-04-20_15-10-14"></p>
+<ul>
+<li>第一列代码文件的各种quanxian r-read w-write x-执行 r-remove</li>
+<li>home目录相当于个人目录</li>
+<li>etc 存放软件配置文件</li>
+<li>sys 系统目录</li>
+<li>usr 存放着系统的可执行文件</li>
+<li>var 日志文件</li>
+</ul>
+<h2 id="CPU-内存-进程"><a href="#CPU-内存-进程" class="headerlink" title="CPU&#x2F;内存&#x2F;进程"></a>CPU&#x2F;内存&#x2F;进程</h2><p>查看运行中的进程<code>top</code>  可以按M看详细内存</p>
+<p><img src="/md-images/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/Snipaste_2021-04-20_15-18-17-8903123.png" alt="Snipaste_2021-04-20_15-18-17"></p>
+<h2 id="文档相关"><a href="#文档相关" class="headerlink" title="文档相关"></a>文档相关</h2><ul>
+<li>进入文件夹 cd 路径</li>
+<li>pwd 显示当前文件夹</li>
+<li>ls 查看文件下所有文件夹及文件</li>
+<li>mkdir 新建文件夹</li>
+<li>touch 新建文件</li>
+<li>vi 文件名 使用vim编辑器打开文件<ul>
+<li>输入 i 进入编辑-insert–模式</li>
+<li>按esc，然后输入:wq 保存退出<ul>
+<li>:q! 不对其进行保存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>echo ‘1111’  &gt;&gt;  test.txt</code> 向文件内添加内容 1111<ul>
+<li><code>&gt;</code>单箭头是覆盖内容  <code>&gt;&gt;</code> 是添加内容</li>
+</ul>
+</li>
+<li><code>rm demo.txt</code>  删除文件 提示是否删除 输入Y回车确认删除</li>
+<li><code>rm -r demo/</code>  删除目录 提示是否删除 输入Y回车确认删除</li>
+<li><code>rm -rf</code> 强制删除 尽量不要使用</li>
+</ul>
+<h2 id="下载-解压-安装命令"><a href="#下载-解压-安装命令" class="headerlink" title="下载&#x2F;解压&#x2F;安装命令"></a>下载&#x2F;解压&#x2F;安装命令</h2><p>以nodejs作为例子</p>
+<ul>
+<li>下载资源 <code>wget https://cdn.npm.taobao.org/dist/node/v14.16.1/node-v14.16.1.tar.gz</code><ul>
+<li>下载完成后，用ls查看</li>
+</ul>
+</li>
+<li>解压资源，tar格式<ul>
+<li><code>tar zxvf node-v14.16.1.tar.gz</code><ul>
+<li>z 是.gz结尾的压缩文件</li>
+<li>x 解压</li>
+<li>v 显示所有解压过程</li>
+<li>f 使用归档的名字</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>压缩文件 <code>tar zcvf 文件名 文件目录</code></li>
+</ul>
+<h2 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h2><ul>
+<li>查看进程 <code>ps -ef | grep docker</code> grep 相当于搜索，限定docker程序<ul>
+<li>root 后面跟着的数值是进程的id，杀死进程可以用 <code>kill -9 id</code> - 9表示强制终止</li>
+</ul>
+</li>
+</ul>
+<h2 id="查看服务的命令"><a href="#查看服务的命令" class="headerlink" title="查看服务的命令"></a>查看服务的命令</h2><ul>
+<li><p>查看服务状态</p>
+<ul>
+<li>例如查看ssh的运行状态,可以看到客户端通过ssh连接到服务器的记录 <code>service sshd status</code></li>
+</ul>
+</li>
+<li><p>停止服务</p>
+<ul>
+<li>例如停止ssh <code>service sshd stop</code></li>
+</ul>
+</li>
+<li><p>重启服务</p>
+<ul>
+<li>例如重启ssh <code>service sshd restart</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>还有一个<code>systemtcl</code>命令</p>
+</blockquote>
 
       
     </div>

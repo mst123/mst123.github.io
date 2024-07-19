@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="梳理浏览器渲染流程首先简单了解一下浏览器请求、加载、渲染一个页面的大致过程：   DNS 查询 TCP 连接 HTTP 请求即响应 服务器响应 客户端渲染   这里主要将客户端渲染展开梳理一下，从浏览器器内核拿到内容（渲染线程接收请求，加载网页并渲染网页），渲染大概可以划分成以下几个步骤：   解析html建立dom树 解析css构建render树（将CSS代码解析成树形的数据结构，然后结合DOM">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TKK.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ-20210122105457454.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl-20210122105457544.png">
-<meta property="og:image" content="https://mst123.github.io/assets/https:/segmentfault.com/img/bV7TKK?w=580&h=381">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO-20210122105457589.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/view.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85zk.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85Ag.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TKK.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ-20210122105457454.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl-20210122105457544.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/https:/segmentfault.com/img/bV7TKK?w=580&h=381">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO-20210122105457589.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/view.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85zk.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85Ag.png">
 <meta property="article:published_time" content="2021-06-21T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:34.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="浏览器渲染">
 <meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/">
@@ -285,7 +285,7 @@
 </ul>
 </blockquote>
 <p>参考一张图（webkit渲染主要流程）：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ.png" alt="图片描述"></p>
 <p>这里先解释一下几个概念，方便大家理解：</p>
 <p>　　DOM Tree：浏览器将HTML解析成树形的数据结构。</p>
 <p>　　CSS Rule Tree：浏览器将CSS解析成树形的数据结构。</p>
@@ -301,11 +301,11 @@
 <li>有些情况下，比如修改了元素的样式，浏览器并不会立刻reflow 或 repaint 一次，而是会把这样的操作积攒一批，然后做一次reflow，这又叫异步 reflow 或增量异步 reflow。但是在有些情况下，比如resize窗口，改变了页面默认的字体等。对于这些操作，浏览器会马上进行 reflow。</li>
 </ol>
 <p>再参考一张图理解一下：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl.png" alt="图片描述"></p>
 <p>细致分离两个环节，其他环节参考上述概念注解：</p>
 <p><code>JavaScript</code>：JavaScript实现动画效果，DOM元素操作等。<br><code>Composite（渲染层合并）</code>：对页面中 DOM 元素的绘制是在多个层上进行的。在每个层上完成绘制过程之后，浏览器会将所有层按照合理的顺序合并成一个图层，然后显示在屏幕上。对于有位置重叠的元素的页面，这个过程尤其重要，因为一旦图层的合并顺序出错，将会导致元素显示异常。</p>
 <p>在实际场景下，大致会出现三种常见的渲染流程（Layout和Paint步骤是可避免的，可参考上一张图的注意部分理解）：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TKK.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TKK.png" alt="图片描述"></p>
 <hr>
 <h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><h4 id="了解层"><a href="#了解层" class="headerlink" title="了解层"></a>了解层</h4><blockquote>
 <p><strong>注意：首先说明，这里讨论的是 WebKit，描述的是 Chrome 的实现细节，而并非是 web 平台的功能，因此这里介绍的内容不一定适用于其他浏览器。</strong></p>
@@ -317,7 +317,7 @@
 </ul>
 </blockquote>
 <p>整个图：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO.png" alt="图片描述"></p>
 <p>在 Chrome 中其实有几种不同的层类型：</p>
 <ul>
 <li>RenderLayers 渲染层，这是负责对应 DOM 子树</li>
@@ -384,7 +384,7 @@
 </ul>
 </blockquote>
 <p>参考一张图（webkit渲染主要流程）：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ-20210122105457454.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bVHJfZ-20210122105457454.png" alt="图片描述"></p>
 <p>这里先解释一下几个概念，方便大家理解：</p>
 <p>　　DOM Tree：浏览器将HTML解析成树形的数据结构。</p>
 <p>　　CSS Rule Tree：浏览器将CSS解析成树形的数据结构。</p>
@@ -400,11 +400,11 @@
 <li>有些情况下，比如修改了元素的样式，浏览器并不会立刻reflow 或 repaint 一次，而是会把这样的操作积攒一批，然后做一次reflow，这又叫异步 reflow 或增量异步 reflow。但是在有些情况下，比如resize窗口，改变了页面默认的字体等。对于这些操作，浏览器会马上进行 reflow。</li>
 </ol>
 <p>再参考一张图理解一下：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl-20210122105457544.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7TBl-20210122105457544.png" alt="图片描述"></p>
 <p>细致分离两个环节，其他环节参考上述概念注解：</p>
 <p><code>JavaScript</code>：JavaScript实现动画效果，DOM元素操作等。<br><code>Composite（渲染层合并）</code>：对页面中 DOM 元素的绘制是在多个层上进行的。在每个层上完成绘制过程之后，浏览器会将所有层按照合理的顺序合并成一个图层，然后显示在屏幕上。对于有位置重叠的元素的页面，这个过程尤其重要，因为一旦图层的合并顺序出错，将会导致元素显示异常。</p>
 <p>在实际场景下，大致会出现三种常见的渲染流程（Layout和Paint步骤是可避免的，可参考上一张图的注意部分理解）：</p>
-<p><img src="/assets/https:/segmentfault.com/img/bV7TKK?w=580&h=381" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/https:/segmentfault.com/img/bV7TKK?w=580&h=381" alt="图片描述"></p>
 <hr>
 <h2 id="Composite-1"><a href="#Composite-1" class="headerlink" title="Composite"></a>Composite</h2><h4 id="了解层-1"><a href="#了解层-1" class="headerlink" title="了解层"></a>了解层</h4><blockquote>
 <p><strong>注意：首先说明，这里讨论的是 WebKit，描述的是 Chrome 的实现细节，而并非是 web 平台的功能，因此这里介绍的内容不一定适用于其他浏览器。</strong></p>
@@ -416,7 +416,7 @@
 </ul>
 </blockquote>
 <p>整个图：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO-20210122105457589.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV7URO-20210122105457589.png" alt="图片描述"></p>
 <p>在 Chrome 中其实有几种不同的层类型：</p>
 <ul>
 <li>RenderLayers 渲染层，这是负责对应 DOM 子树</li>
@@ -462,11 +462,11 @@
 <li>层爆炸，由于某些原因可能导致产生大量不在预期内的合成层，虽然有浏览器的层压缩机制，但是也有很多无法进行压缩的情况，这就可能出现层爆炸的现象（简单理解就是，很多不需要提升为合成层的元素因为某些不当操作成为了合成层）。解决层爆炸的问题，最佳方案是打破 overlap 的条件，也就是说让其他元素不要和合成层元素重叠。简单直接的方式：<code>使用3D硬件加速提升动画性能时，最好给元素增加一个z-index属性，人为干扰合成的排序，可以有效减少chrome创建不必要的合成层，提升渲染性能，移动端优化效果尤为明显。</code> 在这篇<a target="_blank" rel="noopener" href="http://div.io/topic/1348">文章</a>中的<a target="_blank" rel="noopener" href="http://fouber.github.io/test/layer/">demo</a>可以看出其中厉害。</li>
 </ol>
 <p>用chremo打开demo页面后，开启浏览器的开发者模式，再按照<strong>如图操作</strong>打开查看工具：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/view.png" alt="preview"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/view.png" alt="preview"></p>
 <p>开启 Rendering 的Layer borders后 观察点击<code>为动画元素设置z-index复选框</code>的页面提示变化：</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85zk.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85zk.png" alt="图片描述"></p>
 <p>上图中可以明显看出：页面中设置了一个h1标题，应用了translate3d动画，使得它被放到composited layer中渲染，然后在这个元素后面创建了2000个list。在不为h1元素设置z-index的情况下，使得本不需要提升到合成层的ul元素下的每个li元素都提升为一个单独合成层（每个li元素的黄色提示边框），最终会导致GPU资源过度消耗页面滑动时很卡，尤其在移动端（安卓）上更加明显。</p>
-<p><img src="/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85Ag.png" alt="图片描述"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E6%B8%B2%E6%9F%93%E5%B1%82%E5%90%88%E5%B9%B6/bV85Ag.png" alt="图片描述"></p>
 <p>如上图操作选中<code>为动画元素设置z-index</code>，可以看出ul下的每个li都回归到普通渲染层，不再是合成层也就不会消耗GPU资源去渲染，从而达到了优化页面性能优化的目的。</p>
 <p>大家可以用支持『硬件加速』的『安卓』手机浏览器测试上述页面，给动画元素加z-index前后的性能差距非常明显。</p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>在实际的前端开发中尤其是移动端开发，很多小伙伴都很喜欢使用类似 translateZ(0)等属性来进行所谓的硬件加速，以提升性能，达到优化页面动态效果的目的，但还是要注意凡事过犹不及，应用硬件加速的同时也要注意到千万别踩坑。<br>关于合成层的更细致具体的讲解，可以仔细学习下下面的参考文章（尤其是前三篇哦）。<br>最后祝愿热爱技术的你我始终坚持在探索技术的路上奋力前行！</p>

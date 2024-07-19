@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="this的由来看下述一段代码 123456789101112131415var bar &#x3D; &#123;    myName:&quot;time.geekbang.com&quot;,    printName: function () &#123;        console.log(myName)    &#125;    &#125;function foo() &#123;    le">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/this/image-20210720111215903.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/javascript/this/assets/this/image-20210720111215903.png">
 <meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-16T06:08:25.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="this">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/this/image-20210720111215903.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/javascript/this/assets/this/image-20210720111215903.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/javascript/this/this/">
@@ -263,7 +263,7 @@
 <p>相信你已经知道了，在 printName 函数里面使用的变量 myName 是属于全局作用域下面的，所以最终打印出来的值都是“极客邦”</p>
 <p>不过按照常理来说，调用bar.printName方法时，该方法内部的变量 myName 应该使用bar 对象中的，因为它们是一个整体，大多数面向对象语言都是这样设计的，以<strong>在对象内部的方法中使用对象内部的属性是一个非常普遍的需求</strong>。但是 JavaScript 的作用域机制并不支持这一点，基于这个需求，JavaScript 又搞出来另外一套<strong>this 机制</strong>。</p>
 <h2 id="this到底是什么"><a href="#this到底是什么" class="headerlink" title="this到底是什么"></a>this到底是什么</h2><p><code>this</code> 是在运行时进行绑定的，<strong>是和执行上下文绑定的</strong>，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。<code>this</code>的绑定和<strong>函数声明的位置没有任何关系，只取决于函数的调用方式</strong>。</p>
-<p><img src="/assets/this/image-20210720111215903.png" alt="image-20210720111215903"></p>
+<p><img src="/md-images/javascript/this/assets/this/image-20210720111215903.png" alt="image-20210720111215903"></p>
 <blockquote>
 <p>执行上下文其余相关的内容，在blog中浏览器原理中有详细介绍</p>
 </blockquote>

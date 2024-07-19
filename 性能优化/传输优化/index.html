@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="GZIP压缩启用keep alive默认http1.1以后默认开启  keepalive-timeout  保持时间 s keepalive-requests 链接数  http 缓存 cache control 1.1 &#x2F; expires 1.0 Last-modified  if-modified-since 1.0 Etag  if-none-match  1.1  一般设置：ht">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/CDN%E4%BC%98%E7%82%B9.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%BC%93%E5%AD%98.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83.png">
-<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/reducehttp%E8%AF%B7%E6%B1%82.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/CDN%E4%BC%98%E7%82%B9.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%BC%93%E5%AD%98.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83.png">
+<meta property="og:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/reducehttp%E8%AF%B7%E6%B1%82.png">
 <meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:35.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="性能优化">
 <meta property="article:tag" content="传输优化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/CDN%E4%BC%98%E7%82%B9.png">
+<meta name="twitter:image" content="https://mst123.github.io/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/CDN%E4%BC%98%E7%82%B9.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">
@@ -304,11 +304,11 @@
 </ul>
 </li>
 </ol>
-<h3 id="使用CDN"><a href="#使用CDN" class="headerlink" title="使用CDN"></a>使用CDN</h3><p><img src="/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/CDN%E4%BC%98%E7%82%B9.png" alt="CDN优点"></p>
+<h3 id="使用CDN"><a href="#使用CDN" class="headerlink" title="使用CDN"></a>使用CDN</h3><p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/CDN%E4%BC%98%E7%82%B9.png" alt="CDN优点"></p>
 <h4 id="cdn回源"><a href="#cdn回源" class="headerlink" title="cdn回源"></a>cdn回源</h4><p>回源是指浏览器访问cdn集群上静态文件时，文件缓存过期，直接穿透cdn集群而访问源站机器的行为。（发生这种情况后，cdn会更新文件及缓存标记）</p>
-<h4 id="cdn缓存"><a href="#cdn缓存" class="headerlink" title="cdn缓存"></a>cdn缓存</h4><p><img src="/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%BC%93%E5%AD%98.png" alt="cdn缓存"></p>
-<p><img src="/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83.png" alt="cdn灰度发布"></p>
-<h3 id="减少http请求"><a href="#减少http请求" class="headerlink" title="减少http请求"></a>减少http请求</h3><p><img src="/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/reducehttp%E8%AF%B7%E6%B1%82.png" alt="减少http请求"></p>
+<h4 id="cdn缓存"><a href="#cdn缓存" class="headerlink" title="cdn缓存"></a>cdn缓存</h4><p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%BC%93%E5%AD%98.png" alt="cdn缓存"></p>
+<p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/cdn%E7%81%B0%E5%BA%A6%E5%8F%91%E5%B8%83.png" alt="cdn灰度发布"></p>
+<h3 id="减少http请求"><a href="#减少http请求" class="headerlink" title="减少http请求"></a>减少http请求</h3><p><img src="/md-images/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/reducehttp%E8%AF%B7%E6%B1%82.png" alt="减少http请求"></p>
 
     </div>
 
