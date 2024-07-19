@@ -1384,6 +1384,165 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/webpack/HMR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/webpack/HMR/" class="post-title-link" itemprop="url">webpack热更新</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-13 13:13:38" itemprop="dateCreated datePublished" datetime="2024-07-13T13:13:38+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><code>Hot Module Replacement</code>，简称<code>HMR</code>，无需完全刷新整个页面的同时，更新模块。<code>HMR</code>的好处，在日常开发工作中体会颇深：<strong>节省宝贵的开发时间、提升开发体验</strong>。</p>
+<p>在这里简单介绍一个 HMR 的原理</p>
+<h3 id="HMR-初始化"><a href="#HMR-初始化" class="headerlink" title="HMR 初始化"></a>HMR 初始化</h3><h4 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h4><p>Webpack-dev-server 的执行过程，其实也是一个 HMR 开启的过程</p>
+<ul>
+<li><p>修改 webpackOptions，添加两个入口文件，一个是 websocket 客户端代码，一个是热更新客户端代码(主要是用于检查更新逻辑)。</p>
+</li>
+<li><p>启动<code>webpack</code>，生成<code>compiler</code>实例。<code>compiler</code>上有很多方法，比如可以启动 <code>webpack</code> 所有<strong>编译</strong>工作，以及<strong>监听</strong>本地文件的变化。</p>
+</li>
+<li><p>使用<code>express</code>框架启动本地<code>server</code>，让浏览器可以请求本地的<strong>静态资源</strong>。</p>
+<ul>
+<li>启动 server 的时候，监听 compiler 的 done 事件，当监听到一次<code>webpack</code>编译结束，就会调用<code>_sendStats</code>方法通过<code>websocket</code>给浏览器发送通知，<code>ok</code>和<code>hash</code>事件，这样浏览器就可以拿到最新的<code>hash</code>值了，做检查更新逻辑</li>
+<li>生成 <strong>webpack-dev-middleware</strong> 中间件实例，保存在 this.middleware（主要是本地文件的<strong>编译</strong>和<strong>输出</strong>以及<strong>监听</strong>）</li>
+</ul>
+</li>
+<li><p>本地<code>server</code>启动之后，再去启动<code>websocket</code>服务，通过<code>websocket</code>，可以建立本地服务和浏览器的双向通信。这样就可以实现当本地文件发生变化，立马告知浏览器可以热更新代码啦！</p>
+</li>
+</ul>
+<h4 id="webpack-dev-middleware"><a href="#webpack-dev-middleware" class="headerlink" title="webpack-dev-middleware"></a>webpack-dev-middleware</h4><p>文件相关的操作都抽离到<code>webpack-dev-middleware</code>库了，主要是本地文件的<strong>编译</strong>和<strong>输出</strong>以及<strong>监听</strong></p>
+<p>主要流程都在下述代码中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">share.setOptions(context.options);</span><br><span class="line">share.setFs(context.compiler);</span><br><span class="line"></span><br><span class="line">context.compiler.plugin(&quot;done&quot;, share.compilerDone);</span><br><span class="line">context.compiler.plugin(&quot;invalid&quot;, share.compilerInvalid);</span><br><span class="line">context.compiler.plugin(&quot;watch-run&quot;, share.compilerInvalid);</span><br><span class="line">context.compiler.plugin(&quot;run&quot;, share.compilerInvalid);</span><br><span class="line"></span><br><span class="line">share.startWatch();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化配置，利用<code>memory-fs</code>库将文件打包到内存中(访问文件系统中的文件更快，而且也减少了代码写入文件的开销)</li>
+<li>注册一系列事件。</li>
+<li>开启对本地文件的监听，当文件发生变化，重新编译，编译完成之后继续监听</li>
+</ul>
+<h3 id="一次完整的-HMR-流程"><a href="#一次完整的-HMR-流程" class="headerlink" title="一次完整的 HMR 流程"></a>一次完整的 HMR 流程</h3><ol>
+<li><p>当文件发生变化，就触发重新编译。当监听到一次<code>webpack</code>编译结束，<code>_sendStats</code>方法就通过<code>websoket</code>给浏览器发送通知</p>
+<ol>
+<li><code>hash</code>事件，更新最新一次打包后的<code>hash</code>值</li>
+<li><code>ok</code>事件，进行热更新检查</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">this.sockWrite(sockets, &#x27;hash&#x27;, stats.hash);</span><br><span class="line"> if (stats.errors.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;errors&#x27;, stats.errors);</span><br><span class="line"> &#125; else if (stats.warnings.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;warnings&#x27;, stats.warnings);</span><br><span class="line"> &#125; else &#123; this.sockWrite(sockets, &#x27;ok&#x27;); &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/md-images/webpack/assets/HMR/image-20220111134320575.png" alt="image-20220111134320575"></p>
+</li>
+<li><p>客户端接受到 ws 消息后，<code>hash</code>事件更新当前<code>hash</code>值，ok 事件触发<code>hotEmitter</code></p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// webpack-dev-server/client/index.js</span><br><span class="line">var socket = require(&#x27;./socket&#x27;);</span><br><span class="line">var onSocketMessage = &#123;</span><br><span class="line">    hash: function hash(_hash) &#123;</span><br><span class="line">        // 更新currentHash值</span><br><span class="line">        status.currentHash = _hash;</span><br><span class="line">    &#125;,</span><br><span class="line">    ok: function ok() &#123;</span><br><span class="line">        sendMessage(&#x27;Ok&#x27;);</span><br><span class="line">        // 进行更新检查等操作</span><br><span class="line">        reloadApp(options, status);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">// 连接服务地址socketUrl，?http://localhost:8080，本地服务地址</span><br><span class="line">socket(socketUrl, onSocketMessage);</span><br><span class="line"></span><br><span class="line">function reloadApp() &#123;</span><br><span class="line"> if (hot) &#123;</span><br><span class="line">        log.info(&#x27;[WDS] App hot update...&#x27;);</span><br><span class="line"></span><br><span class="line">        // hotEmitter其实就是EventEmitter的实例</span><br><span class="line">        var hotEmitter = require(&#x27;webpack/hot/emitter&#x27;);</span><br><span class="line">        hotEmitter.emit(&#x27;webpackHotUpdate&#x27;, currentHash);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>web-dev-server 插入的客户端的另一个入口文件 <code>webpack/hot/dev-server.js</code>，监听<code>hotEmitter</code>事件，进行热更新检查 <code>check</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// webpack/hot/dev-server.js</span><br><span class="line">var check = function check() &#123;</span><br><span class="line">  // 热更新核心代码</span><br><span class="line">    module.hot.check(true)</span><br><span class="line">        .then(function(updatedModules) &#123;</span><br><span class="line">            // 容错，直接刷新页面</span><br><span class="line">            if (!updatedModules) &#123;</span><br><span class="line">                window.location.reload();</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            // 热更新结束，打印信息</span><br><span class="line">            if (upToDate()) &#123;</span><br><span class="line">                log(&quot;info&quot;, &quot;[HMR] App is up to date.&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">        .catch(function(err) &#123;</span><br><span class="line">            window.location.reload();</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var hotEmitter = require(&quot;./emitter&quot;);</span><br><span class="line">hotEmitter.on(&quot;webpackHotUpdate&quot;, function(currentHash) &#123;</span><br><span class="line">    lastHash = currentHash;</span><br><span class="line">    check();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>check</code>代码<code>module.hot.check</code>在<code>HotModuleReplacementPlugin.runtime.js</code>中</p>
+<p><code>hotCheck</code>主要做了三件事</p>
+<ol>
+<li><p>利用上一次保存的<code>hash</code>值，调用<code>hotDownloadManifest</code>发送<code>xxx/hash.hot-update.json</code>的<code>ajax</code>请求；</p>
+</li>
+<li><p>请求结果获取热更新模块，以及下次热更新的<code>Hash</code> 标识，并进入热更新准备阶段。</p>
+</li>
+<li><p>调用<code>hotDownloadUpdateChunk</code>发送<code>xxx/hash.hot-update.js</code> 请求，通过<code>JSONP</code>方式。</p>
+<p><img src="/md-images/webpack/assets/HMR/16ec04316d6ac5e3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+</li>
+<li><p>返回结果后，要立即执行<code>webpackHotUpdate</code>这个方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window[&quot;webpackHotUpdate&quot;] = function (chunkId, moreModules) &#123;</span><br><span class="line">    hotAddUpdateChunk(chunkId, moreModules);</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>hotAddUpdateChunk</code>方法<strong>会把更新的模块</strong><code>moreModules</code>赋值给全局全量<code>hotUpdate</code>。</p>
+</li>
+<li><p><code>hotUpdateDownloaded</code>方法会调用<code>hotApply</code>进行代码的替换。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function hotAddUpdateChunk(chunkId, moreModules) &#123;</span><br><span class="line">    // 更新的模块moreModules赋值给全局全量hotUpdate</span><br><span class="line">    for (var moduleId in moreModules) &#123;</span><br><span class="line">        if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) &#123;</span><br><span class="line">        hotUpdate[moduleId] = moreModules[moduleId];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 调用hotApply进行模块的替换</span><br><span class="line">    hotUpdateDownloaded();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hotApply 热更新模块替换</p>
+<ol>
+<li>删除过期的模块，就是需要替换的模块</li>
+</ol>
+<p>通过<code>hotUpdate</code>可以找到旧模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var queue = outdatedModules.slice();</span><br><span class="line">while (queue.length &gt; 0) &#123;</span><br><span class="line">    moduleId = queue.pop();</span><br><span class="line">    // 从缓存中删除过期的模块</span><br><span class="line">    module = installedModules[moduleId];</span><br><span class="line">    // 删除过期的依赖</span><br><span class="line">    delete outdatedDependencies[moduleId];</span><br><span class="line"></span><br><span class="line">    // 存储了被删掉的模块id，便于更新代码</span><br><span class="line">    outdatedSelfAcceptedModules.push(&#123;</span><br><span class="line">        module: moduleId</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>将新的模块添加到 modules 中</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appliedUpdate[moduleId] = hotUpdate[moduleId];</span><br><span class="line">for (moduleId in appliedUpdate) &#123;</span><br><span class="line">    if (Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) &#123;</span><br><span class="line">        modules[moduleId] = appliedUpdate[moduleId];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过<strong>webpack_require</strong>执行相关模块的代码</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (i = 0; i &lt; outdatedSelfAcceptedModules.length; i++) &#123;</span><br><span class="line">    var item = outdatedSelfAcceptedModules[i];</span><br><span class="line">    moduleId = item.module;</span><br><span class="line">    try &#123;</span><br><span class="line">        // 执行最新的代码</span><br><span class="line">        __webpack_require__(moduleId);</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">        // ...容错处理</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/diff%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1557,165 +1716,6 @@
 <li>设置key可以最大化的利用节点</li>
 <li>diff的效率并不是每种情况下都是最优的</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/webpack/HMR/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/luopo.gif">
-      <meta itemprop="name" content="马农">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="博客">
-      <meta itemprop="description" content="学习记录">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/webpack/HMR/" class="post-title-link" itemprop="url">webpack热更新</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-07-13 13:13:38" itemprop="dateCreated datePublished" datetime="2024-07-13T13:13:38+08:00">2024-07-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><code>Hot Module Replacement</code>，简称<code>HMR</code>，无需完全刷新整个页面的同时，更新模块。<code>HMR</code>的好处，在日常开发工作中体会颇深：<strong>节省宝贵的开发时间、提升开发体验</strong>。</p>
-<p>在这里简单介绍一个 HMR 的原理</p>
-<h3 id="HMR-初始化"><a href="#HMR-初始化" class="headerlink" title="HMR 初始化"></a>HMR 初始化</h3><h4 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h4><p>Webpack-dev-server 的执行过程，其实也是一个 HMR 开启的过程</p>
-<ul>
-<li><p>修改 webpackOptions，添加两个入口文件，一个是 websocket 客户端代码，一个是热更新客户端代码(主要是用于检查更新逻辑)。</p>
-</li>
-<li><p>启动<code>webpack</code>，生成<code>compiler</code>实例。<code>compiler</code>上有很多方法，比如可以启动 <code>webpack</code> 所有<strong>编译</strong>工作，以及<strong>监听</strong>本地文件的变化。</p>
-</li>
-<li><p>使用<code>express</code>框架启动本地<code>server</code>，让浏览器可以请求本地的<strong>静态资源</strong>。</p>
-<ul>
-<li>启动 server 的时候，监听 compiler 的 done 事件，当监听到一次<code>webpack</code>编译结束，就会调用<code>_sendStats</code>方法通过<code>websocket</code>给浏览器发送通知，<code>ok</code>和<code>hash</code>事件，这样浏览器就可以拿到最新的<code>hash</code>值了，做检查更新逻辑</li>
-<li>生成 <strong>webpack-dev-middleware</strong> 中间件实例，保存在 this.middleware（主要是本地文件的<strong>编译</strong>和<strong>输出</strong>以及<strong>监听</strong>）</li>
-</ul>
-</li>
-<li><p>本地<code>server</code>启动之后，再去启动<code>websocket</code>服务，通过<code>websocket</code>，可以建立本地服务和浏览器的双向通信。这样就可以实现当本地文件发生变化，立马告知浏览器可以热更新代码啦！</p>
-</li>
-</ul>
-<h4 id="webpack-dev-middleware"><a href="#webpack-dev-middleware" class="headerlink" title="webpack-dev-middleware"></a>webpack-dev-middleware</h4><p>文件相关的操作都抽离到<code>webpack-dev-middleware</code>库了，主要是本地文件的<strong>编译</strong>和<strong>输出</strong>以及<strong>监听</strong></p>
-<p>主要流程都在下述代码中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">share.setOptions(context.options);</span><br><span class="line">share.setFs(context.compiler);</span><br><span class="line"></span><br><span class="line">context.compiler.plugin(&quot;done&quot;, share.compilerDone);</span><br><span class="line">context.compiler.plugin(&quot;invalid&quot;, share.compilerInvalid);</span><br><span class="line">context.compiler.plugin(&quot;watch-run&quot;, share.compilerInvalid);</span><br><span class="line">context.compiler.plugin(&quot;run&quot;, share.compilerInvalid);</span><br><span class="line"></span><br><span class="line">share.startWatch();</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>初始化配置，利用<code>memory-fs</code>库将文件打包到内存中(访问文件系统中的文件更快，而且也减少了代码写入文件的开销)</li>
-<li>注册一系列事件。</li>
-<li>开启对本地文件的监听，当文件发生变化，重新编译，编译完成之后继续监听</li>
-</ul>
-<h3 id="一次完整的-HMR-流程"><a href="#一次完整的-HMR-流程" class="headerlink" title="一次完整的 HMR 流程"></a>一次完整的 HMR 流程</h3><ol>
-<li><p>当文件发生变化，就触发重新编译。当监听到一次<code>webpack</code>编译结束，<code>_sendStats</code>方法就通过<code>websoket</code>给浏览器发送通知</p>
-<ol>
-<li><code>hash</code>事件，更新最新一次打包后的<code>hash</code>值</li>
-<li><code>ok</code>事件，进行热更新检查</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">this.sockWrite(sockets, &#x27;hash&#x27;, stats.hash);</span><br><span class="line"> if (stats.errors.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;errors&#x27;, stats.errors);</span><br><span class="line"> &#125; else if (stats.warnings.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;warnings&#x27;, stats.warnings);</span><br><span class="line"> &#125; else &#123; this.sockWrite(sockets, &#x27;ok&#x27;); &#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/md-images/webpack/assets/HMR/image-20220111134320575.png" alt="image-20220111134320575"></p>
-</li>
-<li><p>客户端接受到 ws 消息后，<code>hash</code>事件更新当前<code>hash</code>值，ok 事件触发<code>hotEmitter</code></p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// webpack-dev-server/client/index.js</span><br><span class="line">var socket = require(&#x27;./socket&#x27;);</span><br><span class="line">var onSocketMessage = &#123;</span><br><span class="line">    hash: function hash(_hash) &#123;</span><br><span class="line">        // 更新currentHash值</span><br><span class="line">        status.currentHash = _hash;</span><br><span class="line">    &#125;,</span><br><span class="line">    ok: function ok() &#123;</span><br><span class="line">        sendMessage(&#x27;Ok&#x27;);</span><br><span class="line">        // 进行更新检查等操作</span><br><span class="line">        reloadApp(options, status);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">// 连接服务地址socketUrl，?http://localhost:8080，本地服务地址</span><br><span class="line">socket(socketUrl, onSocketMessage);</span><br><span class="line"></span><br><span class="line">function reloadApp() &#123;</span><br><span class="line"> if (hot) &#123;</span><br><span class="line">        log.info(&#x27;[WDS] App hot update...&#x27;);</span><br><span class="line"></span><br><span class="line">        // hotEmitter其实就是EventEmitter的实例</span><br><span class="line">        var hotEmitter = require(&#x27;webpack/hot/emitter&#x27;);</span><br><span class="line">        hotEmitter.emit(&#x27;webpackHotUpdate&#x27;, currentHash);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>web-dev-server 插入的客户端的另一个入口文件 <code>webpack/hot/dev-server.js</code>，监听<code>hotEmitter</code>事件，进行热更新检查 <code>check</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// webpack/hot/dev-server.js</span><br><span class="line">var check = function check() &#123;</span><br><span class="line">  // 热更新核心代码</span><br><span class="line">    module.hot.check(true)</span><br><span class="line">        .then(function(updatedModules) &#123;</span><br><span class="line">            // 容错，直接刷新页面</span><br><span class="line">            if (!updatedModules) &#123;</span><br><span class="line">                window.location.reload();</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            // 热更新结束，打印信息</span><br><span class="line">            if (upToDate()) &#123;</span><br><span class="line">                log(&quot;info&quot;, &quot;[HMR] App is up to date.&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">        .catch(function(err) &#123;</span><br><span class="line">            window.location.reload();</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var hotEmitter = require(&quot;./emitter&quot;);</span><br><span class="line">hotEmitter.on(&quot;webpackHotUpdate&quot;, function(currentHash) &#123;</span><br><span class="line">    lastHash = currentHash;</span><br><span class="line">    check();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>check</code>代码<code>module.hot.check</code>在<code>HotModuleReplacementPlugin.runtime.js</code>中</p>
-<p><code>hotCheck</code>主要做了三件事</p>
-<ol>
-<li><p>利用上一次保存的<code>hash</code>值，调用<code>hotDownloadManifest</code>发送<code>xxx/hash.hot-update.json</code>的<code>ajax</code>请求；</p>
-</li>
-<li><p>请求结果获取热更新模块，以及下次热更新的<code>Hash</code> 标识，并进入热更新准备阶段。</p>
-</li>
-<li><p>调用<code>hotDownloadUpdateChunk</code>发送<code>xxx/hash.hot-update.js</code> 请求，通过<code>JSONP</code>方式。</p>
-<p><img src="/md-images/webpack/assets/HMR/16ec04316d6ac5e3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
-</li>
-<li><p>返回结果后，要立即执行<code>webpackHotUpdate</code>这个方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window[&quot;webpackHotUpdate&quot;] = function (chunkId, moreModules) &#123;</span><br><span class="line">    hotAddUpdateChunk(chunkId, moreModules);</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>hotAddUpdateChunk</code>方法<strong>会把更新的模块</strong><code>moreModules</code>赋值给全局全量<code>hotUpdate</code>。</p>
-</li>
-<li><p><code>hotUpdateDownloaded</code>方法会调用<code>hotApply</code>进行代码的替换。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function hotAddUpdateChunk(chunkId, moreModules) &#123;</span><br><span class="line">    // 更新的模块moreModules赋值给全局全量hotUpdate</span><br><span class="line">    for (var moduleId in moreModules) &#123;</span><br><span class="line">        if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) &#123;</span><br><span class="line">        hotUpdate[moduleId] = moreModules[moduleId];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 调用hotApply进行模块的替换</span><br><span class="line">    hotUpdateDownloaded();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>hotApply 热更新模块替换</p>
-<ol>
-<li>删除过期的模块，就是需要替换的模块</li>
-</ol>
-<p>通过<code>hotUpdate</code>可以找到旧模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var queue = outdatedModules.slice();</span><br><span class="line">while (queue.length &gt; 0) &#123;</span><br><span class="line">    moduleId = queue.pop();</span><br><span class="line">    // 从缓存中删除过期的模块</span><br><span class="line">    module = installedModules[moduleId];</span><br><span class="line">    // 删除过期的依赖</span><br><span class="line">    delete outdatedDependencies[moduleId];</span><br><span class="line"></span><br><span class="line">    // 存储了被删掉的模块id，便于更新代码</span><br><span class="line">    outdatedSelfAcceptedModules.push(&#123;</span><br><span class="line">        module: moduleId</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>将新的模块添加到 modules 中</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appliedUpdate[moduleId] = hotUpdate[moduleId];</span><br><span class="line">for (moduleId in appliedUpdate) &#123;</span><br><span class="line">    if (Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) &#123;</span><br><span class="line">        modules[moduleId] = appliedUpdate[moduleId];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>通过<strong>webpack_require</strong>执行相关模块的代码</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (i = 0; i &lt; outdatedSelfAcceptedModules.length; i++) &#123;</span><br><span class="line">    var item = outdatedSelfAcceptedModules[i];</span><br><span class="line">    moduleId = item.module;</span><br><span class="line">    try &#123;</span><br><span class="line">        // 执行最新的代码</span><br><span class="line">        __webpack_require__(moduleId);</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">        // ...容错处理</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ol>
 
       
     </div>
