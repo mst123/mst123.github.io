@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="&#x2F;&#x2F; TODO半成品 半成品 先别看了下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92  html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测   js css并存 测试变量太多3*4&#x3D;12种情况，感觉意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阻塞关系">
+<meta property="og:url" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="&#x2F;&#x2F; TODO半成品 半成品 先别看了下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92  html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测   js css并存 测试变量太多3*4&#x3D;12种情况，感觉意">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812171549248.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812174254853.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812175156074.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140650543.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140535630.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813141225951.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152617775.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152844462.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152950225.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153113295.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153206303.png">
+<meta property="article:published_time" content="2021-08-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:25:30.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="阻塞关系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812171549248.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/","path":"性能优化/阻塞关系/","title":"阻塞关系"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>阻塞关系 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E4%BB%85%E6%B5%8B%E8%AF%95css"><span class="nav-number">1.</span> <span class="nav-text">首先仅测试css</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%93%BEcss%E6%94%BE%E5%9C%A8head%E5%86%85"><span class="nav-number">1.1.</span> <span class="nav-text">外链css放在head内</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%93%BEcss%E6%94%BE%E5%9C%A8body%E6%9C%80%E5%89%8D%E9%83%A8"><span class="nav-number">1.2.</span> <span class="nav-text">外链css放在body最前部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%93%BEcss%E6%94%BE%E5%9C%A8body%E5%86%85%EF%BC%8C%E4%B8%A4%E4%B8%AAdiv%E4%B9%8B%E9%97%B4"><span class="nav-number">1.3.</span> <span class="nav-text">外链css放在body内，两个div之间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css%E5%A4%96%E9%93%BE%E6%94%BE%E5%9C%A8body%E5%86%85%E6%9C%80%E5%90%8E"><span class="nav-number">1.4.</span> <span class="nav-text">css外链放在body内最后</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%93%BEcss%E6%94%BE%E5%9C%A8body%E4%B9%8B%E5%90%8E"><span class="nav-number">1.5.</span> <span class="nav-text">外链css放在body之后</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%85%E6%B5%8B%E8%AF%95js"><span class="nav-number">2.</span> <span class="nav-text">仅测试js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#js%E6%94%BE%E5%9C%A8head%E5%86%85%E3%80%81body%E5%A4%B4%E9%83%A8"><span class="nav-number">2.1.</span> <span class="nav-text">js放在head内、body头部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js%E6%94%BE%E5%9C%A8div%E4%B9%8B%E9%97%B4"><span class="nav-number">2.3.</span> <span class="nav-text">js放在div之间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js%E6%94%BEbody%E5%B0%BE%E9%83%A8"><span class="nav-number">2.4.</span> <span class="nav-text">js放body尾部</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js%E3%80%81css%E5%B9%B6%E5%AD%98"><span class="nav-number">3.</span> <span class="nav-text">js、css并存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#css%E5%A4%84%E4%BA%8Ehead"><span class="nav-number">3.1.</span> <span class="nav-text">css处于head</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#js%E5%A4%84%E4%BA%8Edom%E5%89%8D"><span class="nav-number">3.1.1.</span> <span class="nav-text">js处于dom前</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js%E5%A4%84%E4%BA%8Edom%E4%B8%AD"><span class="nav-number">3.1.2.</span> <span class="nav-text">js处于dom中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js%E5%A4%84%E4%BA%8Edom%E5%90%8E"><span class="nav-number">3.1.3.</span> <span class="nav-text">js处于dom后</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css%E5%92%8Cjs%E6%96%87%E4%BB%B6%E5%AF%B9html%E7%9A%84%E9%98%BB%E5%A1%9E"><span class="nav-number"></span> <span class="nav-text">css和js文件对html的阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="nav-number"></span> <span class="nav-text">DCL的结论</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="阻塞关系 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          阻塞关系
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-12 00:00:00" itemprop="dateCreated datePublished" datetime="2021-08-12T00:00:00+08:00">2021-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:25:30" itemprop="dateModified" datetime="2024-07-13T13:25:30+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>&#x2F;&#x2F; TODO<br>半成品 半成品 先别看了<br>下面结合实例代码探索html、js、css的阻塞关系,浏览器chrome 版本92</p>
+<ul>
+<li>html监听了DCL和load事件，拥有两个具有文字内容(可以观测到FCP、LCP)的div</li>
+<li>js css 带有sleep3000-的前缀，表示服务器会阻塞3000毫秒后返回，方便观测</li>
+</ul>
+<blockquote>
+<p>js css并存 测试变量太多3*4&#x3D;12种情况，感觉意义不大、、</p>
+</blockquote>
+<p>首先是html内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"> &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line"> &lt;script&gt;</span><br><span class="line">  document.addEventListener(&#x27;DOMContentLoaded&#x27;,function()&#123;</span><br><span class="line">   console.log(&#x27;DOMContentLoaded&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line">  window.addEventListener(&#x27;load&#x27;,function()&#123;</span><br><span class="line">   console.log(&#x27;load&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line"> &lt;/script&gt;</span><br><span class="line"> &lt;style&gt;</span><br><span class="line">  div &#123;</span><br><span class="line">   width: 100px;</span><br><span class="line">   height: 100px;</span><br><span class="line">   background: green;</span><br><span class="line">  &#125;</span><br><span class="line"> &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"> &lt;div&gt;的时光飞逝东莞市地方刮大风&lt;/div&gt;</span><br><span class="line"> &lt;div&gt;asfklasjf&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css 将div背景设置为blue，html中为green</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">div &#123;</span><br><span class="line">  background: blue!important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>js1 打印获取的div</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const div1 = document.querySelector(&#x27;div&#x27;);</span><br><span class="line">console.log(div1);</span><br></pre></td></tr></table></figure>
+
+<p>Js2 执行复杂操作后 打印div</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const arr = [];</span><br><span class="line">for (let i = 0; i &lt; 10000000; i++) &#123;</span><br><span class="line">  arr.push(i);</span><br><span class="line">  arr.splice(i % 3, i % 7, i % 5);</span><br><span class="line">&#125;</span><br><span class="line">const div = document.querySelector(&#x27;div&#x27;);</span><br><span class="line">console.log(div);</span><br></pre></td></tr></table></figure>
+
+<h3 id="首先仅测试css"><a href="#首先仅测试css" class="headerlink" title="首先仅测试css"></a>首先仅测试css</h3><h4 id="外链css放在head内"><a href="#外链css放在head内" class="headerlink" title="外链css放在head内"></a>外链css放在head内</h4><p>图上dcl只是被挡住了，几乎是立刻执行，然后等待css下载完成后，触发load时间，然后进行fp、fcp、lcp</p>
+<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812171549248.png" alt="image-20210812171549248"></p>
+<p>页面上前五秒并未显示div，但是此时在dom中已经存在div，css并不能阻塞dom的解析，五秒后显示蓝色div</p>
+<p>![Kapture 2021-08-12 at 17.34.48](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 17.34.48.gif)</p>
+<h4 id="外链css放在body最前部"><a href="#外链css放在body最前部" class="headerlink" title="外链css放在body最前部"></a>外链css放在body最前部</h4><p>放在body最前部，浏览器会等待css下载完毕后，才会触发dcl及一系列绘制</p>
+<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812174254853.png" alt="image-20210812174254853"></p>
+<p>很明显，放在body前的外链css阻塞的dom的解析，当css下载完毕后，触发了一系列关键事件</p>
+<p>![Kapture 2021-08-12 at 17.46.42](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 17.46.42.gif)</p>
+<h4 id="外链css放在body内，两个div之间"><a href="#外链css放在body内，两个div之间" class="headerlink" title="外链css放在body内，两个div之间"></a>外链css放在body内，两个div之间</h4><p>浏览器会先绘制并渲染css之前的div，待css下载完毕后，会渲染另一个div，并显示蓝色背景，触发dcl及load</p>
+<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210812175156074.png" alt="image-20210812175156074"></p>
+<p>![Kapture 2021-08-12 at 17.55.14](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 17.55.14.gif)</p>
+<h4 id="css外链放在body内最后"><a href="#css外链放在body内最后" class="headerlink" title="css外链放在body内最后"></a>css外链放在body内最后</h4><p>performance和放在div之间一样，实际页面表现有一些差异</p>
+<p>![Kapture 2021-08-12 at 18.03.58](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 18.03.58.gif)</p>
+<h4 id="外链css放在body之后"><a href="#外链css放在body之后" class="headerlink" title="外链css放在body之后"></a>外链css放在body之后</h4><p>会被浏览器修复到body内最后</p>
+<h3 id="仅测试js"><a href="#仅测试js" class="headerlink" title="仅测试js"></a>仅测试js</h3><h4 id="js放在head内、body头部"><a href="#js放在head内、body头部" class="headerlink" title="js放在head内、body头部"></a>js放在head内、body头部</h4><p>很明显，js的下载和解析（执行）都会阻塞dom元素的解析和渲染，直到js下载解析之后，才会继续解析渲染dom，触发dcl、fp等等</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140650543.png" alt="image-20210813140650543"></h4><p>![Kapture 2021-08-12 at 21.36.22](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 21.36.22.gif)</p>
+<h4 id="js放在div之间"><a href="#js放在div之间" class="headerlink" title="js放在div之间"></a>js放在div之间</h4><p>js会阻塞js之后的dom解析和渲染，对于js之前的dom会正常解析渲染，并触发fp等，但是dcl需要等待js下载解析（执行）完成后</p>
+<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813140535630.png" alt="image-20210813140535630"></p>
+<p>![Kapture 2021-08-12 at 21.41.08](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 21.41.08.gif)</p>
+<h4 id="js放body尾部"><a href="#js放body尾部" class="headerlink" title="js放body尾部"></a>js放body尾部</h4><p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813141225951.png" alt="image-20210813141225951"></p>
+<p>![Kapture 2021-08-12 at 21.46.00](assets&#x2F;阻塞关系&#x2F;Kapture 2021-08-12 at 21.46.00.gif)</p>
+<h3 id="js、css并存"><a href="#js、css并存" class="headerlink" title="js、css并存"></a>js、css并存</h3><h4 id="css处于head"><a href="#css处于head" class="headerlink" title="css处于head"></a>css处于head</h4><h5 id="js处于dom前"><a href="#js处于dom前" class="headerlink" title="js处于dom前"></a>js处于dom前</h5><p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152617775.png" alt="image-20210813152617775"></p>
+<h5 id="js处于dom中"><a href="#js处于dom中" class="headerlink" title="js处于dom中"></a>js处于dom中</h5><p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152844462.png" alt="image-20210813152844462"></p>
+<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813152950225.png" alt="image-20210813152950225"></p>
+<h5 id="js处于dom后"><a href="#js处于dom后" class="headerlink" title="js处于dom后"></a>js处于dom后</h5><p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153113295.png" alt="image-20210813153113295"></p>
+<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/image-20210813153206303.png" alt="image-20210813153206303"></p>
+<h2 id="css和js文件对html的阻塞"><a href="#css和js文件对html的阻塞" class="headerlink" title="css和js文件对html的阻塞"></a>css和js文件对html的阻塞</h2><ul>
+<li><p><code>CSS</code> 不会（仅限head内）阻塞 <code>DOM</code> 的解析(document存在)，但会阻塞其后的 <code>DOM</code> 渲染。</p>
+</li>
+<li><p>在js前的css会阻塞js的解析（不会阻止下载），继而阻止dom的解析和渲染</p>
+</li>
+<li><p><code>JS</code> 阻塞 <code>DOM</code> 解析，但浏览器会”偷看”<code>DOM</code>，预先下载相关资源。</p>
+</li>
+</ul>
+<h2 id="DCL的结论"><a href="#DCL的结论" class="headerlink" title="DCL的结论"></a>DCL的结论</h2><p>除了放在head里的css，html中的js、css都会阻塞dcl事件</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%98%BB%E5%A1%9E%E5%85%B3%E7%B3%BB/" rel="tag"># 阻塞关系</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E9%A2%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E6%87%92%E5%8A%A0%E8%BD%BD/" rel="prev" title="13 预加载和懒加载">
+                  <i class="fa fa-angle-left"></i> 13 预加载和懒加载
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E7%BD%91%E7%BB%9C/cache/" rel="next" title="浏览器缓存原理">
+                  浏览器缓存原理 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="字符串对象是不可变的，所以字符串对象提供的涉及到字符串“修改”的方法都是返回修改后的新字符串，并不对原始字符串做任何修改，无一例外JavaScript字符串由 16位码元（code unit）组成。对多数字符来说，每 16位码元对应一个字符。JavaScript字符串使用了两种 Unicode编码混合的策略：UCS-2和 UTF-16。对于可以采用 16位编码 的字符（U+0000~U+FFFF）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串常用方法">
+<meta property="og:url" content="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="字符串对象是不可变的，所以字符串对象提供的涉及到字符串“修改”的方法都是返回修改后的新字符串，并不对原始字符串做任何修改，无一例外JavaScript字符串由 16位码元（code unit）组成。对多数字符来说，每 16位码元对应一个字符。JavaScript字符串使用了两种 Unicode编码混合的策略：UCS-2和 UTF-16。对于可以采用 16位编码 的字符（U+0000~U+FFFF）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-17T07:45:27.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="String">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/","path":"数据类型/字符串常用方法/","title":"字符串常用方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>字符串常用方法 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#charAt"><span class="nav-number">1.</span> <span class="nav-text">charAt()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#charCodeAt"><span class="nav-number">2.</span> <span class="nav-text">charCodeAt()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fromCharCode-%E5%8E%9F%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">fromCharCode() 原型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#normalize-%E9%9D%9E%E8%AF%9A%E4%B8%8D%E5%B8%B8%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">normalize() 非诚不常用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#concat"><span class="nav-number">5.</span> <span class="nav-text">concat()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slice-%E3%80%81substr-%E5%92%8C-substring-%E6%88%AA%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">6.</span> <span class="nav-text">slice()、substr() 和 substring() 截取字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexOf-%E5%92%8C-lastIndexOf-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">indexOf() 和 lastIndexOf() 字符串位置方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#startsWith-%E3%80%81endsWith-%E5%92%8C-includes-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">startsWith()、endsWith() 和 includes() 字符串包含方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trim-%E3%80%81-trimLeft-%E5%92%8C-trimRight"><span class="nav-number">9.</span> <span class="nav-text">trim()、 trimLeft() 和 trimRight()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#repeat"><span class="nav-number">10.</span> <span class="nav-text">repeat()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#padStart-%E5%92%8C-padEnd"><span class="nav-number">11.</span> <span class="nav-text">padStart()和 padEnd()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toLowerCase-%E3%80%81toLocaleLowerCase-%E3%80%81toUpperCase-%E5%92%8C-toLocaleUpperCase-%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-number">12.</span> <span class="nav-text">toLowerCase()、toLocaleLowerCase()、toUpperCase() 和 toLocaleUpperCase() 大小写转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#match-search-%E5%92%8C-replace-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E6%96%B9%E6%B3%95"><span class="nav-number">13.</span> <span class="nav-text">match() search() 和 replace() 字符串模式匹配方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localeCompare"><span class="nav-number">14.</span> <span class="nav-text">localeCompare()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matchAll"><span class="nav-number">15.</span> <span class="nav-text">matchAll()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replaceAll"><span class="nav-number">16.</span> <span class="nav-text">replaceAll()</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="字符串常用方法 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符串常用方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-14 00:00:00" itemprop="dateCreated datePublished" datetime="2021-12-14T00:00:00+08:00">2021-12-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-17 15:45:27" itemprop="dateModified" datetime="2022-02-17T15:45:27+08:00">2022-02-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">数据类型</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>字符串对象是不可变的，所以字符串对象提供的涉及到字符串“修改”的方法都是返回修改后的新字符串，并不对原始字符串做任何修改，无一例外<br>JavaScript字符串由 16位码元（code unit）组成。对多数字符来说，每 16位码元对应一个字符。<br>JavaScript字符串使用了两种 Unicode编码混合的策略：UCS-2和 UTF-16。对于可以采用 16位编码 的字符（U+0000~U+FFFF）16的四次方</p>
+<h2 id="charAt"><a href="#charAt" class="headerlink" title="charAt()"></a>charAt()</h2><p>charAt()方法返回给定索引位置的字符，由传给方法的整数参数指定。具体来说，这个方法查找指定索引位置的 16位码元，并返回该码元对应的字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let message = &quot;abcde&quot;; </span><br><span class="line"> </span><br><span class="line">console.log(message.charAt(2)); // &quot;c&quot; </span><br></pre></td></tr></table></figure>
+
+<h2 id="charCodeAt"><a href="#charCodeAt" class="headerlink" title="charCodeAt()"></a>charCodeAt()</h2><p>使用 charCodeAt()方法可以查看指定码元的字符编码。这个方法返回指定索引位置的码元值，索引以整数指定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let message = &quot;abcde&quot;; </span><br><span class="line">// Unicode &quot;Latin small letter C&quot;的编码是 U+0063 </span><br><span class="line">console.log(message.charCodeAt(2));  // 99 </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h2 id="fromCharCode-原型方法"><a href="#fromCharCode-原型方法" class="headerlink" title="fromCharCode() 原型方法"></a>fromCharCode() 原型方法</h2><p>fromCharCode() 方法用于根据给定的 UTF-16 码元创建字符串中的字符。这个方法可以接受任意多个数值，并返回将所有数值对应的字符拼接起来的字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(String.fromCharCode(0x61, 0x62, 0x63, 0x64, 0x65));  // &quot;abcde&quot; </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于 U+0000~U+FFFF范围内的字符，length、charAt()、charCodeAt()和 fromCharCode() 返回的结果都跟预期是一样的。<br>为正确解析既包含单码元字符又包含代理对字符的字符串，与charCodeAt()有对应的 codePointAt()一样，fromCharCode()也有一个对应的 fromCodePoint()</p>
+</blockquote>
+<h2 id="normalize-非诚不常用"><a href="#normalize-非诚不常用" class="headerlink" title="normalize() 非诚不常用"></a>normalize() 非诚不常用</h2><p>，Unicode提供了4种规范化形式，可以将类似上面的字符规范化为一致的格式，无论 底层字符的代码是什么。这 4种规范化形式是：NFD（Normalization Form D）、NFC（Normalization Form C）、 NFKD（Normalization Form KD）和 NFKC（Normalization Form KC）。可以使用 normalize()方法对字 符串应用上述规范化形式，使用时需要传入表示哪种形式的字符串：”NFD”、”NFC”、”NFKD”或”NFKC”。</p>
+<h2 id="concat"><a href="#concat" class="headerlink" title="concat()"></a>concat()</h2><p>首先是 concat()，用于将一个或多个字符串拼接成一个新字符串。concat()方法可以接收任意多个参数，因此可以一次性拼接多个字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;hello &quot;; </span><br><span class="line">let result = stringValue.concat(&quot;world&quot;, &quot;!&quot;); </span><br><span class="line">console.log(result);      // &quot;hello world!&quot; </span><br><span class="line">console.log(stringValue); // &quot;hello &quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然 concat()方法可以拼接字符串，但更常用的方式是使用加号操作符（+）。而且多数情况下，对于拼接多个字符串来说，使用加号更方便。</p>
+</blockquote>
+<h2 id="slice-、substr-和-substring-截取字符串"><a href="#slice-、substr-和-substring-截取字符串" class="headerlink" title="slice()、substr() 和 substring() 截取字符串"></a>slice()、substr() 和 substring() 截取字符串</h2><p>这3个方法都返回调用它们的字符串的一个子字符串，而且都接收一或两个参数。第一个参数表示子字符串开始的位置，第二个参数表示子字符串结束的位置。<br>对<code>slice()</code>和<code>substring()</code>而言，第二个参数是提取结束的位置（即该位置之前的字符会被提取出来）。<br>对<code>substr()</code>而言，第二个参数表示返回的子字符串数量。任何情况下，省略第二个参数都意味着提取到字符串末尾。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;hello world&quot;; </span><br><span class="line">console.log(stringValue.slice(3));       // &quot;lo world&quot; </span><br><span class="line">console.log(stringValue.substring(3));   // &quot;lo world&quot; </span><br><span class="line">console.log(stringValue.substr(3));      // &quot;lo world&quot; </span><br><span class="line">console.log(stringValue.slice(3, 7));    // &quot;lo w&quot; </span><br><span class="line">console.log(stringValue.substring(3,7)); // &quot;lo w&quot; </span><br><span class="line">console.log(stringValue.substr(3, 7));   // &quot;lo worl&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当某个参数是负值时，这3个方法的行为又有不同。<br>比如，slice()方法将所有负值参数都当成字符串长度加上负参数值。<br>而substr()方法将第一个负参数值当成字符串长度加上该值，将第二个负参数值转换为 0。<br>substring()方法会将所有负参数值都转换为 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;hello world&quot;; </span><br><span class="line">console.log(stringValue.slice(-3));         // &quot;rld&quot; </span><br><span class="line">console.log(stringValue.substring(-3));     // &quot;hello world&quot; </span><br><span class="line">console.log(stringValue.substr(-3));        // &quot;rld&quot; </span><br><span class="line">console.log(stringValue.slice(3, -4));      // &quot;lo w&quot; </span><br><span class="line">console.log(stringValue.substring(3, -4));  // &quot;hel&quot; </span><br><span class="line">console.log(stringValue.substr(3, -4));     // &quot;&quot; (empty string) </span><br></pre></td></tr></table></figure>
+
+<h2 id="indexOf-和-lastIndexOf-字符串位置方法"><a href="#indexOf-和-lastIndexOf-字符串位置方法" class="headerlink" title="indexOf() 和 lastIndexOf() 字符串位置方法"></a>indexOf() 和 lastIndexOf() 字符串位置方法</h2><p>这两个方法从字符串中搜索传入的字符串，并返回位置（如果没找到，则返回-1）。两者的区别在于，indexOf()方法 从字符串开头开始查找子字符串，而 lastIndexOf()方法从字符串末尾开始查找子字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;hello world&quot;; </span><br><span class="line">console.log(stringValue.indexOf(&quot;o&quot;));     // 4 </span><br><span class="line">console.log(stringValue.lastIndexOf(&quot;o&quot;)); // 7 </span><br></pre></td></tr></table></figure>
+
+<p>这两个方法都可以接收可选的第二个参数，表示开始搜索的位置。这意味着，indexOf()会从这个参数指定的位置开始向字符串末尾搜索，<strong>忽略该位置之前</strong>的字符；lastIndexOf()则会从这个参数指定的位置开始向字符串开头搜索，<strong>忽略该位置之后</strong>直到字符串末尾的字符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;hello world&quot;; </span><br><span class="line">console.log(stringValue.indexOf(&quot;o&quot;, 6));     // 7 </span><br><span class="line">console.log(stringValue.lastIndexOf(&quot;o&quot;, 6)); // 4 </span><br></pre></td></tr></table></figure>
+
+<h2 id="startsWith-、endsWith-和-includes-字符串包含方法"><a href="#startsWith-、endsWith-和-includes-字符串包含方法" class="headerlink" title="startsWith()、endsWith() 和 includes() 字符串包含方法"></a>startsWith()、endsWith() 和 includes() 字符串包含方法</h2><p>这些方法都会从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔值。它们的区别在于，startsWith()检查开始于索引 0 的匹配项，endsWith()检查开始于索引(string.length - substring.length)的匹配项，而 includes()检查整个字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let message = &quot;foobarbaz&quot;; </span><br><span class="line">console.log(message.startsWith(&quot;foo&quot;));  // true </span><br><span class="line">console.log(message.startsWith(&quot;bar&quot;));  // false </span><br><span class="line">console.log(message.endsWith(&quot;baz&quot;));    // true </span><br><span class="line">console.log(message.endsWith(&quot;bar&quot;));    // false  </span><br><span class="line">console.log(message.includes(&quot;bar&quot;));    // true </span><br><span class="line">console.log(message.includes(&quot;qux&quot;));    // false </span><br></pre></td></tr></table></figure>
+
+<p>startsWith()和 includes()方法接收可选的第二个参数，表示开始搜索的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let message = &quot;foobarbaz&quot;; </span><br><span class="line"> </span><br><span class="line">console.log(message.startsWith(&quot;foo&quot;));     // true </span><br><span class="line">console.log(message.startsWith(&quot;foo&quot;, 1));  // false </span><br><span class="line"> </span><br><span class="line">console.log(message.includes(&quot;bar&quot;));       // true </span><br><span class="line">console.log(message.includes(&quot;bar&quot;, 4));    // false </span><br></pre></td></tr></table></figure>
+
+<p>endsWith()方法接收可选的第二个参数，表示应该当作字符串末尾的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let message = &quot;foobarbaz&quot;; </span><br><span class="line"> </span><br><span class="line">console.log(message.endsWith(&quot;bar&quot;));     // false </span><br><span class="line">console.log(message.endsWith(&quot;bar&quot;, 6));  // true </span><br></pre></td></tr></table></figure>
+
+<h2 id="trim-、-trimLeft-和-trimRight"><a href="#trim-、-trimLeft-和-trimRight" class="headerlink" title="trim()、 trimLeft() 和 trimRight()"></a>trim()、 trimLeft() 和 trimRight()</h2><p>trim()这个方法会创建字符串的一个副本，删除前、 后所有空格符，再返回结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;  hello world  &quot;; </span><br><span class="line">let trimmedStringValue = stringValue.trim(); </span><br><span class="line">console.log(stringValue);         // &quot;  hello world &quot; </span><br><span class="line">console.log(trimmedStringValue);  // &quot;hello world&quot; </span><br></pre></td></tr></table></figure>
+
+<p>trimLeft()和 trimRight()方法分别用于从字符串开始和末尾清理空格符。</p>
+<h2 id="repeat"><a href="#repeat" class="headerlink" title="repeat()"></a>repeat()</h2><p>这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;na &quot;; </span><br><span class="line">console.log(stringValue.repeat(16) + &quot;batman&quot;); </span><br><span class="line">// na na na na na na na na na na na na na na na na batman </span><br></pre></td></tr></table></figure>
+
+<h2 id="padStart-和-padEnd"><a href="#padStart-和-padEnd" class="headerlink" title="padStart()和 padEnd()"></a>padStart()和 padEnd()</h2><p><code>padStart()</code>和<code>padEnd()</code>方法会复制字符串，如果小于指定长度，则在相应一边填充字符，直至满足长度条件。这两个方法的第一个参数是长度，第二个参数是可选的填充字符串，默认为空格（U+0020）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;foo&quot;; </span><br><span class="line"> </span><br><span class="line">console.log(stringValue.padStart(6));       // &quot;   foo&quot; </span><br><span class="line">console.log(stringValue.padStart(9, &quot;.&quot;));  // &quot;......foo&quot; </span><br><span class="line"> </span><br><span class="line">console.log(stringValue.padEnd(6));         // &quot;foo   &quot; </span><br><span class="line">console.log(stringValue.padEnd(9, &quot;.&quot;));    // &quot;foo......&quot; </span><br></pre></td></tr></table></figure>
+
+<p>可选的第二个参数并不限于一个字符。如果提供了多个字符的字符串，则会将其拼接并截断以匹配指定长度。此外，<strong>如果长度小于或等于字符串长度，则会返回原始字符串</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;foo&quot;; </span><br><span class="line"> </span><br><span class="line">console.log(stringValue.padStart(8, &quot;bar&quot;)); // &quot;barbafoo&quot; </span><br><span class="line">console.log(stringValue.padStart(2));        // &quot;foo&quot; </span><br><span class="line"> </span><br><span class="line">console.log(stringValue.padEnd(8, &quot;bar&quot;));   // &quot;foobarba&quot; </span><br><span class="line">console.log(stringValue.padEnd(2));          // &quot;foo&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="toLowerCase-、toLocaleLowerCase-、toUpperCase-和-toLocaleUpperCase-大小写转换"><a href="#toLowerCase-、toLocaleLowerCase-、toUpperCase-和-toLocaleUpperCase-大小写转换" class="headerlink" title="toLowerCase()、toLocaleLowerCase()、toUpperCase() 和 toLocaleUpperCase() 大小写转换"></a>toLowerCase()、toLocaleLowerCase()、toUpperCase() 和 toLocaleUpperCase() 大小写转换</h2><p>toLowerCase()和toUpperCase()方法是原来就有的方法， 与 java.lang.String 中的方法同名。toLocaleLowerCase()和 toLocaleUpperCase()方法旨在基于特定地区实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let stringValue = &quot;hello world&quot;; </span><br><span class="line">console.log(stringValue.toLocaleUpperCase());  // &quot;HELLO WORLD&quot; </span><br><span class="line">console.log(stringValue.toUpperCase());        // &quot;HELLO WORLD&quot; </span><br><span class="line">console.log(stringValue.toLocaleLowerCase());  // &quot;hello world&quot; </span><br><span class="line">console.log(stringValue.toLowerCase());        // &quot;hello world&quot; </span><br></pre></td></tr></table></figure>
+
+<h2 id="match-search-和-replace-字符串模式匹配方法"><a href="#match-search-和-replace-字符串模式匹配方法" class="headerlink" title="match() search() 和 replace() 字符串模式匹配方法"></a>match() search() 和 replace() 字符串模式匹配方法</h2><p>match()方法本质上跟 RegExp 对象的exec()方法相同。match()方法接收一个参数，可以是一个正则表达式字 符串，也可以是一个 RegExp 对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let text = &quot;cat, bat, sat, fat&quot;; </span><br><span class="line">let pattern = /.at/; </span><br><span class="line"> </span><br><span class="line">// 等价于 pattern.exec(text) </span><br><span class="line">let matches = text.match(pattern); </span><br><span class="line">console.log(matches.index);      // 0 </span><br><span class="line">console.log(matches[0]);         // &quot;cat&quot; </span><br><span class="line">console.log(pattern.lastIndex);  // 0 </span><br></pre></td></tr></table></figure>
+
+<p>search()这个方法返回模式第一个匹配的位置索引，如果没找到则返回-1。search()始终从字符串开头向后匹配模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let text = &quot;cat, bat, sat, fat&quot;; </span><br><span class="line">let pos = text.search(/at/); </span><br><span class="line">console.log(pos);  // 1 </span><br></pre></td></tr></table></figure>
+
+<p>replace()方法。这个方法接收两个参数，第一个参数可以是一个 RegExp 对象或一个字符串（这个字符串不会转换为正则表达式），第二个参数可以是一个字符串或一个函数。<br>如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有子字符串，第一个参数必须为正则表达式并且带全局标记</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let text = &quot;cat, bat, sat, fat&quot;; </span><br><span class="line">let result = text.replace(&quot;at&quot;, &quot;ond&quot;); </span><br><span class="line">console.log(result);  // &quot;cond, bat, sat, fat&quot; </span><br><span class="line"> </span><br><span class="line">result = text.replace(/at/g, &quot;ond&quot;); </span><br><span class="line">console.log(result);  // &quot;cond, bond, sond, fond&quot; </span><br></pre></td></tr></table></figure>
+
+<h2 id="localeCompare"><a href="#localeCompare" class="headerlink" title="localeCompare()"></a>localeCompare()</h2><p>这个方法比较两个字符串，返回如下 3个值中的一个。</p>
+<ul>
+<li>如果按照字母表顺序，字符串应该排在字符串参数前头，则返回负值。（通常是-1，具体还要看与实际值相关的实现。） </li>
+<li>如果字符串与字符串参数相等，则返回 0。 </li>
+<li>如果按照字母表顺序，字符串应该排在字符串参数后头，则返回正值。（通常是 1，具体还要看与实际值相关的实现。）</li>
+</ul>
+<figure class="highlight plaintext"><figcaption><span>stringValue </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(stringValue.localeCompare(&quot;brick&quot;));  // 1 </span><br><span class="line">console.log(stringValue.localeCompare(&quot;yellow&quot;)); // 0 </span><br><span class="line">console.log(stringValue.localeCompare(&quot;zoo&quot;));    // -1 </span><br></pre></td></tr></table></figure>
+
+<h2 id="matchAll"><a href="#matchAll" class="headerlink" title="matchAll()"></a>matchAll()</h2><p>matchAll()方法返回一个正则表达式在当前字符串的所有匹配，详见ES6深入浅出《正则的扩展》的一章。</p>
+<h2 id="replaceAll"><a href="#replaceAll" class="headerlink" title="replaceAll()"></a>replaceAll()</h2><p>历史上，字符串的实例方法replace()只能替换第一个匹配。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;aabbcc&#x27;.replace(&#x27;b&#x27;, &#x27;_&#x27;)</span><br><span class="line">// &#x27;aa_bcc&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，replace()只将第一个b替换成了下划线。</p>
+<p>如果要替换所有的匹配，不得不使用正则表达式的g修饰符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;aabbcc&#x27;.replace(/b/g, &#x27;_&#x27;)</span><br><span class="line">// &#x27;aa__cc&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>正则表达式毕竟不是那么方便和直观，<strong>ES2021</strong> 引入了replaceAll()方法，可以一次性替换所有匹配。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;aabbcc&#x27;.replaceAll(&#x27;b&#x27;, &#x27;_&#x27;)</span><br><span class="line">// &#x27;aa__cc&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>它的用法与replace()相同，返回一个新字符串，不会改变原字符串。</p>
+<blockquote>
+<p>更多详细用法见ES6深入浅出 string 方法章节</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/String/" rel="tag"># String</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" rel="prev" title="腾讯企鹅辅导 H5 性能极致优化案例">
+                  <i class="fa fa-angle-left"></i> 腾讯企鹅辅导 H5 性能极致优化案例
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/" rel="next" title="二叉搜索树">
+                  二叉搜索树 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

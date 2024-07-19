@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="变量提升12345678showName()console.log(myname)var myname &#x3D; &#x27;极客时间&#x27;function showName() &#123; console.log(&#x27;函数 showName 被执行&#x27;);&#125;&#x2F;&#x2F; 函数 showName 被执行&#x2F;&#x2F; undefined  最后输出的结果不太符合预期，其中的本质与js的执">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变量提升的本质">
+<meta property="og:url" content="https://mst123.github.io/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="变量提升12345678showName()console.log(myname)var myname &#x3D; &#x27;极客时间&#x27;function showName() &#123; console.log(&#x27;函数 showName 被执行&#x27;);&#125;&#x2F;&#x2F; 函数 showName 被执行&#x2F;&#x2F; undefined  最后输出的结果不太符合预期，其中的本质与js的执">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png">
+<meta property="article:published_time" content="2021-07-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-16T06:05:18.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="变量提升">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/","path":"javascript/变量提升的本质/","title":"变量提升的本质"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>变量提升的本质 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-number">1.</span> <span class="nav-text">变量提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">编译过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">3.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">3.2.</span> <span class="nav-text">函数上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E7%BB%B4%E6%8A%A4"><span class="nav-number">3.3.</span> <span class="nav-text">执行上下文的维护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E5%BC%8A%E7%AB%AF"><span class="nav-number">3.4.</span> <span class="nav-text">解决变量提升的弊端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%BC%BA%E8%A1%A5%E6%BC%8F%E2%80%93%E4%BC%98%E7%A7%80blog%E6%96%87%E7%AB%A0"><span class="nav-number">3.5.</span> <span class="nav-text">查缺补漏–优秀blog文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88"><span class="nav-number">3.6.</span> <span class="nav-text">JavaScript深入之执行上下文栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.7.</span> <span class="nav-text">JavaScript深入之变量对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="nav-number">3.8.</span> <span class="nav-text">JavaScript深入之作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips-%E4%B8%BA%E4%BA%86%E9%98%B2%E6%AD%A2%E9%93%BE%E6%8E%A5%E5%A4%B1%E6%95%88%EF%BC%8C%E8%AF%B7%E7%9C%8B-%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">3.9.</span> <span class="nav-text">Tips 为了防止链接失效，请看 深入执行上下文</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="变量提升的本质 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          变量提升的本质
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+08:00">2021-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-16 14:05:18" itemprop="dateModified" datetime="2024-07-16T14:05:18+08:00">2024-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">showName()</span><br><span class="line">console.log(myname)</span><br><span class="line">var myname = &#x27;极客时间&#x27;</span><br><span class="line">function showName() &#123;</span><br><span class="line"> console.log(&#x27;函数 showName 被执行&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">// 函数 showName 被执行</span><br><span class="line">// undefined</span><br></pre></td></tr></table></figure>
+
+<p>最后输出的结果不太符合预期，其中的本质与js的执行过程有关，这种现象被称为变量提升</p>
+<p><strong>所谓的变量提升，是指在 JavaScript 代码执行过程中，JavaScript 引擎把变量的声明部分和函数的声明部分提升到代码开头的“行为”。变量被提升后，会给变量设置默认值，这个默认值就是我们熟悉的 undefined。</strong></p>
+<blockquote>
+<p>声明部分 指 var myname &#x3D; 这部分 以及 完整的函数声明</p>
+<p>var bar &#x3D; function(){} 这种与var bar &#x3D; 1 并无大的区别，与function bar(){} 从编译过程来说截然不同</p>
+</blockquote>
+<p><strong>实际上变量和函数声明在代码里的位置是不会改变的，而且是在编译阶段被 JavaScript 引擎放入内存中</strong></p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png" alt="image-20210719142421766"></p>
+<p>从上图可以看出，输入一段代码，经过编译后，会生成两部分内容：<strong>执行上下文（Execution context）和可执行代码</strong>。</p>
+<blockquote>
+<p>执行上下文也是一个特别重要的概念，会在后边具体分析</p>
+</blockquote>
+<p>由此不难分析出打印的结果，但是如果存在<strong>相同的命名</strong>怎么处理，可以参考下述规则：</p>
+<ul>
+<li><p>如果是同名的函数，JavaScript编译阶段会选择最后声明的那个。</p>
+</li>
+<li><p>如果变量和函数同名，那么在编译阶段，变量的声明会被忽略</p>
+</li>
+</ul>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>执行上下文（以下简称“上下文”）的概念在 JavaScript 中是颇为重要的。变量或函数的上下文决定了它们可以访问哪些数据，以及它们的行为。每个上下文都有一个关联的<strong>变量对象</strong>（variable object），而这个上下文中定义的所有变量和函数都存在于这个对象上。</p>
+<p><strong>执行上下文的组成代码示例：</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const ExecutionContextObj = &#123;</span><br><span class="line">    VO: window, // 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, // 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行上下文的组成图例示例：</strong></p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg" alt="img"></p>
+<p>**上下文基本上有三类(包括ES6)**：</p>
+<ul>
+<li>全局上下文 在浏览器环境下即为window</li>
+<li>函数上下文（当代码执行流进入函数时，函数的上下文被推到一个上下文栈上。在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文）</li>
+<li>eval上下文 （不考虑）</li>
+</ul>
+<p>上下文中的代码在执行的时候，会创建<strong>变量对象</strong>的一个<strong>作用域链</strong>。</p>
+<blockquote>
+<p>作用域链中的下一个变量对象来自包含上下文，再下一个对象来自再下一个包含上下文。以此类推直至全局上下文；全局上下文的变量对象始终是作用域链的最后一个变量对象</p>
+</blockquote>
+<h4 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h4><p><strong>如果上下文是函数，则其活动对象（activation object）用作变量对象，下面以函数为例具体分析一下</strong></p>
+<blockquote>
+<p>为什么称其为活动对象呢，因为只有到当进入一个执行上下文中，这个执行上下文的变量对象才会被激活，并且只有被激活的变量对象，其属性才能被访问。</p>
+</blockquote>
+<p>以下面的例子为例，结合着之前讲的变量对象和执行上下文栈，我们来总结一下函数执行上下文中作用域链和变量对象的创建过程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var scope = &#x27;global scope&#x27;;</span><br><span class="line">function checkscope(s) &#123;  </span><br><span class="line"> var scope = &#x27;local scope&#x27;;  </span><br><span class="line"> function f() &#123;    </span><br><span class="line">  return scope;</span><br><span class="line">  &#125;  </span><br><span class="line">  return f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope(&#x27;scope&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>执行过程如下：</p>
+<p>1.checkscope 函数被创建，保存作用域链到 内部属性<code>[[scope]]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">checkscope.[[scope]] = [</span><br><span class="line">    globalContext.VO</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>3.checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数<code>[[scope]]</code>属性创建<strong>作用域链</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.第二步：用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">          0: &#x27;scope&#x27;,</span><br><span class="line">          length: 1,</span><br><span class="line">        &#125;,</span><br><span class="line">        s: &#x27;scope&#x27;, // 传入的参数</span><br><span class="line">        f: pointer to function f(),</span><br><span class="line">        scope: undefined, // 此时声明的变量为undefined</span><br><span class="line">    &#125;，</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.第三步：将活动对象压入 checkscope 作用域链顶端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">          0: &#x27;scope&#x27;,</span><br><span class="line">          length: 1,</span><br><span class="line">        &#125;,</span><br><span class="line">        s: &#x27;scope&#x27;, // 传入的参数</span><br><span class="line">        f: pointer to function f(),</span><br><span class="line">        scope: undefined, // 此时声明的变量为undefined</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6.准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">          0: &#x27;scope&#x27;,</span><br><span class="line">          length: 1,</span><br><span class="line">        &#125;,</span><br><span class="line">        s: &#x27;scope&#x27;, // 传入的参数</span><br><span class="line">        f: pointer to function f(),</span><br><span class="line">        scope: &#x27;local scope&#x27;, // 变量赋值</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h4 id="执行上下文的维护"><a href="#执行上下文的维护" class="headerlink" title="执行上下文的维护"></a>执行上下文的维护</h4><p>说在执行 JavaScript 时，可能会存在多个执行上下文，那么 JavaScript 引擎是如何管理这些执行上下文的呢？</p>
+<p>答案是<strong>通过一种叫栈的数据结构来管理的</strong>。</p>
+<p>JavaScript 引擎正是利用栈的这种结构来管理执行上下文的。在执行上下文创建好后，JavaScript 引擎会将执行上下文压入栈中，通常把这种用来管理执行上下文的栈称为<strong>执行上下文栈，又称调用栈</strong>。</p>
+<p>看如下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 2</span><br><span class="line">function add(b,c)&#123;</span><br><span class="line"> return b+c</span><br><span class="line">&#125; </span><br><span class="line">function addAll(b,c)&#123;</span><br><span class="line"> var d = 10</span><br><span class="line"> result = add(b,c)</span><br><span class="line"> return a+result+d</span><br><span class="line">&#125;</span><br><span class="line">addAll(3,6)</span><br></pre></td></tr></table></figure>
+
+<p><strong>第一步，创建全局上下文，并将其压入栈底</strong>。</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png" alt="image-20210719153100763"></p>
+<p><strong>第二步是调用 addAll 函数</strong>。当调用该函数时，JavaScript 引擎会编译该函数，并为其创建一个执行上下文，最后还将该函数的执行上下文压入栈中，如下图所示：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png" alt="image-20210719153303513"></p>
+<p><strong>第三步，当执行到 add 函数</strong>调用语句时，同样会为其创建执行上下文，并将其压入调用栈，如下图所示：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png" alt="image-20210719153352832"></p>
+<p>当 add 函数返回时，该函数的执行上下文就会从栈顶弹出，并将 result 的值设置为 add函数的返回值，也就是 9。如下图所示：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png" alt="image-20210719153501404"></p>
+<p>紧接着 addAll 执行最后一个相加操作后并返回，addAll 的执行上下文也会从栈顶部弹出，此时调用栈中就只剩下全局上下文了。最终如下图所示：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png" alt="image-20210719153551914"></p>
+<p>至此，整个 JavaScript 流程执行结束了。</p>
+<blockquote>
+<p>调用栈的跟踪可以借助chorme调试工具中的call stack 或者借助 console.trace()</p>
+</blockquote>
+<h4 id="解决变量提升的弊端"><a href="#解决变量提升的弊端" class="headerlink" title="解决变量提升的弊端"></a>解决变量提升的弊端</h4><p>ES6 通过 let const 解决了变量提升的问题，那么 ES6 又是如何在函数级作用域的基础之上，实现对块级作用域的支持呢？</p>
+<p>变量对象应该包括 变量环境 和 词法环境</p>
+<p>下面我们来看如下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  var a = 1</span><br><span class="line">  let b = 2</span><br><span class="line">  &#123;</span><br><span class="line">    let b = 3</span><br><span class="line">    var c = 4</span><br><span class="line">    let d = 5</span><br><span class="line">    console.log(a)</span><br><span class="line">    console.log(b)</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(b)</span><br><span class="line">  console.log(c)</span><br><span class="line">  console.log(d)</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
+
+<p><strong>第一步是编译并创建执行上下文</strong>，下面是我画出来的执行上下文示意图，你可以参考下：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png" alt="image-20210719180147793"></p>
+<p>通过上图，我们可以得出以下结论：</p>
+<ul>
+<li><p>函数内部通过 var 声明的变量，在编译阶段全都被存放到<strong>变量环境</strong>里面了。</p>
+</li>
+<li><p>通过 let 声明的变量，在编译阶段会被存放到<strong>词法环境（Lexical Environment）</strong>中。</p>
+</li>
+<li><p>在函数的作用域内部，通过 let 声明的变量并（<strong>暂时</strong>）没有被存放到词法环境中。</p>
+</li>
+</ul>
+<p>接下来，<strong>第二步继续执行代码</strong>，当执行到代码块里面时，变量环境中 a 的值已经被设置成了 1，词法环境中 b 的值已经被设置成了 2，这时候函数的执行上下文就如下图所示：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png" alt="image-20210719180806940"></p>
+<p>​ 从图中可以看出，当进入函数的作用域块时，作用域块中通过 let 声明的变量，会被存放在词法环境的一个单独的区域中，这个区域中的变量并不影响作用域块外面的变量，比如在作用域外面声明了变量 b，在该作用域块内部也声明了变量 b，当执行到作用域内部时，它们都是独立的存在。</p>
+<p>​ 其实，<strong>在词法环境内部，维护了一个小型栈结构</strong>，栈底是函数最外层的变量，进入一个作用域块后，就会把该作用域块内部的变量压到栈顶；当作用域执行完成之后，该作用域的信息就会从栈顶弹出，这就是词法环境的结构。需要注意下，我这里所讲的变量是指通过 let 或者 const 声明的变量。</p>
+<p>​ 再接下来，当执行到作用域块中的console.log(a)这行代码时，就需要在词法环境和变量环境中查找变量 a 的值了，具体查找方式是：沿着词法环境的栈顶向下查询，如果在词法环境中的某个块中查找到了，就直接返回给 JavaScript 引擎，如果没有查找到，那么继续在变量环境中查找。</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png" alt="image-20210719181101068"></p>
+<p>当作用域块执行结束之后，其内部定义的变量就会从词法环境的栈顶弹出，最终执行上下文</p>
+<p>如下图所示：</p>
+<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png" alt="image-20210719181919678"></p>
+<p>通过上面的分析，想必你已经理解了词法环境的结构和工作机制，<strong>块级作用域就是通过词法环境的栈结构来实现的，而变量提升是通过变量环境来实现</strong>，通过这两者的结合，JavaScript 引擎也就同时支持了变量提升和块级作用域了。</p>
+<h4 id="查缺补漏–优秀blog文章"><a href="#查缺补漏–优秀blog文章" class="headerlink" title="查缺补漏–优秀blog文章"></a>查缺补漏–优秀blog文章</h4><ol>
+<li><h4 id="JavaScript深入之执行上下文栈"><a href="#JavaScript深入之执行上下文栈" class="headerlink" title="JavaScript深入之执行上下文栈"></a><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/4">JavaScript深入之执行上下文栈</a></h4></li>
+<li><h4 id="JavaScript深入之变量对象"><a href="#JavaScript深入之变量对象" class="headerlink" title="JavaScript深入之变量对象"></a><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/5">JavaScript深入之变量对象</a></h4></li>
+<li><h4 id="JavaScript深入之作用域链"><a href="#JavaScript深入之作用域链" class="headerlink" title="JavaScript深入之作用域链"></a><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/6">JavaScript深入之作用域链</a></h4></li>
+</ol>
+<blockquote>
+<p>该作者其余文章  <a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog">https://github.com/mqyqingfeng/Blog</a></p>
+</blockquote>
+<h4 id="Tips-为了防止链接失效，请看-深入执行上下文"><a href="#Tips-为了防止链接失效，请看-深入执行上下文" class="headerlink" title="Tips 为了防止链接失效，请看 深入执行上下文"></a>Tips 为了防止链接失效，请看 深入执行上下文</h4>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/" rel="tag"># 变量提升</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/html&css%E4%BC%98%E5%8C%96/" rel="prev" title="11.html和css优化">
+                  <i class="fa fa-angle-left"></i> 11.html和css优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/javascript/this/this/" rel="next" title="this绑定规则的详解">
+                  this绑定规则的详解 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

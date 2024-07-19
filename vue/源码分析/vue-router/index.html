@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简易流程vue-router的整体流程不难理解，难点在于一些功能的实现。  首先初始化vue-router实例，然后vue.use，再然后根vue初始化，作为配置传入  vue.use vue-router  Vue-router install  混入，根组件保存router和route属性，通过混入beforeCreated 子组件递归持有根组件(Vue)  Object.defineProp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-router源码分析-简易流程">
+<meta property="og:url" content="https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue-router/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="简易流程vue-router的整体流程不难理解，难点在于一些功能的实现。  首先初始化vue-router实例，然后vue.use，再然后根vue初始化，作为配置传入  vue.use vue-router  Vue-router install  混入，根组件保存router和route属性，通过混入beforeCreated 子组件递归持有根组件(Vue)  Object.defineProp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vue-router/image-20220213105205628.png">
+<meta property="article:published_time" content="2021-01-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-18T08:48:36.252Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="vue-router源码分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vue-router/image-20220213105205628.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue-router/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue-router/","path":"vue/源码分析/vue-router/","title":"vue-router源码分析-简易流程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue-router源码分析-简易流程 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E6%98%93%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">简易流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E9%83%A8%E5%88%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">重要部分介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mather%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">mather介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">其他重要内容</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue-router/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue-router源码分析-简易流程 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue-router源码分析-简易流程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-01 00:00:00" itemprop="dateCreated datePublished" datetime="2021-02-01T00:00:00+08:00">2021-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-18 16:48:36" itemprop="dateModified" datetime="2024-07-18T16:48:36+08:00">2024-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="简易流程"><a href="#简易流程" class="headerlink" title="简易流程"></a>简易流程</h3><p>vue-router的整体流程不难理解，难点在于一些功能的实现。</p>
+<p><img src="/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vue-router/image-20220213105205628.png" alt="image-20220213105205628"></p>
+<p>首先初始化vue-router实例，然后vue.use，再然后根vue初始化，作为配置传入</p>
+<ul>
+<li><p>vue.use vue-router</p>
+</li>
+<li><p>Vue-router install</p>
+<ul>
+<li><p>混入，根组件保存router和route属性，通过混入<code>beforeCreated</code> 子组件递归持有根组件(Vue)</p>
+<ul>
+<li><pre><code class="javascript">Object.defineProperty(Vue.prototype, &#39;$route&#39;, &#123;
+  // 混入beforeCreated 保证所有组件都能访问到 _routerRoot vue根实例
+  get () &#123; return this._routerRoot._route &#125;
+&#125;)
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- ```</span><br><span class="line">  // 非根组件递归持有根组件Vue</span><br><span class="line">  this._routerRoot = (this.$parent &amp;&amp; this.$parent._routerRoot) || this</span><br></pre></td></tr></table></figure>
+
+&gt; 所有的组件都持有_RouterRoot属性(Vue)，Vue根实例持有_route和router属性
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>vue-router 初始化</p>
+<ul>
+<li>首先生成实例，执行constructor<ul>
+<li>生成matcher，createMatcher<ul>
+<li>根据routes创建一个路由映射表 {pathList, pathMap, nameMap}</li>
+<li>提供match方法</li>
+</ul>
+</li>
+<li>根据mode，初始化相应history</li>
+</ul>
+</li>
+<li>执行init方法-vue根实例初始化的时候执行<ul>
+<li>history.transitionTo 根据当前路径渲染组件<ul>
+<li>const route &#x3D; this.router.match(location, this.current) 匹配路由</li>
+</ul>
+</li>
+<li>History.listen 定义 history.cb  在多种情况下更新 vue._route，保证其正确性，方便被watch</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Vue.util.defineReactive(this, <code>_route</code>, this._router.history.current) 定义响应式</p>
+</li>
+<li><p>registerInstance router-view相关 主要是在route.instance保存当前rv实例</p>
+</li>
+<li><p>Object.defineProperty(Vue.prototype, <code>$router</code>和<code>$route</code>）方便组件内使用</p>
+</li>
+<li><p>Vue.component <code>RouterView</code>, <code>RouterLink</code></p>
+</li>
+<li><p>定义合并策略</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="重要部分介绍"><a href="#重要部分介绍" class="headerlink" title="重要部分介绍"></a>重要部分介绍</h3><h4 id="mather介绍"><a href="#mather介绍" class="headerlink" title="mather介绍"></a>mather介绍</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function createMatcher (</span><br><span class="line">  routes: Array&lt;RouteConfig&gt;,</span><br><span class="line">  router: VueRouter</span><br><span class="line">): Matcher</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>createRouteMap 根据传入的routes配置，创建一个路由映射表 {pathList, pathMap, nameMap}</p>
+<blockquote>
+<p><code>pathList</code> 存储所有的 <code>path</code></p>
+<p><code>pathMap</code> 表示一个 <code>path</code> 到 <code>RouteRecord</code> 的映射关系</p>
+<p><code>nameMap</code> 表示 <code>name</code> 到 <code>RouteRecord</code> 的映射关系</p>
+</blockquote>
+<ul>
+<li><p>遍历routes数组，调用addRouteRecord</p>
+<ul>
+<li><p>根据routes创建相关映射表,如果存在children，则递归处理，保证每一个路由地址都有一个与之对应的routeRecord，这条记录还会包含子路由所有层级的父record记录</p>
+</li>
+<li><pre><code>RouteRecord
+const record: RouteRecord = &#123;
+    path: normalizedPath,
+    // path 解析成一个正则表达式
+    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
+    components: route.components || &#123; default: route.component &#125;,
+    alias: route.alias
+      ? typeof route.alias === &#39;string&#39;
+        ? [route.alias]
+        : route.alias
+      : [],
+    instances: &#123;&#125;, // 表示rv组件的实例
+    enteredCbs: &#123;&#125;,
+    name,
+    parent, // 表示父的 RouteRecord 只能向上寻找
+    matchAs,
+    redirect: route.redirect,
+    beforeEnter: route.beforeEnter,
+    meta: route.meta || &#123;&#125;,
+    props:
+      route.props == null
+        ? &#123;&#125;
+        : route.components
+          ? route.props
+          : &#123; default: route.props &#125;
+  &#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - 保证*匹配符保持在最后</span><br><span class="line"></span><br><span class="line">- match方法解析 匹配出对应的record，然后通过`createRoute`创建`Route`</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>function match (<br>  raw: RawLocation(string | location),<br>  currentRoute?: Route,<br>  redirectedFrom?: Location<br>): Route</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- createRoute函数, `createRoute` 可以根据 `record` 和 `location` 创建出来，最终返回的是一条 `Route` 路径</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>export function createRoute (<br>  record: ?RouteRecord,<br>  location: Location,<br>  redirectedFrom?: ?Location,<br>  router?: VueRouter<br>): Route {<br>  const stringifyQuery &#x3D; router &amp;&amp; router.options.stringifyQuery</p>
+<p>  let query: any &#x3D; location.query || {}<br>  try {<br>    query &#x3D; clone(query)<br>  } catch (e) {}</p>
+<p>  const route: Route &#x3D; {<br>    name: location.name || (record &amp;&amp; record.name),<br>    meta: (record &amp;&amp; record.meta) || {},<br>    path: location.path || ‘&#x2F;‘,<br>    hash: location.hash || ‘’,<br>    query,<br>    params: location.params || {},<br>    fullPath: getFullPath(location, stringifyQuery),<br>    matched: record ? formatMatch(record) : []<br>  }<br>  if (redirectedFrom) {<br>    route.redirectedFrom &#x3D; getFullPath(redirectedFrom, stringifyQuery)<br>  }<br>  return Object.freeze(route)<br>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - `Route` 对象中有一个非常重要属性是 `matched`，它通过 `formatMatch(record)` 计算而来：</span><br><span class="line"></span><br><span class="line">    ````</span><br><span class="line">    function formatMatch (record: ?RouteRecord): Array&lt;RouteRecord&gt; &#123;</span><br><span class="line">      const res = []</span><br><span class="line">      while (record) &#123;</span><br><span class="line">        res.unshift(record)</span><br><span class="line">        record = record.parent</span><br><span class="line">      &#125;</span><br><span class="line">      return res</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ````</span><br><span class="line"></span><br><span class="line">    可以看它是通过 `record` 循环向上找 `parent`，直到找到最外层，并把所有的 `record` 都 push 到一个数组中，最终返回的就是 `record` 的数组，它记录了一条线路上的所有 `record`。==`matched` 属性非常有用，它为之后渲染组件提供了依据==。</span><br><span class="line"></span><br><span class="line">#### 路径切换 history.transitonTo</span><br><span class="line"></span><br><span class="line">- 点击 `router-link` 的时候，实际上最终会执行 `router.push`</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>push (location: RawLocation, onComplete?: Function, onAbort?: Function) {<br>  this.history.push(location, onComplete, onAbort)<br>}<br>push (location: RawLocation, onComplete?: Function, onAbort?: Function) {<br>  const { current: fromRoute } &#x3D; this<br>  this.transitionTo(location, route &#x3D;&gt; {<br>   &#x2F;&#x2F;<br>   &#x2F;&#x2F; <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35036172">https://zhuanlan.zhihu.com/p/35036172</a><br>    pushHash(route.fullPath)<br>    handleScroll(this.router, route, fromRoute, false)<br>    onComplete &amp;&amp; onComplete(route)<br>  }, onAbort)<br>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 在history的初始化中，针对历史栈做了一个监听</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>window.addEventListener(supportsPushState ? ‘popstate’ : ‘hashchange’….</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  之所以做监听，是为了用户在使用前进后退时，渲染正确的组件</span><br><span class="line"></span><br><span class="line">- Router-view</span><br><span class="line"></span><br><span class="line">  当我们执行 `transitionTo` 来更改路由线路后，组件是如何重新渲染的呢</span><br><span class="line"></span><br><span class="line">- Router-Link</span><br><span class="line"></span><br><span class="line">### 附录：源码重要类-类型注解</span><br><span class="line"></span><br><span class="line">- history类 src/history/*.js</span><br><span class="line"></span><br><span class="line">  ````javascript</span><br><span class="line">  router: Router</span><br><span class="line">    base: string</span><br><span class="line">    current: Route</span><br><span class="line">    pending: ?Route</span><br><span class="line">    cb: (r: Route) =&gt; void</span><br><span class="line">    ready: boolean</span><br><span class="line">    readyCbs: Array&lt;Function&gt;</span><br><span class="line">    readyErrorCbs: Array&lt;Function&gt;</span><br><span class="line">    errorCbs: Array&lt;Function&gt;</span><br><span class="line">    listeners: Array&lt;Function&gt;</span><br><span class="line">    cleanupListeners: Function</span><br><span class="line">  </span><br><span class="line">    // implemented by sub-classes</span><br><span class="line">    +go: (n: number) =&gt; void</span><br><span class="line">    +push: (loc: RawLocation, onComplete?: Function, onAbort?: Function) =&gt; void</span><br><span class="line">    +replace: (</span><br><span class="line">      loc: RawLocation,</span><br><span class="line">      onComplete?: Function,</span><br><span class="line">      onAbort?: Function</span><br><span class="line">    ) =&gt; void</span><br><span class="line">    +ensureURL: (push?: boolean) =&gt; void</span><br><span class="line">    +getCurrentLocation: () =&gt; string</span><br><span class="line">    +setupListeners: Function</span><br><span class="line">  ````</span><br><span class="line"></span><br><span class="line">- matcher类 src/create-matcher.js</span><br><span class="line"></span><br><span class="line">  ```javascript</span><br><span class="line">  export type Matcher = &#123;</span><br><span class="line">    match: (raw: RawLocation, current?: Route, redirectedFrom?: Location) =&gt; Route;</span><br><span class="line">    addRoutes: (routes: Array&lt;RouteConfig&gt;) =&gt; void;</span><br><span class="line">    addRoute: (parentNameOrRoute: string | RouteConfig, route?: RouteConfig) =&gt; void;</span><br><span class="line">    getRoutes: () =&gt; Array&lt;RouteRecord&gt;;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>createRouteMap src&#x2F;creat-route-map</p>
+<ul>
+<li><code>createRouteMap</code> 函数的目标是把用户的路由配置转换成一张路由映射表，它包含 3 个部分，<ul>
+<li><code>pathList</code> 存储所有的 <code>path</code>，</li>
+<li><code>pathMap</code> 表示一个 <code>path</code> 到 <code>RouteRecord</code> 的映射关系，</li>
+<li><code>nameMap</code> 表示 <code>name</code> 到 <code>RouteRecord</code> 的映射关系。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export function createRouteMap (</span><br><span class="line">  routes: Array&lt;RouteConfig&gt;,</span><br><span class="line">  oldPathList?: Array&lt;string&gt;,</span><br><span class="line">  oldPathMap?: Dictionary&lt;RouteRecord&gt;,</span><br><span class="line">  oldNameMap?: Dictionary&lt;RouteRecord&gt;,</span><br><span class="line">  parentRoute?: RouteRecord</span><br><span class="line">): &#123;</span><br><span class="line">  pathList: Array&lt;string&gt;,</span><br><span class="line">  pathMap: Dictionary&lt;RouteRecord&gt;,</span><br><span class="line">  nameMap: Dictionary&lt;RouteRecord&gt;</span><br><span class="line">&#125; &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>addRouterRecord 生成并添加一条routerRecord</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function addRouteRecord (</span><br><span class="line">  pathList: Array&lt;string&gt;,</span><br><span class="line">  pathMap: Dictionary&lt;RouteRecord&gt;,</span><br><span class="line">  nameMap: Dictionary&lt;RouteRecord&gt;,</span><br><span class="line">  route: RouteConfig,</span><br><span class="line">  parent?: RouteRecord,</span><br><span class="line">  matchAs?: string</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Location RawLocation</p>
+<ul>
+<li>Vue-Router 中定义的 <code>Location</code> 数据结构和浏览器提供的 <code>window.location</code> 部分结构有点类似，它们都是对 <code>url</code> 的结构化描述。举个例子：<code>/abc?foo=bar&amp;baz=qux#hello</code>，它的 <code>path</code> 是 <code>/abc</code>，<code>query</code> 是 <code>&#123;foo:&#39;bar&#39;,baz:&#39;qux&#39;&#125;</code>。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">declare type <span class="title class_">Location</span> = &#123;</span><br><span class="line">  _normalized?: boolean;</span><br><span class="line">  name?: string;</span><br><span class="line">  path?: string;</span><br><span class="line">  hash?: string;</span><br><span class="line">  query?: <span class="title class_">Dictionary</span>&lt;string&gt;;</span><br><span class="line">  params?: <span class="title class_">Dictionary</span>&lt;string&gt;;</span><br><span class="line">  append?: boolean;</span><br><span class="line">  replace?: boolean;</span><br><span class="line">&#125;</span><br><span class="line">declare type <span class="title class_">RawLocation</span> = string | <span class="title class_">Location</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Route</p>
+<ul>
+<li><code>Route</code> 表示的是路由中的一条线路，它除了描述了类似 <code>Loctaion</code> 的 <code>path</code>、<code>query</code>、<code>hash</code> 这些概念，还有 <code>matched</code> 表示匹配到的所有的 <code>RouteRecord</code>。<code>Route</code> 的其他属性我们之后会介绍。</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">type</span> <span class="title class_">Route</span> = &#123;</span><br><span class="line">  <span class="attr">path</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">name</span>: ?<span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">hash</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">query</span>: <span class="title class_">Dictionary</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">  <span class="attr">params</span>: <span class="title class_">Dictionary</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">  <span class="attr">fullPath</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">matched</span>: <span class="title class_">Array</span>&lt;<span class="title class_">RouteRecord</span>&gt;;</span><br><span class="line">  redirectedFrom?: <span class="built_in">string</span>;</span><br><span class="line">  meta?: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以说location 经过了match之后变成了routerRecord，routerRecord经过<code>_createRoute</code>变成了<code>route</code></p>
+<p>这样比较好理解</p>
+</blockquote>
+</li>
+<li><p>RouterRecord</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">declare type RouteRecord = &#123;</span><br><span class="line">  path: string;</span><br><span class="line">  alias: Array&lt;string&gt;;</span><br><span class="line">  regex: RouteRegExp;</span><br><span class="line">  components: Dictionary&lt;any&gt;;</span><br><span class="line">  instances: Dictionary&lt;any&gt;;</span><br><span class="line">  enteredCbs: Dictionary&lt;Array&lt;Function&gt;&gt;;</span><br><span class="line">  name: ?string;</span><br><span class="line">  parent: ?RouteRecord;</span><br><span class="line">  redirect: ?RedirectOption;</span><br><span class="line">  matchAs: ?string;</span><br><span class="line">  beforeEnter: ?NavigationGuard;</span><br><span class="line">  meta: any;</span><br><span class="line">  props: boolean | Object | Function | Dictionary&lt;boolean | Object | Function&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="其他重要内容"><a href="#其他重要内容" class="headerlink" title="其他重要内容"></a>其他重要内容</h3><ul>
+<li><p>当我们执行 <code>transitionTo</code> 来更改路由线路后，组件是如何重新渲染的呢</p>
+<blockquote>
+<p>由于我们把根 Vue 实例的 <code>_route</code> 属性定义成响应式的，我们在每个 <code>&lt;router-view&gt;</code> 执行 <code>render</code> 函数的时候，都会访问 <code>parent.$route</code>，如我们之前分析会访问 <code>this._routerRoot._route</code>，触发了它的 <code>getter</code>，相当于 <code>&lt;router-view&gt;</code> 对它有依赖，然后再执行完 <code>transitionTo</code> 后，修改 <code>app._route</code> 的时候，又触发了<code>setter</code>，因此会通知 <code>&lt;router-view&gt;</code> 的渲染 <code>watcher</code> 更新，重新渲染组件。</p>
+</blockquote>
+</li>
+<li><p>所有组件都是访问到的<code>$router</code>和<code>$router</code>是怎么来的</p>
+<p>1.设置Vue根实例的_routerRoot属性为Vue根实例</p>
+<p>2.混入Vue生命周期，beforeCreate函数层层传递_routerRoot属性，是所有组件都可以通过<code>_routerRoot</code>访问到Vue根实例</p>
+<p>3.定义Vue的原型属性<code>$route</code> <code>$router</code>的getter方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;$router&#x27;</span>, &#123;</span><br><span class="line">  <span class="title function_">get</span> () &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_routerRoot</span>.<span class="property">_router</span> &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非常经典的异步函数队列化执行的模式，这也就是为什么官方文档会说只有执行 <code>next</code> 方法来 <code>resolve</code> 这个钩子函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function runQueue (queue, fn, cb) &#123;</span><br><span class="line">  const step = index =&gt; &#123;</span><br><span class="line">    if (index &gt;= queue.length) &#123;</span><br><span class="line">      cb()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      if (queue[index]) &#123;</span><br><span class="line">        fn(queue[index], () =&gt; &#123;</span><br><span class="line">          step(index + 1)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        step(index + 1)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  step(0)</span><br><span class="line">&#125;</span><br><span class="line">// 代表一个个hooks函数</span><br><span class="line">const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]</span><br><span class="line"></span><br><span class="line">const iterator = (hook, next) =&gt; &#123;</span><br><span class="line">  console.log(hook);</span><br><span class="line">  next()</span><br><span class="line">&#125;</span><br><span class="line">runQueue(arr, iterator, () =&gt; &#123;</span><br><span class="line">  console.log(&quot;遍历完了&quot;);</span><br><span class="line">&#125;)</span><br><span class="line">// 1 2 3 4 5 6 7 8 9 遍历完了</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/vue-router%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"># vue-router源码分析</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/http1/" rel="prev" title="第 1 章 了解 Web 及网络基础">
+                  <i class="fa fa-angle-left"></i> 第 1 章 了解 Web 及网络基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/http2/" rel="next" title="第 2 章　简单的 HTTP 协议">
+                  第 2 章　简单的 HTTP 协议 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

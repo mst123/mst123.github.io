@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="对象的详细方法见js高程第四版第八章 对象ES6之后方法的简单总结本章介绍 Object 对象的新增方法。 Object.is()它用来比较两个值是否严格相等，与严格比较运算符（&#x3D;&#x3D;&#x3D;）的行为基本一致。 不同之处只有两个：一是+0不等于-0，二是NaN等于自身。 12345+0 &#x3D;&#x3D;&#x3D; -0 &#x2F;&#x2F;trueNaN &#x3D;&#x3D;&#x3D; NaN &#x2F;&#x2F; falseObject.is(+0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象的新增方法">
+<meta property="og:url" content="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="对象的详细方法见js高程第四版第八章 对象ES6之后方法的简单总结本章介绍 Object 对象的新增方法。 Object.is()它用来比较两个值是否严格相等，与严格比较运算符（&#x3D;&#x3D;&#x3D;）的行为基本一致。 不同之处只有两个：一是+0不等于-0，二是NaN等于自身。 12345+0 &#x3D;&#x3D;&#x3D; -0 &#x2F;&#x2F;trueNaN &#x3D;&#x3D;&#x3D; NaN &#x2F;&#x2F; falseObject.is(+0">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/write1.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/objectDes.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/objectNull.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/object1.png">
+<meta property="article:published_time" content="2021-04-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:13:37.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="Object">
+<meta property="article:tag" content="数据类型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/write1.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/","path":"数据类型/对象方法/","title":"对象的新增方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>对象的新增方法 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1ES6%E4%B9%8B%E5%90%8E%E6%96%B9%E6%B3%95%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">对象ES6之后方法的简单总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-is"><span class="nav-number">1.1.</span> <span class="nav-text">Object.is()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-assign"><span class="nav-number">1.2.</span> <span class="nav-text">Object.assign()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.2.</span> <span class="nav-text">完整的复制对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-getOwnPropertyDescriptors"><span class="nav-number">1.3.</span> <span class="nav-text">Object.getOwnPropertyDescriptors()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">原型链方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-setPrototypeOf"><span class="nav-number">1.4.1.</span> <span class="nav-text">Object.setPrototypeOf()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-getPrototypeOf"><span class="nav-number">1.4.2.</span> <span class="nav-text">Object.getPrototypeOf()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">遍历方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-fromEntries"><span class="nav-number">2.</span> <span class="nav-text">Object.fromEntries()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-create"><span class="nav-number">3.</span> <span class="nav-text">Object.create()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E5%81%8F%E7%88%B1"><span class="nav-number">3.1.</span> <span class="nav-text">框架偏爱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-number">3.2.</span> <span class="nav-text">案例说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E4%B8%8D%E5%90%8C"><span class="nav-number">3.2.1.</span> <span class="nav-text">1）创建对象的方式不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E6%80%A7%E8%B4%A8%E4%B8%8D%E5%90%8C"><span class="nav-number">3.2.2.</span> <span class="nav-text">2）创建对象属性的性质不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%BC%89%E5%88%9B%E5%BB%BA%E7%A9%BA%E5%AF%B9%E8%B1%A1%E6%97%B6%E4%B8%8D%E5%90%8C"><span class="nav-number">3.2.3.</span> <span class="nav-text">3）创建空对象时不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89proto-%E5%B1%9E%E6%80%A7"><span class="nav-number">3.2.4.</span> <span class="nav-text">4）proto 属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%EF%BC%8C%E5%8E%9F%E5%9E%8B%E5%B1%9E%E6%80%A7%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">应用案例，原型属性的继承</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="对象的新增方法 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对象的新增方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-24 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-24T00:00:00+08:00">2021-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:13:37" itemprop="dateModified" datetime="2024-07-13T13:13:37+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">数据类型</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>对象的详细方法见js高程第四版第八章</p>
+<h2 id="对象ES6之后方法的简单总结"><a href="#对象ES6之后方法的简单总结" class="headerlink" title="对象ES6之后方法的简单总结"></a>对象ES6之后方法的简单总结</h2><p>本章介绍 Object 对象的新增方法。</p>
+<h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is()"></a>Object.is()</h3><p>它<strong>用来比较两个值是否严格相等，与严格比较运算符（&#x3D;&#x3D;&#x3D;）的行为基本一致</strong>。</p>
+<p>不同之处只有两个：<strong>一是<code>+0</code>不等于<code>-0</code>，二是<code>NaN</code>等于自身</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+<span class="number">0</span> === -<span class="number">0</span> <span class="comment">//true</span></span><br><span class="line"><span class="title class_">NaN</span> === <span class="title class_">NaN</span> <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">is</span>(+<span class="number">0</span>, -<span class="number">0</span>) <span class="comment">// false</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">is</span>(<span class="title class_">NaN</span>, <span class="title class_">NaN</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h3><p><code>Object.assign</code>方法用于对象的合并，将源对象（source）的所有<strong>可枚举属性</strong>，复制到目标对象（target）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> target = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> source1 = &#123; <span class="attr">b</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> source2 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">assign</span>(target, source1, source2);</span><br><span class="line">target <span class="comment">// &#123;a:1, b:, c:3&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><p><code>Object.assign</code>拷贝的属性是有限制的，</p>
+<ul>
+<li><p>浅拷贝</p>
+</li>
+<li><p><strong>只拷贝源对象的自身属性（不拷贝继承属性）</strong></p>
+</li>
+<li><p><strong>不拷贝不可枚举的属性</strong>（<code>enumerable: false</code>）</p>
+</li>
+<li><p><code>Object.assign</code>只能进行值的复制，无法复制取值函数，将求值后再复制</p>
+</li>
+<li><p>数组的处理</p>
+<blockquote>
+<p>Object.assign([1, 2, 3], [4, 5])<br>&#x2F;&#x2F; [4, 5, 3]</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>属性名为 Symbol 值的属性，也会被<code>Object.assign</code>拷贝。</p>
+</blockquote>
+<h4 id="完整的复制对象"><a href="#完整的复制对象" class="headerlink" title="完整的复制对象"></a>完整的复制对象</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 写法一 不能复制不可枚举 不能复制取值函数 </span><br><span class="line">const clone2 = Object.assign(</span><br><span class="line">  Object.create(Object.getPrototypeOf(obj)),</span><br><span class="line">  obj</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 写法二  完美复制</span><br><span class="line">const clone3 = Object.create(</span><br><span class="line">  Object.getPrototypeOf(obj),</span><br><span class="line">  Object.getOwnPropertyDescriptors(obj)</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors()"></a>Object.getOwnPropertyDescriptors()</h3><p>ES5 的<code>Object.getOwnPropertyDescriptor(obj, prop)</code>方法会返回某个对象属性的描述对象（descriptor）。ES2017 引入了<code>Object.getOwnPropertyDescriptors()</code>方法，返回指定对象所有自身属性（<strong>非继承属性</strong>）的描述对象。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">描述对象MDN</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">123</span>,</span><br><span class="line">  <span class="keyword">get</span> <span class="title function_">bar</span>() &#123; <span class="keyword">return</span> <span class="string">&#x27;abc&#x27;</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">getOwnPropertyDescriptors</span>(obj)</span><br><span class="line"><span class="comment">// &#123; foo:</span></span><br><span class="line"><span class="comment">//    &#123; value: 123,</span></span><br><span class="line"><span class="comment">//      writable: true,</span></span><br><span class="line"><span class="comment">//      enumerable: true,</span></span><br><span class="line"><span class="comment">//      configurable: true &#125;,</span></span><br><span class="line"><span class="comment">//   bar:</span></span><br><span class="line"><span class="comment">//    &#123; get: [Function: get bar],</span></span><br><span class="line"><span class="comment">//      set: undefined,</span></span><br><span class="line"><span class="comment">//      enumerable: true,</span></span><br><span class="line"><span class="comment">//      configurable: true &#125; &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="原型链方法"><a href="#原型链方法" class="headerlink" title="原型链方法"></a>原型链方法</h3><p>JavaScript 语言的对象继承是通过原型链实现的。ES6 提供了更多原型对象的操作方法。</p>
+<h4 id="Object-setPrototypeOf"><a href="#Object-setPrototypeOf" class="headerlink" title="Object.setPrototypeOf()"></a>Object.setPrototypeOf()</h4><p><code>Object.setPrototypeOf</code>方法的作用与<code>__proto__</code>相同，用来设置一个对象的原型对象（prototype），返回参数对象本身。它是 <strong>ES6 正式推荐的设置原型对象的方法</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ==格式==</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">setPrototypeOf</span>(object, prototype)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用法</span></span><br><span class="line"><span class="keyword">const</span> o = <span class="title class_">Object</span>.<span class="title function_">setPrototypeOf</span>(&#123;&#125;, <span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>该方法等同于下面的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">setPrototypeOf</span>(<span class="params">obj, proto</span>) &#123;</span><br><span class="line">  obj.<span class="property">__proto__</span> = proto;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h4><p>该方法与<code>Object.setPrototypeOf</code>方法配套，用于读取一个对象的原型对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">getPrototypeOf</span>(obj);</span><br></pre></td></tr></table></figure>
+
+<h3 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h3><p><code>Object.keys()</code> <code>Object.values</code> <code>Object.entries</code></p>
+<p>都是不可遍历 <strong>对象自身的（不含继承的）所有可遍历（enumerable）属性的键名</strong></p>
+<p>ES5 引入了<code>Object.keys</code>方法，返回一个数组，成员是参数<strong>对象自身的（不含继承的）所有可遍历（enumerable）属性的键名</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123; foo: &#x27;bar&#x27;, baz: 42 &#125;;</span><br><span class="line">Object.keys(obj)</span><br><span class="line">// [&quot;foo&quot;, &quot;baz&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>ES2017 <a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-object-values-entries">引入</a>了跟<code>Object.keys</code>配套的<code>Object.values</code>和<code>Object.entries</code>，作为遍历一个对象的补充手段，供<code>for...of</code>循环使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;keys, values, entries&#125; = <span class="title class_">Object</span>;</span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> <span class="title function_">keys</span>(obj)) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(key); <span class="comment">// &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> <span class="title function_">values</span>(obj)) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(value); <span class="comment">// 1, 2, 3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> <span class="title function_">entries</span>(obj)) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>([key, value]); <span class="comment">// [&#x27;a&#x27;, 1], [&#x27;b&#x27;, 2], [&#x27;c&#x27;, 3]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-fromEntries"><a href="#Object-fromEntries" class="headerlink" title="Object.fromEntries()"></a>Object.fromEntries()</h2><p><strong><code>Object.fromEntries()</code>方法是<code>Object.entries()</code>的逆操作，用于将一个键值对数组转为对象</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">fromEntries</span>([</span><br><span class="line">  [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;baz&#x27;</span>, <span class="number">42</span>]</span><br><span class="line">])</span><br><span class="line"><span class="comment">// &#123; foo: &quot;bar&quot;, baz: 42 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>该方法的主要目的，是将键值对的数据结构还原为对象，因此特别适合将 Map 结构转为对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例一</span></span><br><span class="line"><span class="keyword">const</span> entries = <span class="keyword">new</span> <span class="title class_">Map</span>([</span><br><span class="line">  [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;baz&#x27;</span>, <span class="number">42</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">fromEntries</span>(entries)</span><br><span class="line"><span class="comment">// &#123; foo: &quot;bar&quot;, baz: 42 &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h2><ul>
+<li>语法<br>Object.create(proto, [propertiesObject])</li>
+<li>参数  <ul>
+<li>proto : 必须。表示新建对象的原型对象，即该参数会被赋值到目标对象(即新对象，或说是最后返回的对象)的原型上。该参数可以是null， 对象， 函数的prototype属性 （创建空的对象时需传null , 否则会抛出TypeError异常）。</li>
+<li>propertiesObject : 可选。 如果没有指定为 undefined，则是要添加到新创建对象的不可枚举（默认）属性（即其自身的属性，而不是原型链上的枚举属性）对象的属性描述符以及相应的属性名称。这些属性对应Object.defineProperties()的第二个参数。</li>
+</ul>
+</li>
+<li>返回值<br>在指定原型对象上添加新属性后的对象</li>
+</ul>
+<h3 id="框架偏爱"><a href="#框架偏爱" class="headerlink" title="框架偏爱"></a>框架偏爱</h3><p>很多框架源码作者使用它来初始化一个新的对象，难道是最佳实践？<br>原因有二  </p>
+<ul>
+<li>通过Object.create(null)创建出来的对象，没有任何属性，显示No properties。我们可以将其当成一个干净的 map 来使用，自主定义 toString,hasOwnProperty等方法，并且不必担心将原型链上的同名方法被覆盖。</li>
+<li>{…}创建的对象，使用for in遍历对象的时候，会遍历原型链上的属性，带来性能上的损耗。使用Object.create(null)则不必再对其进行遍历了。<br><img src="/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/write1.png" alt="两种方式的比较"></li>
+</ul>
+<h3 id="案例说明"><a href="#案例说明" class="headerlink" title="案例说明"></a>案例说明</h3><h4 id="1）创建对象的方式不同"><a href="#1）创建对象的方式不同" class="headerlink" title="1）创建对象的方式不同"></a>1）创建对象的方式不同</h4><p>new Object() 通过构造函数来创建对象, 添加的属性是在自身实例下。<br>Object.create() es6创建对象的另一种方式，可以理解为继承一个对象, 添加的属性是在原型下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// new Object() 方式创建</span><br><span class="line">var a = &#123;  rep : &#x27;apple&#x27; &#125;</span><br><span class="line">var b = new Object(a)</span><br><span class="line">console.log(b) // &#123;rep: &quot;apple&quot;&#125;</span><br><span class="line">console.log(b.__proto__) // &#123;&#125;</span><br><span class="line">console.log(b.rep) // &#123;rep: &quot;apple&quot;&#125;</span><br><span class="line"></span><br><span class="line">// Object.create() 方式创建</span><br><span class="line">var a = &#123; rep: &#x27;apple&#x27; &#125;</span><br><span class="line">var b = Object.create(a)</span><br><span class="line">console.log(b)  // &#123;&#125;</span><br><span class="line">console.log(b.__proto__) // &#123;rep: &quot;apple&quot;&#125;</span><br><span class="line">console.log(b.rep) // &#123;rep: &quot;apple&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Object.create()方法创建的对象时，属性是在原型下面的，也可以直接访问 b.rep &#x2F;&#x2F; {rep: “apple”} ,<br>此时这个值不是吧b自身的，是它通过原型链<strong><strong>proto</strong></strong>来访问到b的值。</p>
+<h4 id="2）创建对象属性的性质不同"><a href="#2）创建对象属性的性质不同" class="headerlink" title="2）创建对象属性的性质不同"></a>2）创建对象属性的性质不同</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个以另一个空对象为原型,且拥有一个属性p的对象</span><br><span class="line">o = Object.create(&#123;&#125;, &#123; p: &#123; value: 42 &#125; &#125;)</span><br><span class="line"></span><br><span class="line">// 省略了的属性特性默认为false,所以属性p是不可写,不可枚举,不可配置的:</span><br><span class="line">o.p = 24</span><br><span class="line">o.p</span><br><span class="line">//42</span><br><span class="line"></span><br><span class="line">o.q = 12</span><br><span class="line">for (var prop in o) &#123;</span><br><span class="line">   console.log(prop)</span><br><span class="line">&#125;</span><br><span class="line">//&quot;q&quot;</span><br><span class="line"></span><br><span class="line">delete o.p</span><br><span class="line">//false</span><br></pre></td></tr></table></figure>
+
+<p>Object.create() 用第二个参数来创建非空对象的属性描述符默认是为false的，而构造函数或字面量方法创建的对象属性的描述符默认为true。看下图解析：  </p>
+<p><img src="/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/objectDes.png" alt="propertiesObject">  </p>
+<h4 id="3）创建空对象时不同"><a href="#3）创建空对象时不同" class="headerlink" title="3）创建空对象时不同"></a>3）创建空对象时不同</h4><p><img src="/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/objectNull.png" alt="propertiesObject">  </p>
+<p>当用构造函数或对象字面量方法创建空对象时，对象时有原型属性的，即有_proto_;<br>当用Object.create()方法创建空对象时，对象是没有原型属性的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.create()   //Object prototype may only be an Object or null</span><br><span class="line">Object.create(&#x27;&#x27;) //Object prototype may only be an Object or null</span><br></pre></td></tr></table></figure>
+
+<h4 id="4）proto-属性"><a href="#4）proto-属性" class="headerlink" title="4）proto 属性"></a>4）<strong>proto</strong> 属性</h4><p>JavaScript 的对象继承是通过原型链实现的。ES6 提供了更多原型对象的操作方法。<br>__proto__属性，用来读取或设置当前对象的prototype对象。目前只有浏览器环境必须部署有这个属性，其他运行环境不一定要部署，因此不建议使用这个属性，而是使用下面这些来 **Object.setPrototypeOf()<strong>（写操作,<strong>它是 ES6 正式推荐的设置原型对象的方法</strong>）、</strong>Object.getPrototypeOf()<strong>（读操作）、</strong>Object.create()**（生成操作）代替。</p>
+<h5 id="应用案例，原型属性的继承"><a href="#应用案例，原型属性的继承" class="headerlink" title="应用案例，原型属性的继承"></a>应用案例，原型属性的继承</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var triangle = &#123;a: 1, b: 2, c: 3&#125;;</span><br><span class="line"></span><br><span class="line">function ColoredTriangle() &#123;</span><br><span class="line">  this.color = &#x27;red&#x27;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//ColoredTriangle.prototype = triangle;  //ColoredTriangle.prototype.constructor === ColoredTriangle// false</span><br><span class="line">Object.assign(ColoredTriangle.prototype, triangle) //ColoredTriangle.prototype.constructor === ColoredTriangle// true</span><br><span class="line"></span><br><span class="line">var c = new ColoredTriangle();</span><br></pre></td></tr></table></figure>
+
+<p>打印出 实例c 看看结构是怎样的  </p>
+<p><img src="/_posts/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/assets/%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95/object1.png" alt="propertiesObject">  </p>
+<p>其中 color 属性在实例上，而其他的原型上。<br>现在来拷贝一个 实例 c2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var c2 = Object.assign(&#123;&#125;,c)</span><br><span class="line">console.log(c2.color); //red</span><br><span class="line">console.log(c2.a); //undefined</span><br></pre></td></tr></table></figure>
+
+<p>因为 Object.assign 是<strong>不能拷贝到继承或原型上的方法的</strong>。所以 实例c2 没有 a 这个属性。那要怎么要才能拷贝到原型上的方法呢？</p>
+<ul>
+<li>第一种方法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var originProto = Object.getPrototypeOf(c);</span><br><span class="line">var originProto2 = Object.create(originProto);</span><br><span class="line">var c2 = Object.assign(originProto2, c);</span><br><span class="line">//var c2 = Object.assign(Object.create(Object.getPrototypeOf(c)), c)</span><br><span class="line"></span><br><span class="line">console.log(c2.color); // red</span><br><span class="line">console.log(c2.a); // 1</span><br></pre></td></tr></table></figure>
+
+<p>这样就实现了原型属性的拷贝。<br>Object.getPrototypeOf(c) 既 originProto 得到的是原型上的 &#x2F;&#x2F;{a: 1, b: 2, c: 3}；<br>Object.create(originProto) 既 originProto2 既是创建了一个 {a: 1, b: 2, c: 3} 在原型上的新对象；<br>Object.assign(originProto2, c) 在源对象originProto2 上合并对象 c (只能合并实例属性)；</p>
+<ul>
+<li>第二种方法(推荐)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var c = new ColoredTriangle();</span><br><span class="line">var c2 = Object.create(Object.getPrototypeOf(c), Object.getOwnPropertyDescriptors(c));</span><br><span class="line"></span><br><span class="line">console.log(c2.color); // red</span><br><span class="line">console.log(c2.a); // 1</span><br></pre></td></tr></table></figure>
+
+<p>可以把Object.create()的参数理解为：第一个参数是放在新对象的原型上的，第二个参数是放在新对象的实例上的。<br>Object.getPrototypeOf() 得到的是 c 对象的原型，然后作为第一个参数，所以会在新对象c2 的原型上。<br>Object.getOwnPropertyDescriptors() 得到是 c 对象自身的可枚举属性，作为第二个参数，放在 c2 的实例上。</p>
+<p><strong>为什么说推荐这个方法呢？因为Object.assign() 方法不能正确拷贝 get ，set 属性。</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Object/" rel="tag"># Object</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="tag"># 数据类型</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E8%AE%B0%E5%BD%95/" rel="prev" title="解题思路或方法">
+                  <i class="fa fa-angle-left"></i> 解题思路或方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E6%96%B9%E6%B3%95/" rel="next" title="对象属性方法总结">
+                  对象属性方法总结 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="导言  每个渲染进程都有一个主线程，并且主线程非常繁忙，既要处理 DOM，又要计算样式，还要处理布局，同时还需要处理 JavaScript 任务以及各种输入事件。要让这么多不同类型的任务在主线程中有条不紊地执行，这就需要一个系统来统筹调度这些任务，这个统筹调度系统就是我们今天要讲的消息队列和事件循环系统。 出现原因 事件循环  要想在线程运行过程中，能接收并执行新的任务，就需要采用事件循环机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件循环及消息队列">
+<meta property="og:url" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="导言  每个渲染进程都有一个主线程，并且主线程非常繁忙，既要处理 DOM，又要计算样式，还要处理布局，同时还需要处理 JavaScript 任务以及各种输入事件。要让这么多不同类型的任务在主线程中有条不紊地执行，这就需要一个系统来统筹调度这些任务，这个统筹调度系统就是我们今天要讲的消息队列和事件循环系统。 出现原因 事件循环  要想在线程运行过程中，能接收并执行新的任务，就需要采用事件循环机制">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705153141673.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705154145466.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220722141347660.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220228095741824.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210825120626382.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220722141448815.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20211231142902981.png">
+<meta property="article:published_time" content="2021-07-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-17T02:39:23.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="事件循环">
+<meta property="article:tag" content="消息队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705153141673.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/","path":"零散知识/事件循环及消息队列/","title":"事件循环及消息队列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>事件循环及消息队列 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">导言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BA%E7%8E%B0%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">出现原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%9B%BE%E7%A4%BA"><span class="nav-number">3.</span> <span class="nav-text">事件循环及消息队列图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">消息队列中的任务类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E4%BB%BB%E5%8A%A1%E6%98%AF%E4%B8%BA%E4%BA%86%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">微任务是为了解决什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E4%BB%BB%E5%8A%A1%E3%80%81%E5%AE%8F%E4%BB%BB%E5%8A%A1%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">微任务、宏任务常见类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setTimeout%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">4.3.</span> <span class="nav-text">setTimeout是如何实现的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pomise"><span class="nav-number">4.4.</span> <span class="nav-text">pomise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#async-await"><span class="nav-number">4.5.</span> <span class="nav-text">async await</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E5%92%8C%E5%8D%8F%E7%A8%8B"><span class="nav-number">4.5.1.</span> <span class="nav-text">生成器和协程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#tips-%E5%8A%A0%E6%B7%B1%E7%90%86%E8%A7%A3"><span class="nav-number">4.5.1.1.</span> <span class="nav-text">tips 加深理解</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A0%E6%B7%B1%E5%8D%B0%E8%B1%A1%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">4.5.2.</span> <span class="nav-text">加深印象的两个问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#async%E3%80%81await%E7%9A%84%E7%AD%89%E4%BB%B7%E8%A1%A8%E7%A4%BA"><span class="nav-number">4.5.3.</span> <span class="nav-text">async、await的等价表示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#async"><span class="nav-number">4.5.4.</span> <span class="nav-text">async</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#await"><span class="nav-number">4.5.5.</span> <span class="nav-text">await</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%BE%AA%E7%8E%AF"><span class="nav-number">5.</span> <span class="nav-text">nodejs中的时间循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%88%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E5%90%84%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="nav-number">5.1.</span> <span class="nav-text">先解释一下各个阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E9%98%B6%E6%AE%B5%E7%9A%84%E8%AF%A6%E6%83%85"><span class="nav-number">5.2.</span> <span class="nav-text">每个阶段的详情</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#timer"><span class="nav-number">5.2.1.</span> <span class="nav-text">*timer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Pending-callbacks"><span class="nav-number">5.2.2.</span> <span class="nav-text">Pending callbacks</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#poll-%E9%87%8D%E7%82%B9%E5%88%86%E6%9E%90"><span class="nav-number">5.2.3.</span> <span class="nav-text">*poll 重点分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#check"><span class="nav-number">5.2.4.</span> <span class="nav-text">*check</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#close"><span class="nav-number">5.2.5.</span> <span class="nav-text">close</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E7%90%86%E8%A7%A3%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">5.3.</span> <span class="nav-text">帮助理解的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setImmediate-vs-setTimeout"><span class="nav-number">5.4.</span> <span class="nav-text">setImmediate() vs setTimeout()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#process-nextTick"><span class="nav-number">5.5.</span> <span class="nav-text">process.nextTick()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#promise"><span class="nav-number">5.6.</span> <span class="nav-text">promise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">5.7.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8C%96%E7%89%88"><span class="nav-number">5.8.</span> <span class="nav-text">简化版</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="事件循环及消息队列 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          事件循环及消息队列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-05 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-05T00:00:00+08:00">2021-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-17 10:39:23" itemprop="dateModified" datetime="2024-07-17T10:39:23+08:00">2024-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">零散知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h3><p>  每个渲染进程都有一个主线程，并且主线程非常繁忙，既要处理 DOM，又要计算样式，还要处理布局，同时还需要处理 JavaScript 任务以及各种输入事件。要让这么多不同类型的任务在主线程中有条不紊地执行，这就需要一个系统来统筹调度这些任务，这个统筹调度系统就是我们今天要讲的<strong>消息队列</strong>和<strong>事件循环系统</strong>。</p>
+<h3 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h3><ul>
+<li>事件循环</li>
+</ul>
+<p><strong>要想在线程运行过程中，能接收并执行新的任务，就需要采用事件循环机制</strong></p>
+<ul>
+<li>消息队列</li>
+</ul>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705153141673.png" alt="image-20210705153141673"></p>
+<p> 从上图可以看出，渲染主线程会频繁接收到来自于 IO 线程的一些任务，接收到这些任务之后，渲染进程就需要着手处理。那么如何设计好一个线程模型，能让其能够接收管理其他线程发送的消息呢？</p>
+<p> 一个通用模式是使用<strong>消息队列</strong>。</p>
+<p> <strong>消息队列是一种数据结构，可以存放要执行的任务</strong>。它符合队列“<strong>先进先出</strong>”的特点，也就是说<strong>要添加任务的话，添加到队列的尾部；要取出任务的话，从队列头部去取</strong>。</p>
+<h3 id="事件循环及消息队列图示"><a href="#事件循环及消息队列图示" class="headerlink" title="事件循环及消息队列图示"></a>事件循环及消息队列图示</h3><p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210705154145466.png" alt="image-20210705154145466"></p>
+<h3 id="消息队列中的任务类型"><a href="#消息队列中的任务类型" class="headerlink" title="消息队列中的任务类型"></a>消息队列中的任务类型</h3><p>  输入事件（鼠标滚动、点击、移动）、微任务、文件读写、WebSocket、JavaScript 定时器等等。</p>
+<p>​    除此之外，消息队列中还包含了很多与页面相关的事件，如 JavaScript 执行、解析DOM、样式计算、布局计算、CSS 动画等。</p>
+<p> 从另一种维度区分，就是宏任务和微任务</p>
+<h4 id="微任务是为了解决什么问题？"><a href="#微任务是为了解决什么问题？" class="headerlink" title="微任务是为了解决什么问题？"></a>微任务是为了解决什么问题？</h4><p>页面线程所有执行的任务都来自于消息队列。消息队列是“先进先出”的属性，也就是说放入队列中的任务，需要等待前面的任务被执行完，才会被执行。鉴于这个属性，就有如下两个问题需要解决。</p>
+<p>微任务就是为了<strong>处理高优先级的任务而被创建的</strong>。每个宏任务中都包含了一个<strong>微任务队列</strong>，在执行宏任务的过程中，如果 有微任务产生，那么就会将该变化添加到对应的微任务列表中。当宏任务完成后，程序会直接进入当前宏任务对应的微任务列表中（<strong>此时当前的宏任务并没结束</strong>）。程序会将微任务队列中所有的微任务执行完毕后才会进入下一个宏任务，如果在微任务执行的过程中产生了新的微任务，仍会被放置进当前的微任务列表等待执行。</p>
+<h4 id="微任务、宏任务常见类型"><a href="#微任务、宏任务常见类型" class="headerlink" title="微任务、宏任务常见类型"></a>微任务、宏任务常见类型</h4><ul>
+<li>macro-task:<ul>
+<li>script(script标签里面的整体代码)</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate(node环境和部分ie才有)</li>
+<li>MessageChannel（vue nextTick 以前应该是<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/reactivity.html">备选方案</a>）</li>
+<li>I&#x2F;O</li>
+<li>UI rendering</li>
+<li>requestAnimationFrame</li>
+</ul>
+</li>
+<li>micro-task:<ul>
+<li>process.nextTick(node环境才有)</li>
+<li>Promise</li>
+<li>Object.observe(已废弃，被下边那个取代了)</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver">MutationObserver</a> (接口提供了监视对DOM树所做更改的能力)</li>
+</ul>
+</li>
+</ul>
+<h4 id="setTimeout是如何实现的"><a href="#setTimeout是如何实现的" class="headerlink" title="setTimeout是如何实现的"></a>setTimeout是如何实现的</h4><p> 在 Chrome 中除了正常使用的消息队列之外，还有<strong>另外一个消息队列</strong>，这个队列中维护了需要延迟执行的任务列表，<strong>包括了定时器和 Chromium 内部一些需要延迟执行的任务</strong>。</p>
+<p> 当通过 JavaScript 调用 setTimeout 设置回调函数的时候，渲染进程将会创建一个回调任务，包含了回调函数 showName、当前发起时间、延迟执行时间，其模拟代码如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct DelayTask&#123;</span><br><span class="line"> int64 id； </span><br><span class="line"> CallBackFunction cbf;</span><br><span class="line"> int start_time;</span><br><span class="line"> int delay_time;</span><br><span class="line">&#125;;</span><br><span class="line">DelayTask timerTask;</span><br><span class="line">timerTask.cbf = callbackFnc;</span><br><span class="line">timerTask.start_time = getCurrentTime(); // 获取当前时间</span><br><span class="line">timerTask.delay_time = 200;// 设置延迟执行时间</span><br></pre></td></tr></table></figure>
+
+<p> 创建好回调任务之后，再将该任务添加到延迟执行队列中。这里我们要重点关注它的执行时机，下面是一段模拟代码，我们可以看出<strong>每完成一个宏任务，程序就回去延迟队列中取出已经到期的定时器任务，执行完成后进行下一轮循环</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void ProcessTimerTask()&#123;</span><br><span class="line">// 从 delayed_incoming_queue 中取出已经到期的定时器任务</span><br><span class="line">// 依次执行这些任务</span><br><span class="line">&#125;</span><br><span class="line">TaskQueue task_queue；</span><br><span class="line">void ProcessTask();</span><br><span class="line">bool keep_running = true;</span><br><span class="line">void MainTherad()&#123;</span><br><span class="line">  for (; ;) &#123;</span><br><span class="line">    // 执行消息队列中的任务</span><br><span class="line">    Task task = task_queue.takeTask();</span><br><span class="line">    ProcessTask(task);</span><br><span class="line"></span><br><span class="line">    // 执行延迟队列中的任务</span><br><span class="line">    ProcessDelayTask()</span><br><span class="line"></span><br><span class="line">    if (!keep_running) // 如果设置了退出标志，那么直接退出线程循环</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="pomise"><a href="#pomise" class="headerlink" title="pomise"></a>pomise</h4><p>在promise专题内详细介绍，在这里只需要<strong>记住<code>promise.resolve</code> <code>promise.reject</code>会产生微任务</strong>就可以了</p>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h4><p> async&#x2F;await 使用了 <code>Generator</code> 和 <code>Promise</code> 两种技术</p>
+<h5 id="生成器和协程"><a href="#生成器和协程" class="headerlink" title="生成器和协程"></a>生成器和协程</h5><p>生成器函数是一个带星号函数，而且是可以暂停执行和恢复执行的</p>
+<p> 要搞懂函数为何能暂停和恢复，那你首先要了解协程的概念。<strong>协程一种比线程更加轻量级的存在</strong>。你可以把协程看成是跑在线程上的任务，一个线程上可以存在多个协程，但是在线程上同时只能执行一个协程</p>
+<p> 正如一个进程可以拥有多个线程一样，一个线程也可以拥有多个协程。最重要的是，协程不是被操作系统内核所管理，而完全是由程序所控制</p>
+<p>看下面代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function* genDemo() &#123;</span><br><span class="line">    console.log(&quot; 开始执行第一段 &quot;)</span><br><span class="line">    yield &#x27;generator 1&#x27;</span><br><span class="line">    console.log(&quot; 开始执行第二段 &quot;)</span><br><span class="line">    yield &#x27;generator 2&#x27;</span><br><span class="line">    console.log(&quot; 开始执行第三段 &quot;)</span><br><span class="line">    yield &#x27;generator 3&#x27;</span><br><span class="line">    console.log(&quot; 执行结束 &quot;)</span><br><span class="line">    return &#x27;generator 4&#x27;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">console.log(&#x27;main 0&#x27;)</span><br><span class="line">let gen = genDemo()</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#x27;main 1&#x27;)</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#x27;main 2&#x27;)</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#x27;main 3&#x27;)</span><br><span class="line">console.log(gen.next().value)</span><br><span class="line">console.log(&#x27;main 4&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220722141347660.png" alt="image-20220722141347660"></p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220228095741824.png" alt="image-20220228095741824"></p>
+<p>从图中可以看出来协程的*<em>四点规则</em>******：</p>
+<ul>
+<li>通过调用生成器函数 genDemo 来创建一个协程 gen，创建之后，<strong>gen 协程并没有立即执行</strong>。</li>
+<li>要让 gen 协程执行，需要通过调用 gen.next。</li>
+<li>当协程正在执行的时候，可以通过 yield 关键字来暂停 gen 协程的执行，并返回主要信息给父协程。</li>
+<li>如果协程在执行期间，<strong>遇到了 return 关键字，那么 JavaScript 引擎会结束当前协程，并将 return 后面的内容返回给父协程</strong>。</li>
+</ul>
+<p>不过，对于上面这段代码，你可能又有这样疑问：父协程有自己的调用栈，gen 协程时也有自己的调用栈，当 gen 协程通过 yield 把控制权交给父协程时，V8 是如何切换到父协程的调用栈？当父协程通过 gen.next 恢复 gen 协程时，又是如何切换 gen 协程的调用栈？</p>
+<p>要搞清楚上面的问题，你需要关注以下两点内容。</p>
+<ul>
+<li><p>第一点：gen 协程和父协程是在主线程上交互执行的，并不是并发执行的，它们之前的切换是通过 yield 和 gen.next 来配合完成的。</p>
+</li>
+<li><p>第二点：<strong>当在 gen 协程中调用了 yield 方法时，JavaScript 引擎会&#x3D;&#x3D;保存 gen 协程当前的调用栈信息(包括活动对象和词法作用域)&#x3D;&#x3D;，并恢复父协程的调用栈信息。同样，当在父协程中执行 gen.next 时，JavaScript 引擎会保存父协程的调用栈信息，并恢复 gen 协程的调用栈信息</strong>。</p>
+</li>
+</ul>
+<p>为了直观理解父协程和 gen 协程是如何切换调用栈的，你可以参考下图：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20210825120626382.png" alt="image-20210825120626382"></p>
+<h6 id="tips-加深理解"><a href="#tips-加深理解" class="headerlink" title="tips 加深理解"></a><strong>tips</strong> 加深理解</h6><p>看一个面试题，可以考察对于切换调用栈的理解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 0</span><br><span class="line">var b = async () =&gt; &#123;</span><br><span class="line">  a = a + await 10</span><br><span class="line">  console.log(&#x27;2&#x27;, a) // -&gt; &#x27;2&#x27; 10</span><br><span class="line">  a = (await 10) + a</span><br><span class="line">  console.log(&#x27;3&#x27;, a) // -&gt; &#x27;3&#x27; 20</span><br><span class="line">&#125;</span><br><span class="line">b()</span><br><span class="line">a++</span><br><span class="line">console.log(&#x27;1&#x27;, a) // -&gt; &#x27;1&#x27; 1</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 1</span><br><span class="line">2 10</span><br><span class="line">3 20</span><br></pre></td></tr></table></figure>
+
+<p>对于以上代码你可能会有疑惑，这里说明下原理</p>
+<ul>
+<li>首先函数 <code>b</code> 先执行，在执行到 <code>await 10</code> 之前变量 <code>a</code> 还是 0，因为在 <strong><code>async</code> 内部实现了 <code>generators</code></strong> ，<code>generators</code> 会保留堆栈中东西，所以这时候 <code>a = 0</code> 被保存了下来</li>
+<li>因为 <code>await</code> 是异步操作，遇到<code>await</code>就会<em><strong>立即返回一个<code>pending</code>状态的<code>Promise</code>对象</strong></em>，暂时返回执行代码的控制权，使得函数外的代码得以继续执行，所以会先执行 <code>console.log(&#39;1&#39;, a)</code></li>
+<li>这时候同步代码执行完毕，开始执行异步代码，将保存下来的值拿出来使用，这时候 <code>a = 10</code></li>
+<li>然后后面就是常规执行代码了</li>
+</ul>
+<h5 id="加深印象的两个问题"><a href="#加深印象的两个问题" class="headerlink" title="加深印象的两个问题"></a>加深印象的两个问题</h5><ul>
+<li><p>generator 函数是如何暂停执行程序的？</p>
+<p> 答案是通过协程来控制程序执行。</p>
+<p> generator 函数是一个生成器，<strong>执行它会返回一个迭代器</strong>，这个迭代器同时也是一个协程。一个线程中可以有多个协程，但是同时只能有一个协程在执行。线程的执行是在内核态，是由操作系统来控制；协程的执行是在用户态，是完全由程序来进行控制，通过调用生成器的next()方法可以让该协程执行，通过yield关键字可以让该协程暂停，交出主线程控制权，通过return 关键字可以让该协程结束。协程切换是在用户态执行，而线程切换时需要从用户态切换到内核态，在内核态进行调度，协程相对于线程来说更加轻量、高效。</p>
+</li>
+<li><p><strong>async function实现原理</strong>？</p>
+<p> async function 是通过 promise + generator 来实现的。</p>
+<p> generator 是通过协程来控制程序调度的。在协程中执行异步任务时，先用promise封装该异步任务，如果异步任务完成，会将其结果放入微任务队列中，然后通过yield 让出主线程执行权，继续执行主线程js，主线程js执行完毕后，会去扫描微任务队列，如果有任务则取出任务进行执行，这时<strong>通过调用迭代器的next(result)方法，并传入任务执行结果result，将主线程执行权转交给该协程继续执行，并且将result赋值给yield 表达式左边的变量，从而以同步的方式实现了异步编程</strong>。所以说到底async function 还是通过协程+微任务+浏览器事件循环机制来实现的。</p>
+</li>
+</ul>
+<h5 id="async、await的等价表示"><a href="#async、await的等价表示" class="headerlink" title="async、await的等价表示"></a>async、await的等价表示</h5><p>写这个主要是帮助理解</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">   return 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于:</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">   return Promise.resolve(1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">   await 1</span><br><span class="line">   xxxxxxx</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于:</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">   return Promise.resolve(1).then(() =&gt; &#123;</span><br><span class="line">     xxxxxxx</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="async"><a href="#async" class="headerlink" title="async"></a>async</h5><p>async 是一个通过<strong>异步执行并隐式返回 Promise</strong> 作为结果的函数</p>
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line"> return 2</span><br><span class="line">&#125;</span><br><span class="line">console.log(foo()) </span><br><span class="line">// Promise &#123;&lt;resolved&gt;: 2&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="await"><a href="#await" class="headerlink" title="await"></a>await</h5><p>用代码来分析一下吧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async function foo() &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">  let a = await 100</span><br><span class="line">  console.log(a)</span><br><span class="line">  console.log(2)</span><br><span class="line">&#125;</span><br><span class="line">console.log(0)</span><br><span class="line">foo()</span><br><span class="line">console.log(3)</span><br></pre></td></tr></table></figure>
+
+<p>在详细介绍之前，我们先站在协程的视角来看看这段代码的整体执行流程图：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20220722141448815.png" alt="image-20220722141448815"></p>
+<p><strong>结合上图，我们来一起分析下 async&#x2F;await 的执行流程</strong>。</p>
+<blockquote>
+<p>描述较长，理解记忆</p>
+</blockquote>
+<p> 首先，执行console.log(0)这个语句，打印出来 0。</p>
+<p> 紧接着就是执行 foo 函数，由于 foo 函数是被 async 标记过的，所以当进入该函数的时候，JavaScript 引擎会保存当前的调用栈等信息，然后执行 foo 函数中<code>console.log(1)</code>语句，并打印出 1。</p>
+<p> 接下来就执行到 foo 函数中的<code>await 100</code>这个语句了，这里是我们<strong>分析的重点</strong>，因为在执行await 100这个语句时，JavaScript 引擎在背后为我们默默做了太多的事情，那么下面我们就把这个语句拆开，来看看 JavaScript 到底都做了哪些事情。</p>
+<p> <strong>当执行到await 100时，会默认创建一个 Promise 对象</strong>，代码如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let promise = new Promise((resolve,reject)&#123;</span><br><span class="line">  resolve(100)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p> 在这个 promise 对象创建的过程中，我们可以看到在 executor 函数中调用了 resolve 函数，JavaScript 引擎会将该任务提交给微任务队列。</p>
+<p> 然后 JavaScript 引擎会暂停当前协程的执行，将主线程的控制权转交给父协程执行，同时会将 <strong>promise对象返回给父协程</strong>。</p>
+<p> 主线程的控制权已经交给父协程了，这时候父协程要做的一件事是调用 promise.then 来监控 promise 状态的改变。</p>
+<p> 接下来继续执行父协程的流程，这里我们执行console.log(3)，并打印出来 3。随后父协程将执行结束，在结束之前，会进入微任务的检查点，然后执行微任务队列，微任务队列中有<strong>resolve(100)的任务等待执行，执行到这里的时候，会触发 promise.then 中的回调函数</strong>，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.then((value)=&gt;&#123;</span><br><span class="line">// 回调函数被激活后</span><br><span class="line">// 将主线程控制权交给 foo 协程，并将 vaule 值传给协程</span><br><span class="line">&#125;)</span><br><span class="line">该回调函数被激活以后，会将主线程的控制权交给 foo 函数的协程，并同时将 value 值传给该协程。</span><br></pre></td></tr></table></figure>
+
+<p> 该回调函数被激活以后，会将主线程的控制权交给 foo 函数的协程，并同时将 value 值传给该协程。</p>
+<p> foo 协程激活之后，会把刚才的 value 值赋给了变量 a，然后 foo 协程继续执行后续语句，执行完成之后，将控制权归还给父协程。</p>
+<p> 以上就是 await&#x2F;async 的执行流程。</p>
+<h3 id="nodejs中的时间循环"><a href="#nodejs中的时间循环" class="headerlink" title="nodejs中的时间循环"></a>nodejs中的时间循环</h3><blockquote>
+<p>没必要太过于深究，网上说的也是各不相同</p>
+</blockquote>
+<p>首先上图</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/image-20211231142902981.png" alt="image-20211231142902981"></p>
+<h4 id="先解释一下各个阶段"><a href="#先解释一下各个阶段" class="headerlink" title="先解释一下各个阶段"></a>先解释一下各个阶段</h4><ol>
+<li>timers: 这个阶段执行setTimeout()和setInterval()设定的回调，可以认为是设置。</li>
+<li>pending callbacks: 执行几乎所有的回调，<strong>除了</strong>close回调，timer的回调，和setImmediate()的回调。</li>
+<li>idle, prepare: 仅内部使用。</li>
+<li>poll: 获取新的I&#x2F;O事件；node会在适当条件下阻塞在这里。</li>
+<li>check: 执行setImmediate()设定的回调。</li>
+<li>close callbacks: 执行比如socket.on(‘close’, …)的回调。</li>
+</ol>
+<blockquote>
+<p>我们只需要关注<strong>timer poll check</strong> 这三个阶段即可</p>
+</blockquote>
+<h4 id="每个阶段的详情"><a href="#每个阶段的详情" class="headerlink" title="每个阶段的详情"></a>每个阶段的详情</h4><h5 id="timer"><a href="#timer" class="headerlink" title="*timer"></a>*timer</h5><p>一个timer指定一个下限时间而不是准确时间，在达到这个下限时间后执行回调。在指定时间过后，timers会尽可能早地执行回调，但系统调度或者其它回调的执行可能会延迟它们。</p>
+<p>据我观察。<strong>timer阶段应该会向某个队列放入到时间的定时器，以便poll阶段调用</strong></p>
+<blockquote>
+<p>注意：<strong>技术上来说，poll 阶段控制 timers 什么时候执行</strong>。</p>
+</blockquote>
+<h5 id="Pending-callbacks"><a href="#Pending-callbacks" class="headerlink" title="Pending callbacks"></a>Pending callbacks</h5><p>执行延迟到下一个循环迭代的 I&#x2F;O 回调。此阶段对某些系统操作（如 TCP 错误类型）执行回调。例如，如果 TCP 套接字在尝试连接时接收到 <code>ECONNREFUSED</code>，则某些 *nix 的系统希望等待报告错误。这将被排队以在挂起的回调阶段执行。</p>
+<h5 id="poll-重点分析"><a href="#poll-重点分析" class="headerlink" title="*poll 重点分析"></a>*poll 重点分析</h5><p>poll 阶段的流程</p>
+<ul>
+<li>执行 poll 阶段的任务队列。</li>
+<li>如果为空了，则检查是否存在已达到时间阈值的计时器(timers)，如果有则跳转至timers阶段</li>
+</ul>
+<p><strong>没有被调度的计时器时，将会发生以下情况</strong></p>
+<ul>
+<li>如果 poll 队列不为空的话，会执行 poll 队列直到清空或者系统回调数达到了与系统相关的硬性限制</li>
+<li>如果 poll 队列为空<ul>
+<li>如果设定了 setImmediate 回调，会直接跳到 check 阶段。</li>
+<li>如果没有设定 setImmediate 回调，会阻塞住进程，并等待新的 poll 任务（<strong>定时器或者新的I&#x2F;O事件</strong>）加入并立即执行。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>来自于charTGp</p>
+<p>在 Node.js 中，Poll 阶段阻塞时，不会立即进入 Check 阶段。相反，Node.js 会等待事件循环中的 Poll 阶段完成或者达到一定条件时，才会继续执行 Check 阶段。具体的情况如下：</p>
+<ol>
+<li><strong>当 Poll 阶段有事件到达时</strong>：如果在 Poll 阶段有 I&#x2F;O 事件（例如网络请求或文件读取）到达，事件循环会立即离开 Poll 阶段，处理这些事件的回调函数，并且不会进入 Check 阶段，直接返回到 Timers 阶段，以执行定时器回调函数。</li>
+<li><strong>当 Poll 阶段没有事件到达，但有 setImmediate 回调函数时</strong>：如果 Poll 阶段没有待处理的事件，事件循环会继续检查是否有设置了 <code>setImmediate</code> 的回调函数需要执行，如果有，它会离开 Poll 阶段，进入 Check 阶段执行这些回调函数。</li>
+<li><strong>在某些情况下，可能需要 Poll 阶段显式让出控制</strong>：有时，开发者可能需要在 Poll 阶段显式让出控制，以便在稍后的事件循环迭代中进入 Check 阶段。这可以通过使用 <code>process.nextTick</code> 来实现。<code>process.nextTick</code> 的回调函数会在当前事件循环迭代的末尾执行，然后才进入下一个迭代的 Check 阶段。</li>
+</ol>
+<p>总之，在大多数情况下，当 Poll 阶段没有待处理的事件时，事件循环会立即检查是否有 <code>setImmediate</code> 回调函数需要执行，然后再进入 Check 阶段。这就是为什么 <code>setImmediate</code> 的回调函数有时被描述为 “下一个事件循环迭代中执行” 的原因。但需要注意，<code>setImmediate</code> 回调函数也不能保证立即执行，它仍然受到事件循环的进程调度和其他因素的影响。</p>
+</blockquote>
+<h5 id="check"><a href="#check" class="headerlink" title="*check"></a>*check</h5><p>这个阶段在 poll 结束后立即执行，setImmediate 的回调会在这里执行。</p>
+<p>一般来说，event loop 肯定会进入 poll 阶段，当没有 poll 任务时，会等待新的任务出现，但如果设定了 setImmediate，会直接执行进入下个阶段而不是继续等。</p>
+<h5 id="close"><a href="#close" class="headerlink" title="close"></a>close</h5><p>如果套接字或处理函数突然关闭（例如 <code>socket.destroy()</code>），则<code>&#39;close&#39;</code> 事件将在这个阶段发出。否则它将通过 <code>process.nextTick()</code> 发出???。</p>
+<h4 id="帮助理解的例子"><a href="#帮助理解的例子" class="headerlink" title="帮助理解的例子"></a>帮助理解的例子</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">function someAsyncOperation (callback) &#123;</span><br><span class="line">  // 假设这个任务要消耗 95ms</span><br><span class="line">  fs.readFile(&#x27;/path/to/file&#x27;, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var timeoutScheduled = Date.now();</span><br><span class="line"></span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line"></span><br><span class="line">  var delay = Date.now() - timeoutScheduled;</span><br><span class="line"></span><br><span class="line">  console.log(delay + &quot;ms have passed since I was scheduled&quot;);</span><br><span class="line">&#125;, 100);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// someAsyncOperation要消耗 95 ms 才能完成</span><br><span class="line">someAsyncOperation(function () &#123;</span><br><span class="line"></span><br><span class="line">  var startCallback = Date.now();</span><br><span class="line"></span><br><span class="line">  // 消耗 10ms...</span><br><span class="line">  while (Date.now() - startCallback &lt; 10) &#123;</span><br><span class="line">    ; // do nothing</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>当event loop进入 poll 阶段，它有个空队列（fs.readFile()尚未结束）。所以它会等待剩下的毫秒， 直到最近的timer的下限时间到了。当它等了95ms，fs.readFile()首先结束了，然后它的回调被加到 poll 的队列并执行——这个回调耗时10ms。之后由于没有其它回调在队列里，所以event loop会查看最近达到的timer的 下限时间，然后回到 timers 阶段，执行timer的回调。</p>
+<p>所以在示例里，回调被设定 和 回调执行间的间隔是105ms。</p>
+<h4 id="setImmediate-vs-setTimeout"><a href="#setImmediate-vs-setTimeout" class="headerlink" title="setImmediate() vs setTimeout()"></a>setImmediate() vs setTimeout()</h4><p>现在我们应该知道两者的不同，他们的执行阶段不同，setImmediate() 在 check 阶段，而settimeout 在 poll 阶段执行。但，还不够。来看一下例子。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// timeout_vs_immediate.js</span><br><span class="line">setTimeout(function timeout () &#123;</span><br><span class="line">  console.log(&#x27;timeout&#x27;);</span><br><span class="line">&#125;,0);</span><br><span class="line"></span><br><span class="line">setImmediate(function immediate () &#123;</span><br><span class="line">  console.log(&#x27;immediate&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line">复制代码</span><br><span class="line">$ node timeout_vs_immediate.js</span><br><span class="line">timeout</span><br><span class="line">immediate</span><br><span class="line"></span><br><span class="line">$ node timeout_vs_immediate.js</span><br><span class="line">immediate</span><br><span class="line">timeout</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>结果居然是不确定的，why？</p>
+<p>还是直接给出解释吧。</p>
+<ol>
+<li>首先进入timer阶段，如果我们的机器性能一般，那么进入timer阶段时，1毫秒可能已经过去了（setTimeout(fn, 0) 等价于setTimeout(fn, 1)），那么setTimeout的回调会首先执行。</li>
+<li>如果没到一毫秒，那么我们可以知道，在check阶段，setImmediate的回调会先执行。</li>
+</ol>
+<p>那我们再来一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// timeout_vs_immediate.js</span><br><span class="line">var fs = require(&#x27;fs&#x27;)</span><br><span class="line"></span><br><span class="line">fs.readFile(__filename, () =&gt; &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;timeout&#x27;)</span><br><span class="line">  &#125;, 0)</span><br><span class="line">  setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;immediate&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>输出始终为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ node timeout_vs_immediate.js</span><br><span class="line">immediate</span><br><span class="line">timeout</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>这个就很好解释了吧。 fs.readFile 的回调执行是在 poll 阶段。当 fs.readFile 回调执行完毕之后，会直接到 check 阶段，先执行 setImmediate 的回调。</p>
+<h4 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick()"></a>process.nextTick()</h4><p>nextTick 比较特殊，它有自己的队列，并且，独立于event loop。 它的执行也非常特殊，<strong>无论 event loop 处于何种阶段，都会在<u>当前</u>阶段结束的时候清空 nextTick 队列</strong>。</p>
+<h4 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h4><p> <code>promise</code>和<code>process.nextTick()</code>类似，处在任意阶段的末尾，如果有上述两种任务，都会在当前阶段结束前执行</p>
+<p>但是优先级比nextTick低。</p>
+<p><a target="_blank" rel="noopener" href="https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/learn/lecture/15064744#overview">https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/learn/lecture/15064744#overview</a></p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;setTimeout 1&#x27;);</span><br><span class="line">&#125;, 0);</span><br><span class="line"></span><br><span class="line">setImmediate(() =&gt; &#123;</span><br><span class="line">  console.log(&#x27;setImmediate 1&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&#x27;./test-file.txt&#x27;, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;readFile&#x27;);</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;setTimeout 2&#x27;);</span><br><span class="line">  &#125;, 0);</span><br><span class="line"></span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;setTimeout 3&#x27;);</span><br><span class="line">  &#125;, 3000);</span><br><span class="line"></span><br><span class="line">  setImmediate(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;setImmediate 2&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;promise 1&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  process.nextTick(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;nextTick 1&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  Promise.resolve().then(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;promise 2&#x27;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// nextTick 会在每个阶段结束前运行 </span><br><span class="line">// promise 优先级不如nextTick</span><br><span class="line"></span><br><span class="line">// setImmediate 1</span><br><span class="line">// setTimeout 1</span><br><span class="line">// readFile</span><br><span class="line">// nextTick 1</span><br><span class="line">// promise 1</span><br><span class="line">// promise 2</span><br><span class="line">// setImmediate 2</span><br><span class="line">// setTimeout 2</span><br><span class="line">// setTimeout 3</span><br></pre></td></tr></table></figure>
+
+<h4 id="简化版"><a href="#简化版" class="headerlink" title="简化版"></a>简化版</h4><p><strong>一句话总结</strong></p>
+<p>timers（定时器） &#x3D;&gt; poll（i&#x2F;o） &#x3D;&gt; check(setImmediate)，</p>
+<p><code>promise</code>和<code>process.nextTick()</code>类似，处在任意阶段的末尾，如果有上述两种任务，都会在当前阶段结束前执行</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903685936381959#heading-8">腾讯</a></p>
+<p><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/">node官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903761949753352#heading-22">掘金</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" rel="tag"># 事件循环</a>
+              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag"># 消息队列</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/webpack/" rel="prev" title="9 webpack优化">
+                  <i class="fa fa-angle-left"></i> 9 webpack优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/js%E7%9A%84%E5%BC%80%E9%94%80%E4%B8%8E%E4%BC%98%E5%8C%96/" rel="next" title="10.JavaScript的开销与优化">
+                  10.JavaScript的开销与优化 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

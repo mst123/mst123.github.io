@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器  创建秘钥对，然后绑定到实例  运行长命令  ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里云服务器配置">
+<meta property="og:url" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="解决方案最好去官网查看 简短的记录一下步骤 申请阿里云服务器  创建秘钥对，然后绑定到实例  运行长命令  ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189} 应该会出现权限问题   运行命令，获取权限 chmod 400 .pem文件的完整路">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/20190407133555456.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70-20210421214616330.png">
+<meta property="article:published_time" content="2021-05-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:13:21.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="阿里云">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/","path":"大前端/配置ssh到阿里云/","title":"阿里云服务器配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>阿里云服务器配置 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E7%9F%AD%E7%9A%84%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">简短的记录一下步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%89%E8%A3%85docker"><span class="nav-number">2.</span> <span class="nav-text">在阿里云安装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mongo"><span class="nav-number">3.</span> <span class="nav-text">安装mongo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDmongo"><span class="nav-number">3.1.</span> <span class="nav-text">下载mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cmongo"><span class="nav-number">3.2.</span> <span class="nav-text">运行mongo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">4.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nodejs"><span class="nav-number">5.</span> <span class="nav-text">安装nodejs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">docker的基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">6.1.</span> <span class="nav-text">一、基本命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">6.2.</span> <span class="nav-text">二、镜像命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">6.3.</span> <span class="nav-text">三、容器命令</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="阿里云服务器配置 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          阿里云服务器配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-07 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-07T00:00:00+08:00">2021-05-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:13:21" itemprop="dateModified" datetime="2024-07-13T13:13:21+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">大前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>解决方案最好去官网查看</p>
+<h2 id="简短的记录一下步骤"><a href="#简短的记录一下步骤" class="headerlink" title="简短的记录一下步骤"></a>简短的记录一下步骤</h2><ul>
+<li><p>申请阿里云服务器</p>
+</li>
+<li><p>创建秘钥对，然后绑定到实例</p>
+</li>
+<li><p>运行长命令</p>
+<ul>
+<li>ssh -i {ff6b954c664adf1ba473194b3b620b7d .pem ~&#x2F;.ssh&#x2F;alien-linux.pem} {root}@{39.106.100.189}</li>
+<li>应该会出现权限问题</li>
+</ul>
+</li>
+<li><p>运行命令，获取权限 chmod 400 .pem文件的完整路径  chmod 400 ~&#x2F;.ssh&#x2F;alien-linux.pem</p>
+</li>
+<li><p>配置config文件 vim ~&#x2F;.ssh&#x2F;config</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host Aliyun #自定义别名</span><br><span class="line">HostName 39.106.100.189 #ssh服务器公网IP</span><br><span class="line">Port 22 #ssh服务器端口，默认22</span><br><span class="line">User root #ssh服务器用户名，默认root</span><br><span class="line">IdentityFile ~/.ssh/alien-linux.pem #秘钥文件路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样差不多就ok了</p>
+</li>
+</ul>
+<h2 id="在阿里云安装docker"><a href="#在阿里云安装docker" class="headerlink" title="在阿里云安装docker"></a>在阿里云安装docker</h2><p><a target="_blank" rel="noopener" href="https://github.com/docker/docker-install">docker-install</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com -o get-docker.sh</span><br><span class="line">sh get-docker.sh</span><br></pre></td></tr></table></figure>
+
+<p>然后 需要安装 docker-compose 查找linux安装方法,mac docker客户端集成了docker-compose<br><a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/">compose</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>然后需要给脚本执行权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装mongo"><a href="#安装mongo" class="headerlink" title="安装mongo"></a>安装mongo</h2><h3 id="下载mongo"><a href="#下载mongo" class="headerlink" title="下载mongo"></a>下载mongo</h3><p>docker pull mongo</p>
+<p>如果失败的话，可以配置中国镜像, 编写<code>/etc/docker/daemon.json</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://&lt;my-docker-mirror-host&gt;&quot;]</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line"> &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后重启docker  <code>systemctl restart docker.service</code></p>
+<h3 id="运行mongo"><a href="#运行mongo" class="headerlink" title="运行mongo"></a>运行mongo</h3><p><code>docker run -d --name some-mongo -p 10050:27017 mongo</code></p>
+<ul>
+<li>-d 表示后台运行</li>
+<li>-p 定义端口 10050:27017  容器端口27017映射到宿主机10050</li>
+<li>–name 命名</li>
+<li>mongo 可以接:tag 比如 mongo:4  版本4</li>
+</ul>
+<p>检查docker下边运行的镜像 <code>docker ps</code>，如下图所示</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/Snipaste_2021-04-20_10-22-34.png" alt="Snipaste_2021-04-20_10-22-34"></p>
+<h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><p>简单粗暴法</p>
+<p>ubuntu：service ufw stop</p>
+<p>Centos service firewalld stop</p>
+<p>B格高的方法，放行特定端口</p>
+<p>ubuntu： ufw allow Port端口号</p>
+<p>centos：<code>firewall-cmd --zone=public --add-port=10050/tcp --permanent</code>  –permanent 永久生肖</p>
+<p>服务器提示 FirewallD is not running 未开启防火墙，先把防火墙开启（不知道有无必要）,<code>systemctl start firewalld</code></p>
+<p>然后继续执行上一条命令，输出success，然后运行<code>firewall-cmd --reload</code>,重启生效</p>
+<p>现在验证是否可以访问，通过robo 3T 或者 Navicat连接测试，<strong>需要修改阿里云安全组策略，要不然无法连接</strong></p>
+<h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h2><p>1.wget <a target="_blank" rel="noopener" href="https://nodejs.org/dist/v6.10.3/node-v6.10.3-linux-x64.tar.xz">https://nodejs.org/dist/v6.10.3/node-v6.10.3-linux-x64.tar.xz</a> &#x2F;&#x2F;下载最新的稳定版 v6.10.3 到本地</p>
+<p>（最新 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://nodejs.org/dist/v14.15.1/node-v14.15.1-linux-x64.tar.xz">https://nodejs.org/dist/v14.15.1/node-v14.15.1-linux-x64.tar.xz</a>）</p>
+<p>2.tar xvJf node-v6.10.3-linux-x64.tar.xz                       &#x2F;&#x2F;下载完成后, 将其解压</p>
+<p>3.mv node-v6.10.3-linux-x64 &#x2F;usr&#x2F;local&#x2F;node-v6                &#x2F;&#x2F;将解压的 Node.js 目录移动到 &#x2F;usr&#x2F;local 目录下</p>
+<p>4.ln -s &#x2F;usr&#x2F;local&#x2F;node-v6&#x2F;bin&#x2F;node &#x2F;bin&#x2F;node                  &#x2F;&#x2F;配置 node 软链接到 &#x2F;bin 目录</p>
+<p>5.ln -s &#x2F;usr&#x2F;local&#x2F;node-v6&#x2F;bin&#x2F;npm &#x2F;bin&#x2F;npm                   &#x2F;&#x2F;下载 node 的压缩包中已经包含了 npm , 我们只需要将其软链接到 bin 目录下即可</p>
+<p>6.echo ‘export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;node-v6&#x2F;bin:$PATH’ &gt;&gt; &#x2F;etc&#x2F;profile &#x2F;&#x2F;将&#x2F;usr&#x2F;local&#x2F;node−v6&#x2F;bin目录添加到PATH′&gt;&gt;&#x2F;etc&#x2F;profile&#x2F;&#x2F;将&#x2F;usr&#x2F;local&#x2F;node−v6&#x2F;bin目录添加到PATH 环境变量中可以方便地使用通过 npm 全局安装的第三方工具</p>
+<p>7.source &#x2F;etc&#x2F;profile 有时候需要更新</p>
+<blockquote>
+<p>第六、七步可能不需要，试一下npm -v 能不能ok，如果不可以的话，在运行第六步</p>
+</blockquote>
+<h2 id="docker的基本命令"><a href="#docker的基本命令" class="headerlink" title="docker的基本命令"></a>docker的基本命令</h2><h3 id="一、基本命令"><a href="#一、基本命令" class="headerlink" title="一、基本命令"></a>一、基本命令</h3><p>docker version查看docker版本<br>docker info查看docker详细信息<br>docker –help查看docker命令</p>
+<h3 id="二、镜像命令"><a href="#二、镜像命令" class="headerlink" title="二、镜像命令"></a>二、镜像命令</h3><p>docker images查看docker镜像</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/20190407133555456.png" alt="img"></p>
+<p>PEPOSITORY：镜像的仓库源<br>TAG：镜像的标签<br>IMAGE ID：镜像ID<br>CREATED：镜像创建时间<br>SIZE：镜像大小<br> 同一个仓库源可以有多个TAG，表示这个仓库源的不同版本，我们使用REPOSITORY:TAG来定义不同的镜像。如果不指定一个镜像的版本标签，例如只使用tomcat，docker将默认使用tomcat:latest镜像<br>docker images -a列出本地所有的镜像<br>docker images -p只显示镜像ID<br>docker images –digests显示镜像的摘要信息<br>docker images –no-trunc显示完整的镜像信息</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70.png" alt="img"></p>
+<p>docker search tomcat从Docker Hub上查找tomcat镜像</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%85%8D%E7%BD%AEssh%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpemhpcWlhbmcxMjE3,size_16,color_FFFFFF,t_70-20210421214616330.png" alt="img"></p>
+<p>STARS：关注度<br>docker search -s 30 tomcat从Docker Hub上查找关注度大于30的tomcat镜像<br>docker pull tomcat从Docker Hub上下载tomcat镜像。等价于：docker pull tomcat:latest<br>docker commit -m “提交的描述信息” -a “作者” 容器ID 要创建的目标镜像名称:[标签名]提交容器使之成为一个新的镜像。<br>如：docker commit -m “新的tomcat” -a “lizq” f9e29e8455a5 mytomcat:1.2<br>docker rmi hello-world从Docker中删除hello-world镜像<br>docker rmi -f hello-world从Docker中强制删除hello-world镜像<br>docker rmi -f hello-world nginx从Docker中强制删除hello-world镜像和nginx镜像<br>docker rmi -f $(docker images -p)通过docker images -p查询到的镜像ID来删除所有镜像</p>
+<h3 id="三、容器命令"><a href="#三、容器命令" class="headerlink" title="三、容器命令"></a>三、容器命令</h3><p>docker run [OPTIONS] IMAGE根据镜像新建并启动容器。IMAGE是镜像ID或镜像名称<br>OPTIONS说明：<br> –name&#x3D;“容器新名字”：为容器指定一个名称<br> -d：后台运行容器，并返回容器ID，也即启动守护式容器<br> -i：以交互模式运行容器，通常与-t同时使用<br> -t：为容器重新分配一个伪输入终端，通常与-i同时使用<br> -P：随机端口映射<br> -p：指定端口映射，有以下四种格式：<br>  ip:hostPort:containerPort<br>  ip::containerPort<br>  hostPort:containerPort<br>  containerPort<br>docker ps列出当前所有正在运行的容器<br>docker ps -a列出所有的容器<br>docker ps -l列出最近创建的容器<br>docker ps -n 3列出最近创建的3个容器<br>docker ps -q只显示容器ID<br>docker ps –no-trunc显示当前所有正在运行的容器完整信息<br>exit退出并停止容器<br>Ctrl+p+q只退出容器，不停止容器<br>docker start 容器ID或容器名称启动容器<br>docker restart 容器ID或容器名称重新启动容器<br>docker stop容器ID或容器名称停止容器<br>docker kill 容器ID或容器名称强制停止容器<br>docker rm 容器ID或容器名称删除容器<br>docker rm -f 容器ID或容器名称强制删除容器<br>docker rm -f $(docker ps -a -q)删除多个容器<br>docker logs -f -t –since –tail 容器ID或容器名称查看容器日志<br>如：docker logs -f -t –since&#x3D;”2018-09-10” –tail&#x3D;10 f9e29e8455a5<br> -f : 查看实时日志<br> -t : 查看日志产生的日期<br> –since : 此参数指定了输出日志开始日期，即只输出指定日期之后的日志<br> –tail&#x3D;10 : 查看最后的10条日志<br>docker top 容器ID或容器名称查看容器内运行的进程<br>docker inspect 容器ID或容器名称查看容器内部细节<br>docker attach 容器ID进到容器内<br>docker exec 容器ID进到容器内<br>docker cp 容器ID:容器内的文件路径 宿主机路径从容器内拷贝文件到宿主机.<br>如：docker cp f9e29e8455a5:&#x2F;tmp&#x2F;yum.log &#x2F;root</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ssh/" rel="tag"># ssh</a>
+              <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag"># 阿里云</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/git/" rel="prev" title="git温故知新">
+                  <i class="fa fa-angle-left"></i> git温故知新
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/koa2/" rel="next" title="koa2">
+                  koa2 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

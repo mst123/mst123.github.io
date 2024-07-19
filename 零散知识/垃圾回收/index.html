@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在V8原理中 22小节 有一些增量知识–回收效率  在JavaScript中产生的垃圾数据是由垃圾回收器来释放的，并不需要手动通过代码来释放。 我们知道JavaScript的数据分为两类，原始数据类型是存储在栈空间中的，引用类型的数据是存储在堆空间中的。 垃圾回收机制栈中的数据是如何回收的在blog中有关于介绍**执行上下文(调用栈)**的详细介绍，栈中的垃圾回收，我们通过一段代码来看一下 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解垃圾回收机制">
+<meta property="og:url" content="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="在V8原理中 22小节 有一些增量知识–回收效率  在JavaScript中产生的垃圾数据是由垃圾回收器来释放的，并不需要手动通过代码来释放。 我们知道JavaScript的数据分为两类，原始数据类型是存储在栈空间中的，引用类型的数据是存储在堆空间中的。 垃圾回收机制栈中的数据是如何回收的在blog中有关于介绍**执行上下文(调用栈)**的详细介绍，栈中的垃圾回收，我们通过一段代码来看一下 12">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152137737.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152420782.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720153841493.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154746371.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154921297.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154954477.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720155150795.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20220720104725019.png">
+<meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:13:28.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="垃圾回收">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/","path":"零散知识/垃圾回收/","title":"深入理解垃圾回收机制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深入理解垃圾回收机制 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%98%AF%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">栈中的数据是如何回收的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%98%AF%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">堆中的数据是如何回收的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E9%99%85%E5%81%87%E8%AF%B4"><span class="nav-number">1.2.1.</span> <span class="nav-text">代际假说</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">分代收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E4%B8%80%E7%9A%84%E5%9B%9E%E6%94%B6%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">统一的回收流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%AF%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">副垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E6%99%8B%E5%8D%87%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">对象晋升策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">主垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">标记 - 清除</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%81%9C%E9%A1%BF"><span class="nav-number">1.2.6.</span> <span class="nav-text">全停顿</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深入理解垃圾回收机制 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解垃圾回收机制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-20T00:00:00+08:00">2021-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:13:28" itemprop="dateModified" datetime="2024-07-13T13:13:28+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">零散知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>在V8原理中 22小节 有一些增量知识–回收效率</p>
+</blockquote>
+<p>在JavaScript中<strong>产生的垃圾数据是由垃圾回收器来释放的</strong>，并不需要手动通过代码来释放。</p>
+<p>我们知道JavaScript的数据分为两类，<strong>原始数据类型是存储在栈空间中的，引用类型的数据是存储在堆空间中的</strong>。</p>
+<h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><h3 id="栈中的数据是如何回收的"><a href="#栈中的数据是如何回收的" class="headerlink" title="栈中的数据是如何回收的"></a><strong>栈中的数据是如何回收的</strong></h3><p>在blog中有关于介绍**执行上下文(调用栈)**的详细介绍，栈中的垃圾回收，我们通过一段代码来看一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"> <span class="keyword">var</span> b = &#123;<span class="attr">name</span>:<span class="string">&quot; 极客邦 &quot;</span>&#125;</span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">showName</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> c = <span class="string">&quot; 极客时间 &quot;</span></span><br><span class="line">  <span class="keyword">var</span> d = &#123;<span class="attr">name</span>:<span class="string">&quot; 极客时间 &quot;</span>&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="title function_">showName</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>()</span><br></pre></td></tr></table></figure>
+
+<p>当执行到第 6 行代码时，其调用栈和堆空间状态图如下所示：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png" alt="image-20210720151826588"></p>
+<p>当showName执行完毕，上下文需要切换至foo时，有一个<strong>记录当前执行状态的指针（称为 ESP）</strong>会下移指向foo函数的执行上下文，虽然showName的执行上下文未被摧毁，但是已经是无效内存了。因为如果当foo 函数再次调用另外一个函数时，这块内容会被直接覆盖掉，用来存放另外一个函数的执行上下文</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152137737.png" alt="image-20210720152137737"></p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p> 在栈空间中，<strong>JavaScript 引擎会通过向下移动 ESP 来销毁该函数保存在栈中的执行上下文，顺带完成了栈空间的垃圾回收</strong>。</p>
+<h3 id="堆中的数据是如何回收的"><a href="#堆中的数据是如何回收的" class="headerlink" title="堆中的数据是如何回收的"></a><strong>堆中的数据是如何回收的</strong></h3><p>继续上边代码的执行，当上面那段代码的 foo 函数执行结束之后，ESP 应该是指向全局执行上下文的，那这样的话，showName 函数和 foo 函数的执行上下文就处于无效状态了，<strong>不过保存在堆中的两个对象依然占用着空间</strong>，如下图所示：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152420782.png" alt="image-20210720152420782"></p>
+<p><strong>要回收堆中的垃圾数据，就需要用到 JavaScript 中的垃圾回收器了</strong>。</p>
+<h4 id="代际假说"><a href="#代际假说" class="headerlink" title="代际假说"></a>代际假说</h4><p> <strong>代际假说（The Generational Hypothesis）</strong>，这是垃圾回收领域中一个重要的术语，后续垃圾回收的策略都是建立在该假说的基础之上的。</p>
+<p><strong>代际假说</strong>有以下两个特点：</p>
+<ul>
+<li><p>第一个是大部分对象在内存中存在的时间很短，简单来说，就是很多对象一经分配内存，很快就变得不可访问；</p>
+</li>
+<li><p>第二个是不死的对象，会活得更久。</p>
+</li>
+</ul>
+<h4 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h4><p>在 V8 中会把堆分为<strong>新生代</strong>和<strong>老生代</strong>两个区域，<strong>新生代中存放的是生存时间短的对象，老生代中存放的生存时间久的对象</strong>。</p>
+<ul>
+<li><p><strong>副垃圾回收器，主要负责新生代的垃圾回收。</strong></p>
+</li>
+<li><p><strong>主垃圾回收器，主要负责老生代的垃圾回收。</strong></p>
+</li>
+</ul>
+<h4 id="统一的回收流程"><a href="#统一的回收流程" class="headerlink" title="统一的回收流程"></a>统一的回收流程</h4><p> 不论什么类型的垃圾回收器，它们都有一套共同的执行流程</p>
+<ul>
+<li><p>标记空间中活动对象和非活动对象。所谓活动对象就是还在使用的对象，非活动对象就是可以进行垃圾回收的对象。</p>
+</li>
+<li><p>回收非活动对象所占据的内存。其实就是在所有的标记完成之后，统一清理内存中所有被标记为可回收的对象。</p>
+</li>
+<li><p>第三步是做内存整理。一般来说，频繁回收对象后，内存中就会存在大量不连续空间，我们</p>
+<p>把这些不连续的内存空间称为<strong>内存碎片</strong>。（<strong>副垃圾回收器不会产生内存碎片</strong>）</p>
+</li>
+</ul>
+<h4 id="副垃圾回收器"><a href="#副垃圾回收器" class="headerlink" title="副垃圾回收器"></a><strong>副垃圾回收器</strong></h4><p> 副垃圾回收器主要负责新生区的垃圾回收。大多数小的对象都会被分配到新生区，所以说这个<strong>区域虽然不大</strong>，但是垃圾回收还是比较<strong>频繁</strong>的。</p>
+<p> 新生代中用<strong>Scavenge 算法</strong>来处理。所谓 Scavenge 算法，是把新生代空间对半划分为两个区域，一半是对象区域，一半是空闲区域，如下图所示：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720153841493.png" alt="image-20210720153841493"></p>
+<p>新加入的对象都会存放到对象区域，当对象区域快被写满时，就需要执行一次垃圾清理操作。</p>
+<p> 在垃圾回收过程中，首先要对对象区域中的垃圾做标记；标记完成之后，就进入垃圾清理阶段，副垃圾回收器会把这些存活的对象复制到空闲区域中，同时它还<strong>会把这些对象有序地排列起来</strong>，所以这个复制过程，也就相当于完成了内存整理操作，复制后空闲区域就没有内存碎片了。</p>
+<p> 完成复制后，对象区域与空闲区域进行角色翻转，这样就完成了垃圾对象的回收操作，同时这种<strong>角色翻转的操作还能让新生代中的这两块区域无限重复使用下去</strong>。</p>
+<blockquote>
+<p>复制操作需要时间成本，<strong>为了执行效率，一般新生区的空间会被设置得比较小</strong></p>
+</blockquote>
+<h5 id="对象晋升策略"><a href="#对象晋升策略" class="headerlink" title="对象晋升策略"></a>对象晋升策略</h5><p> JavaScript 引擎采用了<strong>对象晋升策略</strong>，也就是经过两次垃圾回收依然还存活的对象，会被移动到老生区中</p>
+<h4 id="主垃圾回收器"><a href="#主垃圾回收器" class="headerlink" title="主垃圾回收器"></a><strong>主垃圾回收器</strong></h4><p> 主垃圾回收器主要负责老生区中的垃圾回收。除了新生区中晋升的对象，<strong>一些大的对象会直接被分配到老生区</strong>。因此老生区中的对象有两个特点，一个是<strong>对象占用空间大</strong>，另一个是<strong>对象存活时间长</strong>。</p>
+<p> 由于老生去对象比较大，不适合新生去的回收机制，主垃圾回收器是采用标记-清除算法</p>
+<h5 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记 - 清除"></a>标记 - 清除</h5><p> 首先是标记过程阶段。标记阶段就是从一组根元素开始，递归遍历这组根元素（<strong>调用栈</strong>），在这个遍历过程中，能到达的元素称为<strong>活动对象</strong>，没有到达的元素就可以判断为<strong>垃圾数据</strong>。</p>
+<p> 接下来就是垃圾的清除过程。它和副垃圾回收器的垃圾清除过程完全不同，你可以理解这个过程是清除掉红色标记数据的过程，可参考下图大致理解下其清除过程：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154746371.png" alt="image-20210720154746371"></p>
+<p>不过对一块内存多次执行标记 - 清除算法后，会<strong>产生大量不连续的内存碎片</strong>，于是又产生了另外一种算法——<strong>标记 - 整理（Mark-Compact）</strong></p>
+<p> 这个标记过程仍然与标记 - 清除算法里的是一样的，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。你可以参考下图：</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154921297.png" alt="image-20210720154921297"></p>
+<h4 id="全停顿"><a href="#全停顿" class="headerlink" title="全停顿"></a><strong>全停顿</strong></h4><p> JavaScript 是运行在主线程之上的，一旦执行垃圾回收算法，都需要将正在执行的JavaScript 脚本暂停下来，待垃圾回收完毕后再恢复脚本执行。我们把这种行为叫做<strong>全停顿（Stop-The-World）</strong>。</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154954477.png" alt="image-20210720154954477"></p>
+<p>一般来说是老生代的垃圾回收占用时间较长，新生代可以忽略不计。为了解决这个问题，V8使用了<strong>增量标记（Incremental Marking）算法</strong>。</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720155150795.png" alt="image-20210720155150795"></p>
+<p>V8 将<strong>标记过程</strong>分为一个个的子标记过程，同时让垃圾回收标记和 JavaScript 应用逻辑交替进行，直到标记阶段完成。这样当执行复杂动画效果时，就不会让用户因为垃圾回收任务而感受到页面的卡顿了。</p>
+<blockquote>
+<p>精彩评论</p>
+<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20220720104725019.png" alt="image-20220720104725019"></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="tag"># 垃圾回收</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/javascript/this/this/" rel="prev" title="this绑定规则的详解">
+                  <i class="fa fa-angle-left"></i> this绑定规则的详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/javascript/js%E7%9A%84%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4/" rel="next" title="JavaScript的内存空间">
+                  JavaScript的内存空间 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

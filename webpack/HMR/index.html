@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Hot Module Replacement，简称HMR，无需完全刷新整个页面的同时，更新模块。HMR的好处，在日常开发工作中体会颇深：节省宝贵的开发时间、提升开发体验。 在这里简单介绍一个 HMR 的原理 HMR 初始化webpack-dev-serverWebpack-dev-server 的执行过程，其实也是一个 HMR 开启的过程  修改 webpackOptions，添加两个入口文件，一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack热更新">
+<meta property="og:url" content="https://mst123.github.io/webpack/HMR/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="Hot Module Replacement，简称HMR，无需完全刷新整个页面的同时，更新模块。HMR的好处，在日常开发工作中体会颇深：节省宝贵的开发时间、提升开发体验。 在这里简单介绍一个 HMR 的原理 HMR 初始化webpack-dev-serverWebpack-dev-server 的执行过程，其实也是一个 HMR 开启的过程  修改 webpackOptions，添加两个入口文件，一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/webpack/assets/HMR/image-20220111134320575.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/webpack/assets/HMR/16ec04316d6ac5e3~tplv-t2oaga2asx-watermark.gif">
+<meta property="article:published_time" content="2024-07-13T05:13:38.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:13:38.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="webpack">
+<meta property="article:tag" content="HMR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/webpack/assets/HMR/image-20220111134320575.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/webpack/HMR/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/webpack/HMR/","path":"webpack/HMR/","title":"webpack热更新"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>webpack热更新 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HMR-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">HMR 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-dev-server"><span class="nav-number">1.1.</span> <span class="nav-text">webpack-dev-server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack-dev-middleware"><span class="nav-number">1.2.</span> <span class="nav-text">webpack-dev-middleware</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E5%AE%8C%E6%95%B4%E7%9A%84-HMR-%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">一次完整的 HMR 流程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/webpack/HMR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="webpack热更新 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          webpack热更新
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-13 13:13:38" itemprop="dateCreated datePublished" datetime="2024-07-13T13:13:38+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><code>Hot Module Replacement</code>，简称<code>HMR</code>，无需完全刷新整个页面的同时，更新模块。<code>HMR</code>的好处，在日常开发工作中体会颇深：<strong>节省宝贵的开发时间、提升开发体验</strong>。</p>
+<p>在这里简单介绍一个 HMR 的原理</p>
+<h3 id="HMR-初始化"><a href="#HMR-初始化" class="headerlink" title="HMR 初始化"></a>HMR 初始化</h3><h4 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h4><p>Webpack-dev-server 的执行过程，其实也是一个 HMR 开启的过程</p>
+<ul>
+<li><p>修改 webpackOptions，添加两个入口文件，一个是 websocket 客户端代码，一个是热更新客户端代码(主要是用于检查更新逻辑)。</p>
+</li>
+<li><p>启动<code>webpack</code>，生成<code>compiler</code>实例。<code>compiler</code>上有很多方法，比如可以启动 <code>webpack</code> 所有<strong>编译</strong>工作，以及<strong>监听</strong>本地文件的变化。</p>
+</li>
+<li><p>使用<code>express</code>框架启动本地<code>server</code>，让浏览器可以请求本地的<strong>静态资源</strong>。</p>
+<ul>
+<li>启动 server 的时候，监听 compiler 的 done 事件，当监听到一次<code>webpack</code>编译结束，就会调用<code>_sendStats</code>方法通过<code>websocket</code>给浏览器发送通知，<code>ok</code>和<code>hash</code>事件，这样浏览器就可以拿到最新的<code>hash</code>值了，做检查更新逻辑</li>
+<li>生成 <strong>webpack-dev-middleware</strong> 中间件实例，保存在 this.middleware（主要是本地文件的<strong>编译</strong>和<strong>输出</strong>以及<strong>监听</strong>）</li>
+</ul>
+</li>
+<li><p>本地<code>server</code>启动之后，再去启动<code>websocket</code>服务，通过<code>websocket</code>，可以建立本地服务和浏览器的双向通信。这样就可以实现当本地文件发生变化，立马告知浏览器可以热更新代码啦！</p>
+</li>
+</ul>
+<h4 id="webpack-dev-middleware"><a href="#webpack-dev-middleware" class="headerlink" title="webpack-dev-middleware"></a>webpack-dev-middleware</h4><p>文件相关的操作都抽离到<code>webpack-dev-middleware</code>库了，主要是本地文件的<strong>编译</strong>和<strong>输出</strong>以及<strong>监听</strong></p>
+<p>主要流程都在下述代码中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">share.setOptions(context.options);</span><br><span class="line">share.setFs(context.compiler);</span><br><span class="line"></span><br><span class="line">context.compiler.plugin(&quot;done&quot;, share.compilerDone);</span><br><span class="line">context.compiler.plugin(&quot;invalid&quot;, share.compilerInvalid);</span><br><span class="line">context.compiler.plugin(&quot;watch-run&quot;, share.compilerInvalid);</span><br><span class="line">context.compiler.plugin(&quot;run&quot;, share.compilerInvalid);</span><br><span class="line"></span><br><span class="line">share.startWatch();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化配置，利用<code>memory-fs</code>库将文件打包到内存中(访问文件系统中的文件更快，而且也减少了代码写入文件的开销)</li>
+<li>注册一系列事件。</li>
+<li>开启对本地文件的监听，当文件发生变化，重新编译，编译完成之后继续监听</li>
+</ul>
+<h3 id="一次完整的-HMR-流程"><a href="#一次完整的-HMR-流程" class="headerlink" title="一次完整的 HMR 流程"></a>一次完整的 HMR 流程</h3><ol>
+<li><p>当文件发生变化，就触发重新编译。当监听到一次<code>webpack</code>编译结束，<code>_sendStats</code>方法就通过<code>websoket</code>给浏览器发送通知</p>
+<ol>
+<li><code>hash</code>事件，更新最新一次打包后的<code>hash</code>值</li>
+<li><code>ok</code>事件，进行热更新检查</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">this.sockWrite(sockets, &#x27;hash&#x27;, stats.hash);</span><br><span class="line"> if (stats.errors.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;errors&#x27;, stats.errors);</span><br><span class="line"> &#125; else if (stats.warnings.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;warnings&#x27;, stats.warnings);</span><br><span class="line"> &#125; else &#123; this.sockWrite(sockets, &#x27;ok&#x27;); &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/_posts/webpack/assets/HMR/image-20220111134320575.png" alt="image-20220111134320575"></p>
+</li>
+<li><p>客户端接受到 ws 消息后，<code>hash</code>事件更新当前<code>hash</code>值，ok 事件触发<code>hotEmitter</code></p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// webpack-dev-server/client/index.js</span><br><span class="line">var socket = require(&#x27;./socket&#x27;);</span><br><span class="line">var onSocketMessage = &#123;</span><br><span class="line">    hash: function hash(_hash) &#123;</span><br><span class="line">        // 更新currentHash值</span><br><span class="line">        status.currentHash = _hash;</span><br><span class="line">    &#125;,</span><br><span class="line">    ok: function ok() &#123;</span><br><span class="line">        sendMessage(&#x27;Ok&#x27;);</span><br><span class="line">        // 进行更新检查等操作</span><br><span class="line">        reloadApp(options, status);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">// 连接服务地址socketUrl，?http://localhost:8080，本地服务地址</span><br><span class="line">socket(socketUrl, onSocketMessage);</span><br><span class="line"></span><br><span class="line">function reloadApp() &#123;</span><br><span class="line"> if (hot) &#123;</span><br><span class="line">        log.info(&#x27;[WDS] App hot update...&#x27;);</span><br><span class="line"></span><br><span class="line">        // hotEmitter其实就是EventEmitter的实例</span><br><span class="line">        var hotEmitter = require(&#x27;webpack/hot/emitter&#x27;);</span><br><span class="line">        hotEmitter.emit(&#x27;webpackHotUpdate&#x27;, currentHash);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>web-dev-server 插入的客户端的另一个入口文件 <code>webpack/hot/dev-server.js</code>，监听<code>hotEmitter</code>事件，进行热更新检查 <code>check</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// webpack/hot/dev-server.js</span><br><span class="line">var check = function check() &#123;</span><br><span class="line">  // 热更新核心代码</span><br><span class="line">    module.hot.check(true)</span><br><span class="line">        .then(function(updatedModules) &#123;</span><br><span class="line">            // 容错，直接刷新页面</span><br><span class="line">            if (!updatedModules) &#123;</span><br><span class="line">                window.location.reload();</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            // 热更新结束，打印信息</span><br><span class="line">            if (upToDate()) &#123;</span><br><span class="line">                log(&quot;info&quot;, &quot;[HMR] App is up to date.&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">        .catch(function(err) &#123;</span><br><span class="line">            window.location.reload();</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var hotEmitter = require(&quot;./emitter&quot;);</span><br><span class="line">hotEmitter.on(&quot;webpackHotUpdate&quot;, function(currentHash) &#123;</span><br><span class="line">    lastHash = currentHash;</span><br><span class="line">    check();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>check</code>代码<code>module.hot.check</code>在<code>HotModuleReplacementPlugin.runtime.js</code>中</p>
+<p><code>hotCheck</code>主要做了三件事</p>
+<ol>
+<li><p>利用上一次保存的<code>hash</code>值，调用<code>hotDownloadManifest</code>发送<code>xxx/hash.hot-update.json</code>的<code>ajax</code>请求；</p>
+</li>
+<li><p>请求结果获取热更新模块，以及下次热更新的<code>Hash</code> 标识，并进入热更新准备阶段。</p>
+</li>
+<li><p>调用<code>hotDownloadUpdateChunk</code>发送<code>xxx/hash.hot-update.js</code> 请求，通过<code>JSONP</code>方式。</p>
+<p><img src="/_posts/webpack/assets/HMR/16ec04316d6ac5e3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+</li>
+<li><p>返回结果后，要立即执行<code>webpackHotUpdate</code>这个方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window[&quot;webpackHotUpdate&quot;] = function (chunkId, moreModules) &#123;</span><br><span class="line">    hotAddUpdateChunk(chunkId, moreModules);</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>hotAddUpdateChunk</code>方法<strong>会把更新的模块</strong><code>moreModules</code>赋值给全局全量<code>hotUpdate</code>。</p>
+</li>
+<li><p><code>hotUpdateDownloaded</code>方法会调用<code>hotApply</code>进行代码的替换。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function hotAddUpdateChunk(chunkId, moreModules) &#123;</span><br><span class="line">    // 更新的模块moreModules赋值给全局全量hotUpdate</span><br><span class="line">    for (var moduleId in moreModules) &#123;</span><br><span class="line">        if (Object.prototype.hasOwnProperty.call(moreModules, moduleId)) &#123;</span><br><span class="line">        hotUpdate[moduleId] = moreModules[moduleId];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 调用hotApply进行模块的替换</span><br><span class="line">    hotUpdateDownloaded();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hotApply 热更新模块替换</p>
+<ol>
+<li>删除过期的模块，就是需要替换的模块</li>
+</ol>
+<p>通过<code>hotUpdate</code>可以找到旧模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var queue = outdatedModules.slice();</span><br><span class="line">while (queue.length &gt; 0) &#123;</span><br><span class="line">    moduleId = queue.pop();</span><br><span class="line">    // 从缓存中删除过期的模块</span><br><span class="line">    module = installedModules[moduleId];</span><br><span class="line">    // 删除过期的依赖</span><br><span class="line">    delete outdatedDependencies[moduleId];</span><br><span class="line"></span><br><span class="line">    // 存储了被删掉的模块id，便于更新代码</span><br><span class="line">    outdatedSelfAcceptedModules.push(&#123;</span><br><span class="line">        module: moduleId</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>将新的模块添加到 modules 中</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">appliedUpdate[moduleId] = hotUpdate[moduleId];</span><br><span class="line">for (moduleId in appliedUpdate) &#123;</span><br><span class="line">    if (Object.prototype.hasOwnProperty.call(appliedUpdate, moduleId)) &#123;</span><br><span class="line">        modules[moduleId] = appliedUpdate[moduleId];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过<strong>webpack_require</strong>执行相关模块的代码</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (i = 0; i &lt; outdatedSelfAcceptedModules.length; i++) &#123;</span><br><span class="line">    var item = outdatedSelfAcceptedModules[i];</span><br><span class="line">    moduleId = item.module;</span><br><span class="line">    try &#123;</span><br><span class="line">        // 执行最新的代码</span><br><span class="line">        __webpack_require__(moduleId);</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">        // ...容错处理</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/webpack/" rel="tag"># webpack</a>
+              <a href="/tags/HMR/" rel="tag"># HMR</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/javascript/JavaScript%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/" rel="prev" title="JavaScript 风格指南">
+                  <i class="fa fa-angle-left"></i> JavaScript 风格指南
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/vue/diff%E7%AE%97%E6%B3%95/" rel="next" title="diff算法">
+                  diff算法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

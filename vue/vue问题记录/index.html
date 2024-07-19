@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="v-model 的修饰符.prop将属性绑定至dom的原生properties,看下边例子 123456&lt;div v-bind:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&quot;&gt;&lt;&#x2F;div&gt;&lt;div v-bind.prop:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue问题记录">
+<meta property="og:url" content="https://mst123.github.io/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="v-model 的修饰符.prop将属性绑定至dom的原生properties,看下边例子 123456&lt;div v-bind:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&quot;&gt;&lt;&#x2F;div&gt;&lt;div v-bind.prop:test&#x3D;&quot;ceshiProp&quot; class&#x3D;&quot;prop&amp;quot">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/vue/assets/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210121155711009.png">
+<meta property="article:published_time" content="2021-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-18T08:49:13.087Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/vue/assets/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210121155711009.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/","path":"vue/vue问题记录/","title":"vue问题记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue问题记录 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-model-%E7%9A%84%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">v-model 的修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#prop"><span class="nav-number">1.1.</span> <span class="nav-text">.prop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#number"><span class="nav-number">1.2.</span> <span class="nav-text">.number</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-on-%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">v-on 修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#passive"><span class="nav-number">2.1.</span> <span class="nav-text">.passive</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%88%9D%E5%A7%8Bdata"><span class="nav-number">3.</span> <span class="nav-text">获取初始data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%B8%8D%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E6%9B%B4%E6%96%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">在不刷新页面的情况下，更新页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%B8%85%E9%99%A4%E6%B3%A8%E5%86%8C%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="nav-number">5.</span> <span class="nav-text">动态清除注册的路由</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/vue/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue问题记录 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue问题记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-12 00:00:00" itemprop="dateCreated datePublished" datetime="2021-01-12T00:00:00+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-18 16:49:13" itemprop="dateModified" datetime="2024-07-18T16:49:13+08:00">2024-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="v-model-的修饰符"><a href="#v-model-的修饰符" class="headerlink" title="v-model 的修饰符"></a>v-model 的修饰符</h2><h3 id="prop"><a href="#prop" class="headerlink" title=".prop"></a>.prop</h3><p>将属性绑定至dom的原生properties,看下边例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:test=&quot;ceshiProp&quot; class=&quot;prop&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div v-bind.prop:test=&quot;ceshiProp&quot; class=&quot;prop&quot;&gt;&lt;/div&gt;</span><br><span class="line">ceshiProp: &#123;</span><br><span class="line">  a:1,</span><br><span class="line">  b:2 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>渲染结果如下：</p>
+<p><img src="/_posts/vue/assets/vue%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/image-20210121155711009.png" alt="image-20210121155711009"></p>
+<ul>
+<li>Property：节点对象在内存中存储的属性，可以访问和设置。</li>
+<li>Attribute：节点对象的其中一个属性( property )，值是一个对象，可以通过点访问法 document.getElementById(‘xx’).attributes 或者 document.getElementById(‘xx’).getAttributes(‘xx’) 读取，通过 document.getElementById(‘xx’).setAttribute(‘xx’,value) 新增和修改。<br>在标签里定义的所有属性包括 HTML 属性和自定义属性都会在 attributes 对象里以键值对的方式存在。</li>
+</ul>
+<p>太深层的暂不探究</p>
+<h3 id="number"><a href="#number" class="headerlink" title=".number"></a>.number</h3><p>自动将数值转换为number，和el-input type&#x3D;number 一起用 会有bug</p>
+<h2 id="v-on-修饰符"><a href="#v-on-修饰符" class="headerlink" title="v-on 修饰符"></a>v-on 修饰符</h2><h3 id="passive"><a href="#passive" class="headerlink" title=".passive"></a>.passive</h3><p>passive这个修饰符会执行默认方法。你们可能会问，明明默认执行为什么会设置这样一个修饰符。这就要说一下这个修饰符的本意了。</p>
+<p>​    【浏览器只有等内核线程执行到事件监听器对应的JavaScript代码时，才能知道内部是否会调用preventDefault函数来阻止事件的默认行为，所以浏览器本身是没有办法对这种场景进行优化的。这种场景下，用户的手势事件无法快速产生，会导致页面无法快速执行滑动逻辑，从而让用户感觉到页面卡顿。】</p>
+<p>​    通俗点说就是每次事件产生，浏览器都会去查询一下是否有preventDefault阻止该次事件的默认动作。我们加上<strong>passive就是为了告诉浏览器，不用查询了，我们没用preventDefault阻止默认动作。</strong></p>
+<p>​    这里一般用在滚动监听，@scoll，@touchmove 。因为滚动监听过程中，移动每个像素都会产生一次事件，每次都使用内核线程查询prevent会使滑动卡顿。我们通过passive将内核线程查询跳过，可以大大提升滑动的流畅度。</p>
+<h2 id="获取初始data"><a href="#获取初始data" class="headerlink" title="获取初始data"></a>获取初始data</h2><p>在某些情况我们可能要重置data上面的某些属性，比如在表单提交后需要清空form</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this.$data // 组件当前data对象</span><br><span class="line">this.$options.data() // 组件初始化状态下的data对象</span><br><span class="line"></span><br><span class="line">Object.assign(this.$data, this.$options.data()) // 重置data对象到初始化状态</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实际上这个this.$options.data 是一个函数，也就是组件声明时用来初始化data的函数</p>
+</blockquote>
+<h2 id="在不刷新页面的情况下，更新页面"><a href="#在不刷新页面的情况下，更新页面" class="headerlink" title="在不刷新页面的情况下，更新页面"></a>在不刷新页面的情况下，更新页面</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 先注册一个名为 `redirect` 的路由</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  beforeCreate() &#123;</span><br><span class="line">    const &#123; params, query &#125; = this.$route</span><br><span class="line">    const &#123; path &#125; = params</span><br><span class="line">    this.$router.replace(&#123; path: &#x27;/&#x27; + path, query &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  render: function(h) &#123;</span><br><span class="line">    return h() // avoid warning message</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 手动重定向页面到 &#x27;/redirect&#x27; 页面 实现更新页面</span><br><span class="line">const &#123; fullPath &#125; = this.$route</span><br><span class="line">this.$router.replace(&#123;</span><br><span class="line">  path: &#x27;/redirect&#x27; + fullPath</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当遇到你需要刷新页面的情况，你就手动重定向页面到<code>redirect</code>页面，它会将页面重新<code>redirect</code>重定向回来，由于页面的 key 发生了变化，从而间接实现了刷新页面组件的效果。</p>
+<h2 id="动态清除注册的路由"><a href="#动态清除注册的路由" class="headerlink" title="动态清除注册的路由"></a>动态清除注册的路由</h2><p> 那就是动态添加的路由，并不能动态的删除。这就是导致一个问题，当用户权限发生变化的时候，或者说用户登出的时候，我们只能通过刷新页面的方式，才能清空我们之前注册的路由。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function resetRouter() &#123;</span><br><span class="line"> const newRouter = createRouter()</span><br><span class="line"> router.matcher = newRouter.matcher // reset router</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 它的原理其实很简单，所有的 vue-router 注册的路由信息都是存放在<code>matcher</code>之中的，所以当我们想清空路由的时候，我们只要新建一个空的<code>Router实例</code>，将它的<code>matcher</code>重新赋值给我们之前定义的路由就可以了。巧妙的实现了动态路由的清除。 现在我们只需要调用<code>resetRouter</code>，就能得到一个空的路有实例，之后你就可以重新<code>addRoutes</code>你想要的路由了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/" rel="prev" title="运算符优先级">
+                  <i class="fa fa-angle-left"></i> 运算符优先级
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue/" rel="next" title="vue初始化流程-简易流程">
+                  vue初始化流程-简易流程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

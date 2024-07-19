@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="卡牌分组给定一副牌，每张牌上都写着一个整数。 此时，你需要选定一个数字 X，使我们可以将整副牌按下述规则分成 1 组或更多组： 每组都有 X 张牌。组内所有的牌上都写着相同的整数。仅当你可选的 X &gt;&#x3D; 2 时返回 true。  示例 1： 输入：[1,2,3,4,4,3,2,1]输出：true解释：可行的分组是 [1,1]，[2,2]，[3,3]，[4,4]示例 2：  输入：[">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetCode">
+<meta property="og:url" content="https://mst123.github.io/%E7%AE%97%E6%B3%95/LeetCode/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="卡牌分组给定一副牌，每张牌上都写着一个整数。 此时，你需要选定一个数字 X，使我们可以将整副牌按下述规则分成 1 组或更多组： 每组都有 X 张牌。组内所有的牌上都写着相同的整数。仅当你可选的 X &gt;&#x3D; 2 时返回 true。  示例 1： 输入：[1,2,3,4,4,3,2,1]输出：true解释：可行的分组是 [1,1]，[2,2]，[3,3]，[4,4]示例 2：  输入：[">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/leetCode/bg1.png">
+<meta property="article:published_time" content="2020-09-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T06:43:51.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/leetCode/bg1.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/LeetCode/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E7%AE%97%E6%B3%95/LeetCode/","path":"算法/LeetCode/","title":"leetCode"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>leetCode | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%A1%E7%89%8C%E5%88%86%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">卡牌分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#605-%E7%A7%8D%E8%8A%B1%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">605 种花问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E9%9B%B7%E7%BC%96%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">格雷编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2"><span class="nav-number">4.</span> <span class="nav-text">84 柱状图中最大的矩形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98-%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E5%90%88%E5%B9%B6%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84"><span class="nav-number">5.</span> <span class="nav-text">面试中遇到的算法题 两个有序数组合并为一个有序数组</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/LeetCode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="leetCode | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetCode
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-24 00:00:00" itemprop="dateCreated datePublished" datetime="2020-09-24T00:00:00+08:00">2020-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 14:43:51" itemprop="dateModified" datetime="2024-07-13T14:43:51+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="卡牌分组"><a href="#卡牌分组" class="headerlink" title="卡牌分组"></a>卡牌分组</h2><p>给定一副牌，每张牌上都写着一个整数。</p>
+<p>此时，你需要选定一个数字 X，使我们可以将整副牌按下述规则分成 1 组或更多组：</p>
+<p>每组都有 X 张牌。组内所有的牌上都写着相同的整数。<br>仅当你可选的 X &gt;&#x3D; 2 时返回 true。</p>
+<hr>
+<p>示例 1：</p>
+<p>输入：[1,2,3,4,4,3,2,1]<br>输出：true<br>解释：可行的分组是 [1,1]，[2,2]，[3,3]，[4,4]<br>示例 2：</p>
+<hr>
+<p>输入：[1,1,1,2,2,2,3,3]<br>输出：false<br>解释：没有满足要求的分组。<br>示例 3：  </p>
+<hr>
+<p>输入：[1]<br>输出：false<br>解释：没有满足要求的分组。<br>示例 4：  </p>
+<hr>
+<p>输入：[1,1]<br>输出：true<br>解释：可行的分组是 [1,1]<br>示例 5：  </p>
+<hr>
+<p>输入：[1,1,2,2,2,2]<br>输出：true<br>解释：可行的分组是 [1,1]，[2,2]，[2,2]  </p>
+<hr>
+<p><strong>涉及点</strong></p>
+<ul>
+<li>辗转相除法 求最大公约数</li>
+<li>利用哈希表计算元素出现次数</li>
+</ul>
+<hr>
+<p>自己的解答</p>
+<ul>
+<li>首先利用 <code>ES6</code> 新数据结构 <code>Map</code> ，计算元素出现的次数</li>
+<li>使用<code>...</code>运算符将其转为数组，不要忘记利用 (Map.protype.values()返回的是一个新的Iterator对象)</li>
+<li>然后遍历数组，取当前项与后一项做辗转相除法，求出最大公约数后赋值给后一项，直到运算完成</li>
+<li>这里需要考虑[1,1]的这种情况，由于次数数组程度为 1 ，所以做了特殊处理</li>
+<li>然后只要判断最后的最大公约数是否大于 2 即可</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var hasGroupsSizeX = function(deck) &#123;</span><br><span class="line">  if(deck.length&lt;2)&#123;</span><br><span class="line">    return false</span><br><span class="line">  &#125;</span><br><span class="line">  const countMap = new Map()</span><br><span class="line">  for (let i = 0; i &lt; deck.length; i++) &#123;</span><br><span class="line">    countMap.set(deck[i],countMap.has(deck[i]) ? countMap.get(deck[i]) + 1 : 1)</span><br><span class="line">  &#125;</span><br><span class="line">  const countArray = [...countMap.values()] </span><br><span class="line">  console.log(countArray);</span><br><span class="line">  let g;</span><br><span class="line">  if(countArray.length === 1 &amp;&amp; countArray[2] &gt;=2 )&#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = 0; i &lt; countArray.length - 1; i++) &#123;</span><br><span class="line">    g = ojld(countArray[i], countArray[i+1])</span><br><span class="line">    countArray[i+1] = g</span><br><span class="line">  &#125;</span><br><span class="line">  return g &gt;= 2</span><br><span class="line">&#125;;</span><br><span class="line">function ojld(chushu, yushu) &#123;</span><br><span class="line">  if(chushu % yushu === 0)&#123;</span><br><span class="line">    return yushu</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return ojld(yushu, chushu % yushu)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>网上的解答,在此仅展示部分代码，代码取第一位做了一次重复运算，所有不需要考虑特殊情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">最大公约数</span><br><span class="line">因为该数组是出现次数数组，最小值至少为1（至少出现1次），所以默认赋值为数组首位对公约数计算无干扰</span><br><span class="line">*/</span><br><span class="line">let g = timeAry[0];</span><br><span class="line"></span><br><span class="line">// 遍历出现次数，计算最大公约数</span><br><span class="line">timeAry.forEach(time =&gt; &#123;</span><br><span class="line">  // 因为需要比较所有牌出现次数的最大公约数，故需要一个中间值</span><br><span class="line">  g = gcd(g, time);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="605-种花问题"><a href="#605-种花问题" class="headerlink" title="605 种花问题"></a>605 种花问题</h2><p>假设你有一个很长的花坛，一部分地块种植了花，另一部分却没有。可是，花卉不能种植在相邻的地块上，它们会争夺水源，两者都会死去。  </p>
+<p>给定一个花坛（表示为一个数组包含0和1，其中0表示没种植花，1表示种植了花），和一个数 n 。能否在不打破种植规则的情况下种入 n 朵花？能则返回True，不能则返回False。  </p>
+<hr>
+<p>示例 1:<br>输入: flowerbed &#x3D; [1,0,0,0,1], n &#x3D; 1<br>输出: True  </p>
+<hr>
+<p>示例 2:<br>输入: flowerbed &#x3D; [1,0,0,0,1], n &#x3D; 2<br>输出: False  </p>
+<hr>
+<p>注意:</p>
+<ul>
+<li>数组内已种好的花不会违反种植规则。  </li>
+<li>输入的数组长度范围为 [1, 20000]。</li>
+<li>n 是非负整数，且不会超过输入数组的大小。</li>
+</ul>
+<hr>
+<p>官方解答, 有几个缺点</p>
+<ul>
+<li>边界条件过于负责</li>
+<li>遍历次数较多</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var canPlaceFlowers = function(flowerbed, n) &#123;</span><br><span class="line">  let count = 0</span><br><span class="line">  for (let i = 0,length = flowerbed.length; i &lt; length; i++) &#123;</span><br><span class="line">    const item = flowerbed[i];</span><br><span class="line">    if(item!=1)&#123;</span><br><span class="line">      if((i==0||flowerbed[i-1]==0)&amp;&amp;(i==flowerbed.length-1||flowerbed[i+1]==0))&#123;</span><br><span class="line">        flowerbed[i] = 1</span><br><span class="line">        count++</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return count&gt;=n</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>较好的解答, 通俗易懂</p>
+<ul>
+<li>两边不为1，隐含着最左和最右的边界条件</li>
+<li>当符合种花条件时，将遍历序号 +1 取代赋值，减少了遍历次数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var canPlaceFlowers = function (flowerbed, n) &#123;</span><br><span class="line">  var num = 0</span><br><span class="line">  for (var i = 0, length = flowerbed.length; i &lt; length; i++) &#123;</span><br><span class="line">    if (flowerbed[i] === 0 &amp;&amp; flowerbed[i - 1] !== 1 &amp;&amp; flowerbed[i + 1] !== 1) &#123;</span><br><span class="line">      num++</span><br><span class="line">      i++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return n &lt;= num</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="格雷编码"><a href="#格雷编码" class="headerlink" title="格雷编码"></a>格雷编码</h2><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/gray-code/solution/gray-code-jing-xiang-fan-she-fa-by-jyd/">优秀解题思路-附带图解</a><br>主要就是找规律，据说数字电路课有讲解  </p>
+<hr>
+<p>我的解答</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="84-柱状图中最大的矩形"><a href="#84-柱状图中最大的矩形" class="headerlink" title="84 柱状图中最大的矩形"></a>84 柱状图中最大的矩形</h2><p>给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
+<p>求在该柱状图中，能够勾勒出来的矩形的最大面积。<br><img src="/_posts/%E7%AE%97%E6%B3%95/assets/leetCode/bg1.png" alt="最大矩形">  </p>
+<hr>
+<p>我的解法，用最原始的方法进行解答，理论上可行，但是空间复杂度和时间复杂度太复杂了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var largestRectangleArea = function(heights) &#123;</span><br><span class="line">  let maxArea = 0</span><br><span class="line">  while (heights.length !== 0) &#123;</span><br><span class="line">    const lengths = [...heights];</span><br><span class="line">    while(lengths.length !== 0)&#123;</span><br><span class="line">      let area = Math.min(...lengths) * lengths.length</span><br><span class="line">      if(area&gt;maxArea)&#123;</span><br><span class="line">        maxArea = area</span><br><span class="line">      &#125;</span><br><span class="line">      lengths.pop()</span><br><span class="line">    &#125;</span><br><span class="line">    heights.shift()</span><br><span class="line">  &#125;</span><br><span class="line">  return maxArea</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/xiang-xi-jie-shao-dan-diao-zhan-de-li-jie-he-shi-y/">单调栈应用优秀讲解</a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const largestRectangleArea = (heights) =&gt; &#123;</span><br><span class="line">  let maxArea = 0</span><br><span class="line">  const stack = []</span><br><span class="line">  heights = [0, ...heights, 0]         </span><br><span class="line">  for (let i = 0; i &lt; heights.length; i++) &#123; </span><br><span class="line">    while (heights[i] &lt; heights[stack[stack.length - 1]]) &#123; // 当前bar比栈顶bar矮</span><br><span class="line">      const stackTopIndex = stack.pop() // 栈顶元素出栈，并保存栈顶bar的索引</span><br><span class="line">      maxArea = Math.max(               // 计算面积，并挑战最大面积</span><br><span class="line">        maxArea,                        // 计算出栈的bar形成的长方形面积</span><br><span class="line">        heights[stackTopIndex] * (i - stack[stack.length - 1] - 1)</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">    stack.push(i)                       // 当前bar比栈顶bar高了，入栈</span><br><span class="line">  &#125;</span><br><span class="line">  return maxArea</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="面试中遇到的算法题-两个有序数组合并为一个有序数组"><a href="#面试中遇到的算法题-两个有序数组合并为一个有序数组" class="headerlink" title="面试中遇到的算法题 两个有序数组合并为一个有序数组"></a>面试中遇到的算法题 两个有序数组合并为一个有序数组</h2><p>两个数组<br><code>let arr1  = [0, 3, 5, 8, 15, 19]</code><br><code>let arr2 =  [1, 2, 7, 13, 16, 17, 18]</code><br>结果输出为<br><code>[0, 1, 2, 3, 5, 7, 8, 13, 15, 16, 17, 18]</code><br>假设两个数组都为升序排列  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let arr1  = [-1, 0, 1, 5, 8, 15, 19, 22, 33]</span><br><span class="line">let arr2 =  [3, 4, 7, 13, 15, 16, 17, 18, 19, 20, 33, 34, 35]</span><br><span class="line">for (let i = 0; i &lt; arr1.length; i++) &#123;</span><br><span class="line">  for (let j = 0; j &lt; arr2.length; j++) &#123;</span><br><span class="line">    if(arr1[i]&lt;arr2[j])&#123;</span><br><span class="line">      arr2.splice(j, 0, arr1[i]);</span><br><span class="line">      break;</span><br><span class="line">    &#125;else if(j === arr2.length -1)&#123;</span><br><span class="line">      arr2.splice(j + 1, 0, arr1[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">引申，如果不让使用for循环、sort  </span><br><span class="line">**下边这个方法问题不大，测试了很多数据，还拥有优化空间**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>let arr1  &#x3D; [-1, 0, 1, 5, 8, 15, 19, 22, 33]<br>let arr2 &#x3D;  [3, 4, 7, 13, 15, 16, 17, 18, 19, 20, 33, 34, 35]<br>function handle(arr1, arr2) {<br>  if(arr1.length &#x3D;&#x3D;&#x3D; 0){<br>    return<br>  }else{<br>    var v1 &#x3D; arr1.shift()<br>    addPosition(v1, arr2, 0)<br>    return handle(arr1, arr2)<br>  }<br>}<br>function addPosition(v1, arr2, index){<br>  if(index &gt;&#x3D; arr2.length){<br>    return<br>  }else{<br>    if(v1 &lt;&#x3D; arr2[index] &amp;&amp; (index &#x3D;&#x3D;&#x3D; 0 || v1 &gt; arr2[index - 1])){<br>      arr2.splice(index, 0, v1)<br>      return<br>    } else if(index &#x3D;&#x3D;&#x3D; arr2.length - 1) {<br>      if(v1 &gt; arr2[index]){<br>        arr2.splice(index + 1, 0, v1)<br>        return<br>      }<br>    }<br>    return addPosition(v1, arr2, index + 1)<br>  }<br>}<br>handle(arr1, arr2)<br>console.log(arr2);</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">***</span><br><span class="line">其实升序排列 还隐藏着一些条件，上述代码优化如下</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>let arr1  &#x3D; [-1, 0, 1, 5, 8, 15, 19, 22, 33]<br>    let arr2 &#x3D;  [3, 4, 7, 13, 15, 16, 17, 18, 19, 20, 33, 34, 35]<br>    function handle(arr1, arr2) {<br>      if(arr1.length &#x3D;&#x3D;&#x3D; 0){<br>        return<br>      }else{<br>        var v1 &#x3D; arr1.shift()<br>        addPosition(v1, arr2, 0)<br>        return handle(arr1, arr2)<br>      }<br>    }<br>    function addPosition(v1, arr2, index){<br>      if(index &gt;&#x3D; arr2.length){<br>        return<br>      }else{<br>        &#x2F;&#x2F; 优化了下列代码<br>        if(v1 &lt;&#x3D; arr2[index]){<br>          arr2.splice(index, 0, v1)<br>          return<br>        } else if(index &#x3D;&#x3D;&#x3D; arr2.length - 1) {<br>          arr2.splice(index + 1, 0, v1)<br>          return<br>        }<br>        &#x2F;&#x2F; 优化结束<br>        return addPosition(v1, arr2, index + 1)<br>      }<br>    }<br>    handle(arr1, arr2)<br>    console.log(arr2);</p>
+<pre><code>
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%AD%A3%E5%88%99/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="prev" title="正则疑难点记录">
+                  <i class="fa fa-angle-left"></i> 正则疑难点记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" rel="next" title="防抖和节流">
+                  防抖和节流 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

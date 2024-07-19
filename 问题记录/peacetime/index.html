@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1 有效解决setTimeout跨级传参数12功能：修改 window.setTimeout，使之可以传递参数和对象参数 使用方法： setTimeout(回调函数,时间,参数1,...,参数n)  2 单击和双击的冲突问题在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。解决该问题可以通过定时器解决 1234567891011var TimeFn &#x3D; null">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工作中遇到的-小-问题记录">
+<meta property="og:url" content="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="1 有效解决setTimeout跨级传参数12功能：修改 window.setTimeout，使之可以传递参数和对象参数 使用方法： setTimeout(回调函数,时间,参数1,...,参数n)  2 单击和双击的冲突问题在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。解决该问题可以通过定时器解决 1234567891011var TimeFn &#x3D; null">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form1.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form2.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/bVWhRl.png">
+<meta property="article:published_time" content="2024-07-13T06:39:31.000Z">
+<meta property="article:modified_time" content="2024-07-13T06:39:31.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="问题记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/","path":"问题记录/peacetime/","title":"工作中遇到的-小-问题记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>工作中遇到的-小-问题记录 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9C%89%E6%95%88%E8%A7%A3%E5%86%B3setTimeout%E8%B7%A8%E7%BA%A7%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1 有效解决setTimeout跨级传参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8D%95%E5%87%BB%E5%92%8C%E5%8F%8C%E5%87%BB%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">2 单击和双击的冲突问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-jQuery-%E4%BA%8B%E4%BB%B6%E4%BC%A0%E5%8F%82"><span class="nav-number">3.</span> <span class="nav-text">3 jQuery 事件传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ajax-%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5"><span class="nav-number">4.</span> <span class="nav-text">4 ajax 同步异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%88%A9%E7%94%A8%E5%85%83%E7%B4%A0%E8%AE%B0%E5%BD%95%E4%BF%A1%E6%81%AF"><span class="nav-number">5.</span> <span class="nav-text">5 利用元素记录信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F%E6%94%B9%E5%8F%98%E4%BA%8B%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">6 窗口大小改变事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">7 判断一个对象是否存在的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%87%BD%E6%95%B0%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%8F%8A%E6%95%B0%E7%BB%84%EF%BC%88%E5%BE%88%E5%85%A8%E9%9D%A2%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">8 深拷贝函数，可以复制对象中的函数及数组（很全面）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E2%80%98undefined%E2%80%99-%E5%92%8C-undefined-%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">9  ‘undefined’ 和 undefined 使用区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-padding-bottom"><span class="nav-number">10.</span> <span class="nav-text">10 padding-bottom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-siblings-%E5%85%84%E5%BC%9F%E5%85%83%E7%B4%A0-%E4%B8%94%E5%8C%85%E6%8B%AC%E5%AE%83%E6%9C%AC%E8%BA%AB"><span class="nav-number">11.</span> <span class="nav-text">11 siblings() 兄弟元素 且包括它本身</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-%E6%92%91%E5%BC%80%E7%88%B6%E5%85%83%E7%B4%A0%E5%AE%BD%E5%BA%A6%E8%B6%85%E8%BF%87%E7%88%B6%E5%85%83%E7%B4%A0%E5%A4%96%E5%B1%82%E5%AE%BD%E5%BA%A6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">12.</span> <span class="nav-text">12 撑开父元素宽度超过父元素外层宽度的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-pointer-events"><span class="nav-number">13.</span> <span class="nav-text">13 pointer-events</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-switch%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%9C%B0%E6%96%B9%EF%BC%8C%E6%B2%A1%E6%9C%89break%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">14.</span> <span class="nav-text">14 switch需要注意的地方，没有break的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-%E8%AE%BE%E7%BD%AEposition-absolute%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%BD%E9%AB%98%E7%99%BE%E5%88%86%E6%AF%94%E6%97%B6%EF%BC%8C%E5%B9%B6%E4%B8%8D%E6%98%AF%E4%BE%9D%E6%8D%AE%E7%88%B6%E5%85%83%E7%B4%A0%E7%9A%84%EF%BC%8C%E8%80%8C%E6%98%AF%E4%BE%9D%E6%8D%AE%E5%AE%9A%E4%BD%8D%E5%8F%82%E8%80%83%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">15.</span> <span class="nav-text">15 设置position absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-js%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%B1%9E%E6%80%A7%E6%98%AF%E5%AF%B9%E8%B1%A1%E5%AE%9E%E4%BE%8B%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E8%BF%98%E6%98%AF%E5%8E%9F%E5%9E%8B%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">16.</span> <span class="nav-text">16 js中如何判断属性是对象实例中的属性还是原型中的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-vue%E4%B8%AD-dispath-%E6%94%AF%E6%8C%81promise-%E5%92%8C-commit"><span class="nav-number">17.</span> <span class="nav-text">17 vue中 dispath(支持promise) 和 commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E4%B9%9F%E6%9C%89%E4%BC%98%E5%85%88%E7%BA%A7-%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E-arguments-%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-number">18.</span> <span class="nav-text">18 变量提升也有优先级, 函数声明 &gt; arguments &gt; 变量声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-npx%E8%AE%B2%E8%A7%A3"><span class="nav-number">19.</span> <span class="nav-text">19 npx讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-%E5%BC%95%E7%94%A8%E5%9B%BE%E7%89%87-%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E9%83%BD%E5%8F%AF%E4%BB%A5"><span class="nav-number">20.</span> <span class="nav-text">20 引用图片,两种方式都可以</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-ES6%E7%B1%BB%E5%92%8CTS%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB%E8%AE%B0%E5%BF%86"><span class="nav-number">21.</span> <span class="nav-text">21 ES6类和TS类的区别记忆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6%E7%B1%BB%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">21.1.</span> <span class="nav-text">ES6类的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TS%E7%B1%BB%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">21.2.</span> <span class="nav-text">TS类的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="nav-number">21.3.</span> <span class="nav-text">ES6类的继承</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-TS%E8%BD%AC%E4%B9%89%E4%BB%A3%E7%A0%81%E4%B8%AD%E5%8F%91%E7%8E%B0%E7%9A%84-%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C"><span class="nav-number">22.</span> <span class="nav-text">22 TS转义代码中发现的,的骚操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#error%E7%B1%BB%E6%97%A0%E6%B3%95%E7%9B%B4%E8%A7%82%E7%9A%84%E6%89%93%E5%8D%B0%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%80%9F%E7%94%A8%E4%B8%8B%E5%88%97%E6%96%B9%E6%B3%95"><span class="nav-number">23.</span> <span class="nav-text">error类无法直观的打印，可以借用下列方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue%E4%B8%AD%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E7%9A%84this%E6%8C%87%E5%90%91"><span class="nav-number">24.</span> <span class="nav-text">vue中事件绑定的this指向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async%E7%9A%84%E9%94%99%E8%AF%AF%E6%8D%95%E6%8D%89"><span class="nav-number">25.</span> <span class="nav-text">async的错误捕捉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#require-%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E8%B5%84%E6%BA%90%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">26.</span> <span class="nav-text">require 一个图片资源出现的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-ui-form%E8%A1%A8%E5%8D%95%E5%8A%A8%E6%80%81%E9%AA%8C%E8%AF%81"><span class="nav-number">27.</span> <span class="nav-text">element ui form表单动态验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">28.</span> <span class="nav-text">vue 响应式的注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-delete-target-propertyName-index"><span class="nav-number">28.1.</span> <span class="nav-text">Vue.delete( target, propertyName&#x2F;index )</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element%E7%9A%84table%E7%BB%84%E4%BB%B6%E5%9C%A8flex%E5%B8%83%E5%B1%80%E4%B8%8B%E5%AE%BD%E5%BA%A6%E8%87%AA%E9%80%82%E5%BA%94%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">29.</span> <span class="nav-text">element的table组件在flex布局下宽度自适应解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#input%E4%BA%8B%E4%BB%B6%E5%92%8Cchange%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">30.</span> <span class="nav-text">input事件和change事件的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">31.</span> <span class="nav-text">GC 垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#void-0"><span class="nav-number">32.</span> <span class="nav-text">void 0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URLSearchParams-Object-fromEntries"><span class="nav-number">33.</span> <span class="nav-text">URLSearchParams Object.fromEntries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node-contains-otherNode"><span class="nav-number">34.</span> <span class="nav-text">node.contains(otherNode)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getComputedStyle-%E5%92%8C-style%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">35.</span> <span class="nav-text">getComputedStyle 和 style的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-floor-%E7%9A%84%E5%8F%A6%E7%B1%BB%E5%86%99%E6%B3%95"><span class="nav-number">36.</span> <span class="nav-text">Math.floor 的另类写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%96%E4%B8%80%E6%AE%B5%E5%8C%BA%E9%97%B4%E5%80%BC%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">37.</span> <span class="nav-text">取一段区间值的小技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter-%E5%92%8C-backdrop-filter"><span class="nav-number">38.</span> <span class="nav-text">filter 和 backdrop-filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%B0%8F%E8%8C%83%E5%9B%B4%E9%97%AD%E7%8E%AF%E5%8F%96%E5%80%BC"><span class="nav-number">39.</span> <span class="nav-text">需要小范围闭环取值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#console-log-%E6%89%93%E5%8D%B0%E5%BD%A9%E8%89%B2"><span class="nav-number">40.</span> <span class="nav-text">console.log 打印彩色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#element-%E5%8A%A8%E6%80%81rules"><span class="nav-number">41.</span> <span class="nav-text">element 动态rules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments-%E5%92%8C%E5%AF%B9%E5%BA%94%E5%8F%82%E6%95%B0%E7%9A%84%E7%BB%91%E5%AE%9A"><span class="nav-number">42.</span> <span class="nav-text">arguments 和对应参数的绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-stringify-%E6%9C%89%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8F%82%E6%95%B0-replacer"><span class="nav-number">43.</span> <span class="nav-text">JSON.stringify 有第二个参数 replacer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inject-provide-%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">44.</span> <span class="nav-text">inject provide 响应式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defer%E5%92%8Casync"><span class="nav-number">45.</span> <span class="nav-text">defer和async</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">46.</span> <span class="nav-text">bind函数的参数</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="工作中遇到的-小-问题记录 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          工作中遇到的-小-问题记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-13 14:39:31" itemprop="dateCreated datePublished" datetime="2024-07-13T14:39:31+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">问题记录</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="1-有效解决setTimeout跨级传参数"><a href="#1-有效解决setTimeout跨级传参数" class="headerlink" title="1 有效解决setTimeout跨级传参数"></a>1 有效解决setTimeout跨级传参数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">功能：修改 window.setTimeout，使之可以传递参数和对象参数 </span><br><span class="line">使用方法： setTimeout(回调函数,时间,参数1,...,参数n)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-单击和双击的冲突问题"><a href="#2-单击和双击的冲突问题" class="headerlink" title="2 单击和双击的冲突问题"></a>2 单击和双击的冲突问题</h2><p>在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。<br>解决该问题可以通过定时器解决</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var TimeFn = null;</span><br><span class="line">$(&#x27;#box&#x27;).click(function () &#123;</span><br><span class="line">    clearTimeout(TimeFn);</span><br><span class="line">    TimeFn = setTimeout(function()&#123;</span><br><span class="line">        console.log(&#x27;click&#x27;)</span><br><span class="line">    &#125;,100);</span><br><span class="line">&#125;);</span><br><span class="line">$(&#x27;#box&#x27;).dblclick(function () &#123;</span><br><span class="line">    clearTimeout(TimeFn);</span><br><span class="line">    console.log(&#x27;dbclick&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当定时器延迟启动的时间小于300毫秒，第一个单击事件无法被抹消，发生事件为 单击-双击<br>（第二个单击事件和双击事件触发的时间隔间几乎为0，延迟时间对它没有影响）<br>当定时器延迟启动的事件大于300毫秒，第一个单击事件可以被抹消，发生事件为 双击</p>
+<h2 id="3-jQuery-事件传参"><a href="#3-jQuery-事件传参" class="headerlink" title="3 jQuery 事件传参"></a>3 jQuery 事件传参</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;js/jquery-2.1.1.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    function Ceshi()&#123;</span><br><span class="line">      this.a=1;</span><br><span class="line">      this.b=2;</span><br><span class="line">      this.c=3;</span><br><span class="line">      this.d=4;    </span><br><span class="line">    &#125;</span><br><span class="line">    Ceshi.prototype.aa=function()&#123;</span><br><span class="line">      var _this=this;</span><br><span class="line">//    $(&#x27;input&#x27;).on(&#x27;click&#x27;,&#123;e:_this&#125;,this.bb) 用此方法可以拿到</span><br><span class="line">      $(&#x27;input&#x27;).on(&#x27;click&#x27;,this.bb).bind(this)</span><br><span class="line">    &#125;</span><br><span class="line">    Ceshi.prototype.bb=function(evt)&#123;               </span><br><span class="line">      console.log(this.b)// undefined</span><br><span class="line">//    console.log(_this.b) // _this is not defined</span><br><span class="line">//    console.log(evt.data.e.b)   //用此方法可以拿到</span><br><span class="line">//    console.log(evt.clientX)</span><br><span class="line">    &#125;</span><br><span class="line">    var demo=new Ceshi()</span><br><span class="line">    demo.aa()</span><br><span class="line">&lt;/script&gt;  </span><br></pre></td></tr></table></figure>
+
+<h2 id="4-ajax-同步异步"><a href="#4-ajax-同步异步" class="headerlink" title="4 ajax 同步异步"></a>4 ajax 同步异步</h2><p>ajax异步请求，不会按上下顺序执行，注意数组操作，以防错位，可以使用同步</p>
+<h2 id="5-利用元素记录信息"><a href="#5-利用元素记录信息" class="headerlink" title="5 利用元素记录信息"></a>5 利用元素记录信息</h2><p>利用JSON.stringfiy 可以将复杂json数据存入元素中，利用JSON.parse可以拿出</p>
+<h2 id="6-窗口大小改变事件"><a href="#6-窗口大小改变事件" class="headerlink" title="6 窗口大小改变事件"></a>6 窗口大小改变事件</h2><p>window.onresize以最后一个函数为准， $(window).resize(function(){})，可以同时存在多个</p>
+<h2 id="7-判断一个对象是否存在的方法"><a href="#7-判断一个对象是否存在的方法" class="headerlink" title="7 判断一个对象是否存在的方法"></a>7 判断一个对象是否存在的方法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (typeof myObj == &quot;undefined&quot;) &#123;</span><br><span class="line">　var myObj = &#123; &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是目前使用最广泛的判断javascript对象是否存在的方法。</p>
+</blockquote>
+<h2 id="8-深拷贝函数，可以复制对象中的函数及数组（很全面）"><a href="#8-深拷贝函数，可以复制对象中的函数及数组（很全面）" class="headerlink" title="8 深拷贝函数，可以复制对象中的函数及数组（很全面）"></a>8 深拷贝函数，可以复制对象中的函数及数组（很全面）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy(p, c) &#123;</span><br><span class="line">  var c = c || &#123;&#125;;</span><br><span class="line">  for (var i in p) &#123;</span><br><span class="line">    if(! p.hasOwnProperty(i))&#123;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    if (typeof p[i] === &#x27;object&#x27;) &#123;</span><br><span class="line">      c[i] = (p[i].constructor === Array) ? [] : &#123;&#125;;</span><br><span class="line">      deepCopy(p[i], c[i]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      c[i] = p[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent = &#123;name: &#x27;foo&#x27;, birthPlaces: [&#x27;北京&#x27;,&#x27;上海&#x27;,&#x27;香港&#x27;]&#125;</span><br><span class="line">var Child = deepCopy(Parent);</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-‘undefined’-和-undefined-使用区别"><a href="#9-‘undefined’-和-undefined-使用区别" class="headerlink" title="9  ‘undefined’ 和 undefined 使用区别"></a>9  ‘undefined’ 和 undefined 使用区别</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">     a:1, </span><br><span class="line">&#125;</span><br><span class="line">console.log(obj.b == &#x27;undefined&#x27;) //  false</span><br><span class="line">console.log(obj.b == undefined) //  true 判断元素属性是否存在的常用方法</span><br><span class="line">console.log(typeof obj.b ==&#x27;undefined&#x27;)  //true</span><br><span class="line">console.log(typeof ob)        //  &#x27;undefined&#x27;</span><br><span class="line">console.log(typeof ob == &#x27;undefined&#x27;) // true  此为最常用的判断元素是否存在的方法</span><br><span class="line">console.log(typeof ob == undefined) //  false</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-padding-bottom"><a href="#10-padding-bottom" class="headerlink" title="10 padding-bottom"></a>10 padding-bottom</h2><p>占位防止图片加载过程中的抖动 % 定义基于父元素宽度的百分比下内边距</p>
+<h2 id="11-siblings-兄弟元素-且包括它本身"><a href="#11-siblings-兄弟元素-且包括它本身" class="headerlink" title="11 siblings() 兄弟元素 且包括它本身"></a>11 siblings() 兄弟元素 且包括它本身</h2><h2 id="12-撑开父元素宽度超过父元素外层宽度的方法"><a href="#12-撑开父元素宽度超过父元素外层宽度的方法" class="headerlink" title="12 撑开父元素宽度超过父元素外层宽度的方法"></a>12 撑开父元素宽度超过父元素外层宽度的方法</h2><p>父元素 white-space: nowrap;  内部元素 display: inline-block;</p>
+<h2 id="13-pointer-events"><a href="#13-pointer-events" class="headerlink" title="13 pointer-events"></a>13 pointer-events</h2><p>更像是JavaScript，它能够：</p>
+<ul>
+<li>阻止用户的点击动作产生任何效果</li>
+<li>阻止缺省鼠标指针的显示</li>
+<li>阻止CSS里的 hover 和 active 状态的变化触发事件</li>
+<li>阻止JavaScript点击动作触发的事件<br>pointer-events: none 顾名思义，就是鼠标事件拜拜的意思。元素应用了该 CSS 属性，链接啊，点击啊什么的都变成了 “浮云牌酱油”。pointer-events: none 的作用是让元素实体 “虚化”。例如一个应用 pointer-events: none 的按钮元素，则我们在页面上看到的这个按钮，只是一个虚幻的影子而已，您可以理解为海市蜃楼，幽灵的躯体。当我们用手触碰它的时候可以轻易地没有任何感觉地从中穿过去。</li>
+</ul>
+<h2 id="14-switch需要注意的地方，没有break的情况"><a href="#14-switch需要注意的地方，没有break的情况" class="headerlink" title="14 switch需要注意的地方，没有break的情况"></a>14 switch需要注意的地方，没有break的情况</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function handle(num)&#123;</span><br><span class="line">  switch (num)&#123;</span><br><span class="line">    case 1:</span><br><span class="line">      console.log(1)</span><br><span class="line">    case 2:</span><br><span class="line">      console.log(2)</span><br><span class="line">    case 3:</span><br><span class="line">      console.log(3)</span><br><span class="line">    case 4:</span><br><span class="line">      console.log(4)</span><br><span class="line">    case 5:</span><br><span class="line">      console.log(5)</span><br><span class="line">    case 6:</span><br><span class="line">      console.log(6)</span><br><span class="line">    default:</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">handle(3)   // 3 4 5 6 </span><br></pre></td></tr></table></figure>
+
+<p>没有break的情况下，从<strong>满足条件开始</strong>一直会向下执行，无视case，直至break停止</p>
+<h2 id="15-设置position-absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素"><a href="#15-设置position-absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素" class="headerlink" title="15 设置position absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素"></a>15 设置position absolute元素的宽高百分比时，并不是依据父元素的，而是依据定位参考的元素</h2><h2 id="16-js中如何判断属性是对象实例中的属性还是原型中的属性"><a href="#16-js中如何判断属性是对象实例中的属性还是原型中的属性" class="headerlink" title="16 js中如何判断属性是对象实例中的属性还是原型中的属性"></a>16 js中如何判断属性是对象实例中的属性还是原型中的属性</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function hasPrototypeProperty(obj, name) &#123;</span><br><span class="line">  return !obj.hasOwnProperty(name) &amp;&amp; (name in obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当属性存在对象实例上的时候，函数返回false，表示该属性不是存在原型上，当属性存在原型上的时候，函数返回true。</p>
+<h2 id="17-vue中-dispath-支持promise-和-commit"><a href="#17-vue中-dispath-支持promise-和-commit" class="headerlink" title="17 vue中 dispath(支持promise) 和 commit"></a>17 vue中 dispath(支持promise) 和 commit</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this.$store.dispatch(&#x27;LoginByUsername&#x27;, this.loginForm).then(() =&gt; &#123;</span><br><span class="line">  this.$router.push(&#123; path: &#x27;/&#x27; &#125;); //登录成功之后重定向到首页</span><br><span class="line">&#125;).catch(err =&gt; &#123;</span><br><span class="line">  this.$message.error(err); //登录失败提示错误</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LoginByUsername(&#123; commit &#125;, userInfo) &#123;</span><br><span class="line">  const username = userInfo.username.trim()</span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    loginByUsername(username, userInfo.password).then(response =&gt; &#123;</span><br><span class="line">      const data = response.data</span><br><span class="line">      Cookies.set(&#x27;Token&#x27;, response.data.token) //登录成功后将token存储在cookie之中</span><br><span class="line">      commit(&#x27;SET_TOKEN&#x27;, data.token)</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;).catch(error =&gt; &#123;</span><br><span class="line">      reject(error)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="18-变量提升也有优先级-函数声明-arguments-变量声明"><a href="#18-变量提升也有优先级-函数声明-arguments-变量声明" class="headerlink" title="18 变量提升也有优先级, 函数声明 &gt; arguments &gt; 变量声明"></a>18 变量提升也有优先级, 函数声明 &gt; arguments &gt; 变量声明</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">console.log(c);</span><br><span class="line">function c(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  var a = 3;</span><br><span class="line">&#125;</span><br><span class="line">//function c()&#123;...&#125;</span><br><span class="line">//案例2 </span><br><span class="line">console.log(c);</span><br><span class="line">var c = function (a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  var a = 3;</span><br><span class="line">&#125;</span><br><span class="line">//undefined</span><br></pre></td></tr></table></figure>
+
+<p>重复声明会被忽略</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo(); // 1</span><br><span class="line">var foo;</span><br><span class="line">function foo() &#123; console.log( 1 ); &#125;</span><br><span class="line">foo = function() &#123; console.log( 2 ); &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注意，var foo 尽管出现在 function foo()… 的声明之前，<strong>但它是重复的声明（因此被忽略了）</strong>，因为函数声明会被提升到普通变量之前。</p>
+<blockquote>
+<p>看一下你所不知道的JavaScript上 40页</p>
+</blockquote>
+<h2 id="19-npx讲解"><a href="#19-npx讲解" class="headerlink" title="19 npx讲解"></a>19 npx讲解</h2><p>npx 会帮你执行依赖包里的二进制文件<br>举个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack -D      //非全局安装</span><br><span class="line">//如果要执行 webpack 的命令</span><br><span class="line">./node_modules/.bin/webpack -v</span><br></pre></td></tr></table></figure>
+
+<p>有了 npx 之后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack -D    //非全局安装</span><br><span class="line">npx webpack -v </span><br></pre></td></tr></table></figure>
+
+<p>npx 会自动查找当前依赖包中的可执行文件，如果找不到，就会去 PATH 里找。如果依然找不到，就会帮你安装。</p>
+<blockquote>
+<p>使用package.json中的script命令，也会优先使用依赖包里的二进制文件</p>
+</blockquote>
+<h2 id="20-引用图片-两种方式都可以"><a href="#20-引用图片-两种方式都可以" class="headerlink" title="20 引用图片,两种方式都可以"></a>20 引用图片,两种方式都可以</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const url = require(&#x27;./bg.jpg&#x27;)</span><br><span class="line">import url from &#x27;./bg.jpg&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="21-ES6类和TS类的区别记忆"><a href="#21-ES6类和TS类的区别记忆" class="headerlink" title="21 ES6类和TS类的区别记忆"></a>21 ES6类和TS类的区别记忆</h2><h3 id="ES6类的写法"><a href="#ES6类的写法" class="headerlink" title="ES6类的写法"></a>ES6类的写法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  name = &#x27;aaa&#x27; //可以用此方式定义实例属性初始值</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name //实例属性</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; //原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">  //不需要符号间隔</span><br><span class="line">  eat()&#123;</span><br><span class="line">    return &#x27;food&#x27;</span><br><span class="line">  &#125;</span><br><span class="line">  //静态方法，不会被实例继承，只能通过Person.destroyed()调用，可以被子类继承</span><br><span class="line">  static destroyed() &#123; </span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  //类的内部所有定义的方法，与ES5不同，都是不可枚举的（non-enumerable）</span><br><span class="line">&#125;</span><br><span class="line">//仅可以用下述方式添加原型属性</span><br><span class="line">Person.prototype.prop = &#x27;prop&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TS类的写法"><a href="#TS类的写法" class="headerlink" title="TS类的写法"></a>TS类的写法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">class Person &#123;</span><br><span class="line">  public name: string; //实例属性</span><br><span class="line">  constructor(name: string) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; //原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 简化写法</span><br><span class="line">class Person &#123; </span><br><span class="line">  constructor(public name: string) &#123; //实例属性</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123; //原型方法</span><br><span class="line">    return this.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>TS类 有不同的访问类型</p>
+<ul>
+<li>private, protected, public 访问类型<ul>
+<li>public 完全开放使用</li>
+<li>private 仅允许在类内被使用</li>
+<li>protected 仅允许在类内及继承的子类中使用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  public name: string; //不写constructor 实例属性name压根不存在</span><br><span class="line">  constructor(name: string) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  protected sayHi() &#123;</span><br><span class="line">    this.name;</span><br><span class="line">    console.log(&#x27;hi&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">  private sayABC() &#123;</span><br><span class="line">    this.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ES6类的继承"><a href="#ES6类的继承" class="headerlink" title="ES6类的继承"></a>ES6类的继承</h3><p>详细书写在分类继承下</p>
+<h2 id="22-TS转义代码中发现的-的骚操作"><a href="#22-TS转义代码中发现的-的骚操作" class="headerlink" title="22 TS转义代码中发现的,的骚操作"></a>22 TS转义代码中发现的<code>,</code>的骚操作</h2><p>原代码较为复杂，用下方简化代码示意</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function handle(a, b)&#123;</span><br><span class="line">  console.log(a+b);</span><br><span class="line">&#125;</span><br><span class="line">var d = 4</span><br><span class="line">var c = ((handle(1, 2)), d)</span><br><span class="line">console.log(c);</span><br><span class="line">//3</span><br><span class="line">//4</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>程序会先执行逗号之前的语句，然后把逗号之后的语句赋值<br>必须要加外层的括号</p>
+</blockquote>
+<h2 id="error类无法直观的打印，可以借用下列方法"><a href="#error类无法直观的打印，可以借用下列方法" class="headerlink" title="error类无法直观的打印，可以借用下列方法"></a>error类无法直观的打印，可以借用下列方法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (const key of Object.keys(error)) &#123;</span><br><span class="line">  console.log(error[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue中事件绑定的this指向"><a href="#vue中事件绑定的this指向" class="headerlink" title="vue中事件绑定的this指向"></a>vue中事件绑定的this指向</h2><p>下面是从vue单文件中methods方法中截取的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">addPointMove() &#123;</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;mousedown&quot;, this.mouseDownHandle);</span><br><span class="line">  document.addEventListener(&quot;mouseup&quot;, this.mouseUpHandle);</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].onclick = function () &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;;</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;click&quot;, this.ceshi1);</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;click&quot;, this.ceshi2);</span><br><span class="line">  this.$refs[&quot;preview-img&quot;].addEventListener(&quot;click&quot;, this.ceshi3);</span><br><span class="line">&#125;,</span><br><span class="line">ceshi1() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;,</span><br><span class="line">ceshi2: function () &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;,</span><br><span class="line">ceshi3: () =&gt; &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>当点击click后，控制台输出如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 this.$refs[&quot;preview-img&quot;]</span><br><span class="line">2 vue实例</span><br><span class="line">3 vue实例</span><br><span class="line">4 undefined</span><br></pre></td></tr></table></figure>
+
+<h2 id="async的错误捕捉"><a href="#async的错误捕捉" class="headerlink" title="async的错误捕捉"></a>async的错误捕捉</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">async function main() &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    const val1 = await 1;</span><br><span class="line">    const val2 = await 2;</span><br><span class="line">    await Promise.reject(new Error(&quot;222&quot;))</span><br><span class="line">    const val3 = await 3;</span><br><span class="line">    console.log(&#x27;Final: &#x27;, val3);</span><br><span class="line">  &#125;</span><br><span class="line">  catch (err) &#123;</span><br><span class="line">    console.error(err);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(111);</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+<p>运行至reject，try模块内的代码就停止了，然后运行catch代码块，之后正常运行<br>Error: 222<br>111  </p>
+<h2 id="require-一个图片资源出现的问题"><a href="#require-一个图片资源出现的问题" class="headerlink" title="require 一个图片资源出现的问题"></a>require 一个图片资源出现的问题</h2><p>我在项目中书写一个头部组件的时候，需要动态引入背景图片</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;../assets/rwkb.png&quot;) + &quot;)&quot;</span><br></pre></td></tr></table></figure>
+
+<p>写法是对的，但是死活出不来，我真是百思不得其解、、、后来发现打印出来的资源<br><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png" alt="资源"></p>
+<hr>
+<p>然后我抱着试一试的态度多写了一个<code>.default</code>竟然成功了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;../../assets/img/rwkb.png&quot;).default + &quot;)&quot;</span><br></pre></td></tr></table></figure>
+
+<p>后来我在另一个项目里打印</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(require(&quot;@/assets/img/401.png&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出 <code>/img/401.abca6a5b.png</code></p>
+<h2 id="element-ui-form表单动态验证"><a href="#element-ui-form表单动态验证" class="headerlink" title="element ui form表单动态验证"></a>element ui form表单动态验证</h2><p><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form1.jpg" alt="资源"><br><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form2.jpg" alt="资源"><br>切换某一个选项后，会动态改变表单及需要校验的表单<br>项目中采用v-if v-else方法改变表单，但是form rules验证会失效，解决方法：<strong>给元素添加唯一KEY</strong>  </p>
+<blockquote>
+<p>产生bug的原因在于diff算法的复用</p>
+</blockquote>
+<h2 id="vue-响应式的注意点"><a href="#vue-响应式的注意点" class="headerlink" title="vue 响应式的注意点"></a>vue 响应式的注意点</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      obj1: &#123;</span><br><span class="line">        a: 1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>没有任何方法能在初始化后添加根级别的响应式</p>
+<ul>
+<li>结合上方代码即无法添加obj1以外的响应式</li>
+</ul>
+</li>
+<li><p>向存在的嵌套对象添加新的响应式 property，比如obj1，有下面两种方式</p>
+<ol>
+<li><p>Vue.set(object, propertyName, value)</p>
+</li>
+<li><p>this.someObject &#x3D; Object.assign({}, this.someObject, { a: 1, b: 2 })</p>
+<blockquote>
+<p>注意 Object.assign 第一个参数是  { }</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h3 id="Vue-delete-target-propertyName-index"><a href="#Vue-delete-target-propertyName-index" class="headerlink" title="Vue.delete( target, propertyName&#x2F;index )"></a><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#Vue-delete">Vue.delete( target, propertyName&#x2F;index )</a></h3><ul>
+<li>不能删除根对象 例如obj1 可以删除obj1.xx</li>
+</ul>
+</li>
+</ul>
+<h2 id="element的table组件在flex布局下宽度自适应解决办法"><a href="#element的table组件在flex布局下宽度自适应解决办法" class="headerlink" title="element的table组件在flex布局下宽度自适应解决办法"></a>element的table组件在flex布局下宽度自适应解决办法</h2><p>给宽度一个99% 可以很简单的搞定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;tp-el-table-ex</span><br><span class="line">  class=&quot;table&quot;</span><br><span class="line">  ref=&quot;clickTable&quot;</span><br><span class="line">  border</span><br><span class="line">  highlight-current-row</span><br><span class="line">  :loading=&quot;tableLoading&quot;</span><br><span class="line">  :data=&quot;tableData&quot;</span><br><span class="line">  style=&quot;width: 99%;&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="input事件和change事件的区别"><a href="#input事件和change事件的区别" class="headerlink" title="input事件和change事件的区别"></a>input事件和change事件的区别</h2><ul>
+<li><p>input事件：</p>
+<blockquote>
+<p>input事件在输入框输入的时候回实时响应并触发</p>
+</blockquote>
+</li>
+<li><p>change事件：</p>
+<blockquote>
+<p>change事件在input失去焦点才会考虑触发，它的缺点是无法实时响应。与blur事件有着相似的功能，但与blur事件不同的是，change事件在输入框的值未改变时并不会触发，当输入框的值和上一次的值不同，并且输入框失去焦点，就会触发change事件。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="GC-垃圾回收机制"><a href="#GC-垃圾回收机制" class="headerlink" title="GC 垃圾回收机制"></a>GC 垃圾回收机制</h2><ul>
+<li>引用计数 无法解决循环引用 基本上被淘汰了</li>
+<li>标记清除 mark and sweep 也存在一定的局限（对象如果有一个属性经常使用，其余属性就无法被回收）</li>
+</ul>
+<h2 id="void-0"><a href="#void-0" class="headerlink" title="void 0"></a>void 0</h2><ul>
+<li>viod 任何东西都会返回 <code>undefined</code>，之所以使用0，是因为void 0 是表达式中最短的  </li>
+<li>undefined可以被重写，所以用 void 0 比较保险</li>
+<li>不少 JavaScript 压缩工具在压缩过程中，正是将 undefined 用 void 0 代替掉了</li>
+</ul>
+<h2 id="URLSearchParams-Object-fromEntries"><a href="#URLSearchParams-Object-fromEntries" class="headerlink" title="URLSearchParams Object.fromEntries"></a>URLSearchParams Object.fromEntries</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.fromEntries(new URLSearchParams(‘foo=bar&amp;baz=qux’))</span><br><span class="line">// &#123; foo: “bar”, baz: “qux” &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="node-contains-otherNode"><a href="#node-contains-otherNode" class="headerlink" title="node.contains(otherNode)"></a>node.contains(otherNode)</h2><p>node 是否包含otherNode节点, otherNode 是否是node的后代节点<br>如果 otherNode 是 node 的后代节点或是 node 节点本身.则返回true , 否则返回 false.</p>
+<h2 id="getComputedStyle-和-style的区别"><a href="#getComputedStyle-和-style的区别" class="headerlink" title="getComputedStyle 和 style的区别"></a>getComputedStyle 和 style的区别</h2><p>用法<br>let style &#x3D; window.getComputedStyle(element, [pseudoElt]);</p>
+<ul>
+<li><p>element 用于获取计算样式的Element。</p>
+</li>
+<li><p>pseudoElt 可选<br>指定一个要匹配的伪元素的字符串，例如’::after’，必须对普通元素省略（或null）。</p>
+</li>
+<li><p>只读与可写<br>getComputedStyle方法是只读的，只能获取样式，不能设置；而element.style能读能写，能屈能伸。</p>
+</li>
+<li><p>获取的对象范围<br>getComputedStyle方法获取的是最终应用在元素上的所有CSS属性对象（即使没有CSS代码，也会把默认的祖宗八代都显示出来）；而element.style只能获取元素style属性中的CSS样式。因此对于一个光秃秃的元素<p>，getComputedStyle方法返回对象中length属性值（如果有）就是190+(据我测试FF:192, IE9:195, Chrome:253, 不同环境结果可能有差异), 而element.style就是0。</p>
+</li>
+<li><p>作用<br>getComputedStyle方法有一个很重要的，类似css()方法没有的功能——获取伪类元素样式</p>
+</li>
+<li><p>兼容性<br>getComputedStyle方法IE6~8是不支持的</p>
+</li>
+</ul>
+<h2 id="Math-floor-的另类写法"><a href="#Math-floor-的另类写法" class="headerlink" title="Math.floor 的另类写法"></a>Math.floor 的另类写法</h2><p>Math.floor((touch.y2 - touch.y1) &#x2F; ANCHOR_HEIGHT) &#x3D;&#x3D;&#x3D; Math.floor((touch.y2 - touch.y1) | 0</p>
+<h2 id="取一段区间值的小技巧"><a href="#取一段区间值的小技巧" class="headerlink" title="取一段区间值的小技巧"></a>取一段区间值的小技巧</h2><p>如果需要参数范围控制在[min,max]之间，传统方法可能需要三个控制流，借助math函数可以这么写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arg = Math.max(min, Math.min(arg, max))</span><br></pre></td></tr></table></figure>
+
+<p>即可以arg控制在[min, max] 范围内</p>
+<h2 id="filter-和-backdrop-filter"><a href="#filter-和-backdrop-filter" class="headerlink" title="filter 和 backdrop-filter"></a>filter 和 backdrop-filter</h2><ul>
+<li>backdrop-filter CSS 属性可以让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。</li>
+<li>filter CSS属性将模糊或颜色偏移等图形效果应用于元素。滤镜通常用于调整图像，背景和边框的渲染。<br><a target="_blank" rel="noopener" href="https://www.jb51.net/css/745019.html">详情</a></li>
+</ul>
+<h2 id="需要小范围闭环取值"><a href="#需要小范围闭环取值" class="headerlink" title="需要小范围闭环取值"></a>需要小范围闭环取值</h2><p>可以借助取余函数，例如type只有三种值 0 1 2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let type = 0 </span><br><span class="line">function changeType()&#123;</span><br><span class="line">  type = (type + 1) % 3</span><br><span class="line">&#125;</span><br><span class="line">for(var i = 0;i&lt;=100;i++)&#123;</span><br><span class="line">  changeType()</span><br><span class="line">  console.log(type) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果 0、1、2、0、1、2、0、1、2………….<br>适合闭环取值</p>
+<h2 id="console-log-打印彩色"><a href="#console-log-打印彩色" class="headerlink" title="console.log 打印彩色"></a>console.log 打印彩色</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var message = &quot;Hello word&quot;;</span><br><span class="line">var color = &quot;red&quot;;</span><br><span class="line">   </span><br><span class="line">console.log(&quot;%c &quot; + message ,  &quot;color:&quot; + color);</span><br><span class="line">console.log(&quot;%c &quot; + message ,  &quot;color:&quot; + &quot;blue&quot;);</span><br><span class="line">console.log(&quot;%c &quot; + message ,  &quot;color:&quot; + &quot;yellow&quot;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="element-动态rules"><a href="#element-动态rules" class="headerlink" title="element 动态rules"></a>element 动态rules</h2><p>form默认会在rules改变后，重新校验，有字段可以设置。需要注意数据变化和rules变化的先后顺序问题，会带来一些不可预见的bug，form有去除校验结果的办法</p>
+<h2 id="arguments-和对应参数的绑定"><a href="#arguments-和对应参数的绑定" class="headerlink" title="arguments 和对应参数的绑定"></a>arguments 和对应参数的绑定</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function foo(name, age, sex, hobbit) &#123;</span><br><span class="line"></span><br><span class="line">    console.log(name, arguments[0]); // name name</span><br><span class="line"></span><br><span class="line">    // 改变形参</span><br><span class="line">    name = &#x27;new name&#x27;;</span><br><span class="line"></span><br><span class="line">    console.log(name, arguments[0]); // new name new name</span><br><span class="line"></span><br><span class="line">    // 改变arguments</span><br><span class="line">    arguments[1] = &#x27;new age&#x27;;</span><br><span class="line"></span><br><span class="line">    console.log(age, arguments[1]); // new age new age</span><br><span class="line"></span><br><span class="line">    // 测试未传入的是否会绑定</span><br><span class="line">    console.log(sex); // undefined</span><br><span class="line"></span><br><span class="line">    sex = &#x27;new sex&#x27;;</span><br><span class="line"></span><br><span class="line">    console.log(sex, arguments[2]); // new sex undefined</span><br><span class="line"></span><br><span class="line">    arguments[3] = &#x27;new hobbit&#x27;;</span><br><span class="line"></span><br><span class="line">    console.log(hobbit, arguments[3]); // undefined new hobbit</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(&#x27;name&#x27;, &#x27;age&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>传入的参数，实参和 arguments 的值会共享，当没有传入时，实参与 arguments 值不会共享</p>
+<p>除此之外，以上是在非严格模式下，如果是在严格模式下，实参和 arguments 是不会共享的。</p>
+<h2 id="JSON-stringify-有第二个参数-replacer"><a href="#JSON-stringify-有第二个参数-replacer" class="headerlink" title="JSON.stringify 有第二个参数 replacer"></a>JSON.stringify 有第二个参数 replacer</h2><p>它可以是数组或者函数，用来指定对象序列化过程中哪些属性应该被处理，哪些应该被排除。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function replacer(key, value) &#123;</span><br><span class="line">  if (typeof value === &quot;string&quot;) &#123;</span><br><span class="line">    return undefined;</span><br><span class="line">  &#125;</span><br><span class="line">  return value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var foo = &#123;foundation: &quot;Mozilla&quot;, model: &quot;box&quot;, week: 45, transport: &quot;car&quot;, month: 7&#125;;</span><br><span class="line">var jsonString = JSON.stringify(foo, replacer);</span><br><span class="line"></span><br><span class="line">console.log(jsonString)</span><br><span class="line">// &#123;&quot;week&quot;:45,&quot;month&quot;:7&#125;</span><br><span class="line">var foo = &#123;foundation: &quot;Mozilla&quot;, model: &quot;box&quot;, week: 45, transport: &quot;car&quot;, month: 7&#125;;</span><br><span class="line">console.log(JSON.stringify(foo, [&#x27;week&#x27;, &#x27;month&#x27;]));</span><br><span class="line">// &#123;&quot;week&quot;:45,&quot;month&quot;:7&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果一个被序列化的对象拥有 toJSON 方法，那么该 toJSON 方法就会覆盖该对象默认的序列化行为：不是那个对象被序列化，而是调用 toJSON 方法后的返回值会被序列化，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">  foo: &#x27;foo&#x27;,</span><br><span class="line">  toJSON: function () &#123;</span><br><span class="line">    return &#x27;bar&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">JSON.stringify(obj);      // &#x27;&quot;bar&quot;&#x27;</span><br><span class="line">JSON.stringify(&#123;x: obj&#125;); // &#x27;&#123;&quot;x&quot;:&quot;bar&quot;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="inject-provide-响应式"><a href="#inject-provide-响应式" class="headerlink" title="inject provide 响应式"></a>inject provide 响应式</h2><p>provide使用函数可以实现响应式，看起来不像是能响应的样子。。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父</span></span><br><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">ceshiObj1</span>: &#123;</span><br><span class="line">      <span class="attr">a</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="title function_">provide</span> () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">getInfo</span>: <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="property">ceshiObj1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">  <span class="title function_">testInject</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ceshiObj1</span>.<span class="property">a</span>++</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子</span></span><br><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">  <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">getInfo</span>().<span class="property">a</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="defer和async"><a href="#defer和async" class="headerlink" title="defer和async"></a>defer和async</h2><p>js的执行都会阻塞html parsing</p>
+<p><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/bVWhRl.png" alt="wfL82.png"></p>
+<h2 id="bind函数的参数"><a href="#bind函数的参数" class="headerlink" title="bind函数的参数"></a>bind函数的参数</h2><p>直接看代码吧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function resolve(res) &#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bindHandle(...rest) &#123;</span><br><span class="line">  console.log(rest);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const after = bindHandle.bind(null, resolve, &quot;promise&quot;)</span><br><span class="line"></span><br><span class="line">after(&quot;res&quot;,&quot;res2&quot;)</span><br><span class="line"></span><br><span class="line">[ [Function: resolve], &#x27;promise&#x27;, &#x27;res&#x27;, &#x27;res2&#x27; ]</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="tag"># 问题记录</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E9%9D%A2%E8%AF%95/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/" rel="prev" title="需要掌握的概念">
+                  <i class="fa fa-angle-left"></i> 需要掌握的概念
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/git/" rel="next" title="git 简记">
+                  git 简记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

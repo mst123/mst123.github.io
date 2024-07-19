@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简单记录工具的本地化，可以跳过 测试工具 Chrome DevTools  开发调试、性能评测 Lighthouse  网站整体质量评估 WebPackTest 多测试地点、全面性能报告 地址 主要是三个指标，waterfall 、first view、repeat view    lighthouse 使用 可以使用npm 全局安装  1234npm install -g lighthouseL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.性能调试工具">
+<meta property="og:url" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="简单记录工具的本地化，可以跳过 测试工具 Chrome DevTools  开发调试、性能评测 Lighthouse  网站整体质量评估 WebPackTest 多测试地点、全面性能报告 地址 主要是三个指标，waterfall 、first view、repeat view    lighthouse 使用 可以使用npm 全局安装  1234npm install -g lighthouseL">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-06T09:49:46.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="性能调试工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/","path":"性能优化/性能调试工具/","title":"3.性能调试工具"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3.性能调试工具 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">测试工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lighthouse-%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">lighthouse 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebPageTest%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">WebPageTest本地部署说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mac-%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F"><span class="nav-number">3.1.</span> <span class="nav-text">mac 用户自定义镜像</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3.性能调试工具 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.性能调试工具
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-08 00:00:00" itemprop="dateCreated datePublished" datetime="2021-06-08T00:00:00+08:00">2021-06-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-06 17:49:46" itemprop="dateModified" datetime="2022-05-06T17:49:46+08:00">2022-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>简单记录工具的本地化，可以跳过</p>
+<h3 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h3><ul>
+<li>Chrome DevTools  开发调试、性能评测</li>
+<li>Lighthouse  网站整体质量评估</li>
+<li>WebPackTest 多测试地点、全面性能报告<ul>
+<li><a target="_blank" rel="noopener" href="https://www.webpagetest.org/runtest.php">地址</a></li>
+<li>主要是三个指标，waterfall 、first view、repeat view</li>
+</ul>
+</li>
+</ul>
+<h3 id="lighthouse-使用"><a href="#lighthouse-使用" class="headerlink" title="lighthouse 使用"></a>lighthouse 使用</h3><ul>
+<li>可以使用npm 全局安装</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g lighthouse</span><br><span class="line"></span><br><span class="line">Lighthouse http://www.bilibili.com</span><br><span class="line">会生成一个本地测试报告</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>直接用chrome浏览器</li>
+</ul>
+<h3 id="WebPageTest本地部署说明"><a href="#WebPageTest本地部署说明" class="headerlink" title="WebPageTest本地部署说明"></a>WebPageTest本地部署说明</h3><ol>
+<li><p>拉取镜像</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull webpagetest/server</span><br><span class="line"></span><br><span class="line">docker pull webpagetest/agent</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行实例</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 4000:80 --rm webpagetest/server</span><br><span class="line"></span><br><span class="line">docker run -d -p 4001:80 --network=&quot;host&quot; -e &quot;SERVER_URL=http://localhost:4000/work/&quot; -e &quot;LOCATION=Test&quot; webpagetest/agent</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="mac-用户自定义镜像"><a href="#mac-用户自定义镜像" class="headerlink" title="mac 用户自定义镜像"></a>mac 用户自定义镜像</h4><ol>
+<li><p>创建server目录</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir wpt-mac-server</span><br><span class="line">cd wpt-mac-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建Dockerfile，添加内容</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim Dockerfile</span><br><span class="line"></span><br><span class="line">FROM webpagetest/server</span><br><span class="line">ADD locations.ini /var/www/html/settings/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建locations.ini配置文件，添加内容</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vim locations.ini</span><br><span class="line"></span><br><span class="line">[locations]</span><br><span class="line">1=Test_loc</span><br><span class="line">[Test_loc]</span><br><span class="line">1=Test</span><br><span class="line">label=Test Location</span><br><span class="line">group=Desktop</span><br><span class="line">[Test]</span><br><span class="line">browser=Chrome,Firefox</span><br><span class="line">label=&quot;Test Location&quot;</span><br><span class="line">connectivity=LAN</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建自定义server镜像</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t wpt-mac-server .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建agent目录</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir wpt-mac-agent</span><br><span class="line">cd wpt-mac-agent</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建Dockerfile，添加内容</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim Dockerfile</span><br><span class="line"></span><br><span class="line">FROM webpagetest/agent</span><br><span class="line">ADD script.sh /</span><br><span class="line">ENTRYPOINT /script.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建script.sh， 添加内容</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim script.sh</span><br><span class="line"></span><br><span class="line">#!/bin/bash</span><br><span class="line">set -e</span><br><span class="line">if [ -z &quot;$SERVER_URL&quot; ]; then</span><br><span class="line">  echo &gt;&amp;2 &#x27;SERVER_URL not set&#x27;</span><br><span class="line">  exit 1</span><br><span class="line">fi</span><br><span class="line">if [ -z &quot;$LOCATION&quot; ]; then</span><br><span class="line">  echo &gt;&amp;2 &#x27;LOCATION not set&#x27;</span><br><span class="line">  exit 1</span><br><span class="line">fi</span><br><span class="line">EXTRA_ARGS=&quot;&quot;</span><br><span class="line">if [ -n &quot;$NAME&quot; ]; then</span><br><span class="line">  EXTRA_ARGS=&quot;$EXTRA_ARGS --name $NAME&quot;</span><br><span class="line">fi</span><br><span class="line">python /wptagent/wptagent.py --server $SERVER_URL --location $LOCATION $EXTRA_ARGS --xvfb --dockerized -vvvvv --shaper none</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改script.sh权限</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x script.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建自定义agent镜像</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t wpt-mac-agent .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用新镜像运行实例 (注意先停掉之前运行的containers)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ps 查看docker实例 </span><br><span class="line">docker stop 实例id 实例id 即可停止</span><br><span class="line">docker run -d -p 4000:80 --rm wpt-mac-server</span><br><span class="line">docker run -d -p 4001:80 --network=&quot;host&quot; -e &quot;SERVER_URL=http://localhost:4000/work/&quot; -e &quot;LOCATION=Test&quot; wpt-mac-agent</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>m1平台构建有问题 应该是需要 设置–platform 暂时不会</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
+              <a href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/" rel="tag"># 性能调试工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/rail/" rel="prev" title="2.什么是RAIL">
+                  <i class="fa fa-angle-left"></i> 2.什么是RAIL
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/render/" rel="next" title="4.浏览器渲染">
+                  4.浏览器渲染 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

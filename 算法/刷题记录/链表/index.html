@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="206.反转链表 -简单迭代方法使用迭代方法，我可以做出来，但是不太完美，代码不够精简 自己的代码12345678910111213141516var reverseList &#x3D; function(head) &#123;    if(!head)&#123; &#x2F;&#x2F; 这个判断多余了        return head    &#125;    let prev &#x3D; null &#x2F;&#x2F; 这个利用了哨兵">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetCode刷题记录-链表">
+<meta property="og:url" content="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%93%BE%E8%A1%A8/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="206.反转链表 -简单迭代方法使用迭代方法，我可以做出来，但是不太完美，代码不够精简 自己的代码12345678910111213141516var reverseList &#x3D; function(head) &#123;    if(!head)&#123; &#x2F;&#x2F; 这个判断多余了        return head    &#125;    let prev &#x3D; null &#x2F;&#x2F; 这个利用了哨兵">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839879.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112840006.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839982.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839935.png">
+<meta property="article:published_time" content="2024-07-13T06:58:01.000Z">
+<meta property="article:modified_time" content="2024-07-13T06:58:01.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="链表">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839879.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%93%BE%E8%A1%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%93%BE%E8%A1%A8/","path":"算法/刷题记录/链表/","title":"leetCode刷题记录-链表"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>leetCode刷题记录-链表 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8-%E7%AE%80%E5%8D%95"><span class="nav-number">1.</span> <span class="nav-text">206.反转链表 -简单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">迭代方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">自己的代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%A7%80%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">优秀代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">递归方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">自己的代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%A7%80%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">优秀代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%8F%82%E6%95%B0%E9%80%92%E5%BD%92-%E9%9C%80%E8%A6%81%E9%87%8D%E7%82%B9%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">单参数递归-&#x3D;&#x3D;需要重点理解&#x3D;&#x3D;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%87%8D%E7%82%B9%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">重点理解</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8E%9F%E6%96%87%E5%A6%82%E4%B8%8B"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">原文如下</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">总结一下</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#92-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82-%E5%9B%B0%E9%9A%BE"><span class="nav-number">2.</span> <span class="nav-text">92.反转链表2 困难</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81-2"><span class="nav-number">2.1.</span> <span class="nav-text">自己的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%A7%80%E4%BB%A3%E7%A0%81-2"><span class="nav-number">2.2.</span> <span class="nav-text">优秀代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#234-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">234.如何判断回文链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81-3"><span class="nav-number">3.1.</span> <span class="nav-text">自己的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88"><span class="nav-number">3.2.</span> <span class="nav-text">双指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8-2"><span class="nav-number">4.</span> <span class="nav-text">142.环形链表 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8hash%E5%8F%AF%E4%BB%A5%E5%BE%88%E6%96%B9%E4%BE%BF%E7%9A%84%E8%A7%A3%E5%86%B3"><span class="nav-number">4.1.</span> <span class="nav-text">利用hash可以很方便的解决</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88"><span class="nav-number">4.2.</span> <span class="nav-text">利用快慢指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%E5%8F%AF%E8%A1%8C%E6%80%A7%E6%8E%A8%E5%AF%BC"><span class="nav-number">4.3.</span> <span class="nav-text">快慢指针可行性推导</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%91%E6%8C%87offer-II-023"><span class="nav-number">5.</span> <span class="nav-text">剑指offer II 023</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="leetCode刷题记录-链表 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetCode刷题记录-链表
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-13 14:58:01" itemprop="dateCreated datePublished" datetime="2024-07-13T14:58:01+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">刷题记录</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="206-反转链表-简单"><a href="#206-反转链表-简单" class="headerlink" title="206.反转链表 -简单"></a>206.反转链表 -简单</h3><h4 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h4><p>使用迭代方法，我可以做出来，但是不太完美，代码不够精简</p>
+<h5 id="自己的代码"><a href="#自己的代码" class="headerlink" title="自己的代码"></a>自己的代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var reverseList = function(head) &#123;</span><br><span class="line">    if(!head)&#123; // 这个判断多余了</span><br><span class="line">        return head</span><br><span class="line">    &#125;</span><br><span class="line">    let prev = null // 这个利用了哨兵，简化了判断</span><br><span class="line">    while(head)&#123; // 判断条件很重要</span><br><span class="line">        const next = head.next</span><br><span class="line">        head.next = prev</span><br><span class="line">        if(!next)&#123;</span><br><span class="line">            return head</span><br><span class="line">        &#125;</span><br><span class="line">        prev = head</span><br><span class="line">        head = next</span><br><span class="line">    &#125;</span><br><span class="line">    return head // return pre 就不用判断next了</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优秀代码"><a href="#优秀代码" class="headerlink" title="优秀代码"></a>优秀代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var reverseList = function (head) &#123;</span><br><span class="line">    var pre = null, cur = head, next;</span><br><span class="line">    while (cur) &#123; // 用cur取代head 迭代过程更加清晰</span><br><span class="line">      next = cur.next;</span><br><span class="line">      cur.next = pre;</span><br><span class="line">      </span><br><span class="line">      pre = cur;</span><br><span class="line">      cur = next;</span><br><span class="line">    &#125;</span><br><span class="line">    return pre;</span><br><span class="line">  &#125;; </span><br></pre></td></tr></table></figure>
+
+<p>少了两步判断，注意细节</p>
+<h4 id="递归方法"><a href="#递归方法" class="headerlink" title="递归方法"></a>递归方法</h4><h5 id="自己的代码-1"><a href="#自己的代码-1" class="headerlink" title="自己的代码"></a>自己的代码</h5><p>条件重复了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var reverseList = function(head) &#123;</span><br><span class="line">    if(!head)&#123; // 这个其实和下边的条件重复了</span><br><span class="line">        return head</span><br><span class="line">    &#125;</span><br><span class="line">    return df(null, head)</span><br><span class="line">    function df(prev, cur)&#123;</span><br><span class="line">        if(!cur)&#123;</span><br><span class="line">            return prev</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            const next = cur.next</span><br><span class="line">            cur.next = prev</span><br><span class="line">            return df(cur, next)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优秀代码-1"><a href="#优秀代码-1" class="headerlink" title="优秀代码"></a>优秀代码</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var reverseList = function (head) &#123;</span><br><span class="line">  function df(pre, cur) &#123;</span><br><span class="line">    if (cur === null) &#123;</span><br><span class="line">      return pre;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      var temp = cur.next;</span><br><span class="line">      cur.next = pre;</span><br><span class="line">      return df(cur, temp);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return df(null, head);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="单参数递归-需要重点理解"><a href="#单参数递归-需要重点理解" class="headerlink" title="单参数递归-&#x3D;&#x3D;需要重点理解&#x3D;&#x3D;"></a>单参数递归-&#x3D;&#x3D;需要重点理解&#x3D;&#x3D;</h5><p>可以被称为前置递归，而上边那种可以叫做后置递归</p>
+<p>这种递归处理 从尾部开始处理，一步步向头部靠近，不太容易理解，需要重点关注</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var reverseList = function (head) &#123;</span><br><span class="line"> function df(head) &#123;</span><br><span class="line">    if (!head || head.next === null) &#123;</span><br><span class="line">      return head;</span><br><span class="line">    &#125;</span><br><span class="line">    const last = df(head.next)</span><br><span class="line">    head.next.next = head</span><br><span class="line">    head.next = null</span><br><span class="line">    return last</span><br><span class="line">  &#125;</span><br><span class="line">  return df(head);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个算法常常拿来显示递归的巧妙和优美</p>
+</blockquote>
+<h6 id="重点理解"><a href="#重点理解" class="headerlink" title="重点理解"></a>重点理解</h6><p>这个方法很难理解，一篇文章写的很好<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484467&idx=1&sn=beb3ae89993b812eeaa6bbdeda63c494&chksm=9bd7fa3baca0732dc3f9ae9202ecaf5c925b4048514eeca6ac81bc340930a82fc62bb67681fa&scene=21#wechat_redirect">labuladong</a>，在这里摘抄一部分重要的内容</p>
+<h6 id="原文如下"><a href="#原文如下" class="headerlink" title="原文如下"></a>原文如下</h6><p>这个算法可能很多读者都听说过，这里详细介绍一下，先直接看实现代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ListNode reverse(ListNode head) &#123;</span><br><span class="line">    if (head.next == null) return head;</span><br><span class="line">    ListNode last = reverse(head.next);</span><br><span class="line">    head.next.next = head;</span><br><span class="line">    head.next = null;</span><br><span class="line">    return last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看起来是不是感觉不知所云，完全不能理解这样为什么能够反转链表？这就对了，这个算法常常拿来显示递归的巧妙和优美，我们下面来详细解释一下这段代码。</p>
+<p>**&#x3D;&#x3D;对于递归算法，最重要的就是明确递归函数的定义&#x3D;&#x3D;**。</p>
+<p>除原文之外，还有几个容易遗漏而且比较<strong>重要的点</strong></p>
+<ul>
+<li><strong>last的指向一直未变</strong></li>
+<li><strong>函数的截止条件和只有一个listNode的情况一样</strong>（也许这也是递归的魅力吧）</li>
+<li><strong>head的指向由于是栈结构，所以前置运行的时候head是倒着的</strong></li>
+<li><strong>前置递归能不能看成是一种倒叙迭代呢？，利用栈的特效进行倒叙操作</strong></li>
+</ul>
+<p>具体来说，我们的<code>reverse</code>函数定义是这样的：</p>
+<p><strong>输入一个节点<code>head</code>，将「以<code>head</code>为起点」的链表反转，并返回反转之后的头结点</strong>。</p>
+<p>明白了函数的定义，再来看这个问题。比如说我们想反转这个链表：</p>
+<p><img src="/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839879.png" alt="图片"></p>
+<p>那么输入<code>reverse(head)</code>后，会在这里进行递归：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ListNode last = reverse(head.next);</span><br></pre></td></tr></table></figure>
+
+<p>不要跳进递归（你的脑袋能压几个栈呀？），而是要根据刚才的函数定义，来弄清楚这段代码会产生什么结果：</p>
+<p><img src="/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112840006.png" alt="图片"></p>
+<p>按照定义，这个<code>reverse(head.next)</code>执行完成后，整个链表应该变成了这样：</p>
+<p><img src="/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640.png" alt="图片"></p>
+<p>并且根据函数定义，<code>reverse</code>函数会返回反转之后的头结点，我们用变量<code>last</code>接收了。</p>
+<p>现在再来看下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head.next.next = head;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839982.png" alt="图片"></p>
+<p>接下来进行的操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head.next = null;</span><br><span class="line">return last;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/_posts/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/assets/%E9%93%BE%E8%A1%A8/640-20211019112839935.png" alt="图片"></p>
+<p>神不神奇，这样整个链表就反转过来了！递归代码就是这么简洁优雅，不过其中有两个地方需要注意：</p>
+<p><strong>1、递归函数要有 base case</strong>，也就是这句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (head.next == null) return head;</span><br></pre></td></tr></table></figure>
+
+<p>意思是如果链表只有一个节点的时候反转也是它自己，直接返回即可。</p>
+<p><strong>2、当链表递归反转之后，新的头节点是<code>last</code>，而之前的<code>head</code>变成了最后一个节点，别忘了链表的末尾要指向 null：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head.next = null;</span><br></pre></td></tr></table></figure>
+
+<h6 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h6><p>虽然按照他的说法，代码理解起来确实简单了一些，但是怎么把代码写出来是个问题。</p>
+<p>针对过程做一个代码示意</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">// 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;null</span><br><span class="line">var reverseList = function (head) &#123;</span><br><span class="line"> function df(head) &#123;</span><br><span class="line">    if (!head || head.next === null) &#123;</span><br><span class="line">      return head;</span><br><span class="line">    &#125;</span><br><span class="line">    const last = df(head.next)</span><br><span class="line">    head.next.next = head</span><br><span class="line">    head.next = null</span><br><span class="line">    return last</span><br><span class="line">  &#125;</span><br><span class="line">  return df(head);</span><br><span class="line">&#125;;</span><br><span class="line">// 模拟代码运行步骤</span><br><span class="line">df(1)</span><br><span class="line">df(2)</span><br><span class="line">df(3)</span><br><span class="line">df(4)</span><br><span class="line">df(5) // 满足条件 开始return 开始运行df函数后面的代码</span><br><span class="line">// 第一次执行df后代码</span><br><span class="line">// last 5</span><br><span class="line">// head 4-&gt;5-&gt;null </span><br><span class="line">head.next.next = head // 5-&gt;4 </span><br><span class="line">head.next = null // 4-&gt;null</span><br><span class="line">// 执行完成后</span><br><span class="line">// last 5-&gt;4-&gt;null</span><br><span class="line">return last </span><br><span class="line"></span><br><span class="line">// 第二次执行</span><br><span class="line">// last 5-&gt;4-&gt;null</span><br><span class="line">// head 3-&gt;4</span><br><span class="line">head.next.next = head // 4-&gt;3</span><br><span class="line">head.next = null // 3-&gt;null</span><br><span class="line">// 执行完成后</span><br><span class="line">// last 5-&gt;4-&gt;3-&gt;null</span><br><span class="line">return last</span><br><span class="line"></span><br><span class="line">// 第三次执行</span><br><span class="line">// last 5-&gt;4-&gt;3-&gt;null</span><br><span class="line">// head 2-&gt;3</span><br><span class="line">head.next.next = head // 3-&gt;2</span><br><span class="line">head.next = null // 2-&gt;null</span><br><span class="line">// 执行完成后</span><br><span class="line">// last 5-&gt;4-&gt;3-&gt;2-&gt;null</span><br><span class="line">return last</span><br><span class="line"></span><br><span class="line">// 第四次执行</span><br><span class="line">// last 5-&gt;4-&gt;3-&gt;2-&gt;null</span><br><span class="line">// head 1-&gt;2</span><br><span class="line">head.next.next = head // 2-&gt;1</span><br><span class="line">head.next = null // 1-&gt;null</span><br><span class="line">// 执行完成后</span><br><span class="line">// last 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;null</span><br><span class="line">return last</span><br><span class="line">// 整体结束</span><br></pre></td></tr></table></figure>
+
+<h3 id="92-反转链表2-困难"><a href="#92-反转链表2-困难" class="headerlink" title="92.反转链表2 困难"></a>92.反转链表2 困难</h3><p>官方头穿法容易理解，labuladong 公众号文章 较难理解</p>
+<h4 id="自己的代码-2"><a href="#自己的代码-2" class="headerlink" title="自己的代码"></a>自己的代码</h4><p>虽然头穿法理解起来容易，但是写起来需要仔细和不断试错，还需要照顾边界情况</p>
+<p>代码中需要注意一下几点</p>
+<ul>
+<li>使用了哨兵，方便left为1的情况，使用了哨兵，返回的时候需要注意处理</li>
+<li>cur情况不同 赋值的方式也不同</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var reverseBetween = function(head, left, right) &#123;</span><br><span class="line">    const dmNode = new ListNode(-1, head)</span><br><span class="line">    let cur = dmNode</span><br><span class="line">    let pre = null</span><br><span class="line">    let leftNode = null</span><br><span class="line">    let index = 0</span><br><span class="line">    while(cur)&#123;</span><br><span class="line">      if(index === right+1)&#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      if(index===left-1)&#123;</span><br><span class="line">        leftNode = cur</span><br><span class="line">        pre = cur.next</span><br><span class="line"></span><br><span class="line">        cur = cur.next</span><br><span class="line">      &#125;else if(index &gt; left)&#123;</span><br><span class="line">        const leftNodeNext = leftNode.next</span><br><span class="line">        pre.next = cur.next</span><br><span class="line">        leftNode.next = cur</span><br><span class="line">        cur.next = leftNodeNext</span><br><span class="line">        cur = pre.next</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        cur = cur.next</span><br><span class="line">      &#125;</span><br><span class="line">      index++</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">    return dmNode.next</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优秀代码-2"><a href="#优秀代码-2" class="headerlink" title="优秀代码"></a>优秀代码</h4><p>官方代码 采取的分断式处理-for循环分段，逻辑较为清晰，ye</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var reverseBetween = function(head, left, right) &#123;</span><br><span class="line">    // 设置 dummyNode 是这一类问题的一般做法</span><br><span class="line">    const dummy_node = new ListNode(-1);</span><br><span class="line">    dummy_node.next = head;</span><br><span class="line">    let pre = dummy_node;</span><br><span class="line">    for (let i = 0; i &lt; left - 1; ++i) &#123;</span><br><span class="line">        pre = pre.next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    let cur = pre.next;</span><br><span class="line">    for (let i = 0; i &lt; right - left; ++i) &#123;</span><br><span class="line">        const next = cur.next;</span><br><span class="line">        cur.next = next.next;</span><br><span class="line">        next.next = pre.next;</span><br><span class="line">        pre.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">    return dummy_node.next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">作者：LeetCode-Solution</span><br><span class="line">链接：https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/fan-zhuan-lian-biao-ii-by-leetcode-solut-teyq/</span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<h3 id="234-如何判断回文链表"><a href="#234-如何判断回文链表" class="headerlink" title="234.如何判断回文链表"></a>234.如何判断回文链表</h3><h4 id="自己的代码-3"><a href="#自己的代码-3" class="headerlink" title="自己的代码"></a>自己的代码</h4><p>缺点无法提前结束</p>
+<p>时间 空间都是O n</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var isPalindrome = function (head) &#123;</span><br><span class="line">  let left = right = head;</span><br><span class="line">  let flag = true</span><br><span class="line">  function df(head)&#123;</span><br><span class="line">    if(!head)&#123;</span><br><span class="line">      return head</span><br><span class="line">    &#125;</span><br><span class="line">    df(head.next)</span><br><span class="line">    if(head.val !== left.val)&#123;</span><br><span class="line">      flag = false</span><br><span class="line">      return </span><br><span class="line">    &#125;</span><br><span class="line">    left = left.next</span><br><span class="line">  &#125;</span><br><span class="line">  df(right)</span><br><span class="line">  return flag</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h4><p>通过双指针判断中间节点，翻转后半段并进行比较</p>
+<p>时间 空间都是O n</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">var isPalindrome = function (head) &#123;</span><br><span class="line"> // 特殊情况</span><br><span class="line">  if(!head || !head.next)&#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  let slow = fast = head;</span><br><span class="line">  while (fast &amp;&amp; fast.next) &#123;</span><br><span class="line">    slow = slow.next</span><br><span class="line">    fast = fast.next.next</span><br><span class="line">  &#125;</span><br><span class="line">  // 区别单双链表</span><br><span class="line">  if (fast !== null) &#123;</span><br><span class="line">    slow = slow.next</span><br><span class="line">  &#125;</span><br><span class="line">  let right = reserve(slow)</span><br><span class="line">  // 注意结束条件 right比较短</span><br><span class="line">  while (right) &#123;</span><br><span class="line">    if (right.val !== head.val) &#123;</span><br><span class="line">      return false</span><br><span class="line">    &#125;</span><br><span class="line">    right = right.next</span><br><span class="line">    head = head.next</span><br><span class="line">  &#125;</span><br><span class="line">  return true</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function reserve(head) &#123;</span><br><span class="line">  if (!head.next) &#123;</span><br><span class="line">    return head</span><br><span class="line">  &#125;</span><br><span class="line">  const newHead = reserve(head.next)</span><br><span class="line">  head.next.next = head</span><br><span class="line">  head.next = null</span><br><span class="line">  return newHead</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="142-环形链表-2"><a href="#142-环形链表-2" class="headerlink" title="142.环形链表 2"></a>142.环形链表 2</h3><h4 id="利用hash可以很方便的解决"><a href="#利用hash可以很方便的解决" class="headerlink" title="利用hash可以很方便的解决"></a>利用hash可以很方便的解决</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var detectCycle = function(head) &#123;</span><br><span class="line">    const set = new Set();</span><br><span class="line">    while(head &amp;&amp; !set.has(head))&#123;</span><br><span class="line">      set.add(head)</span><br><span class="line">      head = head.next</span><br><span class="line">    &#125;</span><br><span class="line">    return head</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里和回文链表不一样，没有比较listNode.val</p>
+</blockquote>
+<h4 id="利用快慢指针"><a href="#利用快慢指针" class="headerlink" title="利用快慢指针"></a>利用快慢指针</h4><p>条件放的位置需要格外注意</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var detectCycle = function(head) &#123;</span><br><span class="line">    let slow = fast = head;</span><br><span class="line">    while(fast &amp;&amp; fast.next)&#123;</span><br><span class="line">      slow = slow.next</span><br><span class="line">      fast = fast.next.next</span><br><span class="line">      // 刚开始位置放错了</span><br><span class="line">      if(slow === fast)&#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!fast || !fast.next)&#123;</span><br><span class="line">      return null</span><br><span class="line">    &#125;</span><br><span class="line">    slow = head</span><br><span class="line">    while(slow !== fast)&#123;</span><br><span class="line">      slow = slow.next</span><br><span class="line">      fast = fast.next</span><br><span class="line">    &#125;</span><br><span class="line">    return slow</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="快慢指针可行性推导"><a href="#快慢指针可行性推导" class="headerlink" title="快慢指针可行性推导"></a>快慢指针可行性推导</h4><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode-solution/">https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode-solution/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解释：为何慢指针第一圈走不完一定会和快指针相遇, 很精彩的推论</span><br><span class="line"> 首先，第一步，快指针先进入环 </span><br><span class="line"> 第二步：当慢指针刚到达环的入口时，快指针此时在环中的某个位置(也可能此时相遇) </span><br><span class="line"> 第三步：设此时快指针和慢指针距离为x，若在第二步相遇，则x = 0； </span><br><span class="line"> 第四步：设环的周长为n，那么看成快指针追赶慢指针，需要追赶n-x； </span><br><span class="line"> 第五步：快指针每次都追赶慢指针1个单位，设慢指针速度1/s，快指针2/s，那么追赶需要(n-x)s </span><br><span class="line"> 第六步：在n-x秒内，慢指针走了n-x单位，因为x&gt;=0，则慢指针走的路程小于等于n，即走不完一圈就和快指针相遇</span><br></pre></td></tr></table></figure>
+
+<h3 id="剑指offer-II-023"><a href="#剑指offer-II-023" class="headerlink" title="剑指offer II 023"></a>剑指offer II 023</h3><p>自己的代码,暴力法 Om*n，这里需要注意一个细节，内层while需要重置条件，可能是for循环用多了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var getIntersectionNode = function(headA, headB) &#123;</span><br><span class="line">    let pA = headA,pB;</span><br><span class="line">    while(pA)&#123;</span><br><span class="line">      pB = headB</span><br><span class="line">      while(pB)&#123;</span><br><span class="line">        if(pB === pA)&#123;</span><br><span class="line">          console.log(pA)</span><br><span class="line">          return pA;</span><br><span class="line">        &#125;</span><br><span class="line">        pB = pB.next</span><br><span class="line">      &#125;</span><br><span class="line">      pA = pA.next</span><br><span class="line">    &#125;</span><br><span class="line">    return null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>官方解法，建议看<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3u1WK4/solution/tu-jie-shuang-zhi-zhen-javascript-by-lzx-i6yo/">题解</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const getIntersectionNode = (A, B) =&gt; &#123;</span><br><span class="line">    let pA = A,</span><br><span class="line">        pB = B;</span><br><span class="line">    while (pA !== pB) &#123;</span><br><span class="line">        pA = pA === null ? B : pA.next;</span><br><span class="line">        pB = pB === null ? A : pB.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return pA;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"># 链表</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E4%BA%8C%E5%88%86%E6%B3%95/" rel="prev" title="leetCode刷题记录-链表">
+                  <i class="fa fa-angle-left"></i> leetCode刷题记录-链表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="next" title="leetCode刷题记录-链表">
+                  leetCode刷题记录-链表 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

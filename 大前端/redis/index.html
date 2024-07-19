@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="相关概念 redis特点 高性能，可持久化 key-value结构，支持多种数据类型 支持事务，数据的原子性  应用场景 缓存（读写性能优异） 计数&amp;消息系统（高并发、发布&#x2F;订阅阻塞队列功能） 分布式回话session&amp;分布式锁（秒杀）  redis vs mongo 储存方式不一样：key-value vs document 使用方式&amp;可靠性不一样： Mongo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis">
+<meta property="og:url" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/redis/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="相关概念 redis特点 高性能，可持久化 key-value结构，支持多种数据类型 支持事务，数据的原子性  应用场景 缓存（读写性能优异） 计数&amp;消息系统（高并发、发布&#x2F;订阅阻塞队列功能） 分布式回话session&amp;分布式锁（秒杀）  redis vs mongo 储存方式不一样：key-value vs document 使用方式&amp;可靠性不一样： Mongo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/redis/image-20210428205046181.png">
+<meta property="article:published_time" content="2021-05-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:13:23.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/redis/image-20210428205046181.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/redis/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/redis/","path":"大前端/redis/","title":"redis"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>redis | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">redis特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-vs-mongo"><span class="nav-number">1.3.</span> <span class="nav-text">redis vs mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8docker-%E5%AE%89%E8%A3%85redis"><span class="nav-number">1.4.</span> <span class="nav-text">使用docker 安装redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-compose%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.1.</span> <span class="nav-text">Docker-compose配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8redis-cli"><span class="nav-number">1.4.2.</span> <span class="nav-text">使用redis-cli</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84redis%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">常用的redis命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E5%A4%87%E4%BB%BD"><span class="nav-number">1.5.</span> <span class="nav-text">redis备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-GUI"><span class="nav-number">1.6.</span> <span class="nav-text">Redis GUI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nodejs-%E9%9B%86%E6%88%90-redis"><span class="nav-number">1.7.</span> <span class="nav-text">Nodejs 集成 redis</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="redis | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          redis
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-25T00:00:00+08:00">2021-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:13:23" itemprop="dateModified" datetime="2024-07-13T13:13:23+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">大前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/redis/image-20210428205046181.png" alt="image-20210428205046181"></p>
+<h3 id="redis特点"><a href="#redis特点" class="headerlink" title="redis特点"></a>redis特点</h3><ul>
+<li>高性能，可持久化</li>
+<li>key-value结构，支持多种数据类型</li>
+<li>支持事务，数据的原子性</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>缓存（读写性能优异）</li>
+<li>计数&amp;消息系统（高并发、发布&#x2F;订阅阻塞队列功能）</li>
+<li>分布式回话session&amp;分布式锁（秒杀）</li>
+</ul>
+<h3 id="redis-vs-mongo"><a href="#redis-vs-mongo" class="headerlink" title="redis vs mongo"></a>redis vs mongo</h3><ul>
+<li>储存方式不一样：key-value vs document</li>
+<li>使用方式&amp;可靠性不一样： MongoDB SQL &amp; ACDI支持</li>
+<li>应用场景不一样：高性能缓存 vs 海量数据分析</li>
+</ul>
+<h3 id="使用docker-安装redis"><a href="#使用docker-安装redis" class="headerlink" title="使用docker 安装redis"></a>使用docker 安装redis</h3><h4 id="Docker-compose配置"><a href="#Docker-compose配置" class="headerlink" title="Docker-compose配置"></a>Docker-compose配置</h4><p>在linux服务器中，新建<code>/home/redistest/docker-compose.yml</code>，并书写以下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot;</span><br><span class="line">services: </span><br><span class="line">  redis-test:</span><br><span class="line">    image: &quot;redis&quot;</span><br><span class="line">    restart: always</span><br><span class="line">    container_name: &quot;redis-test&quot;</span><br><span class="line">    ports: </span><br><span class="line">      - 15001:6379</span><br><span class="line">    volumes: </span><br><span class="line">      - /home/redistest:/data // 持久化</span><br><span class="line">    command: [&quot;redis-server&quot;,&quot;--requirepass&quot;,&quot;123456&quot;] // 设置密码</span><br></pre></td></tr></table></figure>
+
+<p>然后在当前目录运行<code>docker-compose up -d</code> 会自动抓取redis 并运行在15001端口</p>
+<p>然后运行linux端口放行<code>firewall-cmd --zone=public --add-port=15001/tcp --permanent</code></p>
+<h4 id="使用redis-cli"><a href="#使用redis-cli" class="headerlink" title="使用redis-cli"></a>使用redis-cli</h4><p><a target="_blank" rel="noopener" href="http://doc.redisfans.com/">redis命令</a></p>
+<ul>
+<li>进入容器交互终端  <code>docker exec -it redis-test /bin/bash</code></li>
+<li>输入 redis-cli 回车</li>
+<li>输入 auth 123456 &#x2F;&#x2F; 密码登陆</li>
+<li>输出OK表示成功</li>
+</ul>
+<blockquote>
+<p>想从镜像终端中出来，输入exit</p>
+</blockquote>
+<h5 id="常用的redis命令"><a href="#常用的redis命令" class="headerlink" title="常用的redis命令"></a>常用的redis命令</h5><ul>
+<li><p>ping ，如果运行正确 会返回pong</p>
+</li>
+<li><p>quit 断开当前redis 服务</p>
+</li>
+<li><p>auth 123456 &#x2F;&#x2F; 登陆</p>
+</li>
+<li><p>select  number 切换自动数据库，默认有0 - 15</p>
+</li>
+<li><p>设置数据</p>
+<ul>
+<li>set key value 设置键值</li>
+<li>get key 获取键值</li>
+<li>incr 变量自增 例如 set index 0 ；incr inde ；&#x2F;&#x2F; 1 计数器</li>
+<li>decr 递减</li>
+<li>keys 正则 （*所有）查看符合条件的键值</li>
+<li>exists  key  […key] 看键值是否存在 1 存在 0 不存在</li>
+<li>del  key 删除键值 1成功 0失败</li>
+</ul>
+</li>
+<li><p>设置过期时间</p>
+<ul>
+<li>set key value  ‘EX’  seconds</li>
+</ul>
+</li>
+<li><p>Hash</p>
+<ul>
+<li><p>hset obj key value</p>
+</li>
+<li><pre><code>就像给一个对象设置键值对一样 
+hset brian name &quot;brian&quot;
+hset brian age 19
+brian = &#123;
+ name: &quot;brian&quot;,
+  age: 20
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- hgetall obj  返回对象的key value对</span><br><span class="line"></span><br><span class="line">- ```</span><br><span class="line">  hgetall brian</span><br><span class="line">  name</span><br><span class="line">  brian</span><br><span class="line">  age</span><br><span class="line">  19</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>Hmset 设置多对键值对</p>
+</li>
+<li><pre><code>hmset brian name xxx age 19 email ueih@122
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- Hmget 获取多个键值</span><br><span class="line"></span><br><span class="line">- ```</span><br><span class="line">  hmget brian name age</span><br><span class="line">  xxx</span><br><span class="line">  19</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>list list操作</p>
+</li>
+<li><p>pub&#x2F;sub 发布订阅</p>
+</li>
+<li><p>server命令</p>
+<ul>
+<li>client list 可以查看redis-cli连接的哪些redis-client服务 通过idle空闲时间判断当前使用的</li>
+<li>client kill host:port 断开</li>
+<li>flushdb 清空当前数据库的数据</li>
+<li>flushall 清空所有数据库</li>
+</ul>
+</li>
+<li><p>slowlog  slow log是用来记录执行时间的日子系统</p>
+</li>
+</ul>
+<h3 id="redis备份"><a href="#redis备份" class="headerlink" title="redis备份"></a>redis备份</h3><p>save 命令备份（同步任务，会阻塞，使用bgsave） 会生成一个dump.rdb，quit停止服务</p>
+<p>CONFIG get dir 找到数据存在位置，把dump.rdb放入，重启服务就可以了</p>
+<h3 id="Redis-GUI"><a href="#Redis-GUI" class="headerlink" title="Redis GUI"></a>Redis GUI</h3><p>安装一个破解版的redis desktop manage，可以修改语言为中文，通过gui中的终端服务，可以很轻松的使用</p>
+<h3 id="Nodejs-集成-redis"><a href="#Nodejs-集成-redis" class="headerlink" title="Nodejs 集成 redis"></a>Nodejs 集成 redis</h3><p>首先安装redis <code>npm install redis --save</code></p>
+<p>redis配置示例如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import redis from &quot;redis&quot;</span><br><span class="line">const &#123; promisify &#125; = require(&quot;util&quot;);</span><br><span class="line">const options = &#123;</span><br><span class="line">  host: &quot;39.106.100.189&quot;, // 切记不需要写http之类的</span><br><span class="line">  port: 15001,</span><br><span class="line">  password: &quot;123456&quot;,</span><br><span class="line">  detect_buffers: true, // 不转换二进制</span><br><span class="line">  retry_strategy: function(options) &#123; // 重连错误处理</span><br><span class="line">    if (options.error &amp;&amp; options.error.code === &quot;ECONNREFUSED&quot;) &#123;</span><br><span class="line">      // End reconnecting on a specific error and flush all commands with</span><br><span class="line">      // a individual error</span><br><span class="line">      return new Error(&quot;The server refused the connection&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (options.total_retry_time &gt; 1000 * 60 * 60) &#123;</span><br><span class="line">      // End reconnecting after a specific timeout and flush all commands</span><br><span class="line">      // with a individual error</span><br><span class="line">      return new Error(&quot;Retry time exhausted&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (options.attempt &gt; 10) &#123;</span><br><span class="line">      // End reconnecting with built in error</span><br><span class="line">      return undefined;</span><br><span class="line">    &#125;</span><br><span class="line">    // reconnect after</span><br><span class="line">    return Math.min(options.attempt * 100, 3000);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 创建一个redis实例</span><br><span class="line">const client = redis.createClient(options)</span><br><span class="line"></span><br><span class="line">// set方法</span><br><span class="line">const setValue = (key, value) =&gt; &#123;</span><br><span class="line">   return client.set(key, value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 创建promise</span><br><span class="line">const getAsync = promisify(client.get).bind(client);</span><br><span class="line"></span><br><span class="line">// get方法</span><br><span class="line">const getValue = (key) =&gt; &#123;</span><br><span class="line">  return getAsync(key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export &#123;</span><br><span class="line">  client,</span><br><span class="line">  setValue,</span><br><span class="line">  getValue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setValue(&quot;ceshi&quot;, 122333)</span><br><span class="line">getValue(&quot;ceshi&quot;).then(res =&gt; &#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;)</span><br><span class="line">// 122333 成功</span><br></pre></td></tr></table></figure>
+
+<p>get 、set方法生产模式再次封装一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/ set方法</span><br><span class="line">const setValue = (key, value) =&gt; &#123;</span><br><span class="line">  if (typeof value === &quot;undefined&quot; || value == null || value === &quot;&quot;) &#123;</span><br><span class="line">    // == null 包含null 和 undefined</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  if (typeof value === &quot;string&quot;) &#123;</span><br><span class="line">    return client.set(key, value)</span><br><span class="line">  &#125; else if (typeof value === &quot;object&quot;) &#123;</span><br><span class="line">    // 对象层级应该只有能一层，不能多级嵌套</span><br><span class="line">    Object.keys(value).forEach((keyC) =&gt; &#123;</span><br><span class="line">      client.hset(key, keyC, value[keyC], redis.print)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 创建promise</span><br><span class="line">const getAsync = promisify(client.get).bind(client);</span><br><span class="line">// get方法</span><br><span class="line">const getValue = (key) =&gt; &#123;</span><br><span class="line">  return getAsync(key)</span><br><span class="line">&#125;</span><br><span class="line">// hash get方法</span><br><span class="line">const getHValue = (key) =&gt; &#123;</span><br><span class="line">  return promisify(client.hgetall).bind(client)(key)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"># redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/mongoose/" rel="prev" title="MongoDB mongoose 基础用法">
+                  <i class="fa fa-angle-left"></i> MongoDB mongoose 基础用法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/" rel="next" title="css中重要的概念">
+                  css中重要的概念 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读） 数组的遍历方法for 循环 可以响应 break continue, return报错 改变原数组使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显  123for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &#123;  &#125;  for-i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组常用方法">
+<meta property="og:url" content="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读） 数组的遍历方法for 循环 可以响应 break continue, return报错 改变原数组使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显  123for(var j &#x3D; 0,len&#x3D;arr.length; j &lt; len; j++) &#123;  &#125;  for-i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-01T07:59:13.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="Array">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/","path":"数据类型/数组常用方法/","title":"数组常用方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数组常用方法 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">数组的遍历方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.1.</span> <span class="nav-text">for 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-in-%E5%BE%AA%E7%8E%AF-%E4%B8%8D%E5%BB%BA%E8%AE%AE%E7%94%A8%E6%9D%A5%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.</span> <span class="nav-text">for-in 循环(不建议用来遍历数组)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E2%80%A6of%E9%81%8D%E5%8E%86"><span class="nav-number">1.3.</span> <span class="nav-text">for…of遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">数组的实例方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach-%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.4.</span> <span class="nav-text">foreach 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.5.</span> <span class="nav-text">map循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.6.</span> <span class="nav-text">filter循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#every"><span class="nav-number">1.7.</span> <span class="nav-text">every</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some"><span class="nav-number">1.8.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-reduceRight"><span class="nav-number">1.9.</span> <span class="nav-text">reduce.reduceRight</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">数组的操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E5%8E%9F%E5%A7%8B%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">改变原始数组的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E6%94%B9%E5%8F%98%E5%8E%9F%E5%A7%8B%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">不改变原始数组的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">类数组转换为数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">其他方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E4%B8%8D%E4%BC%9A%E6%94%B9%E5%8F%98%E5%8E%9F%E5%A7%8B%E6%95%B0%E7%BB%84"><span class="nav-number">4.1.</span> <span class="nav-text">克隆一个数组(浅拷贝),不会改变原始数组</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数组常用方法 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数组常用方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-29T00:00:00+08:00">2021-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-01 15:59:13" itemprop="dateModified" datetime="2022-04-01T15:59:13+08:00">2022-04-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">数据类型</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最详细、最权威的方法见js高级程序设计 6.2 Array（推荐阅读）</p>
+<h2 id="数组的遍历方法"><a href="#数组的遍历方法" class="headerlink" title="数组的遍历方法"></a>数组的遍历方法</h2><h3 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h3><ul>
+<li>可以响应 break continue, return报错</li>
+<li>改变原数组<br>使用临时变量，将长度缓存起来，避免重复获取数组长度，当数组较大时优化效果才会比较明显</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(var j = 0,len=arr.length; j &lt; len; j++) &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="for-in-循环-不建议用来遍历数组"><a href="#for-in-循环-不建议用来遍历数组" class="headerlink" title="for-in 循环(不建议用来遍历数组)"></a>for-in 循环(不建议用来遍历数组)</h3><ul>
+<li>可以响应 break continue, return报错</li>
+<li>改变原数组</li>
+<li>能遍历到实例的属性或者是原型上的属性(所以不推荐数组使用)<br>for-in循环是为了<strong>遍历对象</strong>而设计的，事实上for-in也能用来遍历数组，但<strong>定义的索引i是字符</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//for-in遍历数组</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;: &quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">//for-in会遍历到数组的可枚举属性</span><br><span class="line">arrTmp.name=&quot;myTest&quot;;</span><br><span class="line">for(var i in arrTmp)&#123;</span><br><span class="line">    console.log(i+&quot;:&quot;+arrTmp[i])</span><br><span class="line">&#125;</span><br><span class="line">//输出 0:value1  1:value2  2:value3  name:myTest</span><br></pre></td></tr></table></figure>
+
+<h3 id="for…of遍历"><a href="#for…of遍历" class="headerlink" title="for…of遍历"></a>for…of遍历</h3><p>(ES6语法，推荐使用) 不能用于遍历对象，详细见[Iterator 和 for…of 循环]</p>
+<ul>
+<li>可以正确响应break、continue和return语句</li>
+<li>改变原始数组</li>
+<li>只能读取<strong>键值</strong>item,如有需要可以使用索引index<ul>
+<li>经典 for循环，foreach，array.entries()，array.keys()</li>
+</ul>
+</li>
+</ul>
+<h4 id="数组的实例方法"><a href="#数组的实例方法" class="headerlink" title="数组的实例方法"></a>数组的实例方法</h4><p>entries()，keys()和 values()，经常和for…of 配合使用</p>
+<p>它们都返回一个遍历器对象，可以用for…of循环进行遍历，<strong>唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">for (let index of [&#x27;a&#x27;, &#x27;b&#x27;].keys()) &#123;</span><br><span class="line">  console.log(index);</span><br><span class="line">&#125;</span><br><span class="line">// 0</span><br><span class="line">// 1</span><br><span class="line"></span><br><span class="line">for (let elem of [&#x27;a&#x27;, &#x27;b&#x27;].values()) &#123;</span><br><span class="line">  console.log(elem);</span><br><span class="line">&#125;</span><br><span class="line">// &#x27;a&#x27;</span><br><span class="line">// &#x27;b&#x27;</span><br><span class="line"></span><br><span class="line">for (let [index, elem] of [&#x27;a&#x27;, &#x27;b&#x27;].entries()) &#123;</span><br><span class="line">  console.log(index, elem);</span><br><span class="line">&#125;</span><br><span class="line">// 0 &quot;a&quot;</span><br><span class="line">// 1 &quot;b&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="foreach-循环"><a href="#foreach-循环" class="headerlink" title="foreach 循环"></a>foreach 循环</h3><ul>
+<li>不响应break、continue和return</li>
+<li>没有返回值</li>
+<li>改变原数组</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach((item,index,array)=&gt;&#123;</span><br><span class="line">  //执行代码</span><br><span class="line">&#125;)</span><br><span class="line">//参数：item数组中的当前项, index当前项的索引, array原始数组；</span><br></pre></td></tr></table></figure>
+
+<h3 id="map循环"><a href="#map循环" class="headerlink" title="map循环"></a>map循环</h3><p>映射，对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。</p>
+<ul>
+<li>不响应break、continue</li>
+<li>返回经过处理的新数组</li>
+<li>不改变原始数组</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var ary = [12,23,24,42,1]; </span><br><span class="line">var res = ary.map(function (item,index,ary ) &#123; </span><br><span class="line">    return item*10; </span><br><span class="line">&#125;) </span><br><span class="line">console.log(res);//--&gt;[120,230,240,420,10];  原数组拷贝了一份，并进行了修改</span><br><span class="line">console.log(ary);//--&gt;[12,23,24,42,1]；  原数组并未发生变化</span><br></pre></td></tr></table></figure>
+
+<h3 id="filter循环"><a href="#filter循环" class="headerlink" title="filter循环"></a>filter循环</h3><p>过滤，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。</p>
+<ul>
+<li>不响应break、continue</li>
+<li>返回经过处理的新数组</li>
+<li>不改变原始数组</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//示例功能，筛选偶数</span><br><span class="line">const arr = [1,2,3,4,5,6,7,8]</span><br><span class="line">const arrHandle1 = arr.filter(item =&gt; &#123;</span><br><span class="line">  if(item%2===0)&#123;</span><br><span class="line">    return item</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">const arrHandle2 = arr.filter(item =&gt; &#123;</span><br><span class="line">  if(item%2===0)&#123;</span><br><span class="line">    return item</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br><span class="line">const arrHandle3 = arr.filter(item =&gt; &#123;</span><br><span class="line">  if(item%2===0)&#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;)</span><br><span class="line">console.log(arrHandle1); [ 2, 4, 6, 8 ]</span><br><span class="line">console.log(arrHandle2); [ 2, 4, 6, 8 ]</span><br><span class="line">console.log(arrHandle3); [ 2, 4, 6, 8 ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="every"><a href="#every" class="headerlink" title="every"></a>every</h3><p>判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true</p>
+<ul>
+<li>不响应break、continue</li>
+<li>不改变原始数组</li>
+<li>返回Boolean</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">var</span> brr = arr.<span class="title function_">every</span>(<span class="function"><span class="params">item</span> =&gt;</span> item%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr) <span class="comment">//[1,2,3,1,6,4,6]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(brr) <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="some"><a href="#some" class="headerlink" title="some"></a>some</h3><p>判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true</p>
+<ul>
+<li>不响应break、continue</li>
+<li>不改变原始数组</li>
+<li>返回Boolean</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">var</span> brr = arr.<span class="title function_">some</span>(<span class="function"><span class="params">item</span> =&gt;</span> item%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr) <span class="comment">//[1,2,3,1,6,4,6]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(brr) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="reduce-reduceRight"><a href="#reduce-reduceRight" class="headerlink" title="reduce.reduceRight"></a>reduce.reduceRight</h3><p>这两个方法都会迭代数 组的所有项，并在此基础上构建一个终返回值</p>
+<h2 id="数组的操作方法"><a href="#数组的操作方法" class="headerlink" title="数组的操作方法"></a>数组的操作方法</h2><h3 id="改变原始数组的方法"><a href="#改变原始数组的方法" class="headerlink" title="改变原始数组的方法"></a>改变原始数组的方法</h3><ul>
+<li>pop(): 删除 array 的最后一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 pop() 不改变数组，并返回 undefined 值。<ul>
+<li>返回它删除的元素的值</li>
+</ul>
+</li>
+<li>push(): 可以接收<strong>任意数量</strong>的参数，把它们逐个添加到数组末尾，并返回修改后数组的长度。<ul>
+<li>返回修改后数组的长度</li>
+</ul>
+</li>
+<li>unshift(): 将参数添加到原数组开头，并返回数组的长度<ul>
+<li>返回修改后数组长度</li>
+</ul>
+</li>
+<li>shift(): 数组的第一个元素从其中删除，并返回第一个元素的值,如果数组是空的，那么 shift() 方法将不进行任何操作，并返回 undefined 值。<ul>
+<li>返回第一个元素的值</li>
+</ul>
+</li>
+<li>reverse(): 用于颠倒数组中元素的顺序。<ul>
+<li>返回原数组</li>
+</ul>
+</li>
+<li>sort(): 排序，默认为升序排列，如果想按照其他标准进行排序，sort()方法是可以传入一个函数，函数通过返回一个值来决定</li>
+<li>splice(): <strong>功能强大</strong>的数组方法，向从数组中添加删除项目，然后返回被删除的项目<ul>
+<li>返回被删除的项目</li>
+<li>语法 <code>arrayObject.splice(index,howmany,item1,.....,itemX)</code><ul>
+<li>index    必需。整数，规定添加&#x2F;删除项目的位置，使用负数可从数组结尾处规定位置。</li>
+<li>howmany  必需。要删除的项目数量。如果设置为 0，则不会删除项目。</li>
+<li>item1, …, itemX    可选。向数组添加的新项目。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/array#%E6%95%B0%E7%BB%84%E5%AE%9E%E4%BE%8B%E7%9A%84-copyWithin">copyWithin()</a>  在当前数组内部，将指定位置的成员复制到其他位置（会覆盖原有成员），然后返回当前数组</li>
+<li><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/array#%E6%95%B0%E7%BB%84%E5%AE%9E%E4%BE%8B%E7%9A%84-fill">fill()</a><ul>
+<li>fill方法使用给定值，填充一个数组,fill方法还可以接受第二个和第三个参数，用于指定填充的起始位置和结束位置</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;].fill(7)</span><br><span class="line">// [7, 7, 7]</span><br><span class="line"></span><br><span class="line">new Array(3).fill(7)</span><br><span class="line">// [7, 7, 7]</span><br><span class="line"></span><br><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;].fill(7, 1, 2)</span><br><span class="line">// [&#x27;a&#x27;, 7, &#x27;c&#x27;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="不改变原始数组的方法"><a href="#不改变原始数组的方法" class="headerlink" title="不改变原始数组的方法"></a>不改变原始数组的方法</h3><p>&#x2F;&#x2F; TODO</p>
+<ul>
+<li>join</li>
+<li>toLocalString</li>
+<li>toString</li>
+<li>valueOf</li>
+<li>slice</li>
+<li>cancat</li>
+<li>indexOf</li>
+<li>lastIndexOf</li>
+<li>includes</li>
+<li>flat</li>
+<li>flatMap</li>
+<li>find</li>
+<li>findIndex</li>
+</ul>
+<h2 id="类数组转换为数组"><a href="#类数组转换为数组" class="headerlink" title="类数组转换为数组"></a>类数组转换为数组</h2><p>直接上代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arrayLike = &#123;0: &#x27;name&#x27;, 1: &#x27;age&#x27;, 2: &#x27;sex&#x27;, length: 3 &#125;</span><br><span class="line">// 1. slice</span><br><span class="line">Array.prototype.slice.call(arrayLike); // [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span><br><span class="line">// 2. splice</span><br><span class="line">Array.prototype.splice.call(arrayLike, 0); // [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span><br><span class="line">// 3. ES6 Array.from</span><br><span class="line">Array.from(arrayLike); // [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span><br><span class="line">// 4. apply</span><br><span class="line">Array.prototype.concat.apply([], arrayLike)</span><br></pre></td></tr></table></figure>
+
+<p>如果是有iterator接口的类数组，还可以用扩展运算符进行转换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...<span class="title class_">NodeList</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h2><blockquote>
+<p>数组的方法详细见js高程第四版6.2 Array</p>
+</blockquote>
+<h3 id="克隆一个数组-浅拷贝-不会改变原始数组"><a href="#克隆一个数组-浅拷贝-不会改变原始数组" class="headerlink" title="克隆一个数组(浅拷贝),不会改变原始数组"></a>克隆一个数组(浅拷贝),不会改变原始数组</h3><ul>
+<li>concat()<ul>
+<li><code>array.concat()</code></li>
+</ul>
+</li>
+<li>slice() 另一个常用方法:<code>Array.prototype.slice.call(arguments,0?)</code>能将具有length属性的对象转成数组,功能类似于<code>Array.from()</code><ul>
+<li><code>array.slice(0?)</code></li>
+</ul>
+</li>
+<li>Array.from() 将两类对象转为真正的数组：类似数组的对象（array-like object 有length属性就可以）和可遍历（iterable）的对象（包括 ES6 新增的数据结构 Set 和 Map）</li>
+<li>扩展运算符 …<ul>
+<li><code>[...array]</code></li>
+</ul>
+</li>
+<li>Object.assign()<ul>
+<li><code>Object.assign([],arr)</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">b</span>: <span class="number">1</span> &#125;,&#123; <span class="attr">c</span>: <span class="number">1</span> &#125;,&#123; <span class="attr">d</span>: <span class="number">1</span> &#125;,&#123; <span class="attr">e</span>: <span class="number">1</span> &#125;]</span><br><span class="line"><span class="keyword">let</span> brr = arr.<span class="title function_">concat</span>([])</span><br><span class="line">brr[<span class="number">0</span>].<span class="property">b</span> = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> crr = arr.<span class="title function_">slice</span>()</span><br><span class="line">crr[<span class="number">1</span>].<span class="property">c</span> = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> drr = [...arr]</span><br><span class="line">drr[<span class="number">2</span>].<span class="property">d</span> = <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> err = <span class="title class_">Object</span>.<span class="title function_">assign</span>([],arr)</span><br><span class="line">err[<span class="number">3</span>].<span class="property">e</span> = <span class="number">2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(brr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(crr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(drr) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(err) <span class="comment">//[&#123; b: 2 &#125;,&#123; c: 2 &#125;,&#123; d: 2 &#125;,&#123; e: 2 &#125;]</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Array/" rel="tag"># Array</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" rel="prev" title="数字常用方法">
+                  <i class="fa fa-angle-left"></i> 数字常用方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/" rel="next" title="腾讯企鹅辅导 H5 性能极致优化案例">
+                  腾讯企鹅辅导 H5 性能极致优化案例 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

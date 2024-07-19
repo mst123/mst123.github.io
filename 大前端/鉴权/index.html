@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="转载于知乎 背景说起鉴权大家应该都很熟悉，不过作为前端开发来讲，鉴权的流程大头都在后端小哥那边，本文的目的就是为了让大家了解一下常见的鉴权的方式和原理。 认知：HTTP 是一个无状态协议，所以客户端每次发出请求时，下一次请求无法得知上一次请求所包含的状态数据。 一、HTTP Auth Authentication简介HTTP 提供一个用于权限控制和认证的通用框架。最常用的HTTP认证方案是HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鉴权的几种方式介绍对比">
+<meta property="og:url" content="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%89%B4%E6%9D%83/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="转载于知乎 背景说起鉴权大家应该都很熟悉，不过作为前端开发来讲，鉴权的流程大头都在后端小哥那边，本文的目的就是为了让大家了解一下常见的鉴权的方式和原理。 认知：HTTP 是一个无状态协议，所以客户端每次发出请求时，下一次请求无法得知上一次请求所包含的状态数据。 一、HTTP Auth Authentication简介HTTP 提供一个用于权限控制和认证的通用框架。最常用的HTTP认证方案是HTTP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/https:/pic2.zhimg.com/v2-b80f9dfb7ec08c42b4563246d8d137d5_180x120.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040902.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040907.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040904.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040905.jpg">
+<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040906.jpg">
+<meta property="article:published_time" content="2021-05-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T05:13:22.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="鉴权">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%89%B4%E6%9D%83/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%89%B4%E6%9D%83/","path":"大前端/鉴权/","title":"鉴权的几种方式介绍对比"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>鉴权的几种方式介绍对比 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81HTTP-Auth-Authentication"><span class="nav-number">2.</span> <span class="nav-text">一、HTTP Auth Authentication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%89%B4%E6%9D%83%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">鉴权流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">加解密过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-HTTP-%E8%AE%A4%E8%AF%81"><span class="nav-number">2.4.</span> <span class="nav-text">其他 HTTP 认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Cookie-Session"><span class="nav-number">3.</span> <span class="nav-text">二、Cookie + Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">注册流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%89%B4%E6%9D%83%E6%B5%81%E7%A8%8B-1"><span class="nav-number">3.2.</span> <span class="nav-text">鉴权流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-%E5%AD%98%E5%82%A8"><span class="nav-number">3.3.</span> <span class="nav-text">Session 存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-Refresh"><span class="nav-number">3.4.</span> <span class="nav-text">Session Refresh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%AE%BE%E5%A4%87%E7%99%BB%E5%BD%95"><span class="nav-number">3.5.</span> <span class="nav-text">单设备登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81JWT"><span class="nav-number">4.</span> <span class="nav-text">三、JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="nav-number">4.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT-%E7%BB%84%E6%88%90"><span class="nav-number">4.2.</span> <span class="nav-text">JWT 组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">4.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%89%B4%E6%9D%83%E6%B5%81%E7%A8%8B-2"><span class="nav-number">4.4.</span> <span class="nav-text">鉴权流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token-%E6%A0%A1%E9%AA%8C"><span class="nav-number">4.5.</span> <span class="nav-text">Token 校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token-Refresh"><span class="nav-number">4.6.</span> <span class="nav-text">Token Refresh</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81OAuth"><span class="nav-number">5.</span> <span class="nav-text">四、OAuth</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RFC-6749"><span class="nav-number">5.1.</span> <span class="nav-text">RFC 6749</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%8E%88%E6%9D%83%E6%96%B9%E5%BC%8F%EF%BC%9A%E6%8E%88%E6%9D%83%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">第一种授权方式：授权码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A%E9%9A%90%E8%97%8F%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">第二种方式：隐藏式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%AF%86%E7%A0%81%E5%BC%8F"><span class="nav-number">5.4.</span> <span class="nav-text">第三种方式：密码式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%87%AD%E8%AF%81%E5%BC%8F"><span class="nav-number">5.5.</span> <span class="nav-text">第四种方式：凭证式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A4%E7%89%8C%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.6.</span> <span class="nav-text">令牌的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BB%A4%E7%89%8C"><span class="nav-number">5.7.</span> <span class="nav-text">更新令牌</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">6.</span> <span class="nav-text">五、总结对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-Auth-Authentication"><span class="nav-number">6.0.1.</span> <span class="nav-text">HTTP Auth Authentication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie-Session"><span class="nav-number">6.0.2.</span> <span class="nav-text">Cookie + Session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JWT"><span class="nav-number">6.0.3.</span> <span class="nav-text">JWT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OAuth"><span class="nav-number">6.0.4.</span> <span class="nav-text">OAuth</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/%E9%89%B4%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="鉴权的几种方式介绍对比 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          鉴权的几种方式介绍对比
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-30 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-30T00:00:00+08:00">2021-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 13:13:22" itemprop="dateModified" datetime="2024-07-13T13:13:22+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">大前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>转载于<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271768645">知乎</a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>说起鉴权大家应该都很熟悉，不过作为前端开发来讲，鉴权的流程大头都在后端小哥那边，本文的目的就是为了让大家了解一下常见的鉴权的方式和原理。</p>
+<p>认知：HTTP 是一个无状态协议，所以客户端每次发出请求时，下一次请求无法得知上一次请求所包含的状态数据。</p>
+<h2 id="一、HTTP-Auth-Authentication"><a href="#一、HTTP-Auth-Authentication" class="headerlink" title="一、HTTP Auth Authentication"></a>一、HTTP Auth Authentication</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>HTTP 提供一个用于权限控制和认证的通用框架。最常用的HTTP认证方案是HTTP Basic Authentication</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-71336270489a1f46abaacd308d8d9fde_720w.jpg" alt="img"></p>
+<h3 id="鉴权流程"><a href="#鉴权流程" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-b957b0802ac5bd9cab96e3a4594147b5_720w.jpg" alt="img"></p>
+<h3 id="加解密过程"><a href="#加解密过程" class="headerlink" title="加解密过程"></a>加解密过程</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Authorization 加密过程</span></span><br><span class="line"><span class="keyword">let</span> email = <span class="string">&quot;postmail@test.com&quot;</span></span><br><span class="line"><span class="keyword">let</span> password = <span class="string">&quot;12345678&quot;</span></span><br><span class="line"><span class="keyword">let</span> auth = <span class="string">`<span class="subst">$&#123;email&#125;</span>:<span class="subst">$&#123;password&#125;</span>`</span></span><br><span class="line"><span class="keyword">const</span> buf = <span class="title class_">Buffer</span>.<span class="title function_">from</span>(auth, <span class="string">&#x27;ascii&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">info</span>(buf.<span class="title function_">toString</span>(<span class="string">&#x27;base64&#x27;</span>)); <span class="comment">// cG9zdG1haWxAdGVzdC5jb206MTIzNDU2Nzg=</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Authorization 解密过程</span></span><br><span class="line"><span class="keyword">const</span> buf = <span class="title class_">Buffer</span>.<span class="title function_">from</span>(authorization.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>] || <span class="string">&#x27;&#x27;</span>),  <span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> user = buf.<span class="title function_">toString</span>(<span class="string">&#x27;ascii&#x27;</span>).<span class="title function_">split</span>(<span class="string">&#x27;:&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他-HTTP-认证"><a href="#其他-HTTP-认证" class="headerlink" title="其他 HTTP 认证"></a>其他 HTTP 认证</h3><p>通用 HTTP 身份验证框架有多个验证方案使用。不同的验证方案会在安全强度上有所不同。</p>
+<p>IANA 维护了<a href="https://link.zhihu.com/?target=http://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml">一系列的验证方案</a>，除此之外还有其他类型的验证方案由虚拟主机服务提供，例如 Amazon AWS ，常见的验证方案包括：</p>
+<ul>
+<li>Basic (查看 <a href="https://link.zhihu.com/?target=https://tools.ietf.org/html/rfc7617">RFC 7617</a>, Base64 编码凭证. 详情请参阅下文.),</li>
+<li>Bearer (查看 <a href="https://link.zhihu.com/?target=https://tools.ietf.org/html/rfc6750">RFC 6750</a>, bearer 令牌通过OAuth 2.0保护资源),</li>
+<li>Digest (查看 <a href="https://link.zhihu.com/?target=https://tools.ietf.org/html/rfc6750">RFC 7616</a>, 只有 md5 散列 在Firefox中支持, 查看 <a href="https://link.zhihu.com/?target=https://bugzilla.mozilla.org/show_bug.cgi?id=472823">bug 472823</a> 用于SHA加密支持),</li>
+<li>HOBA (查看 <a href="https://link.zhihu.com/?target=https://tools.ietf.org/html/rfc7486">RFC 7486</a> (草案), HTTP Origin-Bound 认证, 基于数字签名),</li>
+<li>Mutual (查看 <a href="https://link.zhihu.com/?target=https://tools.ietf.org/html/draft-ietf-httpauth-mutual-11">draft-ietf-httpauth-mutual</a>),</li>
+<li>AWS4-HMAC-SHA256 (查看 <a href="https://link.zhihu.com/?target=http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html">AWS docs</a>)</li>
+</ul>
+<h2 id="二、Cookie-Session"><a href="#二、Cookie-Session" class="headerlink" title="二、Cookie + Session"></a>二、Cookie + Session</h2><h3 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h3><p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-63251d6ab5fb9daa53fd70eb7c75c873_720w.jpg" alt="img"></p>
+<p><a href="https://link.zhihu.com/?target=https://www.cnblogs.com/apolloren/p/11985083.html">思考：为什么要在密码里加点“盐”？</a></p>
+<h3 id="鉴权流程-1"><a href="#鉴权流程-1" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-8dda0c46d5fdd8e08ad79ffa7f7e8174_720w.jpg" alt="img"></p>
+<h3 id="Session-存储"><a href="#Session-存储" class="headerlink" title="Session 存储"></a>Session 存储</h3><p>最常用的 Session 存储方式是 KV 存储，如Redis，在分布式、API 支持、性能方面都是比较好的，除此之外还有 mysql、file 存储。</p>
+<p>如果服务是分布式的，使用 file 存储，多个服务间存在同步 session 的问题；高并发情况下错误读写锁的控制。</p>
+<h3 id="Session-Refresh"><a href="#Session-Refresh" class="headerlink" title="Session Refresh"></a>Session Refresh</h3><p>我们上面提到的流程中，缺少 Session 的刷新的环节，我们不能在用户登录之后经过一个 expires 时间就把用户踢出去，如果在 Session 有效期间用户一直在操作，这时候 expires 时间就应该刷新。</p>
+<p>以 Koa 为例，刷新 Session 的机制也比较简单： 开发一个 middleware（默认情况下所有请求都会经过该 middleware），如果校验 Session 有效，就更新 Session 的 expires: 当前时间+过期时间。</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-4d4fa3b83c1e6275d1fa3a7f1731d8da_720w.jpg" alt="img"></p>
+<p><strong>优化：</strong></p>
+<ol>
+<li>频繁更新 session 会影响性能，可以在 session 快过期的时候再更新过期时间。</li>
+<li>如果某个用户一直在操作，同一个 sessionID 可能会长期有效，如果相关 cookie 泄露，可能导致比较大的风险，可以在生成 sessionID 的同时生成一个 refreshID，在 sessionID 过期之后使用 refreshID 请求服务端生成新的 sessionID（这个方案需要前端判断 sessionID 失效，并携带 refreshID 发请求)。</li>
+</ol>
+<h3 id="单设备登录"><a href="#单设备登录" class="headerlink" title="单设备登录"></a>单设备登录</h3><p>有些情况下，只允许一个帐号在一个端下登录，如果换了一个端，需要把之前登录的端踢下线（默认情况下，同一个帐号可以在不同的端下同时登录的）。</p>
+<p>这时候可以借助一个服务保存用户唯一标识和 sessionId 值的对应关系，如果同一个用户，但 sessionId 不一样，则不允许登录或者把之前的踢下线(删除旧 session )。</p>
+<h2 id="三、JWT"><a href="#三、JWT" class="headerlink" title="三、JWT"></a>三、JWT</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>JSON Web Token (JWT)是一个开放标准(RFC 7519)，它定义了一种紧凑的、自包含的方式，用于作为JSON对象在各方之间安全地传输信息。该信息可以被验证和信任，因为它是数字签名的。</p>
+<h3 id="JWT-组成"><a href="#JWT-组成" class="headerlink" title="JWT 组成"></a>JWT 组成</h3><p>JWT 由三部分组成，分别是 header(头部)，payload(载荷)，signature(签证) 这三部分以小数点连接起来。</p>
+<p>例如使用名为 jwt-token 的cookie来存储 JWT 例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jwt-token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibHVzaGlqaWUiLCJpYXQiOjE1MzI1OTUyNTUsImV4cCI6MTUzMjU5NTI3MH0.WZ9_poToN9llFFUfkswcpTljRDjF4JfZcmqYS0JcKO8;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>.</code>分割值可以得到三部分组成元素，按照顺序分别为：</p>
+<ul>
+<li><p><code>header</code>：</p>
+<ul>
+<li><ul>
+<li>值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</li>
+</ul>
+</li>
+<li>Base64 解码: <code>&#123;&quot;alg&quot;: &quot;HS256&quot;, &quot;type&quot;: &quot;JWT&quot;&#125;</code></li>
+</ul>
+</li>
+<li><p><code>payload</code>：</p>
+<ul>
+<li><ul>
+<li>值：eyJuYW1lIjoibHVzaGlqaWUiLCJpYXQiOjE1MzI1OTUyNTUsImV4cCI6MTUzMjU5NTI3MH0</li>
+</ul>
+</li>
+<li>Base64 解码：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;       </span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;lushijie&quot;</span>,        </span><br><span class="line">    <span class="string">&quot;iat&quot;</span>: <span class="number">1532595255</span>, <span class="comment">// 发布时间       </span></span><br><span class="line">    <span class="string">&quot;exp&quot;</span>: <span class="number">1532595270</span> <span class="comment">// 过期时间     </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>signature</code>：</p>
+<ul>
+<li><ul>
+<li>值：WZ9_poToN9llFFUfkswcpTljRDjF4JfZcmqYS0JcKO8</li>
+</ul>
+</li>
+<li>解码：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> headerEncode = <span class="title function_">base64Encode</span>(header);     </span><br><span class="line"><span class="keyword">const</span> payloadEncode = <span class="title function_">base64Encode</span>(payload);     </span><br><span class="line"><span class="keyword">let</span> signature = <span class="title class_">HMACSHA256</span>(headerEncode + <span class="string">&#x27;.&#x27;</span> + payloadEncode, <span class="string">&#x27;密钥&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>防CSRF（主要是伪造请求，带上cookie）</li>
+<li>适合移动应用 app</li>
+</ul>
+<h3 id="鉴权流程-2"><a href="#鉴权流程-2" class="headerlink" title="鉴权流程"></a>鉴权流程</h3><p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/v2-470f68419e3a414cbbfb7cc4162c2e12_720w.jpg" alt="img"></p>
+<h3 id="Token-校验"><a href="#Token-校验" class="headerlink" title="Token 校验"></a>Token 校验</h3><p>对于验证一个 JWT 是否有效也是比较简单的，服务端根据前面介绍的计算方法计算出 signature，和要校验的JWT中的 signature 部分进行对比就可以了，如果 signature 部分相等则是一个有效的 JWT。</p>
+<h3 id="Token-Refresh"><a href="#Token-Refresh" class="headerlink" title="Token Refresh"></a>Token Refresh</h3><p>为了减少 JWT Token 泄露风险，一般有效期会设置的比较短。 这样就会存在 JWT Token 过期的情况，我们不可能让用户频繁去登录获取新的 JWT Token。</p>
+<p><strong>解决方案：</strong></p>
+<p>可以同时生成 JWT Token 与 Refresh Token，其中 Refresh Roken 的有效时间长于 JWT Token，这样当 JWT Token 过期之后，使用 Refresh Token 获取新的 JWT Token 与 Refresh Token，<strong>其中 Refresh Token 只能使用一次</strong>。</p>
+<h2 id="四、OAuth"><a href="#四、OAuth" class="headerlink" title="四、OAuth"></a>四、OAuth</h2><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/04/oauth_design.html">阮一峰通俗介绍OAuth</a></p>
+<p><a href="https://link.zhihu.com/?target=http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html">OAuth 2.0 的四种方式 - 阮一峰的网络日志www.ruanyifeng.com<img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/https:/pic2.zhimg.com/v2-b80f9dfb7ec08c42b4563246d8d137d5_180x120.jpg" alt="图标"></a></p>
+<p>下面是转载，防止链接失效</p>
+<h3 id="RFC-6749"><a href="#RFC-6749" class="headerlink" title="RFC 6749"></a>RFC 6749</h3><p>OAuth 2.0 的标准是 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6749">RFC 6749</a> 文件。该文件先解释了 OAuth 是什么。</p>
+<p>OAuth 引入了一个授权层，用来分离两种不同的角色：客户端和资源所有者。……资源所有者同意以后，资源服务器可以向客户端颁发令牌。客户端通过令牌，去请求数据。</p>
+<p>这段话的意思就是，<strong>OAuth 的核心就是向第三方应用颁发令牌。</strong>然后，RFC 6749 接着写道：</p>
+<p>（由于互联网有多种场景，）本标准定义了获得令牌的四种授权方式（authorization grant ）。</p>
+<p>也就是说，<strong>OAuth 2.0 规定了四种获得令牌的流程。你可以选择最适合自己的那一种，向第三方应用颁发令牌。</strong>下面就是这四种授权方式。</p>
+<ul>
+<li>授权码（authorization-code）</li>
+<li>隐藏式（implicit）</li>
+<li>密码式（password）：</li>
+<li>客户端凭证（client credentials）</li>
+</ul>
+<p>注意，不管哪一种授权方式，第三方应用申请令牌之前，都必须先到系统备案，说明自己的身份，然后会拿到两个身份识别码：客户端 ID（client ID）和客户端密钥（client secret）。这是为了防止令牌被滥用，没有备案过的第三方应用，是不会拿到令牌的。</p>
+<h3 id="第一种授权方式：授权码"><a href="#第一种授权方式：授权码" class="headerlink" title="第一种授权方式：授权码"></a>第一种授权方式：授权码</h3><p><strong>授权码（authorization code）方式，指的是第三方应用先申请一个授权码，然后再用该码获取令牌。</strong></p>
+<p>这种方式是最常用的流程，安全性也最高，它适用于那些有后端的 Web 应用。授权码通过前端传送，令牌则是储存在后端，而且所有与资源服务器的通信都在后端完成。这样的前后端分离，可以避免令牌泄漏。</p>
+<p>第一步，A 网站提供一个链接，用户点击后就会跳转到 B 网站，授权用户数据给 A 网站使用。下面就是 A 网站跳转 B 网站的一个示意链接。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/authorize?</span></span><br><span class="line">response_type=code&amp;</span><br><span class="line">client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">redirect_uri=<span class="variable constant_">CALLBACK_URL</span>&amp;</span><br><span class="line">scope=read</span><br></pre></td></tr></table></figure>
+
+
+<p>上面 URL 中，<code>response_type</code>参数表示要求返回授权码（<code>code</code>），<code>client_id</code>参数让 B 知道是谁在请求，<code>redirect_uri</code>参数是 B 接受或拒绝请求后的跳转网址，<code>scope</code>参数表示要求的授权范围（这里是只读）。</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040902.jpg" alt="img"></p>
+<p>第二步，用户跳转后，B 网站会要求用户登录，然后询问是否同意给予 A 网站授权。用户表示同意，这时 B 网站就会跳回<code>redirect_uri</code>参数指定的网址。跳转时，会传回一个授权码，就像下面这样。&#96;&#96;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//a.com/callback?code=AUTHORIZATION_CODE</span></span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>code</code>参数就是授权码。</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040907.jpg" alt="img"></p>
+<p>第三步，A 网站拿到授权码以后，就可以在后端，向 B 网站请求令牌。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/token?</span></span><br><span class="line"> client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line"> client_secret=<span class="variable constant_">CLIENT_SECRET</span>&amp;</span><br><span class="line"> grant_type=authorization_code&amp;</span><br><span class="line"> code=<span class="variable constant_">AUTHORIZATION_CODE</span>&amp;</span><br><span class="line"> redirect_uri=<span class="variable constant_">CALLBACK_URL</span></span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>client_id</code>参数和<code>client_secret</code>参数用来让 B 确认 A 的身份（<code>client_secret</code>参数是保密的，因此只能在后端发请求），<code>grant_type</code>参数的值是<code>AUTHORIZATION_CODE</code>，表示采用的授权方式是授权码，<code>code</code>参数是上一步拿到的授权码，<code>redirect_uri</code>参数是令牌颁发后的回调网址。</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040904.jpg" alt="img"></p>
+<p>第四步，B 网站收到请求以后，就会颁发令牌。具体做法是向<code>redirect_uri</code>指定的网址，发送一段 JSON 数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">  <span class="string">&quot;access_token&quot;</span>:<span class="string">&quot;ACCESS_TOKEN&quot;</span>,</span><br><span class="line">  <span class="string">&quot;token_type&quot;</span>:<span class="string">&quot;bearer&quot;</span>,</span><br><span class="line">  <span class="string">&quot;expires_in&quot;</span>:<span class="number">2592000</span>,</span><br><span class="line">  <span class="string">&quot;refresh_token&quot;</span>:<span class="string">&quot;REFRESH_TOKEN&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scope&quot;</span>:<span class="string">&quot;read&quot;</span>,</span><br><span class="line">  <span class="string">&quot;uid&quot;</span>:<span class="number">100101</span>,</span><br><span class="line">  <span class="string">&quot;info&quot;</span>:&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面 JSON 数据中，<code>access_token</code>字段就是令牌，A 网站在后端拿到了。</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040905.jpg" alt="img"></p>
+<h3 id="第二种方式：隐藏式"><a href="#第二种方式：隐藏式" class="headerlink" title="第二种方式：隐藏式"></a>第二种方式：隐藏式</h3><p>有些 Web 应用是纯前端应用，没有后端。这时就不能用上面的方式了，必须将令牌储存在前端。<strong>RFC 6749 就规定了第二种方式，允许直接向前端颁发令牌。这种方式没有授权码这个中间步骤，所以称为（授权码）”隐藏式”（implicit）。</strong></p>
+<p>第一步，A 网站提供一个链接，要求用户跳转到 B 网站，授权用户数据给 A 网站使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/authorize?</span></span><br><span class="line">  response_type=token&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">  redirect_uri=<span class="variable constant_">CALLBACK_URL</span>&amp;</span><br><span class="line">  scope=read</span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>response_type</code>参数为<code>token</code>，表示要求直接返回令牌。</p>
+<p>第二步，用户跳转到 B 网站，登录后同意给予 A 网站授权。这时，B 网站就会跳回<code>redirect_uri</code>参数指定的跳转网址，并且把令牌作为 URL 参数，传给 A 网站。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//a.com/callback#token=ACCESS_TOKEN</span></span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>token</code>参数就是令牌，A 网站因此直接在前端拿到令牌。</p>
+<p>注意，令牌的位置是 URL 锚点（fragment），而不是查询字符串（querystring），这是因为 OAuth 2.0 允许跳转网址是 HTTP 协议，因此存在”中间人攻击”的风险，而浏览器跳转时，锚点不会发到服务器，就减少了泄漏令牌的风险。</p>
+<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/%E9%89%B4%E6%9D%83/bg2019040906.jpg" alt="img"></p>
+<p>这种方式把令牌直接传给前端，是很不安全的。因此，只能用于一些安全要求不高的场景，并且令牌的有效期必须非常短，通常就是会话期间（session）有效，浏览器关掉，令牌就失效了。</p>
+<h3 id="第三种方式：密码式"><a href="#第三种方式：密码式" class="headerlink" title="第三种方式：密码式"></a>第三种方式：密码式</h3><p><strong>如果你高度信任某个应用，RFC 6749 也允许用户把用户名和密码，直接告诉该应用。该应用就使用你的密码，申请令牌，这种方式称为”密码式”（password）。</strong></p>
+<p>第一步，A 网站要求用户提供 B 网站的用户名和密码。拿到以后，A 就直接向 B 请求令牌。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//oauth.b.com/token?</span></span><br><span class="line">  grant_type=password&amp;</span><br><span class="line">  username=<span class="variable constant_">USERNAME</span>&amp;</span><br><span class="line">  password=<span class="variable constant_">PASSWORD</span>&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span></span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>grant_type</code>参数是授权方式，这里的<code>password</code>表示”密码式”，<code>username</code>和<code>password</code>是 B 的用户名和密码。</p>
+<p>第二步，B 网站验证身份通过后，直接给出令牌。注意，这时不需要跳转，而是把令牌放在 JSON 数据里面，作为 HTTP 回应，A 因此拿到令牌。</p>
+<p>这种方式需要用户给出自己的用户名&#x2F;密码，显然风险很大，因此只适用于其他授权方式都无法采用的情况，而且必须是用户高度信任的应用。</p>
+<h3 id="第四种方式：凭证式"><a href="#第四种方式：凭证式" class="headerlink" title="第四种方式：凭证式"></a>第四种方式：凭证式</h3><p><strong>最后一种方式是凭证式（client credentials），适用于没有前端的命令行应用，即在命令行下请求令牌。</strong></p>
+<p>第一步，A 应用在命令行向 B 发出请求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//oauth.b.com/token?</span></span><br><span class="line">  grant_type=client_credentials&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">  client_secret=<span class="variable constant_">CLIENT_SECRET</span></span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>grant_type</code>参数等于<code>client_credentials</code>表示采用凭证式，<code>client_id</code>和<code>client_secret</code>用来让 B 确认 A 的身份。</p>
+<p>第二步，B 网站验证通过以后，直接返回令牌。</p>
+<p>这种方式给出的令牌，是针对第三方应用的，而不是针对用户的，即有可能多个用户共享同一个令牌。</p>
+<h3 id="令牌的使用"><a href="#令牌的使用" class="headerlink" title="令牌的使用"></a>令牌的使用</h3><p>A 网站拿到令牌以后，就可以向 B 网站的 API 请求数据了。</p>
+<p>此时，每个发到 API 的请求，都必须带有令牌。具体做法是在请求的头信息，加上一个<code>Authorization</code>字段，令牌就放在这个字段里面。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -H <span class="string">&quot;Authorization: Bearer ACCESS_TOKEN&quot;</span> \</span><br><span class="line"><span class="string">&quot;https://api.b.com&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面命令中，<code>ACCESS_TOKEN</code>就是拿到的令牌。</p>
+<h3 id="更新令牌"><a href="#更新令牌" class="headerlink" title="更新令牌"></a>更新令牌</h3><p>令牌的有效期到了，如果让用户重新走一遍上面的流程，再申请一个新的令牌，很可能体验不好，而且也没有必要。OAuth 2.0 允许用户自动更新令牌。</p>
+<p>具体方法是，B 网站颁发令牌的时候，一次性颁发两个令牌，一个用于获取数据，另一个用于获取新的令牌（refresh token 字段）。令牌到期前，用户使用 refresh token 发一个请求，去更新令牌。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/token?</span></span><br><span class="line">  grant_type=refresh_token&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">  client_secret=<span class="variable constant_">CLIENT_SECRET</span>&amp;</span><br><span class="line">  refresh_token=<span class="variable constant_">REFRESH_TOKEN</span></span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 中，<code>grant_type</code>参数为<code>refresh_token</code>表示要求更新令牌，<code>client_id</code>参数和<code>client_secret</code>参数用于确认身份，<code>refresh_token</code>参数就是用于更新令牌的令牌。</p>
+<p>B 网站验证通过以后，就会颁发新的令牌。</p>
+<p>写到这里，颁发令牌的四种方式就介绍完了。<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/04/github-oauth.html">下一篇文章</a>会编写一个真实的 Demo，演示如何通过 OAuth 2.0 向 GitHub 的 API 申请令牌，然后再用令牌获取数据。</p>
+<p><a href="https://link.zhihu.com/?target=https://blog.csdn.net/maxchenBug/article/details/88791514">https://link.zhihu.com/?target=https%3A//blog.csdn.net/maxchenBug/article/details/88791514</a>)</p>
+<h2 id="五、总结对比"><a href="#五、总结对比" class="headerlink" title="五、总结对比"></a>五、总结对比</h2><p>没有最好，只有最合适！！！</p>
+<h4 id="HTTP-Auth-Authentication"><a href="#HTTP-Auth-Authentication" class="headerlink" title="HTTP Auth Authentication"></a>HTTP Auth Authentication</h4><ul>
+<li><p>梳理总结：</p>
+<ul>
+<li>通用 HTTP 身份验证框架有多个验证方案使用。不同的验证方案会在安全强度上有所不同。HTTP Auth Authentication 是最常用的 HTTP认证方案，为了减少泄露风险一般要求 HTTPS 协议。</li>
+</ul>
+</li>
+<li><p>适用场景</p>
+<ul>
+<li>一般多被用在内部安全性要求不高的的系统上，如路由器网页管理接口</li>
+</ul>
+</li>
+<li><p>问题：</p>
+<ul>
+<li>请求上携带验证信息，容易被嗅探到</li>
+<li>无法注销</li>
+</ul>
+</li>
+<li></li>
+</ul>
+<h4 id="Cookie-Session"><a href="#Cookie-Session" class="headerlink" title="Cookie + Session"></a>Cookie + Session</h4><ul>
+<li><p>梳理总结：</p>
+<ul>
+<li>服务端存储 session ，客户端存储 cookie，其中 cookie 保存的为 sessionID</li>
+<li>可以灵活 revoke(撤销) 权限，更新信息后可以方便的同步 session 中相应内容</li>
+<li>分布式 session 一般使用 redis(或其他KV) 存储</li>
+</ul>
+</li>
+<li><p>使用场景：</p>
+<ul>
+<li>适合传统系统独立鉴权</li>
+</ul>
+</li>
+</ul>
+<h4 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h4><ul>
+<li><p>梳理总结：</p>
+<ul>
+<li>服务器不再需要存储 session，服务器认证鉴权业务可以方便扩展</li>
+<li>JWT 并不依赖 cookie（防范CSRF），也可以使用 header 传递</li>
+<li>为减少盗用(中间人)，要使用 HTTPS 协议传输</li>
+</ul>
+</li>
+<li><p>适用场景：</p>
+<ul>
+<li>适合做简单的 RESTful API 认证</li>
+<li>适合一次性验证，例如注册激活链接</li>
+</ul>
+</li>
+<li><p>问题：</p>
+<ul>
+<li>使用过程中无法废弃某个 token，有效期内 token 一直有效</li>
+<li>payload 信息更新时，已下发的 token 无法同步</li>
+</ul>
+</li>
+</ul>
+<h4 id="OAuth"><a href="#OAuth" class="headerlink" title="OAuth"></a>OAuth</h4><ul>
+<li><p>梳理总结：</p>
+<ul>
+<li>OAuth是一个开放标准，允许用户授权第三方应用访问他们存储在另外的服务提供者上的信息，而不需要将用户名和密码提供给第三方移动应用或分享他们数据的所有内容。</li>
+<li>GitHub OAuth 文档 <a href="https://link.zhihu.com/?target=https://docs.github.com/en/free-pro-team@latest/developers/apps/identifying-and-authorizing-users-for-github-apps">Identifying and authorizing users for GitHub Apps</a></li>
+</ul>
+</li>
+<li><p>适用场景：OAuth 分为下面四种模式</p>
+<ul>
+<li>简化模式，不安全，适用于纯静态页面应用</li>
+<li>授权码模式，功能最完整、流程最严密的授权模式，通常使用在公网的开放平台中</li>
+<li>密码模式，一般在内部系统中使用，调用者是以用户为单位。</li>
+<li>客户端模式，一般在内部系统之间的 API 调用。两个平台之间调用，以平台为单位。</li>
+</ul>
+</li>
+</ul>
+<p>转载于<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271768645">知乎</a></p>
+<p><strong>延伸阅读</strong></p>
+<p><a href="https://link.zhihu.com/?target=https://blog.csdn.net/Faker_Wang/article/details/80877654">单点登录注销_Faker_Wang的博客-CSDN博客blog.csdn.net</a></p>
+<p>[《手机扫码登录内网怎么实现的？》blog.csdn.net](</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%89%B4%E6%9D%83/" rel="tag"># 鉴权</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/CSS/css%E4%B8%AD%E7%9A%84%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5/" rel="prev" title="css中重要的概念">
+                  <i class="fa fa-angle-left"></i> css中重要的概念
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E5%9F%BA%E7%A1%80%E8%B0%83%E8%AF%95/" rel="next" title="1.基本调试">
+                  1.基本调试 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

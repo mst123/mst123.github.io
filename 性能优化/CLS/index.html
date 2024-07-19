@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CLSCumulative Layout Shift 累积布局偏移 最常见的影响CLS的分数的有：  未指定尺寸的图片  未指定尺寸的广告、嵌入元素、iframe  动态插入内容  自定义字体（引发FOIT&#x2F;FOUT）  在更新DOM之前等待网络响应的操作   未指定尺寸的图片总而言之：在  和  标签上始终加上 width 和 height 属性。或者，使用 CSS aspect ra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能指标">
+<meta property="og:url" content="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="CLSCumulative Layout Shift 累积布局偏移 最常见的影响CLS的分数的有：  未指定尺寸的图片  未指定尺寸的广告、嵌入元素、iframe  动态插入内容  自定义字体（引发FOIT&#x2F;FOUT）  在更新DOM之前等待网络响应的操作   未指定尺寸的图片总而言之：在  和  标签上始终加上 width 和 height 属性。或者，使用 CSS aspect ra">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-03-05T06:12:25.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="CLS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/","path":"性能优化/CLS/","title":"性能指标"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>性能指标 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CLS"><span class="nav-number">1.</span> <span class="nav-text">CLS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%8C%87%E5%AE%9A%E5%B0%BA%E5%AF%B8%E7%9A%84%E5%9B%BE%E7%89%87"><span class="nav-number">1.1.</span> <span class="nav-text">未指定尺寸的图片</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="性能指标 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          性能指标
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-20 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-20T00:00:00+08:00">2021-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-05 14:12:25" itemprop="dateModified" datetime="2022-03-05T14:12:25+08:00">2022-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="CLS"><a href="#CLS" class="headerlink" title="CLS"></a>CLS</h2><p>Cumulative Layout Shift 累积布局偏移</p>
+<p>最常见的影响CLS的分数的有：</p>
+<ul>
+<li><p>未指定尺寸的图片</p>
+</li>
+<li><p>未指定尺寸的广告、嵌入元素、iframe</p>
+</li>
+<li><p>动态插入内容</p>
+</li>
+<li><p>自定义字体（引发FOIT&#x2F;FOUT）</p>
+</li>
+<li><p>在更新DOM之前等待网络响应的操作</p>
+</li>
+</ul>
+<h3 id="未指定尺寸的图片"><a href="#未指定尺寸的图片" class="headerlink" title="未指定尺寸的图片"></a>未指定尺寸的图片</h3><p>总而言之：在 <img> 和 <video> 标签上始终加上 width 和 height 属性。或者，使用 CSS aspect ratio boxes 来占据空间。这种方法可以确保在图片加载过程中，浏览器可以分配足够的空间。</p>
+<p>历史<br>在web的早期，开发者会给 <img> 标签加上 width 和 height 属性，以确保浏览器开始获取图片之前可以分配好空间，这样可以减少 reflow 和 re-layout。</p>
+<p>你也许会注意到这两个属性没有带单位。这些像素尺寸会确保保留640 * 360的区域。图片最终会平铺在这个区域，不管原始尺寸是否一致。</p>
+<p>当响应式设计来临的时候，开发者开始忽略 width 和 height，开始使用css来调整图片大小。</p>
+<p>这种方法的缺点是，只有图片下载的时候，浏览器才知道图片的宽高并且分配好空间。图片下载完了，每张图片出现在屏幕上的时候，页面都会 reflow 一次，会导致页面频繁的往下弹。这对于用户体验来说非常不友好。</p>
+<p>因此而诞生了 aspect ratio。aspect ratio 是图片的宽高比。比如，x:y的宽高比，指的是宽度x单位，高度y单位。</p>
+<p>这也意味着只要我们知道宽高之一，就能计算出另一个属性。对于一个16:9的宽高比而言:</p>
+<p>如果图片有360px的高度，则宽度为 360 x (16 &#x2F; 9) &#x3D; 640px</p>
+<p>如果图片有640px的宽度，则高度为 640 x (9 &#x2F; 16) &#x3D; 360px</p>
+<p>现代浏览器最佳体验<br>现代浏览器可以基于 width 和 height 属性设定默认宽高比，这样就能避免布局偏移。开发者只需要如下设置:</p>
+<p>这样一来，图片加载之前，浏览器就可以根据宽高属性分配好空间。图片加载之后，就可以根据宽度或者高度属性，按照宽高比来分配实际空间。</p>
+<p>图片的 aspect-ratio 属性在chrome和firefox上已经可以使用了，safari也快支持了。</p>
+<p>如果图片位于容器内，可以设置宽度为容器宽度，高度为auto，避免高度被固定位360px。</p>
+<p>响应式图片<br>在使用响应式图片的时候，srcset 定义了图片可以供浏览器选择的尺寸。为了确保图片 width 和 height 可以被设置，每张图片的宽高比必须一致。</p>
+<p>有时候我们希望展示图片的剪切部分，比如长图的中间正方形区域，为了视觉好看。</p>
+<p>这样一来图片宽高比就不一致了，浏览器可能更需要针对每一个资源设置特定宽高比。但目前还没有好的解决方案，re-layout 依然存在。</p>
+<p>未指定尺寸的广告、嵌入元素、iframe<br>广告<br>广告是造成布局偏移的罪魁祸首之一。经常性，这些广告会有动态尺寸，这样会导致糟糕的用户体验，当你在往下浏览页面的时候，广告突然插入一些可见内容。</p>
+<p>在广告的生命周期里，很多点可以导致布局偏移:</p>
+<p>广告容器插入到dom的时候</p>
+<p>本站代码调整广告容器尺寸的时候</p>
+<p>广告代码库加载的时候（导致容器尺寸改变）</p>
+<p>广告内容填充容器的时候（如果最终广告的尺寸不一样，导致容器尺寸变化）</p>
+<p>好消息是网站可以采用最佳体验，来减少布局偏移。</p>
+<p>为广告位静态保留空间。</p>
+<p>换句话说，在广告代码库加载之前，就给容器加好样式。</p>
+<p>如果要在内容流中插入广告，在插入之前确保通过保留尺寸来消除布局偏移。如果这些广告在屏幕外加载，则没有这个问题。</p>
+<p>在视图顶部插入非粘性广告的时候要特别注意。</p>
+<p>避免折叠预留的空间，如果广告没有返回，可以在该空间展示占位符。</p>
+<p>通过预留广告所需最大尺寸，来避免布局偏移。</p>
+<p>这很有效，不过如果广告很小，可能会有大片空白。</p>
+<p>根据历史数据，给广告加上合适的尺寸。</p>
+<p>如果广告不太可能填满，一些网站会发现在初始的时候折叠广告位可以减少布局偏移。很难做到每一次都能给广告位精准的尺寸，除非这个广告是你自己提供的。</p>
+<p>为广告位静态保留空间<br>给广告容器设置固定的样式，避免代码库加载的时候，重新调整广告的尺寸。</p>
+<p>要额外注意一下小尺寸的广告，如果预留很大的空间，会导致大片空白。</p>
+<p>避免在视图顶部插入广告<br>根据CLS的计算规则，在顶部插入广告比在中间插入，造成的影响更大。</p>
+<p>嵌入元素和iframe<br>可嵌入的挂件可以允许你在页面上嵌入web内容（例如，youtube视频、谷歌地图、社交媒体的帖子等）。这些嵌入元素可以采用多种形式。</p>
+<p>html fallback，然后js将该fallback转换成嵌入元素</p>
+<p>内联html代码块</p>
+<p>iframe嵌入</p>
+<p>这些嵌入通常不会事先知道嵌入的大小（例如，社交媒体帖子，是否包含图片？视频？或者多行文本？）。结果就是提供嵌入元素的平台经常无法保证预留足够的空间，导致布局偏移。</p>
+<p>为了应对这种情况，你可以通过提前计算嵌入元素的足够空间，以最小化CLS。以下工作流可以参考:</p>
+<p>使用开发者工具检查最终嵌入的高度</p>
+<p>一旦嵌入元素加载，iframe容器根据内容重新调整尺寸。</p>
+<p>记下尺寸，并相应设置嵌入元素占位符的样式。你可能还会用到媒体查询来考虑不同的因素。</p>
+<p>动态内容<br>总而言之，避免在已存在的内容上方插入新内容，除非为了响应用户交互。这样可以保证任何布局偏移都是可预期的。</p>
+<p>你可能经常会遇到从顶部或者底部弹出的一些内容。这经常发生在banner或者表单的地方，让页面的剩余内容产生偏移。</p>
+<p>“注册即可领取会员大礼包!”</p>
+<p>“最近发表的文章”</p>
+<p>“安装我们的APP”</p>
+<p>“我们还在接受订单”</p>
+<p>“GDPR提示，是否允许使用cookie”</p>
+<p>如果你需要展示以上的UI内容，请提前预留好空间，避免产生布局偏移。</p>
+<p>自定义字体（引发FOIT&#x2F;FOUT）<br>下载并渲染自定义字体会引发布局偏移，通过以下两种方式:</p>
+<p>fallback字体切换到新字体（FOUT - flash of unstyled text）</p>
+<p>从不可见变成可见，因为新字体的渲染缘故（FOIT - flash of invisible text）</p>
+<p>以下工具可以帮你最小化影响:</p>
+<p>font-display 属性可以让你修改自定义字体的渲染表现，通过使用可选值：auto, swap, block, fallback 和 optional。不幸的是，除了 optional 之外的属性都会引发 re-layout，通过以上的其中一种方式。</p>
+<p>Font Loading API 可以减少获取必要字体的时间。</p>
+<p>Chrome 83版本之后，可以采取以下方案：</p>
+<p>针对关键字体使用 <link rel=preload> ，提高优先级，让字体下载有更高概率赶在fcp之前，这样就能避免布局偏移。</p>
+<link rel=preload> 和 font-display: optional 结合使用。
+
+<p>动画<br>总而言之，优先考虑 transform，而非会影响布局改变的属性。</p>
+<p>在更新DOM之前等待网络响应的操作<br>尽可能的在网络请求时，给一个loading，或者占位符提示，避免用户在这段时间内进行操作。</p>
+<p>开发者工具<br>可以使用lighthouse和performce检测CLS。</p>
+<p>总结</p>
+<p>图片的尺寸，以及其他嵌入元素的尺寸，最开始就设定好，或者预留足够空间，这样可以有效避免布局偏移。</p>
+<p>利用图片宽高比的属性，可以在优化CLS的同时，做响应式布局。</p>
+<p>尽可能不要往已存在内容上方添加新内容。</p>
+<p>web字体尽可能早的加载，避免产生FOIT和FOUT</p>
+<p>与UI同事配合在交互上避免布局偏移</p>
+<p>参考<br><a target="_blank" rel="noopener" href="https://web.dev/optimize-cls/">https://web.dev/optimize-cls/</a> </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CLS/" rel="tag"># CLS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" rel="prev" title="性能指标">
+                  <i class="fa fa-angle-left"></i> 性能指标
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" rel="next" title="深入执行上下文">
+                  深入执行上下文 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

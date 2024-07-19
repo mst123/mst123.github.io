@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简洁易懂 详细介绍  https加密过程详细介绍，其中用到堆成加密和非对称加密和CA数字证书  用户在浏览器发起HTTPS请求（如 juejin.cn），默认使用服务端的443端口进行连接；  HTTPS需要使用一套CA数字证书，证书内会附带一个公钥Pub，而与之对应的私钥Private保留在服务端不公开；  服务端收到请求，返回配置好的包含公钥Pub的证书给客户端；  客户端收到证书，校验合法性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS加密过程简介">
+<meta property="og:url" content="https://mst123.github.io/%E7%BD%91%E7%BB%9C/https%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="简洁易懂 详细介绍  https加密过程详细介绍，其中用到堆成加密和非对称加密和CA数字证书  用户在浏览器发起HTTPS请求（如 juejin.cn），默认使用服务端的443端口进行连接；  HTTPS需要使用一套CA数字证书，证书内会附带一个公钥Pub，而与之对应的私钥Private保留在服务端不公开；  服务端收到请求，返回配置好的包含公钥Pub的证书给客户端；  客户端收到证书，校验合法性">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-18T03:03:27.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="HTTPS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E7%BD%91%E7%BB%9C/https%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E7%BD%91%E7%BB%9C/https%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B/","path":"网络/https加密过程/","title":"HTTPS加密过程简介"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>HTTPS加密过程简介 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%BD%91%E7%BB%9C/https%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="HTTPS加密过程简介 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTTPS加密过程简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-24 00:00:00" itemprop="dateCreated datePublished" datetime="2021-11-24T00:00:00+08:00">2021-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-18 11:03:27" itemprop="dateModified" datetime="2024-07-18T11:03:27+08:00">2024-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903795776815117">简洁易懂</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904127420432391">详细介绍</a></p>
+<p> https加密过程详细介绍，其中用到堆成加密和非对称加密和CA数字证书</p>
+<ul>
+<li><p>用户在浏览器发起HTTPS请求（如 <a target="_blank" rel="noopener" href="https://juejin.cn/user/747323638163768">juejin.cn</a>），默认使用服务端的443端口进行连接；</p>
+</li>
+<li><p>HTTPS需要使用一套<strong>CA数字证书</strong>，证书内会附带一个<strong>公钥Pub</strong>，而与之对应的<strong>私钥Private</strong>保留在服务端不公开；</p>
+</li>
+<li><p>服务端收到请求，返回配置好的包含<strong>公钥Pub</strong>的证书给客户端；</p>
+</li>
+<li><p>客户端收到<strong>证书</strong>，校验合法性，主要包括是否在有效期内、证书的域名与请求的域名是否匹配，上一级证书是否有效（递归判断，直到判断到系统内置或浏览器配置好的根证书），如果不通过，则显示HTTPS警告信息，如果通过则继续；</p>
+</li>
+<li><p>客户端生成一个用于对称加密的<strong>随机Key</strong>，并用证书内的<strong>公钥Pub</strong>进行加密，发送给服务端；</p>
+</li>
+<li><p>服务端收到<strong>随机Key</strong>的密文，使用与<strong>公钥Pub</strong>配对的<strong>私钥Private</strong>进行解密，得到客户端真正想发送的<strong>随机Key</strong>；</p>
+</li>
+<li><p>服务端使用客户端发送过来的<strong>随机Key</strong>对要传输的HTTP数据进行对称加密，将密文返回客户端；</p>
+</li>
+<li><p>客户端使用<strong>随机Key</strong>对称解密密文，得到HTTP数据明文；</p>
+</li>
+<li><p>后续HTTPS请求使用之前交换好的<strong>随机Key</strong>进行对称加解密。</p>
+</li>
+</ul>
+<p>如何保证数字证书的可靠性？</p>
+<ol>
+<li>CA机构拥有自己的一对公钥和私钥</li>
+<li>CA机构在颁发证书时对证书明文信息进行哈希<ol>
+<li>包含有证书持有者、证书有效期、公钥等信息</li>
+</ol>
+</li>
+<li>将哈希值用私钥进行<strong>加签</strong>，得到数字签名</li>
+<li>明文数据和数字签名组成证书，传递给客户端。</li>
+<li>客户端得到证书，分解成明文部分Text和数字签名Sig1</li>
+<li>用CA机构的公钥进行<strong>解签</strong>，得到Sig2（也就是CA机构对证书明文进行hash后的值）（由于CA机构是一种公信身份，因此在系统或浏览器中会内置CA机构的证书和公钥信息）</li>
+<li>用证书里声明的哈希算法对明文Text部分进行哈希得到T</li>
+<li>当自己计算得到的哈希值T与<strong>解签</strong>后的Sig2<strong>相等</strong>，表示证书可信，<strong>没有被篡改</strong></li>
+</ol>
+<blockquote>
+<p>作者：接水怪<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904127420432391">https://juejin.cn/post/6844904127420432391</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/HTTPS/" rel="tag"># HTTPS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E9%80%92%E5%BD%92%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC/" rel="prev" title="递归链表翻转">
+                  <i class="fa fa-angle-left"></i> 递归链表翻转
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/%E6%95%B0%E5%AD%97%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" rel="next" title="数字常用方法">
+                  数字常用方法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

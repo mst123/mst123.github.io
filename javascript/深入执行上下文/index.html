@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="转载于  https:&#x2F;&#x2F;github.com&#x2F;mqyqingfeng&#x2F;Blog 执行上下文栈顺序执行？如果要问到 JavaScript 代码执行顺序的话，想必写过 JavaScript 的开发者都会有个直观的印象，那就是顺序执行，毕竟： 123456789101112131415var foo &#x3D; function () &#123;    console.log(&#x27;foo1&amp;#x27">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入执行上下文">
+<meta property="og:url" content="https://mst123.github.io/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="转载于  https:&#x2F;&#x2F;github.com&#x2F;mqyqingfeng&#x2F;Blog 执行上下文栈顺序执行？如果要问到 JavaScript 代码执行顺序的话，想必写过 JavaScript 的开发者都会有个直观的印象，那就是顺序执行，毕竟： 123456789101112131415var foo &#x3D; function () &#123;    console.log(&#x27;foo1&amp;#x27">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-16T06:08:44.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="执行上下文">
+<meta property="article:tag" content="作用域链">
+<meta property="article:tag" content="变量对象">
+<meta property="article:tag" content="活动对象">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/","path":"javascript/深入执行上下文/","title":"深入执行上下文"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深入执行上下文 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88"><span class="nav-number">1.</span> <span class="nav-text">执行上下文栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">顺序执行？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">可执行代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88-1"><span class="nav-number">1.3.</span> <span class="nav-text">执行上下文栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E7%AD%94%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">1.4.</span> <span class="nav-text">解答思考题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">变量对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1-1"><span class="nav-number">2.2.</span> <span class="nav-text">变量对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.3.</span> <span class="nav-text">全局上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.4.</span> <span class="nav-text">函数上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">2.5.</span> <span class="nav-text">执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.6.</span> <span class="nav-text">进入执行上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="nav-number">2.7.</span> <span class="nav-text">代码执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">2.8.</span> <span class="nav-text">思考题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="nav-number">3.</span> <span class="nav-text">作用域链</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">3.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE-1"><span class="nav-number">3.2.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA"><span class="nav-number">3.3.</span> <span class="nav-text">函数创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%BF%80%E6%B4%BB"><span class="nav-number">3.4.</span> <span class="nav-text">函数激活</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%8B%E4%B8%80%E6%8D%8B"><span class="nav-number">3.5.</span> <span class="nav-text">捋一捋</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this"><span class="nav-number">4.</span> <span class="nav-text">this</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript/%E6%B7%B1%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深入执行上下文 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入执行上下文
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-29T00:00:00+08:00">2021-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-16 14:08:44" itemprop="dateModified" datetime="2024-07-16T14:08:44+08:00">2024-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>转载于  <a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog">https://github.com/mqyqingfeng/Blog</a></p>
+<h3 id="执行上下文栈"><a href="#执行上下文栈" class="headerlink" title="执行上下文栈"></a>执行上下文栈</h3><h4 id="顺序执行？"><a href="#顺序执行？" class="headerlink" title="顺序执行？"></a>顺序执行？</h4><p>如果要问到 JavaScript 代码执行顺序的话，想必写过 JavaScript 的开发者都会有个直观的印象，那就是顺序执行，毕竟：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var foo = function () &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&#x27;foo1&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();  // foo1</span><br><span class="line"></span><br><span class="line">var foo = function () &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&#x27;foo2&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(); // foo2</span><br></pre></td></tr></table></figure>
+
+<p>然而去看这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&#x27;foo1&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();  // foo2</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line"></span><br><span class="line">    console.log(&#x27;foo2&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(); // foo2</span><br></pre></td></tr></table></figure>
+
+<p>打印的结果却是两个 <code>foo2</code>。</p>
+<p>刷过面试题的都知道这是因为 JavaScript 引擎并非一行一行地分析和执行程序，而是一段一段地分析执行。当执行一段代码的时候，会进行一个“准备工作”，比如第一个例子中的变量提升，和第二个例子中的函数提升。</p>
+<p>但是本文真正想让大家思考的是：这个“一段一段”中的“段”究竟是怎么划分的呢？</p>
+<p>到底JavaScript引擎遇到一段怎样的代码时才会做“准备工作”呢？</p>
+<h4 id="可执行代码"><a href="#可执行代码" class="headerlink" title="可执行代码"></a>可执行代码</h4><p>这就要说到 JavaScript 的可执行代码(executable code)的类型有哪些了？</p>
+<p>其实很简单，就三种，全局代码、函数代码、eval代码。</p>
+<p>举个例子，当执行到一个函数的时候，就会进行准备工作，这里的“准备工作”，让我们用个更专业一点的说法，就叫做”执行上下文(execution context)”。</p>
+<h4 id="执行上下文栈-1"><a href="#执行上下文栈-1" class="headerlink" title="执行上下文栈"></a>执行上下文栈</h4><p>接下来问题来了，我们写的函数多了去了，如何管理创建的那么多执行上下文呢？</p>
+<p>所以 JavaScript 引擎创建了执行上下文栈（Execution context stack，ECS）来管理执行上下文</p>
+<p>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
+
+<p>试想当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>现在 JavaScript 遇到下面的这段代码了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function fun3() &#123;</span><br><span class="line">    console.log(&#x27;fun3&#x27;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function fun2() &#123;</span><br><span class="line">    fun3();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function fun1() &#123;</span><br><span class="line">    fun2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun1();</span><br></pre></td></tr></table></figure>
+
+<p>当执行一个函数的时候，就会创建一个执行上下文，并且压入执行上下文栈，当函数执行完毕的时候，就会将函数的执行上下文从栈中弹出。知道了这样的工作原理，让我们来看看如何处理上面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 伪代码</span><br><span class="line"></span><br><span class="line">// fun1()</span><br><span class="line">ECStack.push(&lt;fun1&gt; functionContext);</span><br><span class="line"></span><br><span class="line">// fun1中竟然调用了fun2，还要创建fun2的执行上下文</span><br><span class="line">ECStack.push(&lt;fun2&gt; functionContext);</span><br><span class="line"></span><br><span class="line">// 擦，fun2还调用了fun3！</span><br><span class="line">ECStack.push(&lt;fun3&gt; functionContext);</span><br><span class="line"></span><br><span class="line">// fun3执行完毕</span><br><span class="line">ECStack.pop();</span><br><span class="line"></span><br><span class="line">// fun2执行完毕</span><br><span class="line">ECStack.pop();</span><br><span class="line"></span><br><span class="line">// fun1执行完毕</span><br><span class="line">ECStack.pop();</span><br><span class="line"></span><br><span class="line">// javascript接着执行下面的代码，但是ECStack底层永远有个globalContext</span><br></pre></td></tr></table></figure>
+
+<h4 id="解答思考题"><a href="#解答思考题" class="headerlink" title="解答思考题"></a>解答思考题</h4><p>好啦，现在我们已经了解了执行上下文栈是如何处理执行上下文的，所以让我们看看上篇文章<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/3">《JavaScript深入之词法作用域和动态作用域》</a>最后的问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f;</span><br><span class="line">&#125;</span><br><span class="line">checkscope()();</span><br></pre></td></tr></table></figure>
+
+<p>两段代码执行的结果一样，但是两段代码究竟有哪些不同呢？</p>
+<p>答案就是执行上下文栈的变化不一样。</p>
+<p>让我们模拟第一段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ECStack.push(&lt;checkscope&gt; functionContext);</span><br><span class="line">ECStack.push(&lt;f&gt; functionContext);</span><br><span class="line">ECStack.pop();</span><br><span class="line">ECStack.pop();</span><br></pre></td></tr></table></figure>
+
+<p>让我们模拟第二段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ECStack.push(&lt;checkscope&gt; functionContext);</span><br><span class="line">ECStack.pop();</span><br><span class="line">ECStack.push(&lt;f&gt; functionContext);</span><br><span class="line">ECStack.pop();</span><br></pre></td></tr></table></figure>
+
+<p>是不是有些不同呢？</p>
+<p>当然了，这样概括的回答执行上下文栈的变化不同，是不是依然有一种意犹未尽的感觉呢，为了更详细讲解两个函数执行上的区别，我们需要探究一下执行上下文到底包含了哪些内容，所以欢迎阅读下一篇《JavaScript深入之变量对象》。</p>
+<h3 id="变量对象"><a href="#变量对象" class="headerlink" title="变量对象"></a>变量对象</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在上篇<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/4">《JavaScript深入之执行上下文栈》</a>中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。</p>
+<p>对于每个执行上下文，都有三个重要属性：</p>
+<ul>
+<li>变量对象(Variable object，VO)</li>
+<li>作用域链(Scope chain)</li>
+<li>this</li>
+</ul>
+<p>今天重点讲讲创建变量对象的过程。</p>
+<h4 id="变量对象-1"><a href="#变量对象-1" class="headerlink" title="变量对象"></a>变量对象</h4><p>变量对象是与执行上下文相关的数据作用域，存储了在上下文中定义的变量和函数声明。</p>
+<p>因为不同执行上下文下的变量对象稍有不同，所以我们来聊聊全局上下文下的变量对象和函数上下文下的变量对象。</p>
+<h4 id="全局上下文"><a href="#全局上下文" class="headerlink" title="全局上下文"></a>全局上下文</h4><p>我们先了解一个概念，叫全局对象。在 <a target="_blank" rel="noopener" href="http://www.w3school.com.cn/jsref/jsref_obj_global.asp">W3School</a> 中也有介绍：</p>
+<blockquote>
+<p>全局对象是预定义的对象，作为 JavaScript 的全局函数和全局属性的占位符。通过使用全局对象，可以访问所有其他所有预定义的对象、函数和属性。</p>
+</blockquote>
+<blockquote>
+<p>在顶层 JavaScript 代码中，可以用关键字 this 引用全局对象。因为全局对象是作用域链的头，这意味着所有非限定性的变量和函数名都会作为该对象的属性来查询。</p>
+</blockquote>
+<blockquote>
+<p>例如，当JavaScript 代码引用 parseInt() 函数时，它引用的是全局对象的 parseInt 属性。全局对象是作用域链的头，还意味着在顶层 JavaScript 代码中声明的所有变量都将成为全局对象的属性。</p>
+</blockquote>
+<p>如果看的不是很懂的话，容我再来介绍下全局对象:</p>
+<p>1.可以通过 this 引用，在客户端 JavaScript 中，全局对象就是 Window 对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(this);</span><br></pre></td></tr></table></figure>
+
+<p>2.全局对象是由 Object 构造函数实例化的一个对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(this instanceof Object);</span><br></pre></td></tr></table></figure>
+
+<p>3.预定义了一堆，嗯，一大堆函数和属性。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 都能生效</span><br><span class="line">console.log(Math.random());</span><br><span class="line">console.log(this.Math.random());</span><br></pre></td></tr></table></figure>
+
+<p>4.作为全局变量的宿主。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">console.log(this.a);</span><br></pre></td></tr></table></figure>
+
+<p>5.客户端 JavaScript 中，全局对象有 window 属性指向自身。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">console.log(window.a);</span><br><span class="line"></span><br><span class="line">this.window.b = 2;</span><br><span class="line">console.log(this.b);</span><br></pre></td></tr></table></figure>
+
+<p>花了一个大篇幅介绍全局对象，其实就想说：</p>
+<p>全局上下文中的变量对象就是全局对象呐！</p>
+<h4 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h4><p>在函数上下文中，我们用活动对象(activation object, AO)来表示变量对象。</p>
+<p>活动对象和变量对象其实是一个东西，只是变量对象是规范上的或者说是引擎实现上的，不可在 JavaScript 环境中访问，只有到当进入一个执行上下文中，这个执行上下文的变量对象才会被激活，所以才叫 activation object 呐，而只有被激活的变量对象，也就是活动对象上的各种属性才能被访问。</p>
+<p>活动对象是在进入函数上下文时刻被创建的，它通过函数的 arguments 属性初始化。arguments 属性值是 Arguments 对象。</p>
+<h4 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h4><p>执行上下文的代码会分成两个阶段进行处理：分析和执行，我们也可以叫做：</p>
+<ol>
+<li>进入执行上下文</li>
+<li>代码执行</li>
+</ol>
+<h4 id="进入执行上下文"><a href="#进入执行上下文" class="headerlink" title="进入执行上下文"></a>进入执行上下文</h4><p>当进入执行上下文时，这时候还没有执行代码，</p>
+<p>变量对象会包括：</p>
+<ol>
+<li>函数的所有形参 (如果是函数上下文)<ul>
+<li>由名称和对应值组成的一个变量对象的属性被创建</li>
+<li>没有实参，属性值设为 undefined</li>
+</ul>
+</li>
+<li>函数声明<ul>
+<li>由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建</li>
+<li>如果变量对象已经存在相同名称的属性，则完全替换这个属性</li>
+</ul>
+</li>
+<li>变量声明<ul>
+<li>由名称和对应值（undefined）组成一个变量对象的属性被创建；</li>
+<li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
+</ul>
+</li>
+</ol>
+<p>举个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line">  var b = 2;</span><br><span class="line">  function c() &#123;&#125;</span><br><span class="line">  var d = function() &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  b = 3;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(1);</span><br></pre></td></tr></table></figure>
+
+<p>在进入执行上下文后，这时候的 AO 是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    arguments: &#123;</span><br><span class="line">        0: 1,</span><br><span class="line">        length: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    a: 1,</span><br><span class="line">    b: undefined,</span><br><span class="line">    c: reference to function c()&#123;&#125;,</span><br><span class="line">    d: undefined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h4><p>在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值</p>
+<p>还是上面的例子，当代码执行完后，这时候的 AO 是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    arguments: &#123;</span><br><span class="line">        0: 1,</span><br><span class="line">        length: 1</span><br><span class="line">    &#125;,</span><br><span class="line">    a: 1,</span><br><span class="line">    b: 3,</span><br><span class="line">    c: reference to function c()&#123;&#125;,</span><br><span class="line">    d: reference to FunctionExpression &quot;d&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：</p>
+<ol>
+<li>全局上下文的变量对象初始化是全局对象</li>
+<li>函数上下文的变量对象初始化只包括 Arguments 对象</li>
+<li>在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值</li>
+<li>在代码执行阶段，会再次修改变量对象的属性值</li>
+</ol>
+<h4 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h4><p>最后让我们看几个例子：</p>
+<p>1.第一题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    console.log(a);</span><br><span class="line">    a = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(); // ???</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    a = 1;</span><br><span class="line">    console.log(a);</span><br><span class="line">&#125;</span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+
+<p>第一段会报错：<code>Uncaught ReferenceError: a is not defined</code>。</p>
+<p>第二段会打印：<code>1</code>。</p>
+<p>这是因为函数中的 “a” 并没有通过 var 关键字声明，所有不会被存放在 AO 中。</p>
+<p>第一段执行 console 的时候， AO 的值是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    arguments: &#123;</span><br><span class="line">        length: 0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没有 a 的值，然后就会到全局去找，全局也没有，所以会报错。</p>
+<p>当第二段执行 console 的时候，全局对象已经被赋予了 a 属性，这时候就可以从全局找到 a 的值，所以会打印 1。</p>
+<p>2.第二题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(foo);</span><br><span class="line"></span><br><span class="line">function foo()&#123;</span><br><span class="line">    console.log(&quot;foo&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var foo = 1;</span><br></pre></td></tr></table></figure>
+
+<p>会打印函数，而不是 undefined 。</p>
+<p>这是因为在进入执行上下文时，首先会处理函数声明，其次会处理变量声明，如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性。</p>
+<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><p><strong>补充：</strong><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/127495">极客时间</a></p>
+<h4 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h4><p>在<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/4">《JavaScript深入之执行上下文栈》</a>中讲到，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。</p>
+<p>对于每个执行上下文，都有三个重要属性：</p>
+<ul>
+<li>变量对象(Variable object，VO)</li>
+<li>作用域链(Scope chain)</li>
+<li>this</li>
+</ul>
+<p>今天重点讲讲作用域链。</p>
+<h4 id="作用域链-1"><a href="#作用域链-1" class="headerlink" title="作用域链"></a>作用域链</h4><p>在<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/5">《JavaScript深入之变量对象》</a>中讲到，当查找变量的时候，会先从当前上下文的变量对象中查找，如果没有找到，就会从父级(词法层面上的父级)执行上下文的变量对象中查找，一直找到全局上下文的变量对象，也就是全局对象。这样由多个执行上下文的变量对象构成的链表就叫做作用域链。</p>
+<p>下面，让我们以一个函数的创建和激活两个时期来讲解作用域链是如何创建和变化的。</p>
+<h4 id="函数创建"><a href="#函数创建" class="headerlink" title="函数创建"></a>函数创建</h4><p>在<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/3">《JavaScript深入之词法作用域和动态作用域》</a>中讲到，函数的作用域在函数定义的时候就决定了。</p>
+<p>这是因为函数有一个内部属性 <code>[[scope]]</code>，当函数创建的时候，就会保存所有父变量对象到其中，你可以理解 <code>[[scope]]</code> 就是所有父变量对象的层级链，但是注意：<code>[[scope]]</code> 并不代表完整的作用域链！</p>
+<p>举个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    function bar() &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数创建时，各自的<code>[[scope]]</code>为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">foo.[[scope]] = [</span><br><span class="line">  globalContext.VO</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">bar.[[scope]] = [</span><br><span class="line">    fooContext.AO,</span><br><span class="line">    globalContext.VO</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数激活"><a href="#函数激活" class="headerlink" title="函数激活"></a>函数激活</h4><p>当函数激活时，进入函数上下文，创建 VO&#x2F;AO 后，就会将活动对象添加到作用链的前端。</p>
+<p>这时候执行上下文的作用域链，我们命名为 Scope：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scope = [AO].concat([[Scope]]);</span><br></pre></td></tr></table></figure>
+
+<p>至此，作用域链创建完毕。</p>
+<h4 id="捋一捋"><a href="#捋一捋" class="headerlink" title="捋一捋"></a>捋一捋</h4><p>以下面的例子为例，结合着之前讲的变量对象和执行上下文栈，我们来总结一下函数执行上下文中作用域链和变量对象的创建过程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope2 = &#x27;local scope&#x27;;</span><br><span class="line">    return scope2;</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br></pre></td></tr></table></figure>
+
+<p>执行过程如下：</p>
+<p>1.checkscope 函数被创建，保存作用域链到内部属性<code>[[scope]]</code>，所以<strong>说函数创建的时候已经确定了哪些变量可以被访问到</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">checkscope.[[scope]] = [</span><br><span class="line">    globalContext.VO</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    checkscopeContext,</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>3.checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数<code>[[scope]]</code>属性创建作用域链</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.第二步：用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: undefined</span><br><span class="line">    &#125;，</span><br><span class="line">    Scope: checkscope.[[scope]],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.第三步：将活动对象压入 checkscope 作用域链顶端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: undefined</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6.准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        arguments: &#123;</span><br><span class="line">            length: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        scope2: &#x27;local scope&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    Scope: [AO, [[Scope]]]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><a href="/javascript/this/this">可以看这个</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" rel="tag"># 执行上下文</a>
+              <a href="/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/" rel="tag"># 作用域链</a>
+              <a href="/tags/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/" rel="tag"># 变量对象</a>
+              <a href="/tags/%E6%B4%BB%E5%8A%A8%E5%AF%B9%E8%B1%A1/" rel="tag"># 活动对象</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/CLS/" rel="prev" title="性能指标">
+                  <i class="fa fa-angle-left"></i> 性能指标
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/prefetch%E5%92%8Cpreload/" rel="next" title="prefetch和preload">
+                  prefetch和preload <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

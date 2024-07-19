@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="146.LRU缓存算法运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。 1234567891011实现 LRUCache 类：LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。void put(int key,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetCode刷题记录-链表">
+<meta property="og:url" content="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="146.LRU缓存算法运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。 1234567891011实现 LRUCache 类：LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。void put(int key,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-13T06:58:38.000Z">
+<meta property="article:modified_time" content="2024-07-13T06:58:38.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据结构设计">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/","path":"算法/刷题记录/数据结构设计/","title":"leetCode刷题记录-链表"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>leetCode刷题记录-链表 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#146-LRU%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">146.LRU缓存算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E9%93%BE%E8%A1%A8%E4%BF%9D%E6%8C%81%E6%97%B6%E5%BA%8F%EF%BC%8C%E5%88%A9%E7%94%A8hash%E5%AD%98%E5%82%A8%E8%8A%82%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">利用链表保持时序，利用hash存储节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">利用map数据结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#380-O-1-%E6%97%B6%E9%97%B4%E6%8F%92%E5%85%A5%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%85%83%E7%B4%A0"><span class="nav-number">2.</span> <span class="nav-text">380.O(1) 时间插入、删除和获取随机元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8map%E8%BF%9B%E8%A1%8C%E8%AE%BE%E8%AE%A1%EF%BC%8C%E5%88%A9%E7%94%A8%E6%B0%B4%E5%A1%98%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%AD%89%E6%A6%82%E7%8E%87"><span class="nav-number">2.1.</span> <span class="nav-text">利用map进行设计，利用水塘抽样算法实现等概率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8hash%E5%AE%9E%E7%8E%B0O1%E5%AD%98%E5%82%A8%E5%88%A0%E9%99%A4%EF%BC%8C%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0O1%E7%AD%89%E6%A6%82%E7%8E%87%E8%AE%BF%E9%97%AE"><span class="nav-number">2.2.</span> <span class="nav-text">利用hash实现O1存储删除，数组实现O1等概率访问</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">232.用栈实现队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#225-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88"><span class="nav-number">4.</span> <span class="nav-text">225. 用队列实现栈</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="leetCode刷题记录-链表 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetCode刷题记录-链表
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-13 14:58:38" itemprop="dateCreated datePublished" datetime="2024-07-13T14:58:38+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">刷题记录</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="146-LRU缓存算法"><a href="#146-LRU缓存算法" class="headerlink" title="146.LRU缓存算法"></a>146.LRU缓存算法</h3><p>运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">实现 LRUCache 类：</span><br><span class="line"></span><br><span class="line">LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存</span><br><span class="line">int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。</span><br><span class="line">void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。</span><br><span class="line"></span><br><span class="line">进阶：你是否可以在 O(1) 时间复杂度内完成这两种操作？</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https://leetcode-cn.com/problems/lru-cache</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用链表保持时序，利用hash存储节点"><a href="#利用链表保持时序，利用hash存储节点" class="headerlink" title="利用链表保持时序，利用hash存储节点"></a>利用链表保持时序，利用hash存储节点</h4><p>调试了好久，终于搞定了，需要仔细</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">class ListNode &#123;</span><br><span class="line">  constructor(key, val, pre=null, next=null)&#123;</span><br><span class="line">    this.key = key;</span><br><span class="line">    this.val = val;</span><br><span class="line">    this.pre = pre;</span><br><span class="line">    this.next = next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var LRUCache = function (capacity) &#123;</span><br><span class="line">  // 最大长度</span><br><span class="line">  this.capacity = capacity</span><br><span class="line">  this.hash = new Map()</span><br><span class="line">  // 计数器</span><br><span class="line">  this.count = 0</span><br><span class="line">  // 虚拟头部</span><br><span class="line">  this.dummyHead = new ListNode(-1, -1)</span><br><span class="line">  // 虚拟尾部</span><br><span class="line">  this.dummyTail = new ListNode(-1, -1)</span><br><span class="line">  this.dummyHead.next = this.dummyTail</span><br><span class="line">  this.dummyTail.pre = this.dummyHead</span><br><span class="line">  // 头部</span><br><span class="line">  this.listHead = this.dummyHead</span><br><span class="line">  // 尾部</span><br><span class="line">  this.listTail = this.dummyTail</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">LRUCache.prototype.get = function(key) &#123;</span><br><span class="line">  if (this.hash.has(key)) &#123;</span><br><span class="line">    const existNode = this.hash.get(key)</span><br><span class="line">    // 从原位置删除</span><br><span class="line">    existNode.next.pre = existNode.pre</span><br><span class="line">    existNode.pre.next = existNode.next</span><br><span class="line">    // 把节点插入虚拟尾部之前</span><br><span class="line">    this.insertBeforeTail(existNode)</span><br><span class="line">    return this.hash.get(key).val</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return -1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">LRUCache.prototype.put = function(key, value) &#123;</span><br><span class="line">  if (this.hash.has(key)) &#123; // 已存在</span><br><span class="line">    const existNode = this.hash.get(key)</span><br><span class="line">    // 从原位置删除</span><br><span class="line">    existNode.next.pre = existNode.pre</span><br><span class="line">    existNode.pre.next = existNode.next</span><br><span class="line">    // 题目有个变更要求</span><br><span class="line">    existNode.val = value</span><br><span class="line">    // 把节点插入虚拟尾部之前</span><br><span class="line">    this.insertBeforeTail(existNode)</span><br><span class="line">  &#125; else &#123; // 未存在</span><br><span class="line">    const newNode = new ListNode(key, value)</span><br><span class="line">    if (this.count &lt; this.capacity) &#123; // 容量没满</span><br><span class="line">      // 把新节点插入虚拟尾部之前</span><br><span class="line">      this.insertBeforeTail(newNode)</span><br><span class="line">      // 用key记录节点</span><br><span class="line">      this.hash.set(key, newNode)</span><br><span class="line">      // 计数</span><br><span class="line">      this.count++</span><br><span class="line">    &#125; else &#123; // 容量满了</span><br><span class="line">      // 删除节点记录</span><br><span class="line">      this.hash.delete(this.listHead.next.key)</span><br><span class="line">      // 把虚拟头部后边节点删除</span><br><span class="line">      this.listHead.next = this.listHead.next.next</span><br><span class="line">      this.listHead.next.pre = this.listHead </span><br><span class="line">      // 把新节点插入虚拟尾部之前   </span><br><span class="line">      this.insertBeforeTail(newNode)</span><br><span class="line">      // 用key记录节点</span><br><span class="line">      this.hash.set(key, newNode)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">LRUCache.prototype.insertBeforeTail = function (newNode) &#123;</span><br><span class="line">  // 把节点插入虚拟尾部之前</span><br><span class="line">  this.listTail.pre.next = newNode</span><br><span class="line">  newNode.pre = this.listTail.pre</span><br><span class="line">  newNode.next = this.listTail</span><br><span class="line">  this.listTail.pre = newNode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用map数据结构"><a href="#利用map数据结构" class="headerlink" title="利用map数据结构"></a>利用map数据结构</h4><p>利用map特别简单</p>
+<p><strong>map数据结构兼顾有序性和hash</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var LRUCache = function(capacity) &#123;</span><br><span class="line">    this.capacity = capacity;</span><br><span class="line">    this.map = new Map();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">LRUCache.prototype.get = function(key) &#123;</span><br><span class="line">    if(this.map.has(key))&#123;</span><br><span class="line">        let temp=this.map.get(key)</span><br><span class="line">         this.map.delete(key);</span><br><span class="line">         this.map.set(key, temp);</span><br><span class="line">         return temp</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return -1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">LRUCache.prototype.put = function(key, value) &#123;</span><br><span class="line">    if(this.map.has(key))&#123;</span><br><span class="line">        this.map.delete(key);</span><br><span class="line">    &#125;</span><br><span class="line">    this.map.set(key,value);</span><br><span class="line">    if(this.map.size &gt; this.capacity)&#123;</span><br><span class="line">     </span><br><span class="line">        this.map.delete(this.map.keys().next().value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="380-O-1-时间插入、删除和获取随机元素"><a href="#380-O-1-时间插入、删除和获取随机元素" class="headerlink" title="380.O(1) 时间插入、删除和获取随机元素"></a>380.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/insert-delete-getrandom-o1/">O(1) 时间插入、删除和获取随机元素</a></h3><p>实现RandomizedSet 类：</p>
+<p>RandomizedSet() 初始化 RandomizedSet 对象<br>bool insert(int val) 当元素 val 不存在时，向集合中插入该项，并返回 true ；否则，返回 false 。<br>bool remove(int val) 当元素 val 存在时，从集合中移除该项，并返回 true ；否则，返回 false 。<br>int getRandom() 随机返回现有集合中的一项（测试用例保证调用此方法时集合中至少存在一个元素）。每个元素应该有 相同的概率 被返回。<br>你必须实现类的所有函数，并满足每个函数的 平均 时间复杂度为 O(1) 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line"></span><br><span class="line">输入</span><br><span class="line">[&quot;RandomizedSet&quot;, &quot;insert&quot;, &quot;remove&quot;, &quot;insert&quot;, &quot;getRandom&quot;, &quot;remove&quot;, &quot;insert&quot;, &quot;getRandom&quot;]</span><br><span class="line">[[], [1], [2], [2], [], [1], [2], []]</span><br><span class="line">输出</span><br><span class="line">[null, true, false, true, 2, true, false, 2]</span><br><span class="line"></span><br><span class="line">解释</span><br><span class="line">RandomizedSet randomizedSet = new RandomizedSet();</span><br><span class="line">randomizedSet.insert(1); // 向集合中插入 1 。返回 true 表示 1 被成功地插入。</span><br><span class="line">randomizedSet.remove(2); // 返回 false ，表示集合中不存在 2 。</span><br><span class="line">randomizedSet.insert(2); // 向集合中插入 2 。返回 true 。集合现在包含 [1,2] 。</span><br><span class="line">randomizedSet.getRandom(); // getRandom 应随机返回 1 或 2 。</span><br><span class="line">randomizedSet.remove(1); // 从集合中移除 1 ，返回 true 。集合现在包含 [2] 。</span><br><span class="line">randomizedSet.insert(2); // 2 已在集合中，所以返回 false 。</span><br><span class="line">randomizedSet.getRandom(); // 由于 2 是集合中唯一的数字，getRandom 总是返回 2 。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https://leetcode-cn.com/problems/insert-delete-getrandom-o1</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用map进行设计，利用水塘抽样算法实现等概率"><a href="#利用map进行设计，利用水塘抽样算法实现等概率" class="headerlink" title="利用map进行设计，利用水塘抽样算法实现等概率"></a>利用map进行设计，利用水塘抽样算法实现等概率</h4><p>但是随机获取 时间复杂度不是O1,而是O(n)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">var RandomizedSet = function() &#123;</span><br><span class="line">  this.hash = new Map()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RandomizedSet.prototype.insert = function(val) &#123;</span><br><span class="line">  if (this.hash.has(val)) &#123;</span><br><span class="line">    return false</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    this.hash.set(val, true)</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RandomizedSet.prototype.remove = function(val) &#123;</span><br><span class="line">  if (this.hash.has(val)) &#123;</span><br><span class="line">    this.hash.delete(val)</span><br><span class="line">    return true</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RandomizedSet.prototype.getRandom = function() &#123;</span><br><span class="line">  let count = 1;</span><br><span class="line">  let iterator = this.hash.keys();</span><br><span class="line">  let result = null;</span><br><span class="line">  while (true) &#123;</span><br><span class="line">    const &#123; value, done &#125; = iterator.next()</span><br><span class="line">    if (done) &#123;</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">    if (Math.floor(Math.random() * count) === 0) &#123;</span><br><span class="line">      result = value</span><br><span class="line">    &#125;</span><br><span class="line">    count++</span><br><span class="line">  &#125;</span><br><span class="line">  return result</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="利用hash实现O1存储删除，数组实现O1等概率访问"><a href="#利用hash实现O1存储删除，数组实现O1等概率访问" class="headerlink" title="利用hash实现O1存储删除，数组实现O1等概率访问"></a>利用hash实现O1存储删除，数组实现O1等概率访问</h4><p>难点还是在于理解和设计，熟悉数据结构的基础方法时间复杂度</p>
+<blockquote>
+<p>删除的前提是访问</p>
+<p>数组某个元素和尾部交换后删除，O1</p>
+<p>数组push 01</p>
+<p>代码重点在于交换时，hash对应的index也需要考虑</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var RandomizedSet = function() &#123;</span><br><span class="line">  this.hash = Object.create(null, &#123;&#125;)</span><br><span class="line">  this.array = []</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RandomizedSet.prototype.insert = function(val) &#123;</span><br><span class="line">  if (typeof this.hash[val] !== &quot;undefined&quot;) &#123;</span><br><span class="line">    return false</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    this.array.push(val)</span><br><span class="line">    // 存储位置</span><br><span class="line">    this.hash[val] = this.array.length - 1</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RandomizedSet.prototype.remove = function(val) &#123;</span><br><span class="line">  if (typeof this.hash[val] !== &quot;undefined&quot;) &#123;</span><br><span class="line">    // 待删除元素的索引</span><br><span class="line">    const index = this.hash[val]</span><br><span class="line">    // 对末尾元素进行操作</span><br><span class="line">    const tailValue = this.array[this.array.length - 1]</span><br><span class="line">    this.hash[tailValue] = index</span><br><span class="line">    this.array[index] = tailValue</span><br><span class="line">    // 删除</span><br><span class="line">    this.array.pop()</span><br><span class="line">    delete this.hash[val]</span><br><span class="line">    return true</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">RandomizedSet.prototype.getRandom = function() &#123;</span><br><span class="line">  return this.array[Math.floor(Math.random()*this.array.length)]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="232-用栈实现队列"><a href="#232-用栈实现队列" class="headerlink" title="232.用栈实现队列"></a>232.用栈实现队列</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-queue-using-stacks/solution/tu-jie-guan-fang-tui-jian-ti-jie-yong-zh-4hru/">题解简单易懂</a>，主要是需要搞懂push pop穿插如果保证有序性就可以了,pop必须一次性从inStack全部转移过来才能保持顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">var MyQueue = function() &#123;</span><br><span class="line">  this.inStack = []</span><br><span class="line">  this.outStack = []</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyQueue.prototype.push = function(x) &#123;</span><br><span class="line">  this.inStack.push(x)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyQueue.prototype.pop = function() &#123;</span><br><span class="line">  if(!this.outStack.length)&#123;</span><br><span class="line">    while(this.inStack.length)&#123;</span><br><span class="line">      this.outStack.push(</span><br><span class="line">        this.inStack.pop()</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return this.outStack.pop()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyQueue.prototype.peek = function() &#123;</span><br><span class="line">  if(!this.outStack.length)&#123;</span><br><span class="line">    while(this.inStack.length)&#123;</span><br><span class="line">      this.outStack.push(</span><br><span class="line">        this.inStack.pop()</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return this.outStack[this.outStack.length-1]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyQueue.prototype.empty = function() &#123;</span><br><span class="line">  return !this.inStack.length &amp;&amp; !this.outStack.length</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="225-用队列实现栈"><a href="#225-用队列实现栈" class="headerlink" title="225. 用队列实现栈"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-stack-using-queues/">225. 用队列实现栈</a></h3><p>请你仅使用<strong>两个队列</strong>实现一个后入先出（LIFO）的栈，并支持普通栈的全部四种操作（push、top、pop 和 empty）。</p>
+<p>实现 MyStack 类：</p>
+<p>void push(int x) 将元素 x 压入栈顶。<br>int pop() 移除并返回栈顶元素。<br>int top() 返回栈顶元素。<br>boolean empty() 如果栈是空的，返回 true ；否则，返回 false 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">var MyStack = function() &#123;</span><br><span class="line">  this.list = []</span><br><span class="line">  this.tempList = []</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyStack.prototype.push = function(x) &#123;</span><br><span class="line">  if(this.list.length)&#123;</span><br><span class="line">    while(this.list.length)&#123;</span><br><span class="line">      this.tempList.push(this.list.shift())</span><br><span class="line">    &#125;</span><br><span class="line">    this.list.push(x)</span><br><span class="line">    while(this.tempList.length)&#123;</span><br><span class="line">      this.list.push(this.tempList.shift())</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    this.list.push(x)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyStack.prototype.pop = function() &#123;</span><br><span class="line">  return this.list.shift()</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyStack.prototype.top = function() &#123;</span><br><span class="line">  return this.list[0]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyStack.prototype.empty = function() &#123;</span><br><span class="line">  return !this.list.length</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="tag"># 数据结构设计</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E9%93%BE%E8%A1%A8/" rel="prev" title="leetCode刷题记录-链表">
+                  <i class="fa fa-angle-left"></i> leetCode刷题记录-链表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E7%AE%97%E6%B3%95/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/" rel="next" title="二叉树遍历">
+                  二叉树遍历 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

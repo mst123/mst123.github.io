@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mst123.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="构造函数创建对象我们先使用构造函数创建一个对象： 123456function Person() &#123;&#125;var person &#x3D; new Person();person.name &#x3D; &#x27;Kevin&#x27;;console.log(person.name) &#x2F;&#x2F; Kevin  在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 pers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的阐述原型链">
+<meta property="og:url" content="https://mst123.github.io/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="构造函数创建对象我们先使用构造函数创建一个对象： 123456function Person() &#123;&#125;var person &#x3D; new Person();person.name &#x3D; &#x27;Kevin&#x27;;console.log(person.name) &#x2F;&#x2F; Kevin  在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 pers">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/https:/github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype2.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype3.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype4.png">
+<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/https:/github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png">
+<meta property="article:published_time" content="2021-01-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-13T06:53:43.000Z">
+<meta property="article:author" content="马农">
+<meta property="article:tag" content="原型链">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mst123.github.io/_posts/javascript/assets/https:/github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png">
+
+
+<link rel="canonical" href="https://mst123.github.io/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mst123.github.io/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/","path":"javascript/原型链/","title":"简单的阐述原型链"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>简单的阐述原型链 | 博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/gintama.jpg" alt="博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">构造函数创建对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prototype"><span class="nav-number">2.</span> <span class="nav-text">prototype</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proto"><span class="nav-number">3.</span> <span class="nav-text">proto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">4.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">实例与原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E7%9A%84%E5%8E%9F%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">原型的原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="nav-number">7.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">8.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor"><span class="nav-number">8.1.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proto-1"><span class="nav-number">8.2.</span> <span class="nav-text">proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E7%9A%84%E6%98%AF%E7%BB%A7%E6%89%BF%E5%90%97%EF%BC%9F"><span class="nav-number">8.3.</span> <span class="nav-text">真的是继承吗？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="马农"
+      src="/images/luopo.gif">
+  <p class="site-author-name" itemprop="name">马农</p>
+  <div class="site-description" itemprop="description">学习记录</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">105</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mst123.github.io/javascript/%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/luopo.gif">
+      <meta itemprop="name" content="马农">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博客">
+      <meta itemprop="description" content="学习记录">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="简单的阐述原型链 | 博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          简单的阐述原型链
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-01-19T00:00:00+08:00">2021-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 14:53:43" itemprop="dateModified" datetime="2024-07-13T14:53:43+08:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h2><p>我们先使用构造函数创建一个对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &#x27;Kevin&#x27;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<p>很简单吧，接下来进入正题：</p>
+<h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>每个函数都有一个 prototype 属性，就是我们经常在各种例子中看到的那个 prototype ，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 虽然写在注释里，但是你要注意：</span><br><span class="line">// prototype是函数才会有的属性</span><br><span class="line">Person.prototype.name = &#x27;Kevin&#x27;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // Kevin</span><br><span class="line">console.log(person2.name) // Kevin</span><br></pre></td></tr></table></figure>
+
+<p>那这个函数的 prototype 属性到底指向的是什么呢？是这个函数的原型吗？</p>
+<p>其实，函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的<strong>实例</strong>的原型，也就是这个例子中的 person1 和 person2 的原型。</p>
+<p>那什么是原型呢？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p>
+<p>让我们用一张图表示构造函数和实例原型之间的关系：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png"><img src="/_posts/javascript/assets/https:/github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png" alt="构造函数和实例原型的关系图"></a></p>
+<p>在这张图中我们用 Object.prototype 表示实例原型。</p>
+<p>那么我们该怎么表示实例与实例原型，也就是 person 和 Person.prototype 之间的关系呢，这时候我们就要讲到第二个属性：</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p>这是每一个JavaScript对象(除了 null )都具有的一个属性，叫__proto__，这个属性会指向该对象的原型。</p>
+<p>为了证明这一点,我们可以在火狐或者谷歌中输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
+
+<p>于是我们更新下关系图：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype2.png"><img src="/_posts/javascript/assets/%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype2.png" alt="实例与实例原型的关系图"></a></p>
+<p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
+<h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<p>为了验证这一点，我们可以尝试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure>
+
+<p>所以再更新下关系图：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype3.png"><img src="/_posts/javascript/assets/%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype3.png" alt="实例原型与构造函数的关系图"></a></p>
+<p>综上我们已经得出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure>
+
+<p>了解了构造函数、实例原型、和实例之间的关系，接下来我们讲讲实例和原型的关系：</p>
+<h2 id="实例与原型"><a href="#实例与原型" class="headerlink" title="实例与原型"></a>实例与原型</h2><p>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。</p>
+<p>举个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &#x27;Kevin&#x27;;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">person.name = &#x27;Daisy&#x27;;</span><br><span class="line">console.log(person.name) // Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</p>
+<p>但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.<strong>proto</strong> ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</p>
+<p>但是万一还没有找到呢？原型的原型又是什么呢？</p>
+<h2 id="原型的原型"><a href="#原型的原型" class="headerlink" title="原型的原型"></a>原型的原型</h2><p>在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var obj = new Object();</span><br><span class="line">obj.name = &#x27;Kevin&#x27;</span><br><span class="line">console.log(obj.name) // Kevin</span><br></pre></td></tr></table></figure>
+
+<p>其实原型对象就是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype4.png"><img src="/_posts/javascript/assets/%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype4.png" alt="原型的原型关系图"></a></p>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>那 Object.prototype 的原型呢？</p>
+<p>null，我们可以打印：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure>
+
+<p>然而 null 究竟代表了什么呢？</p>
+<p>引用阮一峰老师的 <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html">《undefined与null的区别》</a> 就是：</p>
+<blockquote>
+<p>null 表示“没有对象”，即该处不应该有值。</p>
+</blockquote>
+<p>所以 Object.prototype.<strong>proto</strong> 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。</p>
+<p>所以查找属性的时候查到 Object.prototype 就可以停止查找了。</p>
+<p>最后一张关系图也可以更新为：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png"><img src="/_posts/javascript/assets/https:/github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png" alt="原型链示意图"></a></p>
+<p>顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>最后，补充三点大家可能不会注意的地方：</p>
+<h3 id="constructor"><a href="#constructor" class="headerlink" title="constructor"></a>constructor</h3><p>首先是 constructor 属性，我们看个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.constructor === Person); // true</span><br></pre></td></tr></table></figure>
+
+<p>当获取 person.constructor 时，其实 person 中并没有 constructor 属性,当不能读取到constructor 属性时，会从 person 的原型也就是 Person.prototype 中读取，正好原型中有该属性，所以：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person.constructor === Person.prototype.constructor</span><br></pre></td></tr></table></figure>
+
+<h3 id="proto-1"><a href="#proto-1" class="headerlink" title="proto"></a><strong>proto</strong></h3><p>其次是 <strong>proto</strong> ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter&#x2F;setter，当使用 obj.<strong>proto</strong> 时，可以理解成返回了 Object.getPrototypeOf(obj)。</p>
+<h3 id="真的是继承吗？"><a href="#真的是继承吗？" class="headerlink" title="真的是继承吗？"></a>真的是继承吗？</h3><p>最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》 上册中的话，就是：</p>
+<p>​ 继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE/" rel="tag"># 原型链</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vue/" rel="prev" title="vue初始化流程-简易流程">
+                  <i class="fa fa-angle-left"></i> vue初始化流程-简易流程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/%E8%AF%B4%E6%98%8E/" rel="next" title="vue源码分析说明">
+                  vue源码分析说明 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">马农</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
