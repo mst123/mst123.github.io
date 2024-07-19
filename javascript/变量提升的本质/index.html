@@ -27,23 +27,23 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="变量提升12345678showName()console.log(myname)var myname &#x3D; &#x27;极客时间&#x27;function showName() &#123; console.log(&#x27;函数 showName 被执行&#x27;);&#125;&#x2F;&#x2F; 函数 showName 被执行&#x2F;&#x2F; undefined  最后输出的结果不太符合预期，其中的本质与js的执">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png">
 <meta property="article:published_time" content="2021-07-18T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-16T06:05:18.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="变量提升">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/javascript/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/">
@@ -272,7 +272,7 @@
 <p>var bar &#x3D; function(){} 这种与var bar &#x3D; 1 并无大的区别，与function bar(){} 从编译过程来说截然不同</p>
 </blockquote>
 <p><strong>实际上变量和函数声明在代码里的位置是不会改变的，而且是在编译阶段被 JavaScript 引擎放入内存中</strong></p>
-<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png" alt="image-20210719142421766"></p>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719142421766.png" alt="image-20210719142421766"></p>
 <p>从上图可以看出，输入一段代码，经过编译后，会生成两部分内容：<strong>执行上下文（Execution context）和可执行代码</strong>。</p>
 <blockquote>
 <p>执行上下文也是一个特别重要的概念，会在后边具体分析</p>
@@ -289,7 +289,7 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const ExecutionContextObj = &#123;</span><br><span class="line">    VO: window, // 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, // 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p><strong>执行上下文的组成图例示例：</strong></p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg" alt="img"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/v2-197a2714b1f1069f3fffebcdd630531c_1440w.jpg" alt="img"></p>
 <p>**上下文基本上有三类(包括ES6)**：</p>
 <ul>
 <li>全局上下文 在浏览器环境下即为window</li>
@@ -336,15 +336,15 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 2</span><br><span class="line">function add(b,c)&#123;</span><br><span class="line"> return b+c</span><br><span class="line">&#125; </span><br><span class="line">function addAll(b,c)&#123;</span><br><span class="line"> var d = 10</span><br><span class="line"> result = add(b,c)</span><br><span class="line"> return a+result+d</span><br><span class="line">&#125;</span><br><span class="line">addAll(3,6)</span><br></pre></td></tr></table></figure>
 
 <p><strong>第一步，创建全局上下文，并将其压入栈底</strong>。</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png" alt="image-20210719153100763"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153100763.png" alt="image-20210719153100763"></p>
 <p><strong>第二步是调用 addAll 函数</strong>。当调用该函数时，JavaScript 引擎会编译该函数，并为其创建一个执行上下文，最后还将该函数的执行上下文压入栈中，如下图所示：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png" alt="image-20210719153303513"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153303513.png" alt="image-20210719153303513"></p>
 <p><strong>第三步，当执行到 add 函数</strong>调用语句时，同样会为其创建执行上下文，并将其压入调用栈，如下图所示：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png" alt="image-20210719153352832"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153352832.png" alt="image-20210719153352832"></p>
 <p>当 add 函数返回时，该函数的执行上下文就会从栈顶弹出，并将 result 的值设置为 add函数的返回值，也就是 9。如下图所示：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png" alt="image-20210719153501404"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153501404.png" alt="image-20210719153501404"></p>
 <p>紧接着 addAll 执行最后一个相加操作后并返回，addAll 的执行上下文也会从栈顶部弹出，此时调用栈中就只剩下全局上下文了。最终如下图所示：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png" alt="image-20210719153551914"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719153551914.png" alt="image-20210719153551914"></p>
 <p>至此，整个 JavaScript 流程执行结束了。</p>
 <blockquote>
 <p>调用栈的跟踪可以借助chorme调试工具中的call stack 或者借助 console.trace()</p>
@@ -355,7 +355,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  var a = 1</span><br><span class="line">  let b = 2</span><br><span class="line">  &#123;</span><br><span class="line">    let b = 3</span><br><span class="line">    var c = 4</span><br><span class="line">    let d = 5</span><br><span class="line">    console.log(a)</span><br><span class="line">    console.log(b)</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(b)</span><br><span class="line">  console.log(c)</span><br><span class="line">  console.log(d)</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
 
 <p><strong>第一步是编译并创建执行上下文</strong>，下面是我画出来的执行上下文示意图，你可以参考下：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png" alt="image-20210719180147793"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180147793.png" alt="image-20210719180147793"></p>
 <p>通过上图，我们可以得出以下结论：</p>
 <ul>
 <li><p>函数内部通过 var 声明的变量，在编译阶段全都被存放到<strong>变量环境</strong>里面了。</p>
@@ -366,14 +366,14 @@
 </li>
 </ul>
 <p>接下来，<strong>第二步继续执行代码</strong>，当执行到代码块里面时，变量环境中 a 的值已经被设置成了 1，词法环境中 b 的值已经被设置成了 2，这时候函数的执行上下文就如下图所示：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png" alt="image-20210719180806940"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719180806940.png" alt="image-20210719180806940"></p>
 <p>​ 从图中可以看出，当进入函数的作用域块时，作用域块中通过 let 声明的变量，会被存放在词法环境的一个单独的区域中，这个区域中的变量并不影响作用域块外面的变量，比如在作用域外面声明了变量 b，在该作用域块内部也声明了变量 b，当执行到作用域内部时，它们都是独立的存在。</p>
 <p>​ 其实，<strong>在词法环境内部，维护了一个小型栈结构</strong>，栈底是函数最外层的变量，进入一个作用域块后，就会把该作用域块内部的变量压到栈顶；当作用域执行完成之后，该作用域的信息就会从栈顶弹出，这就是词法环境的结构。需要注意下，我这里所讲的变量是指通过 let 或者 const 声明的变量。</p>
 <p>​ 再接下来，当执行到作用域块中的console.log(a)这行代码时，就需要在词法环境和变量环境中查找变量 a 的值了，具体查找方式是：沿着词法环境的栈顶向下查询，如果在词法环境中的某个块中查找到了，就直接返回给 JavaScript 引擎，如果没有查找到，那么继续在变量环境中查找。</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png" alt="image-20210719181101068"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181101068.png" alt="image-20210719181101068"></p>
 <p>当作用域块执行结束之后，其内部定义的变量就会从词法环境的栈顶弹出，最终执行上下文</p>
 <p>如下图所示：</p>
-<p><img src="/_posts/javascript/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png" alt="image-20210719181919678"></p>
+<p><img src="/assets/%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E7%9A%84%E6%9C%AC%E8%B4%A8/image-20210719181919678.png" alt="image-20210719181919678"></p>
 <p>通过上面的分析，想必你已经理解了词法环境的结构和工作机制，<strong>块级作用域就是通过词法环境的栈结构来实现的，而变量提升是通过变量环境来实现</strong>，通过这两者的结合，JavaScript 引擎也就同时支持了变量提升和块级作用域了。</p>
 <h4 id="查缺补漏–优秀blog文章"><a href="#查缺补漏–优秀blog文章" class="headerlink" title="查缺补漏–优秀blog文章"></a>查缺补漏–优秀blog文章</h4><ol>
 <li><h4 id="JavaScript深入之执行上下文栈"><a href="#JavaScript深入之执行上下文栈" class="headerlink" title="JavaScript深入之执行上下文栈"></a><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/4">JavaScript深入之执行上下文栈</a></h4></li>

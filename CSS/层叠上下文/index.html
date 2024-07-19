@@ -27,51 +27,51 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="转载于  张鑫旭  简短总结什么是层叠上下文 层叠上下文，英文称作”stacking context”. 是HTML中的一个三维的概念。简单来说就是一个容器，比普通元素高一个层级 如何产生一个层叠上下文 如何创建层叠上下文(MDN) 文档根元素（&lt;html&gt;）； position 值为 absolute（绝对定位）或 relative（相对定位）且 z-index 值不为 auto">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/z-aris.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_223349.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/ask.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235108.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235830.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_220622.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/think-2.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235511.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235217.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004641.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/36.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004654.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/z-aris.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_223349.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/ask.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235108.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235830.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_220622.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/think-2.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235511.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235217.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004641.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/36.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004654.png">
 <meta property="article:published_time" content="2021-02-27T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T06:51:58.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="CSS">
 <meta property="article:tag" content="层叠上下文">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/CSS/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/">
@@ -317,7 +317,7 @@
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change"><code>will-change</code></a> 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考<a target="_blank" rel="noopener" href="http://dev.opera.com/articles/css-will-change-property/">这篇文章</a>）；</li>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain"><code>contain</code></a> 属性值为 <code>layout</code>、<code>paint</code> 或包含它们其中之一的合成值（比如 <code>contain: strict</code>、<code>contain: content</code>）的元素。</li>
 </ol>
-<h4 id="层叠上下文内部元素的顺序"><a href="#层叠上下文内部元素的顺序" class="headerlink" title="层叠上下文内部元素的顺序"></a>层叠上下文内部元素的顺序</h4><p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png" alt="更完整的7阶层叠顺序图"></p>
+<h4 id="层叠上下文内部元素的顺序"><a href="#层叠上下文内部元素的顺序" class="headerlink" title="层叠上下文内部元素的顺序"></a>层叠上下文内部元素的顺序</h4><p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png" alt="更完整的7阶层叠顺序图"></p>
 <h4 id="不同层叠上下文的层叠顺序"><a href="#不同层叠上下文的层叠顺序" class="headerlink" title="不同层叠上下文的层叠顺序"></a>不同层叠上下文的层叠顺序</h4><ol>
 <li>如果层叠上下文元素不依赖<code>z-index</code>数值，则其层叠顺序是<code>z-index:auto</code>可看成<code>z:index:0</code>级别；</li>
 <li>如果层叠上下文元素依赖<code>z-index</code>数值，则其层叠顺序由<code>z-index</code>值决定。</li>
@@ -347,20 +347,20 @@
 <p>我们大家可能都熟悉CSS中的<code>z-index</code>属性，需要跟大家讲的是，<code>z-index</code>实际上只是CSS层叠上下文和层叠顺序中的一叶小舟。</p>
 <h3 id="一、什么是层叠上下文"><a href="#一、什么是层叠上下文" class="headerlink" title="一、什么是层叠上下文"></a>一、什么是层叠上下文</h3><p>层叠上下文，英文称作”stacking context”. 是HTML中的一个三维的概念。如果一个元素含有层叠上下文，我们可以理解为这个元素在z轴上就“高人一等”。</p>
 <p>这里出现了一个名词-<strong>z轴</strong>，指的是什么呢？</p>
-<p>表示的是用户与屏幕的这条看不见的垂直线（参见下图示意-红线）：<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/z-aris.png" alt="网页中z轴示意"></p>
+<p>表示的是用户与屏幕的这条看不见的垂直线（参见下图示意-红线）：<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/z-aris.png" alt="网页中z轴示意"></p>
 <p>层叠上下文是一个概念，跟「<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/?p=4588">块状格式化上下文(BFC)</a>」类似。然而，概念这个东西是比较虚比较抽象的，要想轻松理解，我们需要将其具象化。</p>
 <p>怎么个具象化法呢？</p>
 <p>你可以<strong>把「层叠上下文」理解为当官</strong>：网页中有很多很多的元素，我们可以看成是真实世界的芸芸众生。真实世界里，我们大多数人是普通老百姓们，还有一部分人是做官的官员。OK，这里的“官员”就可以理解为网页中的层叠上下文元素。</p>
 <p>换句话说，页面中的元素有了层叠上下文，就好比我们普通老百姓当了官，一旦当了官，相比普通老百姓而言，离皇帝更近了，对不对，就等同于网页中元素级别更高，离我们用户更近了。</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif" alt="你懂的"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif" alt="你懂的"></p>
 <h3 id="二、什么是层叠水平"><a href="#二、什么是层叠水平" class="headerlink" title="二、什么是层叠水平"></a>二、什么是层叠水平</h3><p>再来说说层叠水平。“层叠水平”英文称作”stacking level”，决定了同一个层叠上下文中元素在z轴上的显示顺序。level这个词很容易让我们联想到我们真正世界中的三六九等、论资排辈。真实世界中，每个人都是独立的个体，包括同卵双胞胎，有差异就有区分。例如，双胞胎虽然长得像Ctrl+C&#x2F;Ctrl+V得到的，但实际上，出生时间还是有先后顺序的，先出生的那个就大，大哥或大姐。网页中的元素也是如此，页面中的每个元素都是独立的个体，他们一定是会有一个类似的排名排序的情况存在。而这个排名排序、论资排辈就是我们这里所说的“层叠水平”。层叠上下文元素的层叠水平可以理解为官员的职级，1品2品，县长省长之类；对于普通元素，这个嘛……你自己随意理解。</p>
 <p>于是，显而易见，所有的元素都有层叠水平，包括层叠上下文元素，层叠上下文元素的层叠水平可以理解为官员的职级，1品2品，县长省长之类。然后，对于普通元素的层叠水平，我们的探讨仅仅局限在当前层叠上下文元素中。为什么呢？因为否则没有意义。</p>
 <p>这么理解吧~ 上面提过元素具有层叠上下文好比当官，大家都知道的，这当官的家里都有丫鬟啊保镖啊管家啊什么的。所谓打狗看主人，A官员家里的管家和B官员家里的管家做PK实际上是没有意义的，因为他们牛不牛逼完全由他们的主子决定的。一人得道鸡犬升天，你说这和珅家里的管家和七侠镇娄知县县令家里的管家有可比性吗？李总理的秘书是不是分分钟灭了你村支部书记的秘书（如果有）。</p>
 <p>翻译成术语就是：普通元素的层叠水平优先由层叠上下文决定，因此，层叠水平的比较只有在当前层叠上下文元素中才有意义。</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif" alt="你懂的"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/point.gif" alt="你懂的"></p>
 <p>需要注意的是，诸位千万不要把层叠水平和CSS的z-index属性混为一谈。没错，某些情况下z-index确实可以影响层叠水平，但是，只限于定位元素以及flex盒子的孩子元素；而层叠水平所有的元素都存在。</p>
 <h3 id="三、什么是层叠顺序"><a href="#三、什么是层叠顺序" class="headerlink" title="三、什么是层叠顺序"></a>三、什么是层叠顺序</h3><p>再来说说层叠顺序。“层叠顺序”英文称作”stacking order”. 表示元素发生层叠时候有着特定的垂直显示顺序，注意，这里跟上面两个不一样，上面的<strong>层叠上下文和层叠水平是概念</strong>，而这里的<strong>层叠顺序是规则</strong>。</p>
-<p>在CSS2.1的年代，在CSS3还没有出现的时候（注意这里的前提），层叠顺序规则遵循下面这张图：<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_223349.png" alt="层叠顺序"></p>
+<p>在CSS2.1的年代，在CSS3还没有出现的时候（注意这里的前提），层叠顺序规则遵循下面这张图：<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_223349.png" alt="层叠顺序"></p>
 <p>有人可能有见过类似图，那个图是很多很多年前老外绘制的，英文内容。而是更关键的是国内估计没有同行进行过验证与实践，实际上很多关键信息缺失。上面是我自己手动重绘的中文版同时补充很多其他地方绝对没有的重要知识信息。如果想要无水印高清大图，点击这里购买(0.5元)。</p>
 <p>缺失的关键信息包括：</p>
 <ol>
@@ -368,12 +368,12 @@
 <li>原图没有呈现inline-block的层叠顺序，实际上，inline-block和inline水平元素是同等level级别。</li>
 <li>z-index:0实际上和z-index:auto单纯从层叠水平上看，是可以看成是一样的。注意这里的措辞——“单纯从层叠水平上看”，实际上，两者在层叠上下文领域有着根本性的差异。</li>
 </ol>
-<p>下面我要向大家发问了，大家有没有想过，为什么内联元素的层叠顺序要比浮动元素和块状元素都高？<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/ask.gif" alt="疑问"></p>
+<p>下面我要向大家发问了，大家有没有想过，为什么内联元素的层叠顺序要比浮动元素和块状元素都高？<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/ask.gif" alt="疑问"></p>
 <p>为什么呢？我明明感觉浮动元素和块状元素要更屌一点啊。</p>
-<p>嘿嘿嘿，我就不卖关子了，直接看下图的标注说明：<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235108.png" alt="层叠顺序元素的标注说明"></p>
+<p>嘿嘿嘿，我就不卖关子了，直接看下图的标注说明：<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235108.png" alt="层叠顺序元素的标注说明"></p>
 <p>诸如<code>border</code>&#x2F;<code>background</code>一般为装饰属性，而浮动和块状元素一般用作布局，而内联元素都是内容。网页中最重要的是什么？当然是内容了哈，对不对！</p>
 <p>因此，一定要让内容的层叠顺序相当高，当发生层叠是很好，重要的文字啊图片内容可以优先暴露在屏幕上。例如，文字和浮动图片重叠的时候：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235830.jpg" alt="浮动和文字重叠"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-07_235830.jpg" alt="浮动和文字重叠"></p>
 <p>上面说的这些层叠顺序规则还是老时代的，如果把CSS3也牵扯进来，科科，事情就不一样了。</p>
 <h3 id="四、务必牢记的层叠准则"><a href="#四、务必牢记的层叠准则" class="headerlink" title="四、务必牢记的层叠准则"></a>四、务必牢记的层叠准则</h3><p>下面这两个是层叠领域的黄金准则。当元素发生层叠的时候，其覆盖关系遵循下面2个准则：</p>
 <ol>
@@ -411,17 +411,17 @@
 <p>如下HTML代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&quot;position:relative; z-index:auto;&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;mm1.jpg&quot; style=&quot;position:absolute; z-index:2;&quot;&gt;    &lt;-- 横妹子 --&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div style=&quot;position:relative; z-index:auto;&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;mm2.jpg&quot; style=&quot;position:relative; z-index:1;&quot;&gt;    &lt;-- 竖妹子 --&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
 <p>大家会发现，竖着的妹子(mm2)被横着的妹子(mm1)给覆盖了。</p>
 <p>下面，我们对父级简单调整下，把<code>z-index:auto</code>改成层叠水平一致的<code>z-index:0</code>, 代码如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&quot;position:relative; z-index:0;&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;mm1.jpg&quot; style=&quot;position:absolute; z-index:2;&quot;&gt;    &lt;-- 横妹子 --&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div style=&quot;position:relative; z-index:0;&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;mm2.jpg&quot; style=&quot;position:relative; z-index:1;&quot;&gt;    &lt;-- 竖妹子 --&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
 <p>大家会发现，尼玛反过来了，竖着的妹子(mm2)这回趴在了横着的妹子(mm1)身上。</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_220622.jpg" alt="百合大法好"></p>
-<p>为什么小小的改变会有想法的结果呢？<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/think-2.gif" alt="思考"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_220622.jpg" alt="百合大法好"></p>
+<p>为什么小小的改变会有想法的结果呢？<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/think-2.gif" alt="思考"></p>
 <p>差别就在于，<code>z-index:0</code>所在的<code>&lt;div&gt;</code>元素是层叠上下文元素，而<code>z-index:auto</code>所在的<code>&lt;div&gt;</code>元素是一个普通的元素，于是，里面的两个<code>&lt;img&gt;</code>妹子的层叠比较就不受父级的影响，两者直接套用层叠黄金准则，这里，两者有着明显不一的<code>z-index</code>值，因此，遵循“<strong>谁大谁上</strong>”的准则，于是，<code>z-index</code>为<code>2</code>的那个横妹子，就趴在了<code>z-index</code>为<code>1</code>的竖妹子身上。</p>
 <p>而<code>z-index</code>一旦变成数值，哪怕是<code>0</code>，都会创建一个层叠上下文。此时，层叠规则就发生了变化。层叠上下文的特性里面最后一条——自成体系。两个<code>&lt;img&gt;</code>妹子的层叠顺序比较变成了优先比较其父级层叠上下文元素的层叠顺序。这里，由于两者都是<code>z-index:0</code>，层叠顺序这一块两者一样大，此时，遵循层叠黄金准则的另外一个准则“<strong>后来居上</strong>”，根据在DOM流中的位置决定谁在上面，于是，位于后面的竖着的妹子就自然而然趴在了横着的妹子身上。对，没错，<code>&lt;img&gt;</code>元素上的<code>z-index</code>打酱油了！</p>
 <p>有时候，我们在网页重构的时候，会发现，<code>z-index</code>嵌套错乱，看看是不是受父级的层叠上下文元素干扰了。然后，可能没多大意义了，但我还是提一下，算是祭奠下，IE6&#x2F;IE7浏览器有个bug，就是<code>z-index:auto</code>的定位元素也会创建层叠上下文。这就是为什么在过去，IE6&#x2F;IE7的<code>z-index</code>会搞死人的原因。</p>
@@ -445,15 +445,15 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;box&quot;&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">     &lt;img src=&quot;mm1.jpg&quot;&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.box &#123;  &#125;</span><br><span class="line">.box &gt; div &#123; background-color: blue; z-index: 1; &#125;    /* 此时该div是普通元素，z-index无效 */</span><br><span class="line">.box &gt; div &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;     /* 注意这里是负值z-index */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
-<p>会发现，妹子跑到蓝色背景的下面了。为什么呢？层叠顺序图可以找到答案，如下：<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235511.png" alt="负值z-index的层叠顺序"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p>会发现，妹子跑到蓝色背景的下面了。为什么呢？层叠顺序图可以找到答案，如下：<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235511.png" alt="负值z-index的层叠顺序"></p>
 <p>从上图可以看出负值z-index的层叠顺序在block水平元素的下面，而蓝色背景<code>div</code>元素是个普通元素，因此，妹子直接穿越过去，在蓝色背景后面的显示了。</p>
 <p>现在，我们CSS微调下，增加<code>display:flex</code>, 如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.box &#123; display: flex; &#125;</span><br><span class="line">.box &gt; div &#123; background-color: blue; z-index: 1; &#125;    /* 此时该div是层叠上下文元素，同时z-index生效 */</span><br><span class="line">.box &gt; div &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;     /* 注意这里是负值z-index */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
-<p>会发现，妹子在蓝色背景上面显示了，为什么呢？层叠顺序图可以找到答案，如下：<br><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235217.png" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p>会发现，妹子在蓝色背景上面显示了，为什么呢？层叠顺序图可以找到答案，如下：<br><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-08_235217.png" alt="img"></p>
 <p>从上图可以看出负值<code>z-index</code>的层叠顺序在当前第一个父层叠上下文元素的上面，而此时，那个<code>z-index</code>值为<code>1</code>的蓝色背景<code>&lt;div&gt;</code>的父元素的<code>display</code>值是<code>flex</code>，一下子升官发财变成层叠上下文元素了，于是，图片在蓝色背景上面显示了。这个现象也证实了层叠上下文元素是<code>flex</code>子元素，而不是<code>flex</code>容器元素。</p>
 <p>另外，另外，这个例子也颠覆了我们传统的对<code>z-index</code>的理解。在CSS2.1时代，<code>z-index</code>属性必须和定位元素一起使用才有作用，但是，在CSS3的世界里，非定位元素也能和<code>z-index</code>愉快地搞基。</p>
 <p><strong>2. opacity与层叠上下文</strong><br>我们直接看代码，原理和上面例子一样，就不解释了。</p>
@@ -461,26 +461,26 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;box&quot;&gt;</span><br><span class="line">    &lt;img src=&quot;mm1.jpg&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.box &#123; background-color: blue;  &#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>然后价格透明度，例如50%透明：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123; background-color: blue; opacity: 0.5;  &#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>原因就是半透明元素具有层叠上下文，妹子图片的<code>z-index:-1</code>无法穿透，于是，在蓝色背景上面乖乖显示了。</p>
 <p><strong>3. transform与层叠上下文</strong><br>应用了<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/11/css3-transitions-transforms-animation-introduction/">transform变换</a>的元素同样具有菜单上下文。</p>
 <p>我们直接看应用后的结果，如下CSS代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123; background-color: blue; transform: rotate(15deg);  &#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>妹子同样在蓝色背景之上。</p>
 <p><strong>4. mix-blend-mode与层叠上下文</strong><br><code>mix-blend-mode</code>类似于PS中的混合模式，之前专门有文章介绍-“<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2015/05/css3-mix-blend-mode-background-blend-mode/">CSS3混合模式mix-blend-mode简介</a>”。</p>
 <p>元素和白色背景混合。无论哪种模式，要么全白，要么没有任何变化。为了让大家有直观感受，因此，下面例子我特意加了个原创平铺背景：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123; background-color: blue; mix-blend-mode: darken;  &#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>需要注意的是，目前，IE浏览器(包括IE14)还不支持<code>mix-blend-mode</code>，因此，要想看到妹子在背景色之上，请使用Chrome或FireFox。</p>
 <p>同样的，因为蓝色背景元素升级成了层叠上下文，因此，<code>z-index:-1</code>无法穿透，在蓝色背景上显示了。</p>
 <p><strong>5. filter与层叠上下文</strong><br>此处说的<code>filter</code>是CSS3中规范的滤镜，不是旧IE时代私有的那些，虽然目的类似。同样的，我之前有提过，例如<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2012/08/css-svg-filter-image-grayscale/">图片的灰度</a>或者<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2013/11/css-svg-image-blur/">图片的毛玻璃效果</a>等。</p>
@@ -488,7 +488,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123; background-color: blue; filter: blur(5px);  &#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>好吧，果然被你猜对了，妹子蓝色床上躺着，只是你眼镜摘了，看得有些不够真切罢了。</p>
 <p><strong>6. isolation:isolate与层叠上下文</strong><br><code>isolation:isolate</code>这个声明是<code>mix-blend-mode</code>应运而生的。默认情况下，<code>mix-blend-mode</code>会混合z轴所有层叠在下面的元素，要是我们不希望某个层叠的元素参与混合怎么办呢？就是使用<code>isolation:isolate</code>。由于一言难尽，我特意为此写了篇文章：“<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/?p=5155">理解CSS3 isolation: isolate的表现和作用</a>”，解释了其阻隔混合模式的原理，建议大家看下。</p>
 <p>要演示这个效果，我需要重新设计下，如下HTML结构：</p>
@@ -498,21 +498,21 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.mode &#123;</span><br><span class="line">  /* 竖妹子绝对定位，同时混合模式 */</span><br><span class="line">  position: absolute; mix-blend-mode: darken;</span><br><span class="line">&#125;    </span><br><span class="line">.box &#123;</span><br><span class="line">  background: blue;         </span><br><span class="line">&#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结构如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>会发现，横妹子被混合模式了。此时，我们给妹子所在容器增加<code>isolation:isolate</code>，如下CSS所示：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.mode &#123;</span><br><span class="line">  /* 竖妹子绝对定位，同时混合模式 */</span><br><span class="line">  position: absolute; mix-blend-mode: darken;</span><br><span class="line">&#125;    </span><br><span class="line">.box &#123;</span><br><span class="line">  background: blue; isolation:isolate;         </span><br><span class="line">&#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果为：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>会发现横着的妹子跑到蓝色背景上面了。这表明确实创建了层叠上下文。</p>
 <p><strong>7. will-change与层叠上下文</strong><br>关于<code>will-change</code>，如果有同学还不了解，可以参见我之前写的文章：“<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2015/11/css3-will-change-improve-paint/">使用CSS3 will-change提高页面滚动、动画等渲染性能</a>”。</p>
 <p>都是类似的演示代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123; background-color: blue; will-change: transform;  &#125;</span><br><span class="line">.box &gt; img &#123; </span><br><span class="line">  position: relative; z-index: -1; right: -150px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"></p>
 <p>果然不出所料，妹子上了蓝色的背景。</p>
 <h3 id="七、层叠上下文与层叠顺序"><a href="#七、层叠上下文与层叠顺序" class="headerlink" title="七、层叠上下文与层叠顺序"></a>七、层叠上下文与层叠顺序</h3><p>本文多次提到，一旦普通元素具有了层叠上下文，其层叠顺序就会变高。那它的层叠顺序究竟在哪个位置呢？</p>
 <p>这里需要分两种情况讨论：</p>
@@ -521,28 +521,28 @@
 <li>如果层叠上下文元素依赖<code>z-index</code>数值，则其层叠顺序由<code>z-index</code>值决定。</li>
 </ol>
 <p>于是乎，我们上面提供的层叠顺序表，实际上还是缺少其他重要信息。我又花功夫重新绘制了一个更完整的7阶层叠顺序图（同样的版权所有，商业请购买，可得无水印大图）：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png" alt="更完整的7阶层叠顺序图"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2016-01-09_211116.png" alt="更完整的7阶层叠顺序图"></p>
 <p>大家知道为什么定位元素会层叠在普通元素的上面吗？</p>
 <p>其根本原因就在于，元素一旦成为定位元素，其<code>z-index</code>就会自动生效，此时其<code>z-index</code>就是默认的<code>auto</code>，也就是<code>0</code>级别，根据上面的层叠顺序表，就会覆盖<code>inline</code>或<code>block</code>或<code>float</code>元素。</p>
 <p>而不支持z-index的层叠上下文元素天然<code>z-index:auto</code>级别，也就意味着，层叠上下文元素和定位元素是一个层叠顺序的，于是当他们发生层叠的时候，遵循的是“后来居上”准则。</p>
 <p>我们可以速度测试下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;mm1&quot; style=&quot;position:relative&quot;&gt;</span><br><span class="line">&lt;img src=&quot;mm2&quot; style=&quot;transform:scale(1);&quot;&gt;</span><br><span class="line">&lt;img src=&quot;mm2&quot; style=&quot;transform:scale(1);&quot;&gt;</span><br><span class="line">&lt;img src=&quot;mm1&quot; style=&quot;position:relative&quot;&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"><br><img src="/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm2.jpg" alt="img"><img src="/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="img"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm1.jpg" alt="img"><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/mm2.jpg" alt="img"><br><img src="/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm2.jpg" alt="img"><img src="/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="img"></p>
 <p>会发现，两者样式一模一样，仅仅是在DOM流中的位置不一样，导致他们的层叠表现不一样，后面的妹子趴在了前面妹子的身上。这也说明了，层叠上下文元素的层叠顺序就是<code>z-index:auto</code>级别。</p>
 <p><strong>z-index值与层叠顺序</strong><br>如果元素支持z-index值，则层叠顺序就要好理解些了，比较数值大小嘛，小盆友都会，本质上是应用的“谁大谁上”的准则。在以前，我们只需要关心定位元素的z-index就好，但是，在CSS3时代，flex子项也支持<code>z-index</code>，使得我们面对的情况比以前要负复杂。然而，好的是，规则都是一样的，对于<code>z-index</code>的使用和表现也是如此，套用上面的7阶层叠顺序表就可以了。</p>
 <p>同样，举个简单例子，看下<code>z-index:-1</code>和<code>z-index:1</code>变化对层叠表现的影响，如下两段HTML：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&quot;display:flex; background:blue;&quot;&gt;</span><br><span class="line">   &lt;img src=&quot;mm1.jpg&quot; style=&quot;z-index:-1;&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div style=&quot;display:flex; background:blue;&quot;&gt;</span><br><span class="line">   &lt;img src=&quot;mm1.jpg&quot; style=&quot;z-index:1;&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
 <p>最后，会发现，<code>z-index:-1</code>跑到了背景色小面，而<code>z-index:1</code>高高在上。</p>
-<p><img src="/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="img"></p>
-<p><img src="/_posts/css/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="img"></p>
+<p><img src="/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="img"></p>
+<p><img src="/assets/https:/image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="img"></p>
 <p><strong>一个与层叠上下文相关的有趣的显示现象</strong><br>在实际项目中，我们可能会渐进使用CSS3的fadeIn淡入animation效果增强体验，于是，我们可能就会遇到类似下面的现象：</p>
 <p>您可以狠狠地点击这里：<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201601/css3-fadein-animation-stacking-context.html">CSS3 fadeIn淡入animation动画有趣现象</a></p>
 <p>有一个绝对定位的黑色半透明层覆盖在图片上，默认显示是这样的：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004641.png" alt="文字在妹子上"></p>
-<p>但是，一旦图片开始走fadeIn淡出的CSS3动画，文字跑到图片后面去了<img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/36.gif" alt="img">：</p>
-<p><img src="/_posts/css/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004654.png" alt="文字跑到图片后面"></p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004641.png" alt="文字在妹子上"></p>
+<p>但是，一旦图片开始走fadeIn淡出的CSS3动画，文字跑到图片后面去了<img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/36.gif" alt="img">：</p>
+<p><img src="/assets/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/2018-01-09_004654.png" alt="文字跑到图片后面"></p>
 <p>为什么会这样？</p>
 <p>实际上，学了本文的内容，就很简单了！fadeIn动画本质是<code>opacity</code>透明度的变化：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@keyframes fadeIn &#123;</span><br><span class="line">  0% &#123; </span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    opacity: 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -571,13 +571,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/CSS/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/" rel="prev" title="层叠上下文-淘宝团队">
-                  <i class="fa fa-angle-left"></i> 层叠上下文-淘宝团队
+                <a href="/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/http3/" rel="prev" title="第 3 章　HTTP 报文内的 HTTP 信息">
+                  <i class="fa fa-angle-left"></i> 第 3 章　HTTP 报文内的 HTTP 信息
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/get&post/" rel="next" title="get post">
-                  get post <i class="fa fa-angle-right"></i>
+                <a href="/CSS/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/" rel="next" title="层叠上下文-淘宝团队">
+                  层叠上下文-淘宝团队 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

@@ -27,21 +27,21 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="在V8原理中 22小节 有一些增量知识–回收效率  在JavaScript中产生的垃圾数据是由垃圾回收器来释放的，并不需要手动通过代码来释放。 我们知道JavaScript的数据分为两类，原始数据类型是存储在栈空间中的，引用类型的数据是存储在堆空间中的。 垃圾回收机制栈中的数据是如何回收的在blog中有关于介绍**执行上下文(调用栈)**的详细介绍，栈中的垃圾回收，我们通过一段代码来看一下 12">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152137737.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152420782.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720153841493.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154746371.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154921297.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154954477.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720155150795.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20220720104725019.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152137737.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152420782.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720153841493.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154746371.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154921297.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154954477.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720155150795.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20220720104725019.png">
 <meta property="article:published_time" content="2021-07-19T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:28.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="垃圾回收">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
@@ -270,12 +270,12 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"> <span class="keyword">var</span> b = &#123;<span class="attr">name</span>:<span class="string">&quot; 极客邦 &quot;</span>&#125;</span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">showName</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> c = <span class="string">&quot; 极客时间 &quot;</span></span><br><span class="line">  <span class="keyword">var</span> d = &#123;<span class="attr">name</span>:<span class="string">&quot; 极客时间 &quot;</span>&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="title function_">showName</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>()</span><br></pre></td></tr></table></figure>
 
 <p>当执行到第 6 行代码时，其调用栈和堆空间状态图如下所示：</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png" alt="image-20210720151826588"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720151826588.png" alt="image-20210720151826588"></p>
 <p>当showName执行完毕，上下文需要切换至foo时，有一个<strong>记录当前执行状态的指针（称为 ESP）</strong>会下移指向foo函数的执行上下文，虽然showName的执行上下文未被摧毁，但是已经是无效内存了。因为如果当foo 函数再次调用另外一个函数时，这块内容会被直接覆盖掉，用来存放另外一个函数的执行上下文</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152137737.png" alt="image-20210720152137737"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152137737.png" alt="image-20210720152137737"></p>
 <h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p> 在栈空间中，<strong>JavaScript 引擎会通过向下移动 ESP 来销毁该函数保存在栈中的执行上下文，顺带完成了栈空间的垃圾回收</strong>。</p>
 <h3 id="堆中的数据是如何回收的"><a href="#堆中的数据是如何回收的" class="headerlink" title="堆中的数据是如何回收的"></a><strong>堆中的数据是如何回收的</strong></h3><p>继续上边代码的执行，当上面那段代码的 foo 函数执行结束之后，ESP 应该是指向全局执行上下文的，那这样的话，showName 函数和 foo 函数的执行上下文就处于无效状态了，<strong>不过保存在堆中的两个对象依然占用着空间</strong>，如下图所示：</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152420782.png" alt="image-20210720152420782"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720152420782.png" alt="image-20210720152420782"></p>
 <p><strong>要回收堆中的垃圾数据，就需要用到 JavaScript 中的垃圾回收器了</strong>。</p>
 <h4 id="代际假说"><a href="#代际假说" class="headerlink" title="代际假说"></a>代际假说</h4><p> <strong>代际假说（The Generational Hypothesis）</strong>，这是垃圾回收领域中一个重要的术语，后续垃圾回收的策略都是建立在该假说的基础之上的。</p>
 <p><strong>代际假说</strong>有以下两个特点：</p>
@@ -304,7 +304,7 @@
 </ul>
 <h4 id="副垃圾回收器"><a href="#副垃圾回收器" class="headerlink" title="副垃圾回收器"></a><strong>副垃圾回收器</strong></h4><p> 副垃圾回收器主要负责新生区的垃圾回收。大多数小的对象都会被分配到新生区，所以说这个<strong>区域虽然不大</strong>，但是垃圾回收还是比较<strong>频繁</strong>的。</p>
 <p> 新生代中用<strong>Scavenge 算法</strong>来处理。所谓 Scavenge 算法，是把新生代空间对半划分为两个区域，一半是对象区域，一半是空闲区域，如下图所示：</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720153841493.png" alt="image-20210720153841493"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720153841493.png" alt="image-20210720153841493"></p>
 <p>新加入的对象都会存放到对象区域，当对象区域快被写满时，就需要执行一次垃圾清理操作。</p>
 <p> 在垃圾回收过程中，首先要对对象区域中的垃圾做标记；标记完成之后，就进入垃圾清理阶段，副垃圾回收器会把这些存活的对象复制到空闲区域中，同时它还<strong>会把这些对象有序地排列起来</strong>，所以这个复制过程，也就相当于完成了内存整理操作，复制后空闲区域就没有内存碎片了。</p>
 <p> 完成复制后，对象区域与空闲区域进行角色翻转，这样就完成了垃圾对象的回收操作，同时这种<strong>角色翻转的操作还能让新生代中的这两块区域无限重复使用下去</strong>。</p>
@@ -316,18 +316,18 @@
 <p> 由于老生去对象比较大，不适合新生去的回收机制，主垃圾回收器是采用标记-清除算法</p>
 <h5 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记 - 清除"></a>标记 - 清除</h5><p> 首先是标记过程阶段。标记阶段就是从一组根元素开始，递归遍历这组根元素（<strong>调用栈</strong>），在这个遍历过程中，能到达的元素称为<strong>活动对象</strong>，没有到达的元素就可以判断为<strong>垃圾数据</strong>。</p>
 <p> 接下来就是垃圾的清除过程。它和副垃圾回收器的垃圾清除过程完全不同，你可以理解这个过程是清除掉红色标记数据的过程，可参考下图大致理解下其清除过程：</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154746371.png" alt="image-20210720154746371"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154746371.png" alt="image-20210720154746371"></p>
 <p>不过对一块内存多次执行标记 - 清除算法后，会<strong>产生大量不连续的内存碎片</strong>，于是又产生了另外一种算法——<strong>标记 - 整理（Mark-Compact）</strong></p>
 <p> 这个标记过程仍然与标记 - 清除算法里的是一样的，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存。你可以参考下图：</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154921297.png" alt="image-20210720154921297"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154921297.png" alt="image-20210720154921297"></p>
 <h4 id="全停顿"><a href="#全停顿" class="headerlink" title="全停顿"></a><strong>全停顿</strong></h4><p> JavaScript 是运行在主线程之上的，一旦执行垃圾回收算法，都需要将正在执行的JavaScript 脚本暂停下来，待垃圾回收完毕后再恢复脚本执行。我们把这种行为叫做<strong>全停顿（Stop-The-World）</strong>。</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154954477.png" alt="image-20210720154954477"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720154954477.png" alt="image-20210720154954477"></p>
 <p>一般来说是老生代的垃圾回收占用时间较长，新生代可以忽略不计。为了解决这个问题，V8使用了<strong>增量标记（Incremental Marking）算法</strong>。</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720155150795.png" alt="image-20210720155150795"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20210720155150795.png" alt="image-20210720155150795"></p>
 <p>V8 将<strong>标记过程</strong>分为一个个的子标记过程，同时让垃圾回收标记和 JavaScript 应用逻辑交替进行，直到标记阶段完成。这样当执行复杂动画效果时，就不会让用户因为垃圾回收任务而感受到页面的卡顿了。</p>
 <blockquote>
 <p>精彩评论</p>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20220720104725019.png" alt="image-20220720104725019"></p>
+<p><img src="/assets/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/image-20220720104725019.png" alt="image-20220720104725019"></p>
 </blockquote>
 
     </div>
@@ -350,8 +350,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/javascript/js%E7%9A%84%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4/" rel="next" title="JavaScript的内存空间">
-                  JavaScript的内存空间 <i class="fa fa-angle-right"></i>
+                <a href="/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/" rel="next" title="12 传输优化">
+                  12 传输优化 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

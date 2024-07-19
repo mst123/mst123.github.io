@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="1 有效解决setTimeout跨级传参数12功能：修改 window.setTimeout，使之可以传递参数和对象参数 使用方法： setTimeout(回调函数,时间,参数1,...,参数n)  2 单击和双击的冲突问题在一个对象同时绑定单击和双击事件时，当双击该对象时，事件发生顺序为 单击-单击-双击。解决该问题可以通过定时器解决 1234567891011var TimeFn &#x3D; null">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form1.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form2.jpg">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/bVWhRl.png">
+<meta property="og:image" content="https://mst123.github.io/assets/peacetime/require1.png">
+<meta property="og:image" content="https://mst123.github.io/assets/peacetime/form1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/peacetime/form2.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/peacetime/bVWhRl.png">
 <meta property="article:published_time" content="2024-07-13T06:39:31.000Z">
 <meta property="article:modified_time" content="2024-07-13T06:39:31.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="问题记录">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/peacetime/require1.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/peacetime/">
@@ -345,7 +345,7 @@
 <h2 id="require-一个图片资源出现的问题"><a href="#require-一个图片资源出现的问题" class="headerlink" title="require 一个图片资源出现的问题"></a>require 一个图片资源出现的问题</h2><p>我在项目中书写一个头部组件的时候，需要动态引入背景图片</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;../assets/rwkb.png&quot;) + &quot;)&quot;</span><br></pre></td></tr></table></figure>
 
-<p>写法是对的，但是死活出不来，我真是百思不得其解、、、后来发现打印出来的资源<br><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png" alt="资源"></p>
+<p>写法是对的，但是死活出不来，我真是百思不得其解、、、后来发现打印出来的资源<br><img src="/assets/peacetime/require1.png" alt="资源"></p>
 <hr>
 <p>然后我抱着试一试的态度多写了一个<code>.default</code>竟然成功了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;../../assets/img/rwkb.png&quot;).default + &quot;)&quot;</span><br></pre></td></tr></table></figure>
@@ -354,7 +354,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(require(&quot;@/assets/img/401.png&quot;));</span><br></pre></td></tr></table></figure>
 
 <p>控制台输出 <code>/img/401.abca6a5b.png</code></p>
-<h2 id="element-ui-form表单动态验证"><a href="#element-ui-form表单动态验证" class="headerlink" title="element ui form表单动态验证"></a>element ui form表单动态验证</h2><p><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form1.jpg" alt="资源"><br><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form2.jpg" alt="资源"><br>切换某一个选项后，会动态改变表单及需要校验的表单<br>项目中采用v-if v-else方法改变表单，但是form rules验证会失效，解决方法：<strong>给元素添加唯一KEY</strong>  </p>
+<h2 id="element-ui-form表单动态验证"><a href="#element-ui-form表单动态验证" class="headerlink" title="element ui form表单动态验证"></a>element ui form表单动态验证</h2><p><img src="/assets/peacetime/form1.jpg" alt="资源"><br><img src="/assets/peacetime/form2.jpg" alt="资源"><br>切换某一个选项后，会动态改变表单及需要校验的表单<br>项目中采用v-if v-else方法改变表单，但是form rules验证会失效，解决方法：<strong>给元素添加唯一KEY</strong>  </p>
 <blockquote>
 <p>产生bug的原因在于diff算法的复用</p>
 </blockquote>
@@ -454,7 +454,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父</span></span><br><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">ceshiObj1</span>: &#123;</span><br><span class="line">      <span class="attr">a</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="title function_">provide</span> () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">getInfo</span>: <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="property">ceshiObj1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">  <span class="title function_">testInject</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ceshiObj1</span>.<span class="property">a</span>++</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子</span></span><br><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">  <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">getInfo</span>().<span class="property">a</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="defer和async"><a href="#defer和async" class="headerlink" title="defer和async"></a>defer和async</h2><p>js的执行都会阻塞html parsing</p>
-<p><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/bVWhRl.png" alt="wfL82.png"></p>
+<p><img src="/assets/peacetime/bVWhRl.png" alt="wfL82.png"></p>
 <h2 id="bind函数的参数"><a href="#bind函数的参数" class="headerlink" title="bind函数的参数"></a>bind函数的参数</h2><p>直接看代码吧</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function resolve(res) &#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bindHandle(...rest) &#123;</span><br><span class="line">  console.log(rest);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const after = bindHandle.bind(null, resolve, &quot;promise&quot;)</span><br><span class="line"></span><br><span class="line">after(&quot;res&quot;,&quot;res2&quot;)</span><br><span class="line"></span><br><span class="line">[ [Function: resolve], &#x27;promise&#x27;, &#x27;res&#x27;, &#x27;res2&#x27; ]</span><br></pre></td></tr></table></figure>
 

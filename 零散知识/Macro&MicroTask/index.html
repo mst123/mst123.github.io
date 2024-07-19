@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="这个直接看浏览器原理 V8 第18节 有更详细的讲解时间循环及消息队列  micro-task和macro-task就是两种不同的任务队列  macro-task: script(script标签里面的整体代码) setTimeout setInterval setImmediate MessageChannel（vue nextTick 以前应该是备选方案） I&#x2F;O UI rende">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/Macro&MicroTask/MacroTask1.jpg">
+<meta property="og:image" content="https://mst123.github.io/assets/Macro&MicroTask/MacroTask1.jpg">
 <meta property="article:published_time" content="2021-02-21T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-17T02:53:10.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="eventLoop">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/Macro&MicroTask/MacroTask1.jpg">
+<meta name="twitter:image" content="https://mst123.github.io/assets/Macro&MicroTask/MacroTask1.jpg">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/Macro&MicroTask/">
@@ -282,7 +282,7 @@
 <li><strong>微任务列表存储在环境变量中</strong></li>
 <li>结论来自于v8原理 18节</li>
 </ul>
-<p><img src="/_posts/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/assets/Macro&MicroTask/MacroTask1.jpg" alt="示意图"><br>每一次事件循环中，主进程都会先执行一个macroTask任务，这个任务就来自于所谓的MacroTask Queue队列；当该macroTask结束前，Event loop会立马<strong>调用microTask队列的任务，直到消费完所有的microtask，再继续下一个事件循环</strong>。</p>
+<p><img src="/assets/Macro&MicroTask/MacroTask1.jpg" alt="示意图"><br>每一次事件循环中，主进程都会先执行一个macroTask任务，这个任务就来自于所谓的MacroTask Queue队列；当该macroTask结束前，Event loop会立马<strong>调用microTask队列的任务，直到消费完所有的microtask，再继续下一个事件循环</strong>。</p>
 <blockquote>
 <p>管中窥豹，microTask调用优先级较高于macroTask.<br>先看一个demo</p>
 </blockquote>
@@ -324,8 +324,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/" rel="prev" title="类的多种继承方式">
-                  <i class="fa fa-angle-left"></i> 类的多种继承方式
+                <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" rel="prev" title="前端安全">
+                  <i class="fa fa-angle-left"></i> 前端安全
                 </a>
             </div>
             <div class="post-nav-item">

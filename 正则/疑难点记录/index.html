@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="正则疑难点记录贪婪、非贪婪与独占模式123&#x2F;&#x2F; 贪婪匹配&quot;c.*t&quot; &#x3D;&gt; The fat cat sat on the mat.&#x2F;&#x2F;匹配： cat sat on the mat  在字符后加上一个问号（?）则可以开启懒惰模式，在该模式下，正则引擎尽可能少的重复匹配字符，匹配成功之后它会继续匹配剩余的字符串 123&#x2F;&#x2F; 非贪婪匹配  则可以开启懒惰模式，在该模式下，正则引">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg1.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg2.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg3.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg4.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg1.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg2.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg3.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg4.png">
 <meta property="article:published_time" content="2020-08-27T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:29.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="正则">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg1.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg1.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E6%AD%A3%E5%88%99/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/">
@@ -279,14 +279,14 @@
 <p>看一下下列代码,匹配模式是<code>/[a-z]*/</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;The fata catqq sat on the mat.&quot;;</span><br><span class="line">var reg = /[a-z]*/;</span><br><span class="line">console.log(str.match(reg));</span><br></pre></td></tr></table></figure>
 
-<p>结果如下,替换为<code>/[a-z]?/</code>结果也是一样的<br><img src="/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg1.png" alt="疑难点记录"><br>匹配到了一个<code>&quot;&quot;</code></p>
+<p>结果如下,替换为<code>/[a-z]?/</code>结果也是一样的<br><img src="/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg1.png" alt="疑难点记录"><br>匹配到了一个<code>&quot;&quot;</code></p>
 <hr>
 <p>现在添加一个全局搜索符 g</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;The fata catqq sat on the mat.&quot;;</span><br><span class="line">var reg = /[a-z]*/g;</span><br><span class="line">console.log(str.match(reg));</span><br></pre></td></tr></table></figure>
 
-<p>结果如下图：<br><img src="/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg2.png" alt="疑难点记录"><br>我非常疑惑为什么会匹配到 <code>&quot;&quot;</code> 下面是来自<a target="_blank" rel="noopener" href="https://regex101.com/r/7m8me5/1">正则匹配</a>的示意图<br><img src="/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg3.png" alt="疑难点记录"><br>蓝色虚线表示<code>&quot;&quot;</code></p>
+<p>结果如下图：<br><img src="/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg2.png" alt="疑难点记录"><br>我非常疑惑为什么会匹配到 <code>&quot;&quot;</code> 下面是来自<a target="_blank" rel="noopener" href="https://regex101.com/r/7m8me5/1">正则匹配</a>的示意图<br><img src="/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg3.png" alt="疑难点记录"><br>蓝色虚线表示<code>&quot;&quot;</code></p>
 <hr>
-<p>如果把正则换成<code>/[a-z]?/g</code>结果如下所示<br><img src="/_posts/%E6%AD%A3%E5%88%99/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg4.png" alt="疑难点记录"><br>这是因为<code>?</code>开启了懒惰模式，正则引擎尽可能少的重复匹配字符，匹配成功之后它会继续匹配剩余的字符串  </p>
+<p>如果把正则换成<code>/[a-z]?/g</code>结果如下所示<br><img src="/assets/%E7%96%91%E9%9A%BE%E7%82%B9%E8%AE%B0%E5%BD%95/bg4.png" alt="疑难点记录"><br>这是因为<code>?</code>开启了懒惰模式，正则引擎尽可能少的重复匹配字符，匹配成功之后它会继续匹配剩余的字符串  </p>
 
     </div>
 
@@ -303,13 +303,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/javascript/%E4%BD%9C%E7%94%A8%E5%9F%9F/" rel="prev" title="词法作用域与动态作用域">
-                  <i class="fa fa-angle-left"></i> 词法作用域与动态作用域
+                <a href="/%E6%AD%A3%E5%88%99/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="prev" title="正则疑难点记录">
+                  <i class="fa fa-angle-left"></i> 正则疑难点记录
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/%E6%AD%A3%E5%88%99/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="next" title="正则疑难点记录">
-                  正则疑难点记录 <i class="fa fa-angle-right"></i>
+                <a href="/%E7%AE%97%E6%B3%95/LeetCode/" rel="next" title="leetCode">
+                  leetCode <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

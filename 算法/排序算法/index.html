@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="简单记录学习极客时间-数据与结构之美-排序相关的知识记录 tips排序动画演示 可用手机app 时间复杂度 On2冒泡排序冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否 满足大小关系要求。如果不满足就让它俩互换。一次冒泡会让至少一个元素移动到它应该在 的位置，重复 n 次，就完成了 n 个数据的排序工作。 冒泡排序最不容易出错。 12345678910111213">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png">
+<meta property="og:image" content="https://mst123.github.io/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png">
 <meta property="article:published_time" content="2021-05-09T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:43.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
@@ -286,7 +286,7 @@
 
 <p>当选择一个随机数N，下标INDEX作为参照点的话，程序运行到关键点的情况应该如下图所示</p>
 <p>左侧是小于等于N的数，右侧是大于N的数，但是N可能在左侧或者右侧</p>
-<p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png" alt="image-20211112105742642"></p>
+<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112105742642.png" alt="image-20211112105742642"></p>
 <p>最好的情况就是 把N的位置放进 j-1 和 j之间，但是这样<strong>时间复杂度较高，采取交换替代</strong></p>
 <p>如果N在左侧就和<code>J-1</code>交换，N在右侧就和<code>J</code>置换，如果不需要随机选择位置的话，N取最右侧元素，就不需要判断了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (rdm &lt; j) &#123;</span><br><span class="line">    j--</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  [arr[rdm], arr[j]] = [arr[j], arr[rdm]]</span><br><span class="line">  return j</span><br></pre></td></tr></table></figure>
@@ -295,12 +295,12 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int pivot = nums[r];</span><br><span class="line">      int i = l - 1;</span><br><span class="line">      for (int j = l; j &lt;= r - 1; ++j) &#123;</span><br><span class="line">          if (nums[j] &lt;= pivot) &#123;</span><br><span class="line">              i = i + 1;</span><br><span class="line">              swap(nums[i], nums[j]);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      swap(nums[i + 1], nums[r]);</span><br><span class="line">      return i + 1;</span><br><span class="line">  &#125;</span><br><span class="line">  int randomized_partition(vector&lt;int&gt;&amp; nums, int l, int r) &#123;</span><br><span class="line">      int i = rand() % (r - l + 1) + l; // 随机选一个作为我们的主元</span><br><span class="line">      swap(nums[r], nums[i]);</span><br><span class="line">      return partition(nums, l, r);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>最后总结出JavaScript版本的快速排序</p>
-<p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png" alt="image-20211112112025117"></p>
+<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112025117.png" alt="image-20211112112025117"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function fastSort(arr, l, r) &#123;</span><br><span class="line">  if (l &gt;= r) &#123;</span><br><span class="line">    return arr</span><br><span class="line">  &#125;</span><br><span class="line">  const p = fastSortHandle(arr, l, r)</span><br><span class="line">  // -1 +1 可别忘 会死循环的</span><br><span class="line">  fastSort(arr, l, p - 1)</span><br><span class="line">  fastSort(arr, p + 1, r)</span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">function fastSortHandle(arr, l, r) &#123;</span><br><span class="line">  const rdm = Math.floor(Math.random() * (r - l + 1) + l)</span><br><span class="line">  // 与最后元素交换</span><br><span class="line">  swap(arr, rdm, r)</span><br><span class="line"></span><br><span class="line">  const ref = arr[r]</span><br><span class="line">  let j = l</span><br><span class="line">  for (let i = l; i &lt; r; i++) &#123;</span><br><span class="line">    if (arr[i] &lt;= ref) &#123;</span><br><span class="line">      swap(arr, i, j)</span><br><span class="line">      j++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr, r, j)</span><br><span class="line">  return j</span><br><span class="line">&#125;</span><br><span class="line">function swap(arr, p, q) &#123;</span><br><span class="line">  const temp = arr[p]</span><br><span class="line">  arr[p] = arr[q]</span><br><span class="line">  arr[q] = temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="归并排序和快速排序的区别与联系"><a href="#归并排序和快速排序的区别与联系" class="headerlink" title="归并排序和快速排序的区别与联系"></a>归并排序和快速排序的区别与联系</h3><p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png" alt="image-20211112112920927"></p>
+<h3 id="归并排序和快速排序的区别与联系"><a href="#归并排序和快速排序的区别与联系" class="headerlink" title="归并排序和快速排序的区别与联系"></a>归并排序和快速排序的区别与联系</h3><p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112112920927.png" alt="image-20211112112920927"></p>
 <p>快排和归并用的都是分治思想，递推公式和递归代码也非常相似，那它们的区别在哪里呢?</p>
-<p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png" alt="image-20211112113107064">可以发现，归并排序的处理过程是由下到上的，先处理子问题，然后再合并。</p>
+<p><img src="/assets/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/image-20211112113107064.png" alt="image-20211112113107064">可以发现，归并排序的处理过程是由下到上的，先处理子问题，然后再合并。</p>
 <p>而快排正好相反，它的处理过程是由上到下的，先分区，然后再处理子问题。</p>
 <p>归并排序虽然是稳定的、时 间复杂度为 O(nlogn) 的排序算法，但是它是非原地排序算法。我们前面讲过，归并之所以 是非原地排序算法，主要原因是合并函数无法在原地执行。快速排序通过设计巧妙的原地分区函数，可以实现原地排序，解决了归并排序占用太多内存的问题。</p>
 
@@ -319,13 +319,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/websocket/" rel="prev" title="websocket">
-                  <i class="fa fa-angle-left"></i> websocket
+                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" rel="prev" title="linux基本命令">
+                  <i class="fa fa-angle-left"></i> linux基本命令
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/%E5%A4%A7%E5%89%8D%E7%AB%AF/linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" rel="next" title="linux基本命令">
-                  linux基本命令 <i class="fa fa-angle-right"></i>
+                <a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式">
+                  设计模式 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

@@ -27,16 +27,16 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="mongoose中文网 mongoose 基础用法记录基础用法 首先在mongoDB里新建一个数据库，例如test1，借助Navicat工具    然后书写test.js  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849var mongoose &#x3D; require(&amp;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170647238.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170922882.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428181713717.png">
+<meta property="og:image" content="https://mst123.github.io/assets/mongoose/image-20210428170647238.png">
+<meta property="og:image" content="https://mst123.github.io/assets/mongoose/image-20210428170922882.png">
+<meta property="og:image" content="https://mst123.github.io/assets/mongoose/image-20210428181713717.png">
 <meta property="article:published_time" content="2021-05-14T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:20.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="mongoose">
 <meta property="article:tag" content="MongoDB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170647238.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/mongoose/image-20210428170647238.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E5%A4%A7%E5%89%8D%E7%AB%AF/mongoose/">
@@ -260,7 +260,7 @@
 <h2 id="mongoose-基础用法记录"><a href="#mongoose-基础用法记录" class="headerlink" title="mongoose 基础用法记录"></a>mongoose 基础用法记录</h2><h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><ul>
 <li>首先在mongoDB里新建一个数据库，例如test1，借助Navicat工具</li>
 </ul>
-<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170647238.png" alt="image-20210428170647238"></p>
+<p><img src="/assets/mongoose/image-20210428170647238.png" alt="image-20210428170647238"></p>
 <ul>
 <li>然后书写test.js</li>
 </ul>
@@ -269,9 +269,9 @@
 <ul>
 <li>新增了一条fluffy数据，数据库显示如下</li>
 </ul>
-<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428170922882.png" alt="image-20210428170922882"></p>
+<p><img src="/assets/mongoose/image-20210428170922882.png" alt="image-20210428170922882"></p>
 <h3 id="项目中按功能拆分"><a href="#项目中按功能拆分" class="headerlink" title="项目中按功能拆分"></a>项目中按功能拆分</h3><p>一般会把mongoose初始化，Schema，和操作表分离</p>
-<p><img src="/_posts/%E5%A4%A7%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/assets/mongoose/image-20210428181713717.png" alt="image-20210428181713717"></p>
+<p><img src="/assets/mongoose/image-20210428181713717.png" alt="image-20210428181713717"></p>
 <h4 id="mongoose初始化"><a href="#mongoose初始化" class="headerlink" title="mongoose初始化"></a>mongoose初始化</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">DBHelper.js</span><br><span class="line"></span><br><span class="line">import mongoose from &#x27;mongoose&#x27;;</span><br><span class="line">import config from &#x27;./index&#x27;;</span><br><span class="line"></span><br><span class="line">// 创建链接</span><br><span class="line">mongoose.connect(config.DB_URL, &#123;</span><br><span class="line">  useUnifiedTopology: true,</span><br><span class="line">  useNewUrlParser: true</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 连接成功</span><br><span class="line">mongoose.connection.on(&quot;connected&quot;, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;success&#x27; + config.DB_URL);</span><br><span class="line">&#125;)</span><br><span class="line">// 连接异常</span><br><span class="line">mongoose.connection.on(&quot;error&quot;, (error) =&gt; &#123;</span><br><span class="line">  console.log(&#x27;error&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 断开连接</span><br><span class="line">mongoose.connection.on(&quot;disconnected&quot;, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;断开连接&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default mongoose</span><br></pre></td></tr></table></figure>
 
 <h4 id="Schema文件"><a href="#Schema文件" class="headerlink" title="Schema文件"></a>Schema文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">model/User.js // 对应数据库 users表</span><br><span class="line"></span><br><span class="line">import mongoose from &#x27;../config/DBHelpler&#x27;;</span><br><span class="line">const Schema = mongoose.Schema;</span><br><span class="line"></span><br><span class="line">const UserSchema = new Schema(&#123;</span><br><span class="line">  name: &#123;</span><br><span class="line">    type: String</span><br><span class="line">  &#125;,</span><br><span class="line">  age: &#123;</span><br><span class="line">    type: Number</span><br><span class="line">  &#125;,</span><br><span class="line">  email: &#123;</span><br><span class="line">    type: String</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const UserModel = mongoose.model(&#x27;User&#x27;, UserSchema)</span><br><span class="line"></span><br><span class="line">export default UserModel</span><br></pre></td></tr></table></figure>

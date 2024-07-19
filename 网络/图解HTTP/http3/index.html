@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="HTTP 通信过程包括从客户端发往服务器端的请求及从服务器端返回客户端的响应。 HTTP 报文用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用 CR+LF 作换行符）数据构成的字符串文本。HTTP 报文大致可分为报文首部和报文主体两块。两者由最初出现的空行（CR+LF）来划分。通">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg1.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg2.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg3.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg4.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg5.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg6.png">
+<meta property="og:image" content="https://mst123.github.io/assets/http3/http3-bg1.png">
+<meta property="og:image" content="https://mst123.github.io/assets/http3/http3-bg2.png">
+<meta property="og:image" content="https://mst123.github.io/assets/http3/http3-bg3.png">
+<meta property="og:image" content="https://mst123.github.io/assets/http3/http3-bg4.png">
+<meta property="og:image" content="https://mst123.github.io/assets/http3/http3-bg5.png">
+<meta property="og:image" content="https://mst123.github.io/assets/http3/http3-bg6.png">
 <meta property="article:published_time" content="2021-02-23T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-18T03:03:49.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="HTTP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg1.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/http3/http3-bg1.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/http3/">
@@ -263,9 +263,9 @@
     
     
     <div class="post-body" itemprop="articleBody"><p>HTTP 通信过程包括从客户端发往服务器端的请求及从服务器端返回客户端的响应。</p>
-<h2 id="HTTP-报文"><a href="#HTTP-报文" class="headerlink" title="HTTP 报文"></a>HTTP 报文</h2><p>用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用 CR+LF 作换行符）数据构成的字符串文本。<br>HTTP 报文大致可分为<strong>报文首部</strong>和<strong>报文主体</strong>两块。两者由最初出现的空行（CR+LF）来划分。通常，并不一定要有报文主体。<br><img src="/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg1.png" alt="实例1">  </p>
+<h2 id="HTTP-报文"><a href="#HTTP-报文" class="headerlink" title="HTTP 报文"></a>HTTP 报文</h2><p>用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的 HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。 HTTP 报文本身是由多行（用 CR+LF 作换行符）数据构成的字符串文本。<br>HTTP 报文大致可分为<strong>报文首部</strong>和<strong>报文主体</strong>两块。两者由最初出现的空行（CR+LF）来划分。通常，并不一定要有报文主体。<br><img src="/assets/http3/http3-bg1.png" alt="实例1">  </p>
 <p>图：HTTP 报文的结构</p>
-<h2 id="请求报文及响应报文的结构"><a href="#请求报文及响应报文的结构" class="headerlink" title="请求报文及响应报文的结构"></a>请求报文及响应报文的结构</h2><p>我们来看一下请求报文和响应报文的结构。<br><img src="/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg2.png" alt="实例1"><br>图：请求报文（上）和响应报文（下）的结构<br><img src="/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg3.png" alt="实例1"><br>图：请求报文（上）和响应报文（下）的实例  </p>
+<h2 id="请求报文及响应报文的结构"><a href="#请求报文及响应报文的结构" class="headerlink" title="请求报文及响应报文的结构"></a>请求报文及响应报文的结构</h2><p>我们来看一下请求报文和响应报文的结构。<br><img src="/assets/http3/http3-bg2.png" alt="实例1"><br>图：请求报文（上）和响应报文（下）的结构<br><img src="/assets/http3/http3-bg3.png" alt="实例1"><br>图：请求报文（上）和响应报文（下）的实例  </p>
 <p>请求报文和响应报文的<strong>首部内容</strong>由以下数据组成。现在出现的各种首部字段及状态码稍后会进行阐述。</p>
 <ul>
 <li>请求行<br>包含用于请求的方法，请求 URI 和 HTTP 版本。</li>
@@ -281,14 +281,14 @@
 <blockquote>
 <p>通常，报文主体等于实体主体。只有当传输中进行编码操作时，实体 主体的内容发生变化，才导致它和报文主体产生差异。</p>
 </blockquote>
-<h3 id="压缩传输的内容编码"><a href="#压缩传输的内容编码" class="headerlink" title="压缩传输的内容编码"></a>压缩传输的内容编码</h3><p>HTTP 协议中有一种被称为<strong>内容编码</strong>的功能也能进行类似的操作。内容编码指明应用在实体内容上的编码格式，并保持实体信息原样压缩。内容编码后的实体由客户端接收并负责解码。<br><img src="/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg4.png" alt="实例1"><br>图：内容编码<br>常用的内容编码有以下几种。</p>
+<h3 id="压缩传输的内容编码"><a href="#压缩传输的内容编码" class="headerlink" title="压缩传输的内容编码"></a>压缩传输的内容编码</h3><p>HTTP 协议中有一种被称为<strong>内容编码</strong>的功能也能进行类似的操作。内容编码指明应用在实体内容上的编码格式，并保持实体信息原样压缩。内容编码后的实体由客户端接收并负责解码。<br><img src="/assets/http3/http3-bg4.png" alt="实例1"><br>图：内容编码<br>常用的内容编码有以下几种。</p>
 <ul>
 <li>gzip（GNU zip）</li>
 <li>compress（UNIX 系统的标准压缩）</li>
 <li>deflate（zlib）</li>
 <li>identity（不进行编码）</li>
 </ul>
-<h2 id="分割发送的分块传输编码"><a href="#分割发送的分块传输编码" class="headerlink" title="分割发送的分块传输编码"></a>分割发送的分块传输编码</h2><p>在传输大容量数据时，通过把数据分割成多块，这种把实体主体分块的功能称为分块传输编码（Chunked Transfer Coding）。<br><img src="/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg5.png" alt="实例1"><br>图：分块传输编码<br>分块传输编码会将实体主体分成多个部分（块）。每一块都会用十六 进制来标记块的大小，而实体主体的最后一块会使用<code>0(CR+LF)</code>来标记。<br>使用分块传输编码的实体主体会由接收的客户端负责解码，恢复到编码前的实体主体。  </p>
+<h2 id="分割发送的分块传输编码"><a href="#分割发送的分块传输编码" class="headerlink" title="分割发送的分块传输编码"></a>分割发送的分块传输编码</h2><p>在传输大容量数据时，通过把数据分割成多块，这种把实体主体分块的功能称为分块传输编码（Chunked Transfer Coding）。<br><img src="/assets/http3/http3-bg5.png" alt="实例1"><br>图：分块传输编码<br>分块传输编码会将实体主体分成多个部分（块）。每一块都会用十六 进制来标记块的大小，而实体主体的最后一块会使用<code>0(CR+LF)</code>来标记。<br>使用分块传输编码的实体主体会由接收的客户端负责解码，恢复到编码前的实体主体。  </p>
 <blockquote>
 <p>HTTP&#x2F;1.1 中存在一种称为<strong>传输编码</strong>（Transfer Coding）的机制，它可 以在通信时按某种编码方式传输，但只定义作用于分块传输编码中。</p>
 </blockquote>
@@ -298,7 +298,7 @@
 <li>multipart&#x2F;byteranges 状态码 206（Partial Content，部分内容）响应报文包含了多个范围的内容时使用。</li>
 </ul>
 <h2 id="获取部分内容的范围请求"><a href="#获取部分内容的范围请求" class="headerlink" title="获取部分内容的范围请求"></a>获取部分内容的范围请求</h2><p>以前，用户不能使用现在这种高速的带宽访问互联网，当时，下载一个尺寸稍大的图片或文件就已经很吃力了。如果下载过程中遇到网络 中断的情况，那就必须重头开始。为了解决上述问题，需要一种可恢复的机制。所谓恢复是指能从之前下载中断处恢复下载。<br>要实现该功能需要指定下载的实体范围。像这样，指定范围发送的请 求叫做范围请求（Range Request）。  </p>
-<p>对一份 10000 字节大小的资源，如果使用范围请求，可以只请求 5001~10 000 字节内的资源。<br><img src="/_posts/%E7%BD%91%E7%BB%9C/%E5%9B%BE%E8%A7%A3HTTP/assets/http3/http3-bg6.png" alt="实例1"><br>执行范围请求时，会用到首部字段 Range 来指定资源的 byte 范围。</p>
+<p>对一份 10000 字节大小的资源，如果使用范围请求，可以只请求 5001~10 000 字节内的资源。<br><img src="/assets/http3/http3-bg6.png" alt="实例1"><br>执行范围请求时，会用到首部字段 Range 来指定资源的 byte 范围。</p>
 <h2 id="内容协商返回最合适的内容"><a href="#内容协商返回最合适的内容" class="headerlink" title="内容协商返回最合适的内容"></a>内容协商返回最合适的内容</h2><p>当浏览器的默认语言为英语或中文，访问相同 URI 的 Web 页面时， 则会显示对应的英语版或中文版的 Web 页面。这样的机制称为内容 协商（Content Negotiation）。<br>包含在请求报文中的某些首部字段（如下）就是判断的基准。这些首 部字段的详细说明请参考下一章。</p>
 <ul>
 <li>Accept Accept-Charset</li>
@@ -330,8 +330,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/CSS/%E6%B7%98%E5%AE%9D%E5%9B%A2%E9%98%9F%E6%96%87%E7%AB%A0/" rel="next" title="层叠上下文-淘宝团队">
-                  层叠上下文-淘宝团队 <i class="fa fa-angle-right"></i>
+                <a href="/CSS/%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/" rel="next" title="层叠上下文-张鑫旭">
+                  层叠上下文-张鑫旭 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>

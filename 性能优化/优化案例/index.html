@@ -27,56 +27,56 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="原文地址 很有实际意义的一片优化文章，防止链接挂掉，特地复制下来 通过案例你可以学到什么简单总结一下设计的知识点  onload DOM 的解析受 JS 加载和执行的影响，尽量对 JS 进行压缩、拆分处理（HTTP2环境下），能减少 DOMContentLoaded 时间。 图片、视频、iframe 等资源，会阻塞 onload 事件的触发，需要优化资源的加载时机，尽快触发 onload。   性">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704018">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701494">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701037">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701427">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701088">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701211">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701775">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701295">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701809">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701772">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702059">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701942">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702110">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702079">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701966">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702102">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702608">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702456">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702638">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703076">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702838">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702897">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703084">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703436">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703195">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703580">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703307">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703586">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703703">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704068">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704028">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704127">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114717022.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704716">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114716391.gif">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704288">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704479">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825">
-<meta property="og:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704018">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701494">
+<meta property="og:image" content="https://mst123.github.io/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701037">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701427">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701088">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701211">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701775">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701295">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701809">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701772">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702059">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701942">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702110">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702079">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701966">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702102">
+<meta property="og:image" content="https://mst123.github.io/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702608">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702456">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702638">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703076">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702838">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702897">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703084">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703436">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703195">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703580">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703307">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703586">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703703">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704068">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704028">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704127">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114717022.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704716">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114716391.gif">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704288">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704479">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825">
+<meta property="og:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042">
 <meta property="article:published_time" content="2021-12-08T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-13T05:13:32.000Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="性能优化案例">
 <meta property="article:tag" content="性能指标">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif">
+<meta name="twitter:image" content="https://mst123.github.io/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif">
 
 
 <link rel="canonical" href="https://mst123.github.io/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/">
@@ -341,7 +341,7 @@
 <p>项目使用了 IMLOG 进行数据上报，<strong>ELK 体系进行现网数据监控，Grafana 配置视图</strong>，观察现网情况。</p>
 <p>根据指标的数据分布，能及时发现页面数据异常采取措施。</p>
 <h2 id="二、性能分析及环境准备"><a href="#二、性能分析及环境准备" class="headerlink" title="二、性能分析及环境准备"></a>二、性能分析及环境准备</h2><p>现网页面情况：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif" alt="图片"></p>
 <p><strong>可以看到进度条在页面已经展示后还在持续 loading，加载时间长达十几秒，比较影响了用户体验。</strong></p>
 <p>根据<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">Google 开发文档</a>对浏览器架构的解释：</p>
 <blockquote>
@@ -357,11 +357,11 @@
 <p>下面以<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">企鹅辅导课程详情页</a>为案例进行分析，找出潜在的优化项。</p>
 <p><strong>（注意使用 Chrome 隐身窗口并禁用插件，移除其他加载项对页面的影响。）</strong></p>
 <h3 id="1-Network-分析"><a href="#1-Network-分析" class="headerlink" title="1. Network 分析"></a>1. Network 分析</h3><p>通常进行网络分析需要禁用缓存、启用网络限速（4g &#x2F; 3g） 模拟移动端弱网情况下的加载情况，因为 wifi 网络可能会抹平性能差距。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704018" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704018" alt="图片"></p>
 <p>可以看到 DOMContentLoaded 的时间在 6.03s ，但 onload 的时间却在 20.92s。</p>
 <p>先观察 DOMContentLoaded 阶段，发现<strong>最长请求路径在 vendor.js ，JS大小为 170kB，花费时间为 4.32s。</strong></p>
 <p>继续观察 DOMContentLoaded 到 onload 的这段时间：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701494" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701494" alt="图片"></p>
 <p><strong>可以发现 onload 事件被大量媒体资源阻塞了，关于 onload 事件的影响因素，可以参考这篇</strong><strong><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">文章</a>。</strong></p>
 <p>结论是<strong>浏览器认为资源完全加载完成（HTML解析的资源和动态加载的资源）才会触发 onload。</strong></p>
 <p>结合上图<strong>可以发现加载了图片、视频、iframe 等资源，阻塞了 onload 事件的触发。</strong></p>
@@ -371,7 +371,7 @@
 <li>图片、视频、iframe 等资源，会阻塞 onload 事件的触发，需要优化资源的加载时机，尽快触发 onload。</li>
 </ol>
 <h3 id="2-Performance-分析"><a href="#2-Performance-分析" class="headerlink" title="2. Performance 分析"></a>2. Performance 分析</h3><p>使用 Performance 模拟移动端注意手机处理器能力比 PC 差，所以一般将 CPU 设置为 4x slowdown 或 6x slowdown 进行模拟。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
 <p>观察几个核心的数据：</p>
 <ol>
 <li><strong>Web Vitals ( FP &#x2F; FCP &#x2F; LCP &#x2F; Layout Shift ) 核心页面指标 和 Timings 时长</strong></li>
@@ -379,7 +379,7 @@
 <p>可以看到 LCP、DCL和 Onload Event 时间较长，且出现了多次 Layout Shift。</p>
 <p>要 LCP 尽量早触发，需要减少页面大块元素的渲染时间，观察 Frames 或ScreenShots 的截图，关注页面的元素渲染情况。</p>
 <p>可以通过在 Experience 行点击Layout Shift ，在 Summary 面板找到具体的偏移内容。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701037" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701037" alt="图片"></p>
 <ol>
 <li><strong>Main Long Tasks 长任务数量和时长</strong></li>
 </ol>
@@ -391,7 +391,7 @@
 <li>页面 Long Tasks 较多，需要对 JS 进行合理拆分和加载，减少 Long Tasks 数量，特别是 影响 DCL 和 Onload Event 的 Task。</li>
 </ol>
 <h3 id="3-Lighthouse-分析"><a href="#3-Lighthouse-分析" class="headerlink" title="3. Lighthouse 分析"></a>3. Lighthouse 分析</h3><p>使用 ChromeDevTool 内置 lighthouse 对页面进行跑分：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701427" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701427" alt="图片"></p>
 <p>分数较低，可以看到 Metrics 给出了核心的数据指标，这边显示的是 TTI SI TBT 不合格，LCP 需要提升，FCP 和 CLS 达到了良好的标准，可以查看<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">分数计算标准</a>。</p>
 <p>同时 Lighthouse 会提供一些优化建议，在 Oppotunities 和 Diagnostics 项，能看到具体的操作指南，如图片大小、移除无用 JS 等，可以根据指南进行项目的优化。</p>
 <p>Lighthouse 的评分内容是根据项目整体加载项目进行打分的，审查出的问题同样包含 Network、Performance 的内容，所以也可以看作是对 Network、Performance 问题的优化建议。</p>
@@ -406,14 +406,14 @@
 <p>数据上报：IMLOG、TAM、RUM 等（这三个工具均为团队内部的日志上报工具，类似业界 log4js、sentry）。</p>
 <p>前端代码打包分析：webpack-bundle-analyzer 、rollup-plugin-visualizer 等。</p>
 <p>分析问题时使用本地代码，本地模拟线上环境验证优化效果，最后再部署到测试环境验证，提高开发效率。</p>
-<h2 id="三、性能优化具体实践"><a href="#三、性能优化具体实践" class="headerlink" title="三、性能优化具体实践"></a>三、性能优化具体实践</h2><h3 id="PART1-加载时间优化"><a href="#PART1-加载时间优化" class="headerlink" title="PART1: 加载时间优化"></a>PART1: 加载时间优化</h3><p>Network 中对页面中加载的资源进行分类：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701088" alt="图片"></p>
+<h2 id="三、性能优化具体实践"><a href="#三、性能优化具体实践" class="headerlink" title="三、性能优化具体实践"></a>三、性能优化具体实践</h2><h3 id="PART1-加载时间优化"><a href="#PART1-加载时间优化" class="headerlink" title="PART1: 加载时间优化"></a>PART1: 加载时间优化</h3><p>Network 中对页面中加载的资源进行分类：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701088" alt="图片"></p>
 <p>第一部分是影响 DOM 解析的 JS 资源，可以看到这里分类为关键 JS 和非关键 JS，是根据<strong>是否参与首面渲染划分的。</strong></p>
 <p>这里的非关键 JS 我们可以考虑延迟异步加载，关键 JS 进行拆分优化处理。</p>
-<h4 id="1-关键-JS-打包优化"><a href="#1-关键-JS-打包优化" class="headerlink" title="1. 关键 JS 打包优化"></a>1. 关键 JS 打包优化</h4><p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701211" alt="图片"></p>
+<h4 id="1-关键-JS-打包优化"><a href="#1-关键-JS-打包优化" class="headerlink" title="1. 关键 JS 打包优化"></a>1. 关键 JS 打包优化</h4><p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701211" alt="图片"></p>
 <p>JS 文件数量8个，总体积 460.8kB，最大文件 170KB</p>
 <h5 id="1-1-Splitchunks-的正确配置"><a href="#1-1-Splitchunks-的正确配置" class="headerlink" title="1.1 Splitchunks 的正确配置"></a>1.1 Splitchunks 的正确配置</h5><p>vendor.js 170kB(gzipd) 是所有页面都会加载的公共文件，打包规则是 <strong>miniChunks: 3</strong>，引用超过3次的模块将被打进这个js。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701775" alt="图片"></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701295" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701775" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701295" alt="图片"></p>
 <p>分析vendor.js的具体构成（上图）</p>
 <p>以 string-strip-html.umd.js 为例 大小为34.7KB，占了 vendor.js 的 20%体积，但<strong>只有一个页面多次使用到了这个包，触发了 miniChunks 的规则</strong>，被打进了 vendor.js。</p>
 <p>同理对 vendor.js 的其他模块进行分析，iosSelect.js、howler.js、weixin-js-sdk 等模块都只有 3、4 个页面&#x2F;组件依赖，但也同样打进了 vendor.js。</p>
@@ -424,26 +424,26 @@
 <p>而其他未指定的公共依赖，新增一个 common.js，将阈值调高到 20 或更高（当前页面数76），让公共依赖成为大多数页面的依赖，提高依赖缓存利用率，调整完后，vendor.js 的大小减少到 30KB，common.js 大小为 42KB。</p>
 <p><strong>两个文件加起来大小为 72KB，相对于优化前体积减少了 60%（100KB）。</strong></p>
 <h4 id="1-2-公共组件的按需加载"><a href="#1-2-公共组件的按需加载" class="headerlink" title="1.2 公共组件的按需加载"></a>1.2 公共组件的按需加载</h4><p>course.js 101kB (gzipd) 这个文件是页面业务代码的文件：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701809" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701809" alt="图片"></p>
 <p>观察上图，基本都是业务代码，除了一个巨大的 <strong>component Icon，占了 25k，页面文件1&#x2F;4的体积，<strong><strong>但在代码中</strong></strong>使用到的 Icon 总共才8个。</strong></p>
 <p>分析代码，可以看到这里使用 require 加载 svg，<strong>Webpack 将 require 文件夹内的内容一并打包，导致页面 Icon 组件冗余。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701772" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701772" alt="图片"></p>
 <p>如何解决这类问题实现按需加载？</p>
 <p>按需加载的内容应该为独立的组件，我们将之前的单一入口的 Icon 组件（动态 dangerouslySetInnerHTML）<strong>改成单文件组件模式直接引入使用图标。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702059" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702059" alt="图片"></p>
 <p>但实际开发中这样会有些麻烦，一般需要统一的 import 路径，指定需要的图标再加载，参考 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">babel-plugin-import</a>，我们可以配置 babel 的依赖加载路径调整 Icon 的引入方式，这样就实现了图标的按需加载。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701942" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701942" alt="图片"></p>
 <p>按需加载后，重新编译，查看打包带来的收益，<strong>页面的 Icons 组件 stat size 由 74KB 降到了 20KB，体积减少了 70%。</strong></p>
 <h4 id="1-3-业务组件的代码拆分-Code-Splitting"><a href="#1-3-业务组件的代码拆分-Code-Splitting" class="headerlink" title="1.3 业务组件的代码拆分 (Code Splitting)"></a>1.3 业务组件的代码拆分 (Code Splitting)</h4><p>观察页面，可以看到”课程大纲“、”课程详情“、”购课须知“这三个模块并不在页面的首屏渲染内容里：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702110" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702110" alt="图片"></p>
 <p>我们可以考虑对页面这几部分组件进行拆分再延迟加载，减少业务代码 JS 大小和执行时长。</p>
 <p>拆分的方式很多，可以使用 react-loadable、@loadable&#x2F;component 等库实现，也可以使用React 官方提供的 React.lazy。</p>
 <p>拆分后的代码：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702079" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702079" alt="图片"></p>
 <p><strong>代码拆分会导致组件会有渲染的延迟，所以在项目中使用应该综合用户体验和性能再做决定，通过拆分也能使部分资源延后加载优化加载时间。</strong></p>
 <h4 id="1-4-Tree-Shaking-优化"><a href="#1-4-Tree-Shaking-优化" class="headerlink" title="1.4 Tree Shaking 优化"></a>1.4 Tree Shaking 优化</h4><p>项目中使用了 TreeShaking 的优化，用时候要注意 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">sideEffects 的使用场景</a>，以免打包产物和开发不一致。</p>
 <p>经过上述优化步骤，整体打包内容：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701966" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701966" alt="图片"></p>
 <p>JS 文件数量6个，总体积 308KB，最大文件体积 109KB</p>
 <p>关键 JS 优化数据对比：</p>
 <table>
@@ -473,23 +473,23 @@
 <h3 id="2-非关键-JS-延迟加载"><a href="#2-非关键-JS-延迟加载" class="headerlink" title="2.非关键 JS 延迟加载"></a>2.非关键 JS 延迟加载</h3><p>页面中包含了一些上报相关的 JS 如 sentry，beacon（灯塔 SDK）等，对于这类资源，如果在弱网情况，可能会成为影响 DOM 解析的因素。</p>
 <p>为了减少这类非关键 JS 的影响，可以在页面完成加载后再加载非关键 JS，如 sentry 官方也提供了<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">延迟加载的方案</a>。</p>
 <p>在项目中还发现了一部分非关键 JS，如验证码组件，为了在下一个页面中能利用缓存尽快加载，<strong>所以在上一个页面提前加载一次生成缓存。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702102" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702102" alt="图片"></p>
 <p>如果不访问下一个页面，可以认为这是一次无效加载，这类的提前缓存方案反而会影响到页面性能。</p>
 <p>针对这里资源，我们可以使用 Resource Hints，针对资源做 Prefetch 处理。</p>
 <p>检测浏览器是否支持 Prefech，<strong>支持的情况下我们可以创建 Prefetch 链接</strong>，不支持就使用旧逻辑直接加载，这样能更大程度保证页面性能，为下一个页面提供提前加载的支持。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const isPrefetchSupported = () =&gt; &#123;</span><br><span class="line">  const link = document.createElement(&#x27;link&#x27;);</span><br><span class="line">  const &#123; relList &#125; = link;</span><br><span class="line"> </span><br><span class="line">  if (!relList || !relList.supports) &#123;</span><br><span class="line">    returnfalse;</span><br><span class="line">  &#125;</span><br><span class="line">  return relList.supports(&#x27;prefetch&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line">const prefetch = () =&gt; &#123;</span><br><span class="line">    const isPrefetchSupport = isPrefetchSupported();</span><br><span class="line">    if (isPrefetchSupport) &#123;</span><br><span class="line">      const link = document.createElement(&#x27;link&#x27;);</span><br><span class="line">      link.rel = &#x27;prefetch&#x27;;</span><br><span class="line">      link.as = type;</span><br><span class="line">      link.href = url;</span><br><span class="line">      document.head.appendChild(link);</span><br><span class="line">    &#125; elseif (type === &#x27;script&#x27;) &#123;</span><br><span class="line">            // load script</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
 
 <p>优化效果：非关键JS不影响页面加载</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702608" alt="图片"></p>
+<p><img src="/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702608" alt="图片"></p>
 <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="3-媒体资源加载优化"><a href="#3-媒体资源加载优化" class="headerlink" title="3.媒体资源加载优化"></a>3.媒体资源加载优化</h3><h4 id="3-1-加载时序优化"><a href="#3-1-加载时序优化" class="headerlink" title="3.1 加载时序优化"></a>3.1 加载时序优化</h4><p>可以观察到 onload 被大量的图片资源和视频资源阻塞了，但是页面上并没有展示对应的图片或视频，这部分内容应该进行懒加载处理。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702456" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702456" alt="图片"></p>
 <p>处理方式主要是要控制好图片懒加载的逻辑（如 onload 后再加载），可以借助各类 lazyload 的库去实现。H5项目用的是位置检测（getBoundingClientRect ）图片到达页面可视区域再展示。</p>
 <p><strong>但要注意懒加载不能阻塞业务的正常展示，应该做好超时处理、重试等兜底措施。</strong></p>
 <h4 id="3-2-大小尺寸优化"><a href="#3-2-大小尺寸优化" class="headerlink" title="3.2 大小尺寸优化"></a>3.2 大小尺寸优化</h4><p>课程详情页 每张详情图的宽为 1715px，以 6s 为基准（375px）已经是 4x 图了，大图片在弱网情况下会影响页面加载和渲染速度。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702638" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702638" alt="图片"></p>
 <p>使用 CDN 图床尺寸大小压缩功能，根据不同的设备渲染不同大小的图片调整图片格式，根据网络情况，渲染不同清晰度的图。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640.gif" alt="图片"></p>
 <p>可以看到在弱网（移动 3G 网络）的情况下，同一张图片不同尺寸加载速度最高和最低相差接近 6 倍，给用户的体验截然不同。</p>
 <p>CDN 配合业务具体实现：<strong>使用 img 标签 srcset&#x2F;sizes 属性和 picutre 标签实现响应式图片</strong>，具体可参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">文档</a>。</p>
 <p><strong>使用 URL 动态拼接方式构造 URL 请求，根据机型宽度和网络情况，判断当前图片宽度倍数进行调整</strong>（如 iPhone 1x，iPad 2x，弱网 0.5x）。</p>
@@ -498,12 +498,12 @@
 <h4 id="3-3-其他类型资源优化"><a href="#3-3-其他类型资源优化" class="headerlink" title="3.3 其他类型资源优化"></a>3.3 其他类型资源优化</h4><p><strong>iframe</strong></p>
 <p>加载 iframe 有可能会对页面的加载产生严重的影响，在 onload 之前加载会阻塞 onload 事件触发，从而阻塞 loading，但是还存在另一个问题。</p>
 <p>如下图所示，页面在已经 onload 的情况下触发 iframe 的加载，进度条仍然在不停的转动，直到 iframe 的内容加载完成。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703076" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703076" alt="图片"></p>
 <p>可以将 iframe 的时机放在 onload 之后，并使用 setTimeout 触发异步加载 iframe，可避免 iframe 带来的 loading 影响。</p>
 <p><strong>数据上报</strong></p>
 <p>项目中使用 image 的数据上报请求，在正常网络情况下可能感受不到对页面性能的影响。</p>
 <p>但在一些特殊情况，如其中一个图片请求的耗时特别长就会阻塞页面 onload 事件的触发，延长 loading 时间。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702838" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702838" alt="图片"></p>
 <p>解决上报对性能的影响问题有以下方案：</p>
 <ol>
 <li>延迟合并上报</li>
@@ -512,17 +512,17 @@
 </ol>
 <p>H5项目采用了延迟合并上报的方案，业务可根据实际需要进行选择。</p>
 <p><strong>优化效果：全部数据上报在 onload 后处理，避免对性能产生影响。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702897" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702897" alt="图片"></p>
 <p><strong>字体优化</strong></p>
 <p>项目中可能会包含很多视觉指定渲染的字体，当字体文件比较大的时候，也会影响到页面的加载和渲染，可以使用 fontmin 将字体资源进行压缩，生成精简版的字体文件。</p>
 <p>优化前：20kB &#x3D;&gt; 优化后：14kB：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703084" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703084" alt="图片"></p>
 <h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="PART2-页面渲染优化"><a href="#PART2-页面渲染优化" class="headerlink" title="PART2: 页面渲染优化"></a>PART2: 页面渲染优化</h3><h4 id="1-直出页面-TTFB-时间优化"><a href="#1-直出页面-TTFB-时间优化" class="headerlink" title="1. 直出页面 TTFB 时间优化"></a>1. 直出页面 TTFB 时间优化</h4><p><em>名词解释：</em></p>
 <p><em>NGW：内部网关，基于 Node.js。</em></p>
 <p><em>STKE：公司内部 TKE。</em></p>
 <p>目前我们在 STKE 部署了直出服务，通过监控发现直出平均耗时在 300+ms。</p>
 <p><strong>TTFB 时间在 100 ～ 200 之间波动，影响了直出页面的渲染。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703436" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703436" alt="图片"></p>
 <p>通过日志打点、<strong>查看 Nginx Accesslog 日志、网关监控耗时</strong>，得出以下数据（如图）</p>
 <ul>
 <li>STKE 直出程序耗时是 20ms 左右</li>
@@ -532,18 +532,18 @@
 <p>登录 所在机器，ping STKE 机器，有以下数据</p>
 <p><strong>平均时延在 32ms，tcp 三次握手+返回数据（最后一次 ack 时发送数据）&#x3D; 2个 rtt，约 64ms，和日志记录的数据一致</strong></p>
 <p><strong>查看 NGW 机器所在区域为天津，STKE 机器所在区域为南京，可以初步判断是由机房物理距离导致的网络时延，如下图所示：</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703195" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703195" alt="图片"></p>
 <p>切换 NGW 到南京机器 ping STKE 南京的机器，有以下数据：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703580" alt="图片"></p>
-<p>同区域机器 ping 的网络时延只有 0.x毫秒，如下图所示：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703307" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703580" alt="图片"></p>
+<p>同区域机器 ping 的网络时延只有 0.x毫秒，如下图所示：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703307" alt="图片"></p>
 <p>综合上述分析，直出页面TTFB时间过长的根本原因是：<strong>NGW 网关部署和 Nginx、STKE 不在同一区域，导致网络时延的产生。</strong></p>
 <p>解决方案是<strong>让网关和直出服务机房部署在同一区域</strong>，执行了以下操作：</p>
 <ul>
 <li><strong>NGW扩容</strong></li>
 <li><strong>北极星开启就近访问</strong></li>
 </ul>
-<p>优化前：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703586" alt="图片"></p>
-<p>优化后：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703703" alt="图片"></p>
+<p>优化前：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703586" alt="图片"></p>
+<p>优化后：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703703" alt="图片"></p>
 <p>优化效果如上图：</p>
 <table>
 <thead>
@@ -561,24 +561,24 @@
 <td align="left">31 ms 优化 80%（120 ms）</td>
 </tr>
 </tbody></table>
-<h4 id="-2"><a href="#-2" class="headerlink" title=""></a></h4><h4 id="2-页面渲染时间优化"><a href="#2-页面渲染时间优化" class="headerlink" title="2. 页面渲染时间优化"></a>2. 页面渲染时间优化</h4><p>模拟弱网情况（slow 3g）Performance 录制页面渲染情况，从下图 Screenshot 中可以发现：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704068" alt="图片"></p>
+<h4 id="-2"><a href="#-2" class="headerlink" title=""></a></h4><h4 id="2-页面渲染时间优化"><a href="#2-页面渲染时间优化" class="headerlink" title="2. 页面渲染时间优化"></a>2. 页面渲染时间优化</h4><p>模拟弱网情况（slow 3g）Performance 录制页面渲染情况，从下图 Screenshot 中可以发现：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704068" alt="图片"></p>
 <ol>
 <li>DOM 开始解析，但页面还未渲染</li>
 <li>CSS 文件下载完成后页面才正常渲染</li>
 </ol>
 <p><strong>CSS 不会阻塞页面解析，但会阻塞页面渲染，如果 CSS 文件较大或弱网情况，会影响到页面渲染时间，影响用户体验。</strong></p>
 <p>借助 ChromeDevTool 的 Coverage 工具（More Tools 里面），录制页面渲染时 CSS 的使用率：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704028" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704028" alt="图片"></p>
 <p>发现首屏的 CSS 使用率才 15%，可以考虑<strong>对页面首屏的关键 CSS 进行内联</strong>，<strong>让页面渲染不被CSS 阻塞，再把完整 CSS 加载进来。</strong></p>
 <p>实现 Critial CSS 的优化可以考虑使用 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">critters</a>。</p>
 <p>优化后效果：</p>
 <p><strong>CSS 资源正在下载时，页面已经能正常渲染显示了，对比优化前，渲染时间上提升了 1～2 个 CSS 文件加载的时间。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704127" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704127" alt="图片"></p>
 <h4 id="3-页面布局抖动优化"><a href="#3-页面布局抖动优化" class="headerlink" title="3. 页面布局抖动优化"></a>3. 页面布局抖动优化</h4><p>观察页面的元素变化：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114717022.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114717022.gif" alt="图片"></p>
 <p>优化前（左图）：图标缺失、背景图缺失、字体大小改变导致页面抖动、出现非预期页面元素导致页面抖动。</p>
 <p>优化后：内容相对固定， 页面元素出现无突兀感。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704716" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704716" alt="图片"></p>
 <p>主要优化内容：</p>
 <ol>
 <li><strong>确定直出页面元素出现位置，根据直出数据做好布局</strong></li>
@@ -592,7 +592,7 @@
 <li>加载进度条时间：浏览器 onload 事件触发时间，触发后导航栏进度条显示完成。</li>
 </ul>
 <p><strong>Chrome 模拟器 4G 无缓存对比（左优化前、右优化后）：</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114716391.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114716391.gif" alt="图片"></p>
 <table>
 <thead>
 <tr>
@@ -615,8 +615,8 @@
 <p>**<br>**</p>
 <p><strong>Lighthouse 跑分对比：</strong></p>
 <p>优化前：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704288" alt="图片"></p>
-<p>优化后：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704479" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704288" alt="图片"></p>
+<p>优化后：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704479" alt="图片"></p>
 <table>
 <thead>
 <tr>
@@ -635,8 +635,8 @@
 </tbody></table>
 <p><strong>srobot 性能检测一周数据</strong></p>
 <p><em>srobot 是团队内的性能检测工具，使用 TRobot 指令一键创建页面健康检测，定时自动化检测页面性能及异常。</em></p>
-<p>优化前：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825" alt="图片"></p>
-<p>优化后：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042" alt="图片"></p>
+<p>优化前：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825" alt="图片"></p>
+<p>优化后：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042" alt="图片"></p>
 <table>
 <thead>
 <tr>

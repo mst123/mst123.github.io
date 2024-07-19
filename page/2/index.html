@@ -320,7 +320,7 @@
 
 <h4 id="找回被删除的分支"><a href="#找回被删除的分支" class="headerlink" title="找回被删除的分支"></a>找回被删除的分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog 查看删除分支前的commit </span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fe3de05468c613~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fe3de05468c613~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p>从图中可以看出，<code>HEAD</code> 的最后一次移动行为是「从 <code>branch1</code> 移动到 <code>master</code>」。而在这之后，<code>branch1</code> 就被删除了。所以它之前的那个 <code>commit</code> 就是 <code>branch1</code> 被删除之前的位置了，也就是第二行的 <code>c08de9a</code>。</p>
 <p>所以现在就可以切换回 <code>c08de9a</code>，然后重新创建 <code>branch1</code> ：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout c08de9a</span><br><span class="line">git checkout -b branch1</span><br></pre></td></tr></table></figure>
@@ -329,11 +329,11 @@
 <h4 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h4><p>两种方式，一种利用merge，一种利用rebase</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge branch</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fdea7b6646a1f3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fdea7b6646a1f3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 git checkout branch1</span><br><span class="line">2 git rebase master</span><br><span class="line">在 rebase 之后，记得切回 master 再 merge 一下，把 master 移到最新的 commit</span><br><span class="line">3 git checkout master</span><br><span class="line">4 git merge(rebase) branch1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/1600abd620a8e28c~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/160149e054fe485c~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/1600abd620a8e28c~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/160149e054fe485c~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p><code>merge</code> 的意思是「合并」，它做的事也是合并：指定一个 <code>commit</code>，把它合并到当前的 <code>commit</code> 来。具体来讲，<code>merge</code> 做的事是：</p>
 <p><strong>从目标 <code>commit</code> 和当前 <code>commit</code> （即 <code>HEAD</code> 所指向的 <code>commit</code>）分叉的位置起，把目标 <code>commit</code> 的路径上的所有 <code>commit</code> 的内容一并应用到当前 <code>commit</code>，然后自动生成一个新的 <code>commit</code>。</strong></p>
 <p>merge有时产生冲突:</p>
@@ -350,19 +350,19 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">此命令用来放弃掉所有还没有加入到缓存区（就是 git add 命令）的修改</span><br><span class="line"></span><br><span class="line"># 放弃单个文件修改,注意不要忘记中间的&quot;--&quot;,不写就成了检出分支了!</span><br><span class="line">git checkout -- filepathname</span><br><span class="line"></span><br><span class="line"># 放弃所有的文件修改</span><br><span class="line">git checkout . </span><br><span class="line"></span><br><span class="line"># 切换到分支</span><br><span class="line"></span><br><span class="line">git checkout feature1</span><br><span class="line"></span><br><span class="line"># 切换分支 如果不存在就创建一个分支</span><br><span class="line"></span><br><span class="line">git checkout -b feature1</span><br><span class="line"></span><br><span class="line"># 签出commit</span><br></pre></td></tr></table></figure>
 
 <p>首先介绍一下<code>HEAD</code>，可以把HEAD理解成一个指针，HEAD指针通常会指向一个分支，如下图所示</p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/image-20210427143641740.png" alt="e&#39;m"></p>
+<p><img src="/assets/git/image-20210427143641740.png" alt="e&#39;m"></p>
 <p>HEAD–&gt;master–&gt;commitID，通常情况下，HEAD会一直跟随着当前分支，并指向分支，而分支则指向当前最新的commit</p>
 <p>还有一种 <code>detached HEAD</code>的状态，使用<code>git checkout C3</code>即可以把HEAD指针指向C3</p>
 <blockquote>
 <p>经过我的测试，在工作区和暂存区有改动的情况下，无法进行git checkout commitID or branch</p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/image-20220106112249119.png" alt="image-20220106112249119"></p>
+<p><img src="/assets/git/image-20220106112249119.png" alt="image-20220106112249119"></p>
 </blockquote>
 <blockquote>
 <p>还有一种相对引用的方式，<code>git checkout main^</code>*3 或者  <code>git checkout main^^^</code> 或者 <code>git checkout main~3</code>  或者使用 <code>git checkout HEAD^^^</code>,这几种方法都是向父节点方向移动</p>
 </blockquote>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/image-20210427144448741.png" alt="image-20210427144448741"></p>
+<p><img src="/assets/git/image-20210427144448741.png" alt="image-20210427144448741"></p>
 <p>如果此时进行commit，git的返回信息会提示我们，You are in ‘detached HEAD’ state.（你现在处于’分离头’状态）。然后会从C3节点出现一个新的节点，HEAD会指向新的节点，可以简单的理解为匿名分支（图和上边不一样，仅做示意）</p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/image-20210427145825615.png" alt="image-20210427145825615"></p>
+<p><img src="/assets/git/image-20210427145825615.png" alt="image-20210427145825615"></p>
 <p>我们现在有两个选择，如下：</p>
 <ul>
 <li><p>丢弃这个匿名分支</p>
@@ -436,7 +436,7 @@
 <p>没有commit分叉点的话，除了快速移动外应该没有作用</p>
 </blockquote>
 <p>见合并分支一节，如果是commitID的话，效果如下图所示</p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fe24400508e3c8~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fe24400508e3c8~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p>如果在这里执行：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase 第3个commit</span><br></pre></td></tr></table></figure>
 
@@ -450,19 +450,19 @@
 <blockquote>
 <p>建议熟练后在进行骚操作</p>
 </blockquote>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/image-20220106215219131.png" alt="image-20220106215219131"></p>
+<p><img src="/assets/git/image-20220106215219131.png" alt="image-20220106215219131"></p>
 <h4 id="Git-rebase-–onto"><a href="#Git-rebase-–onto" class="headerlink" title="Git rebase –onto"></a>Git rebase –onto</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --onto 目标commit 起点commit(不包括起点) 终点commit</span><br></pre></td></tr></table></figure>
 
 <p><code>--onto</code> 参数后面有三个附加参数：目标 <code>commit</code>、起点 <code>commit</code>（注意：rebase 的时候会把起点排除在外）、终点 <code>commit</code>。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --onto 第3个commit 第4个commit branch1</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fe24400d7d73d0~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fe24400d7d73d0~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p>同样的，你也可以用 <code>rebase --onto</code> 来撤销提交：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --onto HEAD^^ HEAD^ branch1</span><br></pre></td></tr></table></figure>
 
 <p>上面这行代码的意思是：以倒数第二个 <code>commit</code> 为起点（起点不包含在 <code>rebase</code> 序列里哟），<code>branch1</code> 为终点，<code>rebase</code> 到倒数第三个 <code>commit</code> 上。</p>
 <p>也就是这样：</p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fe243fce5804fd~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fe243fce5804fd~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3><p>实质上，<code>reset</code> 这个指令虽然可以用来撤销 <code>commit</code> ，但它的实质行为并不是撤销，而是移动 <code>HEAD</code> ，并且「捎带」上 <code>HEAD</code> 所指向的 <code>branch</code>（如果有的话）。</p>
 <p>reset后接参数</p>
 <ol>
@@ -476,16 +476,16 @@
 <p>Git 的历史只能往回看，不能向未来看，所以把 <code>HEAD</code> 和 <code>branch</code> 往回移动，就能起到撤回 <code>commit</code> 的效果。</p>
 <p>在relog里可以回溯哦，前提在git没回收commit节点之前</p>
 </blockquote>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fe19c8a3235853~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fe19c8a3235853~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p>所以同理，<code>reset --hard</code> 不仅可以撤销提交，还可以用来把 <code>HEAD</code> 和 <code>branch</code> 移动到其他的任何地方。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard branch2</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/15fe333cb605b0de~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/git/15fe333cb605b0de~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><h4 id="git打tag"><a href="#git打tag" class="headerlink" title="git打tag"></a>git打tag</h4><p>通常在发布软件的时候打一个tag，tag会记录版本的commit号，方便后期回溯。</p>
 <h4 id="列出已有的tag"><a href="#列出已有的tag" class="headerlink" title="列出已有的tag"></a>列出已有的tag</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
 
 <p>加上<code>-l</code>命令可以使用通配符来过滤<code>tag</code></p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/webp" alt="img"></p>
+<p><img src="/assets/git/webp" alt="img"></p>
 <h4 id="新建tag"><a href="#新建tag" class="headerlink" title="新建tag"></a>新建tag</h4><p>使用<code>git tag</code>命令跟上tag名字，直接创建一个tag。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0</span><br></pre></td></tr></table></figure>
 
@@ -496,7 +496,7 @@
 <h4 id="查看tag详细信息"><a href="#查看tag详细信息" class="headerlink" title="查看tag详细信息"></a>查看tag详细信息</h4><p><code>git show</code>命令可以查看tag的详细信息，包括commit号等。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show tagName</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/image-20220107114423786.png" alt="image-20220107114423786"></p>
+<p><img src="/assets/git/image-20220107114423786.png" alt="image-20220107114423786"></p>
 <p>tag最重要的是有git commit号，后期我们可以根据这个commit号来回溯代码。</p>
 <h4 id="给指定的某个commit号加tag"><a href="#给指定的某个commit号加tag" class="headerlink" title="给指定的某个commit号加tag"></a>给指定的某个commit号加tag</h4><p>打tag不必要在head之上，也可在之前的版本上打，这需要你知道某个提交对象的校验和（通过git log获取，取校验和的前几位数字即可）。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v1.2 9fceb02 -m &quot;my tag&quot;</span><br></pre></td></tr></table></figure>
@@ -564,7 +564,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --detach</span><br></pre></td></tr></table></figure>
 
 <p>执行这行代码，Git 就会把 <code>HEAD</code> 和 <code>branch</code> 脱离，直接指向当前 <code>commit</code>：</p>
-<p><img src="/_posts/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/assets/git/1600acce7b90b009~tplv-t2oaga2asx-watermark.gif" alt="git checkout --detach"></p>
+<p><img src="/assets/git/1600acce7b90b009~tplv-t2oaga2asx-watermark.gif" alt="git checkout --detach"></p>
 
       
     </div>
@@ -738,7 +738,7 @@
 <h2 id="require-一个图片资源出现的问题"><a href="#require-一个图片资源出现的问题" class="headerlink" title="require 一个图片资源出现的问题"></a>require 一个图片资源出现的问题</h2><p>我在项目中书写一个头部组件的时候，需要动态引入背景图片</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;../assets/rwkb.png&quot;) + &quot;)&quot;</span><br></pre></td></tr></table></figure>
 
-<p>写法是对的，但是死活出不来，我真是百思不得其解、、、后来发现打印出来的资源<br><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/require1.png" alt="资源"></p>
+<p>写法是对的，但是死活出不来，我真是百思不得其解、、、后来发现打印出来的资源<br><img src="/assets/peacetime/require1.png" alt="资源"></p>
 <hr>
 <p>然后我抱着试一试的态度多写了一个<code>.default</code>竟然成功了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backgroundImage: &quot;url(&quot; + require(&quot;../../assets/img/rwkb.png&quot;).default + &quot;)&quot;</span><br></pre></td></tr></table></figure>
@@ -747,7 +747,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(require(&quot;@/assets/img/401.png&quot;));</span><br></pre></td></tr></table></figure>
 
 <p>控制台输出 <code>/img/401.abca6a5b.png</code></p>
-<h2 id="element-ui-form表单动态验证"><a href="#element-ui-form表单动态验证" class="headerlink" title="element ui form表单动态验证"></a>element ui form表单动态验证</h2><p><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form1.jpg" alt="资源"><br><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/form2.jpg" alt="资源"><br>切换某一个选项后，会动态改变表单及需要校验的表单<br>项目中采用v-if v-else方法改变表单，但是form rules验证会失效，解决方法：<strong>给元素添加唯一KEY</strong>  </p>
+<h2 id="element-ui-form表单动态验证"><a href="#element-ui-form表单动态验证" class="headerlink" title="element ui form表单动态验证"></a>element ui form表单动态验证</h2><p><img src="/assets/peacetime/form1.jpg" alt="资源"><br><img src="/assets/peacetime/form2.jpg" alt="资源"><br>切换某一个选项后，会动态改变表单及需要校验的表单<br>项目中采用v-if v-else方法改变表单，但是form rules验证会失效，解决方法：<strong>给元素添加唯一KEY</strong>  </p>
 <blockquote>
 <p>产生bug的原因在于diff算法的复用</p>
 </blockquote>
@@ -847,7 +847,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父</span></span><br><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">ceshiObj1</span>: &#123;</span><br><span class="line">      <span class="attr">a</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="title function_">provide</span> () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">getInfo</span>: <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="property">ceshiObj1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">  <span class="title function_">testInject</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">ceshiObj1</span>.<span class="property">a</span>++</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 子</span></span><br><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">  <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">getInfo</span>().<span class="property">a</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="defer和async"><a href="#defer和async" class="headerlink" title="defer和async"></a>defer和async</h2><p>js的执行都会阻塞html parsing</p>
-<p><img src="/_posts/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/assets/peacetime/bVWhRl.png" alt="wfL82.png"></p>
+<p><img src="/assets/peacetime/bVWhRl.png" alt="wfL82.png"></p>
 <h2 id="bind函数的参数"><a href="#bind函数的参数" class="headerlink" title="bind函数的参数"></a>bind函数的参数</h2><p>直接看代码吧</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function resolve(res) &#123;</span><br><span class="line">  console.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bindHandle(...rest) &#123;</span><br><span class="line">  console.log(rest);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const after = bindHandle.bind(null, resolve, &quot;promise&quot;)</span><br><span class="line"></span><br><span class="line">after(&quot;res&quot;,&quot;res2&quot;)</span><br><span class="line"></span><br><span class="line">[ [Function: resolve], &#x27;promise&#x27;, &#x27;res&#x27;, &#x27;res2&#x27; ]</span><br></pre></td></tr></table></figure>
 
@@ -933,7 +933,7 @@
 <li><strong>线程是不能单独存在的，它是由进程来启动和管理的</strong></li>
 <li><strong>线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率</strong></li>
 </ul>
-<p><img src="/_posts/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png" alt="image-20210712222146731"></p>
+<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210712222146731.png" alt="image-20210712222146731"></p>
 <p>总结来说，进程和线程之间的关系有以下 4 个特点。</p>
 <ul>
 <li><strong>1. 进程中的任意一线程执行出错，都会导致整个进程的崩溃。</strong></li>
@@ -949,7 +949,7 @@
 <li><strong>UDP</strong>（User Data Protocol，用户数据报协议）一个非连接的协议，传输数据之前源端和终端不建立连接， 当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上</li>
 </ul>
 <h3 id="TCP-IP-的分层管理"><a href="#TCP-IP-的分层管理" class="headerlink" title="TCP&#x2F;IP 的分层管理"></a><strong>TCP&#x2F;IP</strong> 的分层管理</h3><p><strong>利用 TCP&#x2F;IP 协议族进行网络通信时，会通过分层顺序与对方进行通信</strong></p>
-<p><img src="/_posts/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png" alt="image-20210714152647756"></p>
+<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20210714152647756.png" alt="image-20210714152647756"></p>
 <p>这些层基本上被分为4层：</p>
 <ul>
 <li><p>应用层</p>
@@ -980,7 +980,7 @@
 </li>
 </ul>
 <h2 id="Cookies-的属性"><a href="#Cookies-的属性" class="headerlink" title="Cookies 的属性"></a>Cookies 的属性</h2><p>在下面这张图里我们可以看到 Cookies 相关的一些属性：</p>
-<p><img src="/_posts/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/170eb95c6ae10887~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 <p>这里主要说一些大家可能没有注意的点：</p>
 <h3 id="Name-Value"><a href="#Name-Value" class="headerlink" title="Name&#x2F;Value"></a>Name&#x2F;Value</h3><p>用 JavaScript 操作 Cookie 的时候注意对 Value 进行编码处理。</p>
 <h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>Expires 用于设置 Cookie 的过期时间。比如：</p>
@@ -1111,7 +1111,7 @@
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change"><code>will-change</code></a> 值设定了任一属性而该属性在 non-initial 值时会创建层叠上下文的元素（参考<a target="_blank" rel="noopener" href="https://dev.opera.com/articles/css-will-change-property/">这篇文章</a>）；</li>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain"><code>contain</code></a> 属性值为 <code>layout</code>、<code>paint</code> 或包含它们其中之一的合成值（比如 <code>contain: strict</code>、<code>contain: content</code>）的元素。</li>
 </ul>
-<p><img src="/_posts/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png" alt="image-20211213143326679"></p>
+<p><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/image-20211213143326679.png" alt="image-20211213143326679"></p>
 <h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><p><strong>块格式化上下文（Block Formatting Context，BFC）</strong> 是Web页面的可视CSS渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。</p>
 <p>下列方式会创建<strong>块格式化上下文</strong>：</p>
 <ul>
@@ -1139,7 +1139,7 @@
 <li>属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠</li>
 <li>BFC 中子元素的 margin box 的左边， 与包含块 (BFC) border box的左边相接触 (子元素 absolute 除外)</li>
 <li>BFC 的区域不会与 float 的元素区域重叠 自适应两栏布局</li>
-<li><img src="/_posts/%E9%9D%A2%E8%AF%95/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png" alt="img"></li>
+<li><img src="/assets/%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/v2-5ebd48f09fac875f0bd25823c76ba7fa_720w.png" alt="img"></li>
 <li>计算 BFC 的高度时，浮动子元素也参与计算</li>
 <li>文字层不会被浮动层覆盖，环绕于周围</li>
 </ul>
@@ -1463,7 +1463,7 @@
 <h4 id="读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual-dom呢？"><a href="#读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual-dom呢？" class="headerlink" title="读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual dom呢？"></a>读到这里就会产生一个疑问，为什么不直接修改dom而需要加一层virtual dom呢？</h4><p>很多时候手工优化dom确实会比virtual dom效率高，对于比较简单的dom结构用手工优化没有问题，但当页面结构很庞大，结构很复杂时，手工优化会花去大量时间，而且可维护性也不高，不能保证每个人都有手工优化的能力。至此，virtual dom的解决方案应运而生，<strong>virtual dom很多时候都不是最优的操作，但它具有普适性，在效率、可维护性之间达平衡。</strong></p>
 <p>virtual dom 另一个重大意义就是提供一个中间层，js去写ui，ios安卓之类的负责渲染，就像reactNative一样。</p>
 <h1 id="分析diff"><a href="#分析diff" class="headerlink" title="分析diff"></a>分析diff</h1><p>一篇相当经典的文章<a target="_blank" rel="noopener" href="https://calendar.perfplanet.com/2013/diff/">React’s diff algorithm</a>中的图，react的diff其实和vue的diff大同小异。所以这张图能很好的解释过程。<strong>比较只会在同层级进行, 不会跨层级比较。</strong></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff.png" alt="img"></a></p>
 <p>举个形象的例子。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 之前 --&gt;</span><br><span class="line">&lt;div&gt;           &lt;!-- 层级1 --&gt;</span><br><span class="line">  &lt;p&gt;            &lt;!-- 层级2 --&gt;</span><br><span class="line">    &lt;b&gt; aoy &lt;/b&gt;   &lt;!-- 层级3 --&gt;   </span><br><span class="line">    &lt;span&gt;diff&lt;/Span&gt;</span><br><span class="line">  &lt;/P&gt; </span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 之后 --&gt;</span><br><span class="line">&lt;div&gt;            &lt;!-- 层级1 --&gt;</span><br><span class="line">  &lt;p&gt;             &lt;!-- 层级2 --&gt;</span><br><span class="line">      &lt;b&gt; aoy &lt;/b&gt;        &lt;!-- 层级3 --&gt;</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">  &lt;span&gt;diff&lt;/Span&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
@@ -1515,7 +1515,7 @@
 <h3 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">updateChildren (parentElm, oldCh, newCh) &#123;</span><br><span class="line">    let oldStartIdx = 0, newStartIdx = 0</span><br><span class="line">    let oldEndIdx = oldCh.length - 1</span><br><span class="line">    let oldStartVnode = oldCh[0]</span><br><span class="line">    let oldEndVnode = oldCh[oldEndIdx]</span><br><span class="line">    let newEndIdx = newCh.length - 1</span><br><span class="line">    let newStartVnode = newCh[0]</span><br><span class="line">    let newEndVnode = newCh[newEndIdx]</span><br><span class="line">    let oldKeyToIdx</span><br><span class="line">    let idxInOld</span><br><span class="line">    let elmToMove</span><br><span class="line">    let before</span><br><span class="line">    while (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">            if (oldStartVnode == null) &#123;   //对于vnode.key的比较，会把oldVnode = null</span><br><span class="line">                oldStartVnode = oldCh[++oldStartIdx] </span><br><span class="line">            &#125;else if (oldEndVnode == null) &#123;</span><br><span class="line">                oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">            &#125;else if (newStartVnode == null) &#123;</span><br><span class="line">                newStartVnode = newCh[++newStartIdx]</span><br><span class="line">            &#125;else if (newEndVnode == null) &#123;</span><br><span class="line">                newEndVnode = newCh[--newEndIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">                patchVnode(oldStartVnode, newStartVnode)</span><br><span class="line">                oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">                newStartVnode = newCh[++newStartIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">                patchVnode(oldEndVnode, newEndVnode)</span><br><span class="line">                oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">                newEndVnode = newCh[--newEndIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldStartVnode, newEndVnode)) &#123;</span><br><span class="line">                patchVnode(oldStartVnode, newEndVnode)</span><br><span class="line">                api.insertBefore(parentElm, oldStartVnode.el, api.nextSibling(oldEndVnode.el))</span><br><span class="line">                oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">                newEndVnode = newCh[--newEndIdx]</span><br><span class="line">            &#125;else if (sameVnode(oldEndVnode, newStartVnode)) &#123;</span><br><span class="line">                patchVnode(oldEndVnode, newStartVnode)</span><br><span class="line">                api.insertBefore(parentElm, oldEndVnode.el, oldStartVnode.el)</span><br><span class="line">                oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">                newStartVnode = newCh[++newStartIdx]</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">               // 使用key时的比较</span><br><span class="line">                if (oldKeyToIdx === undefined) &#123;</span><br><span class="line">                    oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) // 有key生成index表</span><br><span class="line">                &#125;</span><br><span class="line">                idxInOld = oldKeyToIdx[newStartVnode.key]</span><br><span class="line">                if (!idxInOld) &#123;</span><br><span class="line">                    api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)</span><br><span class="line">                    newStartVnode = newCh[++newStartIdx]</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    elmToMove = oldCh[idxInOld]</span><br><span class="line">                    if (elmToMove.sel !== newStartVnode.sel) &#123;</span><br><span class="line">                        api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)</span><br><span class="line">                    &#125;else &#123;</span><br><span class="line">                        patchVnode(elmToMove, newStartVnode)</span><br><span class="line">                        oldCh[idxInOld] = null</span><br><span class="line">                        api.insertBefore(parentElm, elmToMove.el, oldStartVnode.el)</span><br><span class="line">                    &#125;</span><br><span class="line">                    newStartVnode = newCh[++newStartIdx]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">            before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].el</span><br><span class="line">            addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx)</span><br><span class="line">        &#125;else if (newStartIdx &gt; newEndIdx) &#123;</span><br><span class="line">            removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>代码很密集，为了形象的描述这个过程，可以看看这张图。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff2.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff2.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff2.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff2.png" alt="img"></a></p>
 <p>过程可以概括为：<code>oldCh</code>和<code>newCh</code>各有两个头尾的变量<code>StartIdx</code>和<code>EndIdx</code>，它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦<code>StartIdx&gt;EndIdx</code>表明<code>oldCh</code>和<code>newCh</code>至少有一个已经遍历完了，就会结束比较。</p>
 <h3 id="具体的diff分析"><a href="#具体的diff分析" class="headerlink" title="具体的diff分析"></a>具体的diff分析</h3><p>设置key和不设置key的区别：<br><strong>不设key，newCh和oldCh只会进行头尾两端的相互比较，设key后，除了头尾两端的比较外，还会从用key生成的对象<code>oldKeyToIdx</code>中查找匹配的节点，所以为节点设置key可以更高效的利用dom。</strong></p>
 <p>diff的遍历过程中，只要是对dom进行的操作都调用<code>api.insertBefore</code>，<code>api.insertBefore</code>只是原生<code>insertBefore</code>的简单封装。<br>比较分为两种，一种是有<code>vnode.key</code>的，一种是没有的。但这两种比较对真实dom的操作是一致的。</p>
@@ -1525,32 +1525,32 @@
 <li>当<code>oldStartVnode</code>，<code>newEndVnode</code>值得比较，说明<code>oldStartVnode.el</code>跑到<code>oldEndVnode.el</code>的后边了。</li>
 </ol>
 <p>图中假设startIdx遍历到1。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff3.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff3.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff3.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff3.png" alt="img"></a></p>
 <ol>
 <li>当<code>oldEndVnode</code>，<code>newStartVnode</code>值得比较，说明 <code>oldEndVnode.el</code>跑到了<code>newStartVnode.el</code>的前边。（这里笔误，应该是“oldEndVnode.el跑到了oldStartVnode.el的前边”，准确的说应该是oldEndVnode.el需要移动到oldStartVnode.el的前边”）</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff4.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff4.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff4.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff4.png" alt="img"></a></p>
 <ol>
 <li>newCh中的节点oldCh里没有， 将新节点插入到<code>oldStartVnode.el</code>的前边。</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff5.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff5.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff5.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff5.png" alt="img"></a></p>
 <p>在结束时，分为两种情况：</p>
 <ol>
 <li><code>oldStartIdx &gt; oldEndIdx</code>，可以认为<code>oldCh</code>先遍历完。当然也有可能<code>newCh</code>此时也正好完成了遍历，统一都归为此类。此时<code>newStartIdx</code>和<code>newEndIdx</code>之间的vnode是新增的，调用<code>addVnodes</code>，把他们全部插进<code>before</code>的后边，<code>before</code>很多时候是为null的。<code>addVnodes</code>调用的是<code>insertBefore</code>操作dom节点，我们看看<code>insertBefore</code>的文档：<code>parentElement.insertBefore(newElement, referenceElement)</code><br>如果referenceElement为null则newElement将被插入到子节点的末尾。如果newElement已经在DOM树中，newElement首先会从DOM树中移除。<strong>所以<code>before</code>为null，newElement将被插入到子节点的末尾。</strong></li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff6.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff6.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff6.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff6.png" alt="img"></a></p>
 <ol>
 <li><code>newStartIdx &gt; newEndIdx</code>，可以认为<code>newCh</code>先遍历完。此时<code>oldStartIdx</code>和<code>oldEndIdx</code>之间的vnode在新的子节点里已经不存在了，调用<code>removeVnodes</code>将它们从dom里删除。</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff7.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff7.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff7.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff7.png" alt="img"></a></p>
 <h4 id="下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出"><a href="#下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出" class="headerlink" title="下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出"></a>下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出</h4><ol>
 <li>a,b,c,d,e假设是4个不同的元素，我们没有设置key时，b没有复用，而是直接创建新的，删除旧的。</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff8.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff8.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff8.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff8.png" alt="img"></a></p>
 <ol>
 <li>当我们给4个元素加上唯一key时，b得到了的复用。</li>
 </ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff9.png?raw=true"><img src="/_posts/vue/assets/diff%E7%AE%97%E6%B3%95/diff9.png" alt="img"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aooy/blog/blob/master/images/issues-2/diff9.png?raw=true"><img src="/assets/diff%E7%AE%97%E6%B3%95/diff9.png" alt="img"></a></p>
 <p>这个例子如果我们使用手工优化，只需要3步就可以达到。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li>尽量不要跨层级的修改dom</li>
@@ -1668,7 +1668,7 @@
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">this.sockWrite(sockets, &#x27;hash&#x27;, stats.hash);</span><br><span class="line"> if (stats.errors.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;errors&#x27;, stats.errors);</span><br><span class="line"> &#125; else if (stats.warnings.length &gt; 0) &#123;</span><br><span class="line">  this.sockWrite(sockets, &#x27;warnings&#x27;, stats.warnings);</span><br><span class="line"> &#125; else &#123; this.sockWrite(sockets, &#x27;ok&#x27;); &#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/_posts/webpack/assets/HMR/image-20220111134320575.png" alt="image-20220111134320575"></p>
+<p><img src="/assets/HMR/image-20220111134320575.png" alt="image-20220111134320575"></p>
 </li>
 <li><p>客户端接受到 ws 消息后，<code>hash</code>事件更新当前<code>hash</code>值，ok 事件触发<code>hotEmitter</code></p>
 </li>
@@ -1687,7 +1687,7 @@
 <li><p>请求结果获取热更新模块，以及下次热更新的<code>Hash</code> 标识，并进入热更新准备阶段。</p>
 </li>
 <li><p>调用<code>hotDownloadUpdateChunk</code>发送<code>xxx/hash.hot-update.js</code> 请求，通过<code>JSONP</code>方式。</p>
-<p><img src="/_posts/webpack/assets/HMR/16ec04316d6ac5e3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
+<p><img src="/assets/HMR/16ec04316d6ac5e3~tplv-t2oaga2asx-watermark.gif" alt="img"></p>
 </li>
 <li><p>返回结果后，要立即执行<code>webpackHotUpdate</code>这个方法。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">window[&quot;webpackHotUpdate&quot;] = function (chunkId, moreModules) &#123;</span><br><span class="line">    hotAddUpdateChunk(chunkId, moreModules);</span><br><span class="line">&#125; ;</span><br></pre></td></tr></table></figure>
@@ -2427,7 +2427,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h3><p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105124238.png" alt="image-20210730105124238"></p>
+          <h3 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h3><p><img src="/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105124238.png" alt="image-20210730105124238"></p>
 <h3 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h3><p>​ 模拟操作示意网站<a target="_blank" rel="noopener" href="https://visualgo.net/zh/bst">二叉搜索树</a></p>
 <ul>
 <li><p>查询</p>
@@ -2439,11 +2439,11 @@
 <ul>
 <li>删除 叶子节点(即最底层的节点，仅有一个关联节点)很简单，直接删除就可以，如果是关联节点(有子节点)，则会找出该节点右侧最小的节点替换它的位置（即比它大的最小值），<strong>需要注意指针的替换和删除</strong></li>
 </ul>
-<p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105732099.png" alt="image-20210730105732099"></p>
-<p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105831806.png" alt="image-20210730105831806"></p>
+<p><img src="/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105732099.png" alt="image-20210730105732099"></p>
+<p><img src="/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105831806.png" alt="image-20210730105831806"></p>
 </li>
 </ul>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p><img src="/_posts/%E7%AE%97%E6%B3%95/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105043533.png" alt="image-20210730105043533"></p>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p><img src="/assets/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%95%B0/image-20210730105043533.png" alt="image-20210730105043533"></p>
 <p>时间复杂度log2 N 也就是 2的X次方 &#x3D; N  x是查询次数</p>
 <p>插入 一个数 首先需要搜索是否有重复节点，如果有 count++ ，如果没有，查询到的最后节点也就是插入需要操作的节点</p>
 <p>删除 叶子节点(即最底层的节点，仅有一个关联节点)很简单，直接删除就可以，如果是</p>
@@ -2749,7 +2749,7 @@
 <p>项目使用了 IMLOG 进行数据上报，<strong>ELK 体系进行现网数据监控，Grafana 配置视图</strong>，观察现网情况。</p>
 <p>根据指标的数据分布，能及时发现页面数据异常采取措施。</p>
 <h2 id="二、性能分析及环境准备"><a href="#二、性能分析及环境准备" class="headerlink" title="二、性能分析及环境准备"></a>二、性能分析及环境准备</h2><p>现网页面情况：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114724642.gif" alt="图片"></p>
 <p><strong>可以看到进度条在页面已经展示后还在持续 loading，加载时间长达十几秒，比较影响了用户体验。</strong></p>
 <p>根据<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">Google 开发文档</a>对浏览器架构的解释：</p>
 <blockquote>
@@ -2765,11 +2765,11 @@
 <p>下面以<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">企鹅辅导课程详情页</a>为案例进行分析，找出潜在的优化项。</p>
 <p><strong>（注意使用 Chrome 隐身窗口并禁用插件，移除其他加载项对页面的影响。）</strong></p>
 <h3 id="1-Network-分析"><a href="#1-Network-分析" class="headerlink" title="1. Network 分析"></a>1. Network 分析</h3><p>通常进行网络分析需要禁用缓存、启用网络限速（4g &#x2F; 3g） 模拟移动端弱网情况下的加载情况，因为 wifi 网络可能会抹平性能差距。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704018" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704018" alt="图片"></p>
 <p>可以看到 DOMContentLoaded 的时间在 6.03s ，但 onload 的时间却在 20.92s。</p>
 <p>先观察 DOMContentLoaded 阶段，发现<strong>最长请求路径在 vendor.js ，JS大小为 170kB，花费时间为 4.32s。</strong></p>
 <p>继续观察 DOMContentLoaded 到 onload 的这段时间：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701494" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701494" alt="图片"></p>
 <p><strong>可以发现 onload 事件被大量媒体资源阻塞了，关于 onload 事件的影响因素，可以参考这篇</strong><strong><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">文章</a>。</strong></p>
 <p>结论是<strong>浏览器认为资源完全加载完成（HTML解析的资源和动态加载的资源）才会触发 onload。</strong></p>
 <p>结合上图<strong>可以发现加载了图片、视频、iframe 等资源，阻塞了 onload 事件的触发。</strong></p>
@@ -2779,7 +2779,7 @@
 <li>图片、视频、iframe 等资源，会阻塞 onload 事件的触发，需要优化资源的加载时机，尽快触发 onload。</li>
 </ol>
 <h3 id="2-Performance-分析"><a href="#2-Performance-分析" class="headerlink" title="2. Performance 分析"></a>2. Performance 分析</h3><p>使用 Performance 模拟移动端注意手机处理器能力比 PC 差，所以一般将 CPU 设置为 4x slowdown 或 6x slowdown 进行模拟。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
 <p>观察几个核心的数据：</p>
 <ol>
 <li><strong>Web Vitals ( FP &#x2F; FCP &#x2F; LCP &#x2F; Layout Shift ) 核心页面指标 和 Timings 时长</strong></li>
@@ -2787,7 +2787,7 @@
 <p>可以看到 LCP、DCL和 Onload Event 时间较长，且出现了多次 Layout Shift。</p>
 <p>要 LCP 尽量早触发，需要减少页面大块元素的渲染时间，观察 Frames 或ScreenShots 的截图，关注页面的元素渲染情况。</p>
 <p>可以通过在 Experience 行点击Layout Shift ，在 Summary 面板找到具体的偏移内容。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701037" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701037" alt="图片"></p>
 <ol>
 <li><strong>Main Long Tasks 长任务数量和时长</strong></li>
 </ol>
@@ -2799,7 +2799,7 @@
 <li>页面 Long Tasks 较多，需要对 JS 进行合理拆分和加载，减少 Long Tasks 数量，特别是 影响 DCL 和 Onload Event 的 Task。</li>
 </ol>
 <h3 id="3-Lighthouse-分析"><a href="#3-Lighthouse-分析" class="headerlink" title="3. Lighthouse 分析"></a>3. Lighthouse 分析</h3><p>使用 ChromeDevTool 内置 lighthouse 对页面进行跑分：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701427" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701427" alt="图片"></p>
 <p>分数较低，可以看到 Metrics 给出了核心的数据指标，这边显示的是 TTI SI TBT 不合格，LCP 需要提升，FCP 和 CLS 达到了良好的标准，可以查看<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">分数计算标准</a>。</p>
 <p>同时 Lighthouse 会提供一些优化建议，在 Oppotunities 和 Diagnostics 项，能看到具体的操作指南，如图片大小、移除无用 JS 等，可以根据指南进行项目的优化。</p>
 <p>Lighthouse 的评分内容是根据项目整体加载项目进行打分的，审查出的问题同样包含 Network、Performance 的内容，所以也可以看作是对 Network、Performance 问题的优化建议。</p>
@@ -2814,14 +2814,14 @@
 <p>数据上报：IMLOG、TAM、RUM 等（这三个工具均为团队内部的日志上报工具，类似业界 log4js、sentry）。</p>
 <p>前端代码打包分析：webpack-bundle-analyzer 、rollup-plugin-visualizer 等。</p>
 <p>分析问题时使用本地代码，本地模拟线上环境验证优化效果，最后再部署到测试环境验证，提高开发效率。</p>
-<h2 id="三、性能优化具体实践"><a href="#三、性能优化具体实践" class="headerlink" title="三、性能优化具体实践"></a>三、性能优化具体实践</h2><h3 id="PART1-加载时间优化"><a href="#PART1-加载时间优化" class="headerlink" title="PART1: 加载时间优化"></a>PART1: 加载时间优化</h3><p>Network 中对页面中加载的资源进行分类：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701088" alt="图片"></p>
+<h2 id="三、性能优化具体实践"><a href="#三、性能优化具体实践" class="headerlink" title="三、性能优化具体实践"></a>三、性能优化具体实践</h2><h3 id="PART1-加载时间优化"><a href="#PART1-加载时间优化" class="headerlink" title="PART1: 加载时间优化"></a>PART1: 加载时间优化</h3><p>Network 中对页面中加载的资源进行分类：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701088" alt="图片"></p>
 <p>第一部分是影响 DOM 解析的 JS 资源，可以看到这里分类为关键 JS 和非关键 JS，是根据<strong>是否参与首面渲染划分的。</strong></p>
 <p>这里的非关键 JS 我们可以考虑延迟异步加载，关键 JS 进行拆分优化处理。</p>
-<h4 id="1-关键-JS-打包优化"><a href="#1-关键-JS-打包优化" class="headerlink" title="1. 关键 JS 打包优化"></a>1. 关键 JS 打包优化</h4><p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701211" alt="图片"></p>
+<h4 id="1-关键-JS-打包优化"><a href="#1-关键-JS-打包优化" class="headerlink" title="1. 关键 JS 打包优化"></a>1. 关键 JS 打包优化</h4><p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701211" alt="图片"></p>
 <p>JS 文件数量8个，总体积 460.8kB，最大文件 170KB</p>
 <h5 id="1-1-Splitchunks-的正确配置"><a href="#1-1-Splitchunks-的正确配置" class="headerlink" title="1.1 Splitchunks 的正确配置"></a>1.1 Splitchunks 的正确配置</h5><p>vendor.js 170kB(gzipd) 是所有页面都会加载的公共文件，打包规则是 <strong>miniChunks: 3</strong>，引用超过3次的模块将被打进这个js。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701775" alt="图片"></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701295" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701775" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701295" alt="图片"></p>
 <p>分析vendor.js的具体构成（上图）</p>
 <p>以 string-strip-html.umd.js 为例 大小为34.7KB，占了 vendor.js 的 20%体积，但<strong>只有一个页面多次使用到了这个包，触发了 miniChunks 的规则</strong>，被打进了 vendor.js。</p>
 <p>同理对 vendor.js 的其他模块进行分析，iosSelect.js、howler.js、weixin-js-sdk 等模块都只有 3、4 个页面&#x2F;组件依赖，但也同样打进了 vendor.js。</p>
@@ -2832,26 +2832,26 @@
 <p>而其他未指定的公共依赖，新增一个 common.js，将阈值调高到 20 或更高（当前页面数76），让公共依赖成为大多数页面的依赖，提高依赖缓存利用率，调整完后，vendor.js 的大小减少到 30KB，common.js 大小为 42KB。</p>
 <p><strong>两个文件加起来大小为 72KB，相对于优化前体积减少了 60%（100KB）。</strong></p>
 <h4 id="1-2-公共组件的按需加载"><a href="#1-2-公共组件的按需加载" class="headerlink" title="1.2 公共组件的按需加载"></a>1.2 公共组件的按需加载</h4><p>course.js 101kB (gzipd) 这个文件是页面业务代码的文件：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701809" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701809" alt="图片"></p>
 <p>观察上图，基本都是业务代码，除了一个巨大的 <strong>component Icon，占了 25k，页面文件1&#x2F;4的体积，<strong><strong>但在代码中</strong></strong>使用到的 Icon 总共才8个。</strong></p>
 <p>分析代码，可以看到这里使用 require 加载 svg，<strong>Webpack 将 require 文件夹内的内容一并打包，导致页面 Icon 组件冗余。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701772" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701772" alt="图片"></p>
 <p>如何解决这类问题实现按需加载？</p>
 <p>按需加载的内容应该为独立的组件，我们将之前的单一入口的 Icon 组件（动态 dangerouslySetInnerHTML）<strong>改成单文件组件模式直接引入使用图标。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702059" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702059" alt="图片"></p>
 <p>但实际开发中这样会有些麻烦，一般需要统一的 import 路径，指定需要的图标再加载，参考 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">babel-plugin-import</a>，我们可以配置 babel 的依赖加载路径调整 Icon 的引入方式，这样就实现了图标的按需加载。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701942" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701942" alt="图片"></p>
 <p>按需加载后，重新编译，查看打包带来的收益，<strong>页面的 Icons 组件 stat size 由 74KB 降到了 20KB，体积减少了 70%。</strong></p>
 <h4 id="1-3-业务组件的代码拆分-Code-Splitting"><a href="#1-3-业务组件的代码拆分-Code-Splitting" class="headerlink" title="1.3 业务组件的代码拆分 (Code Splitting)"></a>1.3 业务组件的代码拆分 (Code Splitting)</h4><p>观察页面，可以看到”课程大纲“、”课程详情“、”购课须知“这三个模块并不在页面的首屏渲染内容里：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702110" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702110" alt="图片"></p>
 <p>我们可以考虑对页面这几部分组件进行拆分再延迟加载，减少业务代码 JS 大小和执行时长。</p>
 <p>拆分的方式很多，可以使用 react-loadable、@loadable&#x2F;component 等库实现，也可以使用React 官方提供的 React.lazy。</p>
 <p>拆分后的代码：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702079" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702079" alt="图片"></p>
 <p><strong>代码拆分会导致组件会有渲染的延迟，所以在项目中使用应该综合用户体验和性能再做决定，通过拆分也能使部分资源延后加载优化加载时间。</strong></p>
 <h4 id="1-4-Tree-Shaking-优化"><a href="#1-4-Tree-Shaking-优化" class="headerlink" title="1.4 Tree Shaking 优化"></a>1.4 Tree Shaking 优化</h4><p>项目中使用了 TreeShaking 的优化，用时候要注意 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">sideEffects 的使用场景</a>，以免打包产物和开发不一致。</p>
 <p>经过上述优化步骤，整体打包内容：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701966" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114701966" alt="图片"></p>
 <p>JS 文件数量6个，总体积 308KB，最大文件体积 109KB</p>
 <p>关键 JS 优化数据对比：</p>
 <table>
@@ -2881,23 +2881,23 @@
 <h3 id="2-非关键-JS-延迟加载"><a href="#2-非关键-JS-延迟加载" class="headerlink" title="2.非关键 JS 延迟加载"></a>2.非关键 JS 延迟加载</h3><p>页面中包含了一些上报相关的 JS 如 sentry，beacon（灯塔 SDK）等，对于这类资源，如果在弱网情况，可能会成为影响 DOM 解析的因素。</p>
 <p>为了减少这类非关键 JS 的影响，可以在页面完成加载后再加载非关键 JS，如 sentry 官方也提供了<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">延迟加载的方案</a>。</p>
 <p>在项目中还发现了一部分非关键 JS，如验证码组件，为了在下一个页面中能利用缓存尽快加载，<strong>所以在上一个页面提前加载一次生成缓存。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702102" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702102" alt="图片"></p>
 <p>如果不访问下一个页面，可以认为这是一次无效加载，这类的提前缓存方案反而会影响到页面性能。</p>
 <p>针对这里资源，我们可以使用 Resource Hints，针对资源做 Prefetch 处理。</p>
 <p>检测浏览器是否支持 Prefech，<strong>支持的情况下我们可以创建 Prefetch 链接</strong>，不支持就使用旧逻辑直接加载，这样能更大程度保证页面性能，为下一个页面提供提前加载的支持。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const isPrefetchSupported = () =&gt; &#123;</span><br><span class="line">  const link = document.createElement(&#x27;link&#x27;);</span><br><span class="line">  const &#123; relList &#125; = link;</span><br><span class="line"> </span><br><span class="line">  if (!relList || !relList.supports) &#123;</span><br><span class="line">    returnfalse;</span><br><span class="line">  &#125;</span><br><span class="line">  return relList.supports(&#x27;prefetch&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line">const prefetch = () =&gt; &#123;</span><br><span class="line">    const isPrefetchSupport = isPrefetchSupported();</span><br><span class="line">    if (isPrefetchSupport) &#123;</span><br><span class="line">      const link = document.createElement(&#x27;link&#x27;);</span><br><span class="line">      link.rel = &#x27;prefetch&#x27;;</span><br><span class="line">      link.as = type;</span><br><span class="line">      link.href = url;</span><br><span class="line">      document.head.appendChild(link);</span><br><span class="line">    &#125; elseif (type === &#x27;script&#x27;) &#123;</span><br><span class="line">            // load script</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
 
 <p>优化效果：非关键JS不影响页面加载</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702608" alt="图片"></p>
+<p><img src="/assets/data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702608" alt="图片"></p>
 <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="3-媒体资源加载优化"><a href="#3-媒体资源加载优化" class="headerlink" title="3.媒体资源加载优化"></a>3.媒体资源加载优化</h3><h4 id="3-1-加载时序优化"><a href="#3-1-加载时序优化" class="headerlink" title="3.1 加载时序优化"></a>3.1 加载时序优化</h4><p>可以观察到 onload 被大量的图片资源和视频资源阻塞了，但是页面上并没有展示对应的图片或视频，这部分内容应该进行懒加载处理。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702456" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702456" alt="图片"></p>
 <p>处理方式主要是要控制好图片懒加载的逻辑（如 onload 后再加载），可以借助各类 lazyload 的库去实现。H5项目用的是位置检测（getBoundingClientRect ）图片到达页面可视区域再展示。</p>
 <p><strong>但要注意懒加载不能阻塞业务的正常展示，应该做好超时处理、重试等兜底措施。</strong></p>
 <h4 id="3-2-大小尺寸优化"><a href="#3-2-大小尺寸优化" class="headerlink" title="3.2 大小尺寸优化"></a>3.2 大小尺寸优化</h4><p>课程详情页 每张详情图的宽为 1715px，以 6s 为基准（375px）已经是 4x 图了，大图片在弱网情况下会影响页面加载和渲染速度。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702638" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702638" alt="图片"></p>
 <p>使用 CDN 图床尺寸大小压缩功能，根据不同的设备渲染不同大小的图片调整图片格式，根据网络情况，渲染不同清晰度的图。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640.gif" alt="图片"></p>
 <p>可以看到在弱网（移动 3G 网络）的情况下，同一张图片不同尺寸加载速度最高和最低相差接近 6 倍，给用户的体验截然不同。</p>
 <p>CDN 配合业务具体实现：<strong>使用 img 标签 srcset&#x2F;sizes 属性和 picutre 标签实现响应式图片</strong>，具体可参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">文档</a>。</p>
 <p><strong>使用 URL 动态拼接方式构造 URL 请求，根据机型宽度和网络情况，判断当前图片宽度倍数进行调整</strong>（如 iPhone 1x，iPad 2x，弱网 0.5x）。</p>
@@ -2906,12 +2906,12 @@
 <h4 id="3-3-其他类型资源优化"><a href="#3-3-其他类型资源优化" class="headerlink" title="3.3 其他类型资源优化"></a>3.3 其他类型资源优化</h4><p><strong>iframe</strong></p>
 <p>加载 iframe 有可能会对页面的加载产生严重的影响，在 onload 之前加载会阻塞 onload 事件触发，从而阻塞 loading，但是还存在另一个问题。</p>
 <p>如下图所示，页面在已经 onload 的情况下触发 iframe 的加载，进度条仍然在不停的转动，直到 iframe 的内容加载完成。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703076" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703076" alt="图片"></p>
 <p>可以将 iframe 的时机放在 onload 之后，并使用 setTimeout 触发异步加载 iframe，可避免 iframe 带来的 loading 影响。</p>
 <p><strong>数据上报</strong></p>
 <p>项目中使用 image 的数据上报请求，在正常网络情况下可能感受不到对页面性能的影响。</p>
 <p>但在一些特殊情况，如其中一个图片请求的耗时特别长就会阻塞页面 onload 事件的触发，延长 loading 时间。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702838" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702838" alt="图片"></p>
 <p>解决上报对性能的影响问题有以下方案：</p>
 <ol>
 <li>延迟合并上报</li>
@@ -2920,17 +2920,17 @@
 </ol>
 <p>H5项目采用了延迟合并上报的方案，业务可根据实际需要进行选择。</p>
 <p><strong>优化效果：全部数据上报在 onload 后处理，避免对性能产生影响。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702897" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114702897" alt="图片"></p>
 <p><strong>字体优化</strong></p>
 <p>项目中可能会包含很多视觉指定渲染的字体，当字体文件比较大的时候，也会影响到页面的加载和渲染，可以使用 fontmin 将字体资源进行压缩，生成精简版的字体文件。</p>
 <p>优化前：20kB &#x3D;&gt; 优化后：14kB：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703084" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703084" alt="图片"></p>
 <h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="PART2-页面渲染优化"><a href="#PART2-页面渲染优化" class="headerlink" title="PART2: 页面渲染优化"></a>PART2: 页面渲染优化</h3><h4 id="1-直出页面-TTFB-时间优化"><a href="#1-直出页面-TTFB-时间优化" class="headerlink" title="1. 直出页面 TTFB 时间优化"></a>1. 直出页面 TTFB 时间优化</h4><p><em>名词解释：</em></p>
 <p><em>NGW：内部网关，基于 Node.js。</em></p>
 <p><em>STKE：公司内部 TKE。</em></p>
 <p>目前我们在 STKE 部署了直出服务，通过监控发现直出平均耗时在 300+ms。</p>
 <p><strong>TTFB 时间在 100 ～ 200 之间波动，影响了直出页面的渲染。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703436" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703436" alt="图片"></p>
 <p>通过日志打点、<strong>查看 Nginx Accesslog 日志、网关监控耗时</strong>，得出以下数据（如图）</p>
 <ul>
 <li>STKE 直出程序耗时是 20ms 左右</li>
@@ -2940,18 +2940,18 @@
 <p>登录 所在机器，ping STKE 机器，有以下数据</p>
 <p><strong>平均时延在 32ms，tcp 三次握手+返回数据（最后一次 ack 时发送数据）&#x3D; 2个 rtt，约 64ms，和日志记录的数据一致</strong></p>
 <p><strong>查看 NGW 机器所在区域为天津，STKE 机器所在区域为南京，可以初步判断是由机房物理距离导致的网络时延，如下图所示：</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703195" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703195" alt="图片"></p>
 <p>切换 NGW 到南京机器 ping STKE 南京的机器，有以下数据：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703580" alt="图片"></p>
-<p>同区域机器 ping 的网络时延只有 0.x毫秒，如下图所示：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703307" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703580" alt="图片"></p>
+<p>同区域机器 ping 的网络时延只有 0.x毫秒，如下图所示：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703307" alt="图片"></p>
 <p>综合上述分析，直出页面TTFB时间过长的根本原因是：<strong>NGW 网关部署和 Nginx、STKE 不在同一区域，导致网络时延的产生。</strong></p>
 <p>解决方案是<strong>让网关和直出服务机房部署在同一区域</strong>，执行了以下操作：</p>
 <ul>
 <li><strong>NGW扩容</strong></li>
 <li><strong>北极星开启就近访问</strong></li>
 </ul>
-<p>优化前：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703586" alt="图片"></p>
-<p>优化后：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703703" alt="图片"></p>
+<p>优化前：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703586" alt="图片"></p>
+<p>优化后：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114703703" alt="图片"></p>
 <p>优化效果如上图：</p>
 <table>
 <thead>
@@ -2969,24 +2969,24 @@
 <td align="left">31 ms 优化 80%（120 ms）</td>
 </tr>
 </tbody></table>
-<h4 id="-2"><a href="#-2" class="headerlink" title=""></a></h4><h4 id="2-页面渲染时间优化"><a href="#2-页面渲染时间优化" class="headerlink" title="2. 页面渲染时间优化"></a>2. 页面渲染时间优化</h4><p>模拟弱网情况（slow 3g）Performance 录制页面渲染情况，从下图 Screenshot 中可以发现：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704068" alt="图片"></p>
+<h4 id="-2"><a href="#-2" class="headerlink" title=""></a></h4><h4 id="2-页面渲染时间优化"><a href="#2-页面渲染时间优化" class="headerlink" title="2. 页面渲染时间优化"></a>2. 页面渲染时间优化</h4><p>模拟弱网情况（slow 3g）Performance 录制页面渲染情况，从下图 Screenshot 中可以发现：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704068" alt="图片"></p>
 <ol>
 <li>DOM 开始解析，但页面还未渲染</li>
 <li>CSS 文件下载完成后页面才正常渲染</li>
 </ol>
 <p><strong>CSS 不会阻塞页面解析，但会阻塞页面渲染，如果 CSS 文件较大或弱网情况，会影响到页面渲染时间，影响用户体验。</strong></p>
 <p>借助 ChromeDevTool 的 Coverage 工具（More Tools 里面），录制页面渲染时 CSS 的使用率：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704028" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704028" alt="图片"></p>
 <p>发现首屏的 CSS 使用率才 15%，可以考虑<strong>对页面首屏的关键 CSS 进行内联</strong>，<strong>让页面渲染不被CSS 阻塞，再把完整 CSS 加载进来。</strong></p>
 <p>实现 Critial CSS 的优化可以考虑使用 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1ODE4NzE1Nw==&mid=2247490349&idx=1&sn=139c52fb354eba09c0c3c5a92dc5ffa2&chksm=ea0d51d7dd7ad8c1be5be5b17fd79f5ccc8d84fe013040232a0861290728112c75fb6061499f&scene=178&cur_album_id=1806166719669796864">critters</a>。</p>
 <p>优化后效果：</p>
 <p><strong>CSS 资源正在下载时，页面已经能正常渲染显示了，对比优化前，渲染时间上提升了 1～2 个 CSS 文件加载的时间。</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704127" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704127" alt="图片"></p>
 <h4 id="3-页面布局抖动优化"><a href="#3-页面布局抖动优化" class="headerlink" title="3. 页面布局抖动优化"></a>3. 页面布局抖动优化</h4><p>观察页面的元素变化：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114717022.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114717022.gif" alt="图片"></p>
 <p>优化前（左图）：图标缺失、背景图缺失、字体大小改变导致页面抖动、出现非预期页面元素导致页面抖动。</p>
 <p>优化后：内容相对固定， 页面元素出现无突兀感。</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704716" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704716" alt="图片"></p>
 <p>主要优化内容：</p>
 <ol>
 <li><strong>确定直出页面元素出现位置，根据直出数据做好布局</strong></li>
@@ -3000,7 +3000,7 @@
 <li>加载进度条时间：浏览器 onload 事件触发时间，触发后导航栏进度条显示完成。</li>
 </ul>
 <p><strong>Chrome 模拟器 4G 无缓存对比（左优化前、右优化后）：</strong></p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114716391.gif" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114716391.gif" alt="图片"></p>
 <table>
 <thead>
 <tr>
@@ -3023,8 +3023,8 @@
 <p>**<br>**</p>
 <p><strong>Lighthouse 跑分对比：</strong></p>
 <p>优化前：</p>
-<p><img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704288" alt="图片"></p>
-<p>优化后：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704479" alt="图片"></p>
+<p><img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704288" alt="图片"></p>
+<p>优化后：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704479" alt="图片"></p>
 <table>
 <thead>
 <tr>
@@ -3043,8 +3043,8 @@
 </tbody></table>
 <p><strong>srobot 性能检测一周数据</strong></p>
 <p><em>srobot 是团队内的性能检测工具，使用 TRobot 指令一键创建页面健康检测，定时自动化检测页面性能及异常。</em></p>
-<p>优化前：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825" alt="图片"></p>
-<p>优化后：<img src="/_posts/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042" alt="图片"></p>
+<p>优化前：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114704825" alt="图片"></p>
+<p>优化后：<img src="/assets/%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B/640-20211209114705042" alt="图片"></p>
 <table>
 <thead>
 <tr>

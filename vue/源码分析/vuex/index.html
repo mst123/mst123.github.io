@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="先放一张store的代码结构图  vuex初始化Vuex 存在一个静态的 install 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑 123456789101112function vuexInit () &#123;    const options &#x3D; this.$options    &#x2F;&#x2F; store injection    if (options.stor">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20220214140159456.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161132720.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161649181.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929171104463.png">
-<meta property="og:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929172730903.png">
+<meta property="og:image" content="https://mst123.github.io/assets/vuex/image-20220214140159456.png">
+<meta property="og:image" content="https://mst123.github.io/assets/vuex/image-20210929161132720.png">
+<meta property="og:image" content="https://mst123.github.io/assets/vuex/image-20210929161649181.png">
+<meta property="og:image" content="https://mst123.github.io/assets/vuex/image-20210929171104463.png">
+<meta property="og:image" content="https://mst123.github.io/assets/vuex/image-20210929172730903.png">
 <meta property="article:published_time" content="2021-02-08T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-07-18T08:48:41.920Z">
 <meta property="article:author" content="马农">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="vuex源码分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mst123.github.io/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20220214140159456.png">
+<meta name="twitter:image" content="https://mst123.github.io/assets/vuex/image-20220214140159456.png">
 
 
 <link rel="canonical" href="https://mst123.github.io/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/vuex/">
@@ -262,9 +262,9 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p><img src="/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20220214140159456.png" alt="image-20220214140159456"></p>
+    <div class="post-body" itemprop="articleBody"><p><img src="/assets/vuex/image-20220214140159456.png" alt="image-20220214140159456"></p>
 <p>先放一张store的代码结构图</p>
-<p><img src="/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161132720.png" alt="image-20210929161132720"></p>
+<p><img src="/assets/vuex/image-20210929161132720.png" alt="image-20210929161132720"></p>
 <h2 id="vuex初始化"><a href="#vuex初始化" class="headerlink" title="vuex初始化"></a>vuex初始化</h2><p>Vuex 存在一个静态的 <code>install</code> 方法，在beforeCreate混入了vuexInit，我们只看关键逻辑</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function vuexInit () &#123;</span><br><span class="line">    const options = this.$options</span><br><span class="line">    // store injection</span><br><span class="line">    if (options.store) &#123;</span><br><span class="line">      this.$store = typeof options.store === &#x27;function&#x27;</span><br><span class="line">        ? options.store()</span><br><span class="line">        : options.store</span><br><span class="line">    &#125; else if (options.parent &amp;&amp; options.parent.$store) &#123;</span><br><span class="line">      this.$store = options.parent.$store</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
@@ -276,7 +276,7 @@
 <li>初始化 <code>store._vm</code></li>
 </ul>
 <h3 id="初始化模块"><a href="#初始化模块" class="headerlink" title="初始化模块"></a>初始化模块</h3><h4 id="构建module树"><a href="#构建module树" class="headerlink" title="构建module树"></a>构建module树</h4><p>其实就是处理用户输入的配置，重点在于通过module层级建立联系，如下图所示</p>
-<p><img src="/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929161649181.png" alt="image-20210929161649181"></p>
+<p><img src="/assets/vuex/image-20210929161649181.png" alt="image-20210929161649181"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_modules</span> = <span class="keyword">new</span> <span class="title class_">ModuleCollection</span>(options)</span><br></pre></td></tr></table></figure>
 
 <p><code>ModuleCollection</code> 实例化的过程就是执行了 <code>register</code> 方法，register方法递归遍历所有module，生成<code>module</code>实例，并通过<code>_children</code>属性与path和建立下级关系</p>
@@ -292,7 +292,7 @@
 <h4 id="根据namespace配置构建module映射"><a href="#根据namespace配置构建module映射" class="headerlink" title="根据namespace配置构建module映射"></a>根据namespace配置构建module映射</h4><p>为了根据命名空间快速查找到对应的module</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (module.namespaced) &#123;</span><br><span class="line">    store._modulesNamespaceMap[namespace] = module</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="构造模块上下文环境"><a href="#构造模块上下文环境" class="headerlink" title="构造模块上下文环境"></a>构造模块上下文环境</h4><p><img src="/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929171104463.png" alt="image-20210929171104463"></p>
+<h4 id="构造模块上下文环境"><a href="#构造模块上下文环境" class="headerlink" title="构造模块上下文环境"></a>构造模块上下文环境</h4><p><img src="/assets/vuex/image-20210929171104463.png" alt="image-20210929171104463"></p>
 <p>构造了一个模块上下文环境：保证模块内两种方法的正确运行和两种数据的正常访问</p>
 <blockquote>
 <p>例如 模块内的dispatch(“B”) 会映射到 rootStore.dispatch(“A&#x2F;B”)</p>
@@ -302,7 +302,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> module.forEachMutation((mutation, key) =&gt; &#123;</span><br><span class="line">    const namespacedType = namespace + key</span><br><span class="line">    // 在root module下 注册了 命名空间 mutation 下同</span><br><span class="line">    registerMutation(store, namespacedType, mutation, local)</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  function registerMutation (store, type, handler, local) &#123;</span><br><span class="line">    const entry = store._mutations[type] || (store._mutations[type] = [])</span><br><span class="line">    // 数组  说明 同一 type 的 _mutations 可以对应多个方法</span><br><span class="line">    entry.push(function wrappedMutationHandler(payload) &#123;</span><br><span class="line">      // store 对应模块的store  </span><br><span class="line">    handler.call(store, local.state, payload)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从这里就可以看出，所有的mutations都是挂载在根store的_mutations中，并且同名mutation不会覆盖，而且推入一个队列，顺序执行，下图是实际的代码</p>
-<p><img src="/_posts/vue/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/assets/vuex/image-20210929172730903.png" alt="image-20210929172730903"></p>
+<p><img src="/assets/vuex/image-20210929172730903.png" alt="image-20210929172730903"></p>
 <p>可以看出来，开启命名空间实际上就是在mutation事件名前拼接了一个路径</p>
 <p>这个地方也解除了我对vuex官方文档一段话的不解：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认情况下，模块内部的 action、mutation 和 getter 是注册在**全局命名空间**的——这样使得多个模块能够对同一 mutation 或 action 作出响应。</span><br><span class="line"></span><br><span class="line">如果希望你的模块具有更高的封装度和复用性，你可以通过添加 `namespaced: true` 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：</span><br></pre></td></tr></table></figure>
@@ -335,8 +335,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" rel="next" title="前端安全">
-                  前端安全 <i class="fa fa-angle-right"></i>
+                <a href="/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/%E5%A4%9A%E7%A7%8D%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F/" rel="next" title="类的多种继承方式">
+                  类的多种继承方式 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
